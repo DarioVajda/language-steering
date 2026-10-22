@@ -1,0 +1,57 @@
+{
+ "model": "meta-llama/Llama-3.1-8B-Instruct",
+ "benchmark": "xnli",
+ "method": "steer",
+ "mode": "generate",
+ "langs": [
+  "zh",
+  "sw"
+ ],
+ "seeds": [
+  0
+ ],
+ "k": 6,
+ "limit": 16,
+ "grid": {
+  "layer": [
+   10
+  ],
+  "alpha": [
+   3
+  ],
+  "positions": [
+   "demos",
+   "query"
+  ]
+ },
+ "fallback": {
+  "alpha": 0.0
+ },
+ "tune_scope": "global",
+ "val": {
+  "{\"alpha\": 0.0}": {
+   "zh": 0.5625,
+   "sw": 0.3125
+  },
+  "{\"alpha\": 3, \"layer\": 10, \"positions\": \"demos\"}": {
+   "zh": 0.5625,
+   "sw": 0.375
+  },
+  "{\"alpha\": 3, \"layer\": 10, \"positions\": \"query\"}": {
+   "zh": 0.4375,
+   "sw": 0.4375
+  }
+ },
+ "chosen": {
+  "zh": {
+   "layer": 10,
+   "alpha": 3,
+   "positions": "demos"
+  },
+  "sw": {
+   "layer": 10,
+   "alpha": 3,
+   "positions": "demos"
+  }
+ }
+}

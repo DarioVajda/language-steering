@@ -1,0 +1,141 @@
+{
+ "model": "meta-llama/Llama-3.1-8B-Instruct",
+ "benchmark": "xnli",
+ "method": "wrong",
+ "mode": "generate",
+ "langs": [
+  "ar",
+  "bg",
+  "de",
+  "el",
+  "es",
+  "fr",
+  "hi",
+  "ru",
+  "sw",
+  "th",
+  "tr",
+  "ur",
+  "vi",
+  "zh"
+ ],
+ "seeds": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "test_seeds": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "k": 6,
+ "limit": null,
+ "chosen": {
+  "ar": {
+   "layer": 5,
+   "alpha": 1.0,
+   "positions": "demos",
+   "steer_lang": "zh"
+  },
+  "bg": {
+   "layer": 5,
+   "alpha": 1.0,
+   "positions": "demos",
+   "steer_lang": "zh"
+  },
+  "de": {
+   "layer": 5,
+   "alpha": 1.0,
+   "positions": "demos",
+   "steer_lang": "zh"
+  },
+  "el": {
+   "layer": 5,
+   "alpha": 1.0,
+   "positions": "demos",
+   "steer_lang": "zh"
+  },
+  "es": {
+   "layer": 5,
+   "alpha": 1.0,
+   "positions": "demos",
+   "steer_lang": "zh"
+  },
+  "fr": {
+   "layer": 5,
+   "alpha": 1.0,
+   "positions": "demos",
+   "steer_lang": "zh"
+  },
+  "hi": {
+   "layer": 5,
+   "alpha": 1.0,
+   "positions": "demos",
+   "steer_lang": "zh"
+  },
+  "ru": {
+   "layer": 5,
+   "alpha": 1.0,
+   "positions": "demos",
+   "steer_lang": "zh"
+  },
+  "sw": {
+   "layer": 5,
+   "alpha": 1.0,
+   "positions": "demos",
+   "steer_lang": "zh"
+  },
+  "th": {
+   "layer": 5,
+   "alpha": 1.0,
+   "positions": "demos",
+   "steer_lang": "zh"
+  },
+  "tr": {
+   "layer": 5,
+   "alpha": 1.0,
+   "positions": "demos",
+   "steer_lang": "zh"
+  },
+  "ur": {
+   "layer": 5,
+   "alpha": 1.0,
+   "positions": "demos",
+   "steer_lang": "zh"
+  },
+  "vi": {
+   "layer": 5,
+   "alpha": 1.0,
+   "positions": "demos",
+   "steer_lang": "zh"
+  },
+  "zh": {
+   "layer": 5,
+   "alpha": 1.0,
+   "positions": "demos",
+   "steer_lang": "zh"
+  }
+ },
+ "test": {
+  "ar": 0.5616766467065868,
+  "bg": 0.6419161676646706,
+  "de": 0.662874251497006,
+  "el": 0.6389221556886228,
+  "es": 0.6622754491017964,
+  "fr": 0.6586826347305389,
+  "hi": 0.5760479041916168,
+  "ru": 0.6395209580838324,
+  "sw": 0.4934131736526946,
+  "th": 0.6197604790419161,
+  "tr": 0.5874251497005988,
+  "ur": 0.5610778443113772,
+  "vi": 0.644311377245509,
+  "zh": 0.6850299401197605
+ },
+ "test_mean": 0.6166381522668948
+}

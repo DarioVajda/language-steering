@@ -1,0 +1,141 @@
+{
+ "model": "meta-llama/Llama-3.1-8B-Instruct",
+ "benchmark": "xnli",
+ "method": "random",
+ "mode": "forward",
+ "langs": [
+  "ar",
+  "bg",
+  "de",
+  "el",
+  "es",
+  "fr",
+  "hi",
+  "ru",
+  "sw",
+  "th",
+  "tr",
+  "ur",
+  "vi",
+  "zh"
+ ],
+ "seeds": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "test_seeds": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "k": 6,
+ "limit": null,
+ "chosen": {
+  "ar": {
+   "layer": 10,
+   "alpha": 1.0,
+   "positions": "demos",
+   "draw": 0
+  },
+  "bg": {
+   "layer": 10,
+   "alpha": 1.0,
+   "positions": "demos",
+   "draw": 0
+  },
+  "de": {
+   "layer": 10,
+   "alpha": 1.0,
+   "positions": "demos",
+   "draw": 0
+  },
+  "el": {
+   "layer": 10,
+   "alpha": 1.0,
+   "positions": "demos",
+   "draw": 0
+  },
+  "es": {
+   "layer": 10,
+   "alpha": 1.0,
+   "positions": "demos",
+   "draw": 0
+  },
+  "fr": {
+   "layer": 10,
+   "alpha": 1.0,
+   "positions": "demos",
+   "draw": 0
+  },
+  "hi": {
+   "layer": 10,
+   "alpha": 1.0,
+   "positions": "demos",
+   "draw": 0
+  },
+  "ru": {
+   "layer": 10,
+   "alpha": 1.0,
+   "positions": "demos",
+   "draw": 0
+  },
+  "sw": {
+   "layer": 10,
+   "alpha": 1.0,
+   "positions": "demos",
+   "draw": 0
+  },
+  "th": {
+   "layer": 10,
+   "alpha": 1.0,
+   "positions": "demos",
+   "draw": 0
+  },
+  "tr": {
+   "layer": 10,
+   "alpha": 1.0,
+   "positions": "demos",
+   "draw": 0
+  },
+  "ur": {
+   "layer": 10,
+   "alpha": 1.0,
+   "positions": "demos",
+   "draw": 0
+  },
+  "vi": {
+   "layer": 10,
+   "alpha": 1.0,
+   "positions": "demos",
+   "draw": 0
+  },
+  "zh": {
+   "layer": 10,
+   "alpha": 1.0,
+   "positions": "demos",
+   "draw": 0
+  }
+ },
+ "test": {
+  "ar": 0.5760479041916168,
+  "bg": 0.6389221556886228,
+  "de": 0.6592814371257485,
+  "el": 0.6365269461077845,
+  "es": 0.6724550898203593,
+  "fr": 0.6550898203592814,
+  "hi": 0.5245508982035928,
+  "ru": 0.6544910179640718,
+  "sw": 0.49580838323353293,
+  "th": 0.6281437125748504,
+  "tr": 0.5652694610778443,
+  "ur": 0.5598802395209581,
+  "vi": 0.6467065868263473,
+  "zh": 0.662874251497006
+ },
+ "test_mean": 0.6125748502994012
+}

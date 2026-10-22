@@ -1,0 +1,21 @@
+{
+ "model": "meta-llama/Llama-3.1-8B-Instruct",
+ "benchmark": "msvamp",
+ "method": "en",
+ "mode": "generate",
+ "langs": [
+  "th"
+ ],
+ "seeds": [
+  0
+ ],
+ "k": 6,
+ "limit": 6,
+ "chosen": {
+  "th": {}
+ },
+ "test": {
+  "th": 0.8333333333333334
+ },
+ "test_mean": 0.8333333333333334
+}

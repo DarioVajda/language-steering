@@ -1,0 +1,32 @@
+{
+ "model": "meta-llama/Llama-3.1-8B-Instruct",
+ "benchmark": "xnli",
+ "method": "steer",
+ "mode": "generate",
+ "langs": [
+  "zh",
+  "sw"
+ ],
+ "seeds": [
+  0
+ ],
+ "k": 6,
+ "limit": 16,
+ "chosen": {
+  "zh": {
+   "layer": 10,
+   "alpha": 3,
+   "positions": "demos"
+  },
+  "sw": {
+   "layer": 10,
+   "alpha": 3,
+   "positions": "demos"
+  }
+ },
+ "test": {
+  "zh": 0.4375,
+  "sw": 0.3125
+ },
+ "test_mean": 0.375
+}

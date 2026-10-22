@@ -1,0 +1,24 @@
+{
+ "model": "meta-llama/Llama-3.1-8B-Instruct",
+ "benchmark": "xnli",
+ "method": "oracle",
+ "mode": "forward",
+ "langs": [
+  "zh",
+  "sw"
+ ],
+ "seeds": [
+  0
+ ],
+ "k": 6,
+ "limit": 16,
+ "chosen": {
+  "zh": {},
+  "sw": {}
+ },
+ "test": {
+  "zh": 0.5625,
+  "sw": 0.5625
+ },
+ "test_mean": 0.5625
+}
