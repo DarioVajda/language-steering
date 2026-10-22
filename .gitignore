@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+data/raw_data/*/.cache/
+data/hidden_states/
+logs/
+src/experiments/word_level_analysis/states/
+
+# regenerable data (src/data/download.py, preprocess.py; src/icl/vectors.py)
+data/raw_data/*
+!data/raw_data/manifest.json
+data/processed_data/*.jsonl
+data/language_vectors/
+src/experiments/word_level_analysis/results/alignments_*.json
+src/experiments/*/scratch/
+
+# per-item predictions and val shards; summary.json and tuning.json are kept
+src/icl/results/**/test_predictions.jsonl
+src/icl/results/**/val*.jsonl

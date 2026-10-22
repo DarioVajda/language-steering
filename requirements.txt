@@ -1,0 +1,14 @@
+--extra-index-url https://download.pytorch.org/whl/cu130
+pandas==2.3.3
+pyarrow==25.0.1
+huggingface_hub==2.2.0
+numpy
+torch==2.14.1+cu130
+transformers==5.20.1
+matplotlib==3.10.9
+regex==2026.9.29
+simalign==0.4
+scipy==1.15.3
+scikit-learn==1.7.2
+jieba==0.42.1
+pythainlp==5.4.0
