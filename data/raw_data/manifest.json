@@ -1,0 +1,18 @@
+{
+  "mgsm": {
+    "repo_id": "juletxara/mgsm",
+    "revision": "b2f13d426afe3be8d69a7e739b36724db8b66bbc"
+  },
+  "msvamp": {
+    "repo_id": "Mathoctopus/MSVAMP",
+    "revision": "301e2b3b168be70058c89c21c2fbdc9262102add"
+  },
+  "xnli": {
+    "repo_id": "facebook/xnli",
+    "revision": "b8dd5d7af51114dbda02c0e3f6133f332186418e"
+  },
+  "svamp": {
+    "url": "https://raw.githubusercontent.com/arkilpatel/SVAMP/78e727689e1c1bebfc4be39c446898e8e10b0518/SVAMP.json",
+    "revision": "78e727689e1c1bebfc4be39c446898e8e10b0518"
+  }
+}

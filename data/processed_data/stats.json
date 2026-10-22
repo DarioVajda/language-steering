@@ -1,0 +1,432 @@
+{
+  "mgsm": {
+    "splits": {
+      "compute": 83,
+      "val": 83,
+      "test": 84
+    },
+    "languages": {
+      "en": {
+        "items": 250,
+        "chars": 240.712,
+        "words": 46.264,
+        "len_ratio_en": 1.0,
+        "same_as_en": null,
+        "digits_ok": null,
+        "dup": 0,
+        "flagged": 0
+      },
+      "bn": {
+        "items": 250,
+        "chars": 241.284,
+        "words": 41.36,
+        "len_ratio_en": 1.0083840358171376,
+        "same_as_en": 0.0,
+        "digits_ok": 1.0,
+        "dup": 0,
+        "flagged": 0
+      },
+      "de": {
+        "items": 250,
+        "chars": 270.9,
+        "words": 44.488,
+        "len_ratio_en": 1.1250589757520442,
+        "same_as_en": 0.0,
+        "digits_ok": 0.98,
+        "dup": 0,
+        "flagged": 0
+      },
+      "es": {
+        "items": 250,
+        "chars": 257.016,
+        "words": 46.7,
+        "len_ratio_en": 1.0653990097057355,
+        "same_as_en": 0.0,
+        "digits_ok": 0.98,
+        "dup": 0,
+        "flagged": 0
+      },
+      "fr": {
+        "items": 250,
+        "chars": 266.0,
+        "words": 48.976,
+        "len_ratio_en": 1.1134388869050325,
+        "same_as_en": 0.0,
+        "digits_ok": 0.932,
+        "dup": 0,
+        "flagged": 0
+      },
+      "ja": {
+        "items": 250,
+        "chars": 112.328,
+        "words": 1.032,
+        "len_ratio_en": 0.47576584656458143,
+        "same_as_en": 0.0,
+        "digits_ok": 0.324,
+        "dup": 0,
+        "flagged": 0
+      },
+      "ru": {
+        "items": 250,
+        "chars": 246.656,
+        "words": 41.16,
+        "len_ratio_en": 1.0245798874029002,
+        "same_as_en": 0.0,
+        "digits_ok": 0.976,
+        "dup": 0,
+        "flagged": 0
+      },
+      "sw": {
+        "items": 250,
+        "chars": 265.484,
+        "words": 44.732,
+        "len_ratio_en": 1.1082699894831916,
+        "same_as_en": 0.0,
+        "digits_ok": 0.988,
+        "dup": 0,
+        "flagged": 0
+      },
+      "te": {
+        "items": 250,
+        "chars": 265.768,
+        "words": 36.12,
+        "len_ratio_en": 1.113857670031633,
+        "same_as_en": 0.0,
+        "digits_ok": 1.0,
+        "dup": 0,
+        "flagged": 0
+      },
+      "th": {
+        "items": 250,
+        "chars": 213.528,
+        "words": 11.684,
+        "len_ratio_en": 0.895885017144591,
+        "same_as_en": 0.0,
+        "digits_ok": 0.968,
+        "dup": 0,
+        "flagged": 0
+      },
+      "zh": {
+        "items": 250,
+        "chars": 85.156,
+        "words": 7.772,
+        "len_ratio_en": 0.3603912679796121,
+        "same_as_en": 0.0,
+        "digits_ok": 0.812,
+        "dup": 0,
+        "flagged": 0
+      }
+    },
+    "answers": {
+      "min": 1,
+      "median": 48.0,
+      "max": 276000,
+      "non_integer": 0
+    }
+  },
+  "msvamp": {
+    "splits": {
+      "val": 333,
+      "test": 334,
+      "compute": 333
+    },
+    "languages": {
+      "en": {
+        "items": 1000,
+        "chars": 162.241,
+        "words": 31.631,
+        "len_ratio_en": 1.0,
+        "same_as_en": null,
+        "digits_ok": null,
+        "dup": 0,
+        "flagged": 0
+      },
+      "bn": {
+        "items": 1000,
+        "chars": 150.654,
+        "words": 26.798,
+        "len_ratio_en": 0.9458410385590503,
+        "same_as_en": 0.0,
+        "digits_ok": 0.928,
+        "dup": 3,
+        "flagged": 9
+      },
+      "de": {
+        "items": 1000,
+        "chars": 178.852,
+        "words": 29.757,
+        "len_ratio_en": 1.1079383788104264,
+        "same_as_en": 0.0,
+        "digits_ok": 0.988,
+        "dup": 0,
+        "flagged": 1
+      },
+      "es": {
+        "items": 1000,
+        "chars": 170.812,
+        "words": 30.007,
+        "len_ratio_en": 1.0542747662315965,
+        "same_as_en": 0.0,
+        "digits_ok": 0.993,
+        "dup": 0,
+        "flagged": 0
+      },
+      "fr": {
+        "items": 1000,
+        "chars": 187.625,
+        "words": 34.152,
+        "len_ratio_en": 1.157442459003452,
+        "same_as_en": 0.0,
+        "digits_ok": 0.993,
+        "dup": 0,
+        "flagged": 0
+      },
+      "ja": {
+        "items": 1000,
+        "chars": 85.687,
+        "words": 1.005,
+        "len_ratio_en": 0.5390629323982143,
+        "same_as_en": 0.0,
+        "digits_ok": 0.83,
+        "dup": 0,
+        "flagged": 0
+      },
+      "ru": {
+        "items": 1000,
+        "chars": 162.935,
+        "words": 26.972,
+        "len_ratio_en": 1.0126897539631587,
+        "same_as_en": 0.0,
+        "digits_ok": 0.986,
+        "dup": 0,
+        "flagged": 4
+      },
+      "sw": {
+        "items": 1000,
+        "chars": 171.839,
+        "words": 28.448,
+        "len_ratio_en": 1.0628797246358712,
+        "same_as_en": 0.0,
+        "digits_ok": 0.987,
+        "dup": 0,
+        "flagged": 1
+      },
+      "th": {
+        "items": 1000,
+        "chars": 139.493,
+        "words": 9.465,
+        "len_ratio_en": 0.8680144364596404,
+        "same_as_en": 0.0,
+        "digits_ok": 0.953,
+        "dup": 4,
+        "flagged": 6
+      },
+      "zh": {
+        "items": 1000,
+        "chars": 52.897,
+        "words": 1.006,
+        "len_ratio_en": 0.3311195847719929,
+        "same_as_en": 0.0,
+        "digits_ok": 0.982,
+        "dup": 0,
+        "flagged": 0
+      }
+    },
+    "answers": {
+      "min": 1,
+      "median": 16.0,
+      "max": 22090603,
+      "non_integer": 0
+    },
+    "en_original": {
+      "lowercase_share": 1.0,
+      "spaced_punct_share": 1.0
+    },
+    "en_truecased": {
+      "lowercase_share": 0.0,
+      "spaced_punct_share": 0.0
+    }
+  },
+  "xnli": {
+    "splits": {
+      "analysis": 2490,
+      "val": 333,
+      "test": 334,
+      "compute": 333
+    },
+    "languages": {
+      "ar": {
+        "items": 3490,
+        "chars": 133.71805157593124,
+        "words": 23.96275071633238,
+        "len_ratio_en": 0.8392542747609074,
+        "same_as_en": 0.0,
+        "digits_ok": 0.9656160458452722,
+        "dup": 0,
+        "flagged": 0
+      },
+      "bg": {
+        "items": 3490,
+        "chars": 165.41260744985672,
+        "words": 26.342120343839543,
+        "len_ratio_en": 1.0352739164926732,
+        "same_as_en": 0.0,
+        "digits_ok": 0.9828080229226361,
+        "dup": 0,
+        "flagged": 0
+      },
+      "de": {
+        "items": 3490,
+        "chars": 181.5862464183381,
+        "words": 26.917765042979944,
+        "len_ratio_en": 1.1422494076775935,
+        "same_as_en": 0.0,
+        "digits_ok": 0.973352435530086,
+        "dup": 0,
+        "flagged": 0
+      },
+      "el": {
+        "items": 3490,
+        "chars": 181.1538681948424,
+        "words": 28.308022922636102,
+        "len_ratio_en": 1.1322635446089981,
+        "same_as_en": 0.0,
+        "digits_ok": 0.9882521489971346,
+        "dup": 0,
+        "flagged": 0
+      },
+      "en": {
+        "items": 3490,
+        "chars": 159.45558739255014,
+        "words": 27.492550143266477,
+        "len_ratio_en": 1.0,
+        "same_as_en": null,
+        "digits_ok": null,
+        "dup": 0,
+        "flagged": 0
+      },
+      "es": {
+        "items": 3490,
+        "chars": 174.5515759312321,
+        "words": 29.28968481375358,
+        "len_ratio_en": 1.092294953624509,
+        "same_as_en": 0.0,
+        "digits_ok": 0.9805157593123209,
+        "dup": 0,
+        "flagged": 0
+      },
+      "fr": {
+        "items": 3490,
+        "chars": 184.97621776504297,
+        "words": 30.59083094555874,
+        "len_ratio_en": 1.1646696234647334,
+        "same_as_en": 0.0,
+        "digits_ok": 0.9845272206303725,
+        "dup": 0,
+        "flagged": 0
+      },
+      "hi": {
+        "items": 3490,
+        "chars": 159.26733524355302,
+        "words": 31.754727793696276,
+        "len_ratio_en": 1.0051976953690345,
+        "same_as_en": 0.0,
+        "digits_ok": 0.9793696275071633,
+        "dup": 0,
+        "flagged": 0
+      },
+      "ru": {
+        "items": 3490,
+        "chars": 166.75186246418338,
+        "words": 24.034097421203438,
+        "len_ratio_en": 1.0460424666291424,
+        "same_as_en": 0.0,
+        "digits_ok": 0.9713467048710601,
+        "dup": 0,
+        "flagged": 0
+      },
+      "sw": {
+        "items": 3490,
+        "chars": 158.19111747851002,
+        "words": 24.29598853868195,
+        "len_ratio_en": 0.9949042278005378,
+        "same_as_en": 0.0,
+        "digits_ok": 0.9702005730659026,
+        "dup": 0,
+        "flagged": 0
+      },
+      "th": {
+        "items": 3490,
+        "chars": 144.65558739255013,
+        "words": 5.58567335243553,
+        "len_ratio_en": 0.9107984234026856,
+        "same_as_en": 0.0,
+        "digits_ok": 0.979083094555874,
+        "dup": 0,
+        "flagged": 0
+      },
+      "tr": {
+        "items": 3490,
+        "chars": 156.67507163323782,
+        "words": 20.769340974212035,
+        "len_ratio_en": 0.9844050103621603,
+        "same_as_en": 0.0,
+        "digits_ok": 0.9839541547277937,
+        "dup": 0,
+        "flagged": 0
+      },
+      "ur": {
+        "items": 3490,
+        "chars": 154.3512893982808,
+        "words": 33.34813753581662,
+        "len_ratio_en": 0.9784615342711489,
+        "same_as_en": 0.0,
+        "digits_ok": 0.9555873925501432,
+        "dup": 0,
+        "flagged": 7
+      },
+      "vi": {
+        "items": 3490,
+        "chars": 168.3303724928367,
+        "words": 37.739255014326645,
+        "len_ratio_en": 1.0622640533162861,
+        "same_as_en": 0.0,
+        "digits_ok": 0.9564469914040115,
+        "dup": 0,
+        "flagged": 0
+      },
+      "zh": {
+        "items": 3490,
+        "chars": 50.730659025787965,
+        "words": 2.396848137535817,
+        "len_ratio_en": 0.32268189070757797,
+        "same_as_en": 0.0,
+        "digits_ok": 0.933810888252149,
+        "dup": 1,
+        "flagged": 1
+      }
+    },
+    "labels": {
+      "analysis": {
+        "neutral": 830,
+        "contradiction": 830,
+        "entailment": 830
+      },
+      "compute": {
+        "entailment": 101,
+        "neutral": 110,
+        "contradiction": 122
+      },
+      "val": {
+        "entailment": 109,
+        "neutral": 117,
+        "contradiction": 107
+      },
+      "test": {
+        "neutral": 114,
+        "entailment": 108,
+        "contradiction": 112
+      }
+    }
+  }
+}
