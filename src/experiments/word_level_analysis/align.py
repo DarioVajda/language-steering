@@ -26,7 +26,7 @@ Output (.json), one record per statement:
   pairs    {method: {lang: [[i_en, j_lang], ...]}}   kept one-to-one pairs (step 3)
   concepts {method: [[word index in each of LANGS], ...]}
 
-Usage (GPU job, see CLAUDE.md):
+Usage (GPU job, via slurm/submit.sh):
     slurm/submit.sh -J align -- python src/experiments/word_level_analysis/align.py
 """
 

@@ -12,7 +12,7 @@ with mu_L, mu and u_L = (mu_L - mu) / |mu_L - mu| fitted on the fit half's token
   id_acc      fraction of L's words whose argmax over L' of (h - mu).u_L' is L
 
 Outputs: results/lang_signal.json and lang_signal.png.
-Usage (GPU job, see CLAUDE.md):
+Usage (GPU job, via slurm/submit.sh):
     slurm/submit.sh -J lang_signal -- python src/experiments/word_level_analysis/lang_signal.py
 """
 

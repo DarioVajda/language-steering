@@ -11,7 +11,9 @@ and labels are always English; only the item text changes language. Demonstratio
   * XNLI:  6 items from the compute split, with English labels.
   * MGSM / MSVAMP: 6 of the 8 official MGSM exemplars, with their English chain of thought
     (CoT is English in every condition, as in the paper). Kirtane & Huang draw English demos
-    from GSM8K train instead, which has no translations for the oracle condition.
+    from GSM8K train instead, which has no translations for the oracle condition. The CoT of a
+    demonstration in another language is labelled as English (`demo_spans`), so per-token
+    language steering (mfs_steer) treats it as the English text it is.
 
 Usage:
     from tasks import TASKS
@@ -68,6 +70,11 @@ class Task:
     def format_demo(self, item, lang):
         raise NotImplementedError
 
+    def demo_spans(self, item, lang):
+        """(start, end, lang) character ranges of format_demo(item, lang) in another language than
+        `lang` (see model.Segment.spans). Default: none, the whole demonstration is in `lang`."""
+        return ()
+
     def format_query(self, item, lang):
         raise NotImplementedError
 
@@ -119,21 +126,50 @@ class Math(Task):
 
     def format_demo(self, item, lang):
         """Demo with CoT; compute items have no CoT and get only the final answer (used for vectors)."""
+        return "".join(self._demo_parts(item, lang))
+
+    def _demo_parts(self, item, lang):
+        """format_demo split into (question, English CoT, final answer)."""
         answer = f"\nAnswer: {item.cot}" if item.cot else ""
-        return f"Question: {item.text[lang]['question']}{answer}\nFinal answer: {item.answer}"
+        return f"Question: {item.text[lang]['question']}", answer, f"\nFinal answer: {item.answer}"
+
+    def demo_spans(self, item, lang):
+        """The English chain of thought ("\nAnswer: ..."), when the demonstration is in another language."""
+        question, cot, _ = self._demo_parts(item, lang)
+        return ((len(question), len(question) + len(cot), "en"),) if cot and lang != "en" else ()
 
     def format_query(self, item, lang):
         return f"Question: {item.text[lang]['question']}\nAnswer:"
 
-    def parse(self, response):
-        """The number after the last "Final answer:", else the last number in the response."""
-        nums = re.findall(r"Final answer:\s*\$?\s*(-?[\d,]*\.?\d+)", response) or re.findall(r"-?[\d,]*\.?\d+", response)
-        if not nums:
-            return None
+    # A number in any locale: groups of three split by ",", "." or a space ("1,234", "1.234.567",
+    # "6 277"), then an optional decimal part ("26,00", "2.5"). \d also matches native digits (৩২).
+    SEP = "[    ]"
+    NUM = re.compile(rf"-?\d+(?:(?:,|\.|{SEP})\d{{3}}(?!\d))*(?:[.,]\d+)?")
+    MARK = re.compile(r"Final answer\s*[:：]\s*[*$€£]*\s*")
+
+    @classmethod
+    def to_float(cls, tok):
+        """Locale-aware: "1,234" and "1.234.567" are thousands, "26,00" and "12,8" decimal commas."""
+        t = re.sub(cls.SEP, "", tok)
+        if "," in t and "." in t:                    # the later mark is the decimal one
+            t = t.replace(".", "").replace(",", ".") if t.rfind(",") > t.rfind(".") else t.replace(",", "")
+        elif "," in t:
+            t = t.replace(",", "") if re.fullmatch(r"-?\d{1,3}(,\d{3})+", t) else t.replace(",", ".")
+        elif t.count(".") > 1:
+            t = t.replace(".", "")
         try:
-            return float(nums[-1].replace(",", ""))
+            return float(t)
         except ValueError:
             return None
+
+    def parse(self, response):
+        """The number right after the last "Final answer:", else the last number in the response.
+        Locale-aware, so de/es/fr/ru number formats ("26,00", "6 277") are not misread."""
+        marks = list(self.MARK.finditer(response))
+        if marks and (m := self.NUM.match(response, marks[-1].end())):
+            return self.to_float(m.group())
+        nums = self.NUM.findall(response)
+        return self.to_float(nums[-1]) if nums else None
 
     def is_correct(self, pred, item):
         return pred is not None and abs(pred - item.answer) < 1e-6

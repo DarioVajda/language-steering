@@ -17,7 +17,7 @@ Output: data/language_vectors/<model>/<benchmark>.npz with
   n         int     [n_langs]                    samples averaged
   langs, model, k, seed
 
-Usage (GPU job, see CLAUDE.md):
+Usage (GPU job, via slurm/submit.sh):
     slurm/submit.sh -J vectors -- python src/icl/vectors.py --benchmarks xnli mgsm msvamp
 """
 

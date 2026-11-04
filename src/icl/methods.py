@@ -48,8 +48,9 @@ class Method:
     fallback = None
     uses_vectors = False
 
-    def __init__(self, task, runner, vectors=None, k=K_SHOT, batch_size=16):
+    def __init__(self, task, runner, vectors=None, k=K_SHOT, batch_size=16, max_new_tokens=None):
         self.task, self.runner, self.vectors, self.k, self.batch_size = task, runner, vectors, k, batch_size
+        self.max_new_tokens = max_new_tokens or task.max_new_tokens
         self.pool = task.demo_pool()
 
     def configs(self):
@@ -68,7 +69,8 @@ class Method:
         demos = [self.pool[j] for j in item_rng(seed, item.id).choice(len(self.pool), self.k, replace=False)]
         langs = self.demo_langs(target, self.k, item_rng(seed, item.id, "langs"))
         return Prompt((Segment("instruction", self.task.instruction),
-                       *(Segment("demo", self.task.format_demo(d, L), L) for d, L in zip(demos, langs)),
+                       *(Segment("demo", self.task.format_demo(d, L), L, self.task.demo_spans(d, L))
+                         for d, L in zip(demos, langs)),
                        Segment("query", self.task.format_query(item, target), target)), target)
 
     def forward(self, prompts, config, target, token_ids=None):
@@ -77,7 +79,7 @@ class Method:
 
     def generate(self, prompts, config, target):
         return self.runner.generate(prompts, self.task.langs, self.steering(config, target),
-                                    self.task.max_new_tokens, self.task.stop, self.batch_size)
+                                    self.max_new_tokens, self.task.stop, self.batch_size)
 
     def run(self, items, target, config, seed, mode=None):
         """Score `items` in language `target`: one record per item.
@@ -88,9 +90,8 @@ class Method:
         mode = mode or self.task.mode
         prompts = [self.prompt(it, target, seed) for it in items]
         if mode == "generate":
-            responses = self.generate(prompts, config, target)
-            preds = [self.task.parse(r) for r in responses]
-            extra = [{"response": r} for r in responses]
+            extra = self.generate(prompts, config, target)
+            preds = [self.task.parse(e["response"]) for e in extra]
         elif mode == "forward":
             assert self.task.labels, f"{self.task.name} has no closed label set"
             first = [self.runner.tokenizer(l, add_special_tokens=False).input_ids[0] for l in self.task.labels]

@@ -27,7 +27,7 @@ Output directory (default: states/<model> next to this script):
                        counts [n_langs, n_benchmarks, 2], langs, benchmarks
   meta.json            model, alignment file, shapes
 
-Usage (GPU job, see CLAUDE.md):
+Usage (GPU job, via slurm/submit.sh):
     slurm/submit.sh -J token_states -t 02:00:00 -- python src/experiments/word_level_analysis/token_states.py
 """
 

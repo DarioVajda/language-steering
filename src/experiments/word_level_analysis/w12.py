@@ -28,7 +28,7 @@ W2, per pair: oracle scales alpha* = d.v / |v|^2 and beta* = d.w / |w|^2, and th
 Metrics on the test half; 95% CIs from a bootstrap over test statements.
 
 Outputs: results/w12[_variant].json, w1[_variant].png, w2[_variant].png.
-Usage (GPU job, see CLAUDE.md):
+Usage (GPU job, via slurm/submit.sh):
     slurm/submit.sh -J w12 -- python src/experiments/word_level_analysis/w12.py
 """
 

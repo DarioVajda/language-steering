@@ -23,7 +23,7 @@ dimensions removed ("no_massive"; dimensions whose mean |activation| on the fit 
 benchmark, and a cross-domain matrix (u^L fitted on benchmark A, evaluated on B).
 
 Outputs: results/t1.json and results/t1.png next to this script.
-Usage (GPU job, see CLAUDE.md):
+Usage (GPU job, via slurm/submit.sh):
     slurm/submit.sh -J t1 -- python src/experiments/pca_analysis/t1.py
 """
 

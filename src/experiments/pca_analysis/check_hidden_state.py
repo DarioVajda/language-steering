@@ -1,4 +1,4 @@
-"""Sanity checks for hidden_state.py, meant to run on a GPU node (see CLAUDE.md).
+"""Sanity checks for hidden_state.py, meant to run on a GPU node (via slurm/submit.sh).
 
 1. Padding invariance: a text's mean states are the same alone and inside a padded batch.
 2. bf16 vs fp32: relative error of the bf16 mean states, per layer.
