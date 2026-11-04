@@ -1,0 +1,111 @@
+{
+ "model": "meta-llama/Llama-3.1-8B-Instruct",
+ "benchmark": "mgsm",
+ "method": "mfs_wrong",
+ "mode": "generate",
+ "langs": [
+  "bn",
+  "de",
+  "es",
+  "fr",
+  "ja",
+  "ru",
+  "sw",
+  "te",
+  "th",
+  "zh"
+ ],
+ "seeds": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "test_seeds": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "k": 6,
+ "limit": null,
+ "max_new_tokens": 2048,
+ "batch_size": 96,
+ "chosen": {
+  "bn": {
+   "layer": 25,
+   "alpha": 3.0,
+   "positions": "demos",
+   "steer_lang": "es"
+  },
+  "de": {
+   "layer": 25,
+   "alpha": 3.0,
+   "positions": "demos",
+   "steer_lang": "es"
+  },
+  "es": {
+   "layer": 25,
+   "alpha": 3.0,
+   "positions": "demos",
+   "steer_lang": "es"
+  },
+  "fr": {
+   "layer": 25,
+   "alpha": 3.0,
+   "positions": "demos",
+   "steer_lang": "es"
+  },
+  "ja": {
+   "layer": 25,
+   "alpha": 3.0,
+   "positions": "demos",
+   "steer_lang": "es"
+  },
+  "ru": {
+   "layer": 25,
+   "alpha": 3.0,
+   "positions": "demos",
+   "steer_lang": "es"
+  },
+  "sw": {
+   "layer": 25,
+   "alpha": 3.0,
+   "positions": "demos",
+   "steer_lang": "es"
+  },
+  "te": {
+   "layer": 25,
+   "alpha": 3.0,
+   "positions": "demos",
+   "steer_lang": "es"
+  },
+  "th": {
+   "layer": 25,
+   "alpha": 3.0,
+   "positions": "demos",
+   "steer_lang": "es"
+  },
+  "zh": {
+   "layer": 25,
+   "alpha": 3.0,
+   "positions": "demos",
+   "steer_lang": "es"
+  }
+ },
+ "test": {
+  "bn": 0.6285714285714286,
+  "de": 0.7833333333333333,
+  "es": 0.8071428571428572,
+  "fr": 0.7166666666666667,
+  "ja": 0.6714285714285714,
+  "ru": 0.7452380952380953,
+  "sw": 0.6428571428571429,
+  "te": 0.55,
+  "th": 0.6833333333333333,
+  "zh": 0.7214285714285714
+ },
+ "test_mean": 0.6950000000000001
+}
