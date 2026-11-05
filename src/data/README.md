@@ -4,7 +4,7 @@ Three parallel benchmarks used by [Kirtane and Huang (2026)](../../README.md#kir
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # from the project root
-.venv/bin/python src/data/download.py     # -> data/raw_data/       (~24 MB, commits pinned in manifest.json)
+.venv/bin/python src/data/download.py     # -> data/raw_data/       (~24 MB, plus ~13 MB for MKQA and fastText; pinned in manifest.json; or name sources, e.g. `download.py mkqa`)
 .venv/bin/python src/data/preprocess.py   # -> data/processed_data/ (one parallel JSONL per benchmark)
 .venv/bin/python src/data/analyze.py      # -> stats tables on stdout + data/processed_data/stats.json
 ```
@@ -15,6 +15,8 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # from the 
 | MSVAMP | `Mathoctopus/MSVAMP` | 1000 | en, bn, de, es, fr, ja, ru, sw, th, zh | **Machine** translations of SVAMP |
 | XNLI | `facebook/xnli` | 2490 validation + 5010 test | 15 (ar, bg, de, el, en, es, fr, hi, ru, sw, th, tr, ur, vi, zh) | Human translations of MultiNLI |
 | SVAMP | GitHub `arkilpatel/SVAMP` @ `78e72768` | 1000 | en | Original cased SVAMP, used only to truecase MSVAMP English |
+| MKQA | GitHub `apple/ml-mkqa` @ `f964fe1b` | 10,000 | 26, incl. en, fr, hu, ru, zh_cn | Human translations of Natural Questions queries with localized answers; used raw by [output_language](../experiments/output_language/README.md) |
+| fastText `lid.176.ftz` | `dl.fbaipublicfiles.com` (SHA-256 in manifest) | – | 176 | Language-ID model, not a benchmark; used by output_language |
 
 ## Format
 

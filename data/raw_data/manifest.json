@@ -14,5 +14,13 @@
   "svamp": {
     "url": "https://raw.githubusercontent.com/arkilpatel/SVAMP/78e727689e1c1bebfc4be39c446898e8e10b0518/SVAMP.json",
     "revision": "78e727689e1c1bebfc4be39c446898e8e10b0518"
+  },
+  "mkqa": {
+    "url": "https://raw.githubusercontent.com/apple/ml-mkqa/f964fe1bac4d580cee3d4928572df1f676f8e656/dataset/mkqa.jsonl.gz",
+    "revision": "f964fe1bac4d580cee3d4928572df1f676f8e656"
+  },
+  "fasttext": {
+    "url": "https://dl.fbaipublicfiles.com/fasttext/supervised-models/lid.176.ftz",
+    "revision": "sha256:8f3472cfe8738a7b6099e8e999c3cbfae0dcd15696aac7d7738a8039db603e83"
   }
 }
