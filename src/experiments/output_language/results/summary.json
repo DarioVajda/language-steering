@@ -1,0 +1,1000 @@
+{
+ "plain": {
+  "n": 60,
+  "fidelity": 1.0,
+  "accuracy": 0.5666666666666667,
+  "no_box": 0.03333333333333333,
+  "languages": {
+   "en": 60
+  },
+  "accuracy_en": 0.5666666666666667
+ },
+ "languages": {
+  "fr": {
+   "test": {
+    "instruction": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.45,
+     "no_box": 0.016666666666666666,
+     "languages": {
+      "fr": 60
+     }
+    },
+    "native": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.38333333333333336,
+     "no_box": 0.1,
+     "languages": {
+      "fr": 60
+     }
+    },
+    "single layer": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.4166666666666667,
+     "no_box": 0.016666666666666666,
+     "languages": {
+      "fr": 60
+     },
+     "layer": 16,
+     "alpha": 1
+    },
+    "5 layers": {
+     "n": 60,
+     "fidelity": 0.9666666666666667,
+     "accuracy": 0.43333333333333335,
+     "no_box": 0.05,
+     "languages": {
+      "fr": 58,
+      "en": 1,
+      "es": 1
+     },
+     "alpha": 0.2
+    },
+    "all 32 layers": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.38333333333333336,
+     "no_box": 0.03333333333333333,
+     "languages": {
+      "fr": 60
+     },
+     "alpha": 0.05
+    }
+   },
+   "multi_layer_grid": [
+    {
+     "variant": "5 layers",
+     "alpha": 0.1,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 0.0,
+      "accuracy": 0.38,
+      "no_box": 0.08,
+      "languages": {
+       "en": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 0.0,
+      "accuracy": 0.48333333333333334,
+      "no_box": 0.03333333333333333,
+      "languages": {
+       "en": 60
+      }
+     }
+    },
+    {
+     "variant": "5 layers",
+     "alpha": 0.2,
+     "selected": true,
+     "val": {
+      "n": 100,
+      "fidelity": 0.96,
+      "accuracy": 0.34,
+      "no_box": 0.04,
+      "languages": {
+       "fr": 96,
+       "en": 4
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 0.9666666666666667,
+      "accuracy": 0.43333333333333335,
+      "no_box": 0.05,
+      "languages": {
+       "fr": 58,
+       "en": 1,
+       "es": 1
+      }
+     }
+    },
+    {
+     "variant": "5 layers",
+     "alpha": 0.3,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 1.0,
+      "accuracy": 0.28,
+      "no_box": 0.08,
+      "languages": {
+       "fr": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.38333333333333336,
+      "no_box": 0.05,
+      "languages": {
+       "fr": 60
+      }
+     }
+    },
+    {
+     "variant": "5 layers",
+     "alpha": 0.5,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 1.0,
+      "accuracy": 0.19,
+      "no_box": 0.15,
+      "languages": {
+       "fr": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.25,
+      "no_box": 0.15,
+      "languages": {
+       "fr": 60
+      }
+     }
+    },
+    {
+     "variant": "all 32 layers",
+     "alpha": 0.02,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 0.0,
+      "accuracy": 0.4,
+      "no_box": 0.05,
+      "languages": {
+       "en": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 0.0,
+      "accuracy": 0.4,
+      "no_box": 0.03333333333333333,
+      "languages": {
+       "en": 60
+      }
+     }
+    },
+    {
+     "variant": "all 32 layers",
+     "alpha": 0.05,
+     "selected": true,
+     "val": {
+      "n": 100,
+      "fidelity": 1.0,
+      "accuracy": 0.29,
+      "no_box": 0.08,
+      "languages": {
+       "fr": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.38333333333333336,
+      "no_box": 0.03333333333333333,
+      "languages": {
+       "fr": 60
+      }
+     }
+    },
+    {
+     "variant": "all 32 layers",
+     "alpha": 0.1,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 1.0,
+      "accuracy": 0.18,
+      "no_box": 0.19,
+      "languages": {
+       "fr": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.25,
+      "no_box": 0.21666666666666667,
+      "languages": {
+       "fr": 60
+      }
+     }
+    },
+    {
+     "variant": "all 32 layers",
+     "alpha": 0.25,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 0.98,
+      "accuracy": 0.0,
+      "no_box": 1.0,
+      "languages": {
+       "fr": 98,
+       "es": 2
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.0,
+      "no_box": 1.0,
+      "languages": {
+       "fr": 60
+      }
+     }
+    }
+   ]
+  },
+  "hu": {
+   "test": {
+    "instruction": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.43333333333333335,
+     "no_box": 0.03333333333333333,
+     "languages": {
+      "hu": 60
+     }
+    },
+    "native": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.21666666666666667,
+     "no_box": 0.31666666666666665,
+     "languages": {
+      "hu": 60
+     }
+    },
+    "single layer": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.3,
+     "no_box": 0.15,
+     "languages": {
+      "hu": 60
+     },
+     "layer": 12,
+     "alpha": 1
+    },
+    "5 layers": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.15,
+     "no_box": 0.36666666666666664,
+     "languages": {
+      "hu": 60
+     },
+     "alpha": 0.3
+    },
+    "all 32 layers": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.26666666666666666,
+     "no_box": 0.21666666666666667,
+     "languages": {
+      "hu": 60
+     },
+     "alpha": 0.05
+    }
+   },
+   "multi_layer_grid": [
+    {
+     "variant": "5 layers",
+     "alpha": 0.1,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 0.0,
+      "accuracy": 0.31,
+      "no_box": 0.04,
+      "languages": {
+       "en": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 0.0,
+      "accuracy": 0.45,
+      "no_box": 0.016666666666666666,
+      "languages": {
+       "en": 60
+      }
+     }
+    },
+    {
+     "variant": "5 layers",
+     "alpha": 0.2,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 0.53,
+      "accuracy": 0.28,
+      "no_box": 0.1,
+      "languages": {
+       "hu": 53,
+       "en": 43,
+       "id": 2
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 0.7333333333333333,
+      "accuracy": 0.36666666666666664,
+      "no_box": 0.08333333333333333,
+      "languages": {
+       "hu": 44,
+       "en": 15,
+       "pt": 1
+      }
+     }
+    },
+    {
+     "variant": "5 layers",
+     "alpha": 0.3,
+     "selected": true,
+     "val": {
+      "n": 100,
+      "fidelity": 1.0,
+      "accuracy": 0.1,
+      "no_box": 0.38,
+      "languages": {
+       "hu": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.15,
+      "no_box": 0.36666666666666664,
+      "languages": {
+       "hu": 60
+      }
+     }
+    },
+    {
+     "variant": "5 layers",
+     "alpha": 0.5,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 0.99,
+      "accuracy": 0.03,
+      "no_box": 0.79,
+      "languages": {
+       "hu": 99,
+       "eu": 1
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.05,
+      "no_box": 0.8166666666666667,
+      "languages": {
+       "hu": 60
+      }
+     }
+    },
+    {
+     "variant": "all 32 layers",
+     "alpha": 0.02,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 0.0,
+      "accuracy": 0.3,
+      "no_box": 0.04,
+      "languages": {
+       "en": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 0.0,
+      "accuracy": 0.45,
+      "no_box": 0.03333333333333333,
+      "languages": {
+       "en": 60
+      }
+     }
+    },
+    {
+     "variant": "all 32 layers",
+     "alpha": 0.05,
+     "selected": true,
+     "val": {
+      "n": 100,
+      "fidelity": 0.99,
+      "accuracy": 0.19,
+      "no_box": 0.25,
+      "languages": {
+       "hu": 99,
+       "cs": 1
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.26666666666666666,
+      "no_box": 0.21666666666666667,
+      "languages": {
+       "hu": 60
+      }
+     }
+    },
+    {
+     "variant": "all 32 layers",
+     "alpha": 0.1,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 1.0,
+      "accuracy": 0.06,
+      "no_box": 0.62,
+      "languages": {
+       "hu": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.06666666666666667,
+      "no_box": 0.6,
+      "languages": {
+       "hu": 60
+      }
+     }
+    },
+    {
+     "variant": "all 32 layers",
+     "alpha": 0.25,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 1.0,
+      "accuracy": 0.0,
+      "no_box": 1.0,
+      "languages": {
+       "hu": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.0,
+      "no_box": 1.0,
+      "languages": {
+       "hu": 60
+      }
+     }
+    }
+   ]
+  },
+  "zh": {
+   "test": {
+    "instruction": {
+     "n": 60,
+     "fidelity": 0.9666666666666667,
+     "accuracy": 0.16666666666666666,
+     "no_box": 0.13333333333333333,
+     "languages": {
+      "zh": 58,
+      "ja": 2
+     }
+    },
+    "native": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.06666666666666667,
+     "no_box": 0.2833333333333333,
+     "languages": {
+      "zh": 60
+     }
+    },
+    "single layer": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.15,
+     "no_box": 0.2,
+     "languages": {
+      "zh": 60
+     },
+     "layer": 20,
+     "alpha": 1
+    },
+    "5 layers": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.15,
+     "no_box": 0.06666666666666667,
+     "languages": {
+      "zh": 60
+     },
+     "alpha": 0.2
+    },
+    "all 32 layers": {
+     "n": 60,
+     "fidelity": 0.9666666666666667,
+     "accuracy": 0.11666666666666667,
+     "no_box": 0.21666666666666667,
+     "languages": {
+      "zh": 58,
+      "ko": 1,
+      "ta": 1
+     },
+     "alpha": 0.05
+    }
+   },
+   "multi_layer_grid": [
+    {
+     "variant": "5 layers",
+     "alpha": 0.1,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 0.0,
+      "accuracy": 0.12,
+      "no_box": 0.07,
+      "languages": {
+       "en": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 0.0,
+      "accuracy": 0.13333333333333333,
+      "no_box": 0.05,
+      "languages": {
+       "en": 60
+      }
+     }
+    },
+    {
+     "variant": "5 layers",
+     "alpha": 0.2,
+     "selected": true,
+     "val": {
+      "n": 100,
+      "fidelity": 0.99,
+      "accuracy": 0.17,
+      "no_box": 0.09,
+      "languages": {
+       "zh": 99,
+       "ja": 1
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.15,
+      "no_box": 0.06666666666666667,
+      "languages": {
+       "zh": 60
+      }
+     }
+    },
+    {
+     "variant": "5 layers",
+     "alpha": 0.3,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 0.99,
+      "accuracy": 0.16,
+      "no_box": 0.2,
+      "languages": {
+       "zh": 99,
+       "ja": 1
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.11666666666666667,
+      "no_box": 0.38333333333333336,
+      "languages": {
+       "zh": 60
+      }
+     }
+    },
+    {
+     "variant": "5 layers",
+     "alpha": 0.5,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 1.0,
+      "accuracy": 0.03,
+      "no_box": 0.71,
+      "languages": {
+       "zh": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 0.95,
+      "accuracy": 0.06666666666666667,
+      "no_box": 0.7333333333333333,
+      "languages": {
+       "zh": 57,
+       "en": 1,
+       "ja": 1
+      }
+     }
+    },
+    {
+     "variant": "all 32 layers",
+     "alpha": 0.02,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 0.0,
+      "accuracy": 0.12,
+      "no_box": 0.02,
+      "languages": {
+       "en": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 0.0,
+      "accuracy": 0.13333333333333333,
+      "no_box": 0.06666666666666667,
+      "languages": {
+       "en": 60
+      }
+     }
+    },
+    {
+     "variant": "all 32 layers",
+     "alpha": 0.05,
+     "selected": true,
+     "val": {
+      "n": 100,
+      "fidelity": 0.99,
+      "accuracy": 0.15,
+      "no_box": 0.08,
+      "languages": {
+       "zh": 99,
+       "en": 1
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 0.9666666666666667,
+      "accuracy": 0.11666666666666667,
+      "no_box": 0.21666666666666667,
+      "languages": {
+       "zh": 58,
+       "ko": 1,
+       "ta": 1
+      }
+     }
+    },
+    {
+     "variant": "all 32 layers",
+     "alpha": 0.1,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 0.98,
+      "accuracy": 0.1,
+      "no_box": 0.45,
+      "languages": {
+       "zh": 98,
+       "fr": 1,
+       "en": 1
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.05,
+      "no_box": 0.48333333333333334,
+      "languages": {
+       "zh": 60
+      }
+     }
+    },
+    {
+     "variant": "all 32 layers",
+     "alpha": 0.25,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 0.91,
+      "accuracy": 0.0,
+      "no_box": 1.0,
+      "languages": {
+       "zh": 91,
+       "en": 3,
+       "hu": 1
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 0.9,
+      "accuracy": 0.0,
+      "no_box": 1.0,
+      "languages": {
+       "zh": 54,
+       "en": 4,
+       "fr": 1
+      }
+     }
+    }
+   ]
+  },
+  "ru": {
+   "test": {
+    "instruction": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.26666666666666666,
+     "no_box": 0.06666666666666667,
+     "languages": {
+      "ru": 60
+     }
+    },
+    "native": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.23333333333333334,
+     "no_box": 0.08333333333333333,
+     "languages": {
+      "ru": 60
+     }
+    },
+    "single layer": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.21666666666666667,
+     "no_box": 0.1,
+     "languages": {
+      "ru": 60
+     },
+     "layer": 8,
+     "alpha": 1
+    },
+    "5 layers": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.25,
+     "no_box": 0.1,
+     "languages": {
+      "ru": 60
+     },
+     "alpha": 0.2
+    },
+    "all 32 layers": {
+     "n": 60,
+     "fidelity": 1.0,
+     "accuracy": 0.21666666666666667,
+     "no_box": 0.03333333333333333,
+     "languages": {
+      "ru": 60
+     },
+     "alpha": 0.05
+    }
+   },
+   "multi_layer_grid": [
+    {
+     "variant": "5 layers",
+     "alpha": 0.1,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 0.0,
+      "accuracy": 0.16,
+      "no_box": 0.06,
+      "languages": {
+       "en": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 0.0,
+      "accuracy": 0.23333333333333334,
+      "no_box": 0.03333333333333333,
+      "languages": {
+       "en": 60
+      }
+     }
+    },
+    {
+     "variant": "5 layers",
+     "alpha": 0.2,
+     "selected": true,
+     "val": {
+      "n": 100,
+      "fidelity": 1.0,
+      "accuracy": 0.21,
+      "no_box": 0.06,
+      "languages": {
+       "ru": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.25,
+      "no_box": 0.1,
+      "languages": {
+       "ru": 60
+      }
+     }
+    },
+    {
+     "variant": "5 layers",
+     "alpha": 0.3,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 1.0,
+      "accuracy": 0.14,
+      "no_box": 0.07,
+      "languages": {
+       "ru": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.18333333333333332,
+      "no_box": 0.1,
+      "languages": {
+       "ru": 60
+      }
+     }
+    },
+    {
+     "variant": "5 layers",
+     "alpha": 0.5,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 1.0,
+      "accuracy": 0.09,
+      "no_box": 0.15,
+      "languages": {
+       "ru": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.15,
+      "no_box": 0.26666666666666666,
+      "languages": {
+       "ru": 60
+      }
+     }
+    },
+    {
+     "variant": "all 32 layers",
+     "alpha": 0.02,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 0.0,
+      "accuracy": 0.17,
+      "no_box": 0.02,
+      "languages": {
+       "en": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 0.0,
+      "accuracy": 0.2,
+      "no_box": 0.05,
+      "languages": {
+       "en": 60
+      }
+     }
+    },
+    {
+     "variant": "all 32 layers",
+     "alpha": 0.05,
+     "selected": true,
+     "val": {
+      "n": 100,
+      "fidelity": 1.0,
+      "accuracy": 0.16,
+      "no_box": 0.05,
+      "languages": {
+       "ru": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.21666666666666667,
+      "no_box": 0.03333333333333333,
+      "languages": {
+       "ru": 60
+      }
+     }
+    },
+    {
+     "variant": "all 32 layers",
+     "alpha": 0.1,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 1.0,
+      "accuracy": 0.13,
+      "no_box": 0.1,
+      "languages": {
+       "ru": 100
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.16666666666666666,
+      "no_box": 0.11666666666666667,
+      "languages": {
+       "ru": 60
+      }
+     }
+    },
+    {
+     "variant": "all 32 layers",
+     "alpha": 0.25,
+     "selected": false,
+     "val": {
+      "n": 100,
+      "fidelity": 0.98,
+      "accuracy": 0.0,
+      "no_box": 1.0,
+      "languages": {
+       "ru": 98,
+       "fr": 1,
+       "uk": 1
+      }
+     },
+     "test": {
+      "n": 60,
+      "fidelity": 1.0,
+      "accuracy": 0.0,
+      "no_box": 1.0,
+      "languages": {
+       "ru": 60
+      }
+     }
+    }
+   ]
+  }
+ }
+}

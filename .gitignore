@@ -16,3 +16,6 @@ src/experiments/*/scratch/
 # per-item predictions and val shards; summary.json and tuning.json are kept
 src/icl/results/**/test_predictions.jsonl
 src/icl/results/**/val*.jsonl
+
+# output-language experiment: per-item generations (regenerable); results/summary.json is kept
+src/experiments/output_language/results/generations/
