@@ -4,7 +4,7 @@ Three parallel benchmarks used by [Kirtane and Huang (2026)](../../README.md#kir
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # from the project root
-.venv/bin/python src/data/download.py     # -> data/raw_data/       (~24 MB, plus ~13 MB for MKQA and fastText; pinned in manifest.json; or name sources, e.g. `download.py mkqa`)
+.venv/bin/python src/data/download.py     # -> data/raw_data/       (~24 MB, plus ~13 MB for MKQA and fastText and ~158 MB for the language-confusion sources; pinned in manifest.json; or name sources, e.g. `download.py mkqa`)
 .venv/bin/python src/data/preprocess.py   # -> data/processed_data/ (one parallel JSONL per benchmark)
 .venv/bin/python src/data/analyze.py      # -> stats tables on stdout + data/processed_data/stats.json
 ```
@@ -17,6 +17,9 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # from the 
 | SVAMP | GitHub `arkilpatel/SVAMP` @ `78e72768` | 1000 | en | Original cased SVAMP, used only to truecase MSVAMP English |
 | MKQA | GitHub `apple/ml-mkqa` @ `f964fe1b` | 10,000 | 26, incl. en, fr, hu, ru, zh_cn | Human translations of Natural Questions queries with localized answers; used raw by [output_language](../experiments/output_language/README.md) |
 | fastText `lid.176.ftz` | `dl.fbaipublicfiles.com` (SHA-256 in manifest) | – | 176 | Language-ID model, not a benchmark; used by output_language |
+| fastText `lid.176.bin` | `dl.fbaipublicfiles.com` (SHA-256 in manifest) | – | 176 | Full language-ID model, used by the Language Confusion Benchmark's scorer; used by [language_confusion](../experiments/language_confusion/README.md) |
+| Language Confusion Benchmark | GitHub `for-ai/language-confusion` @ `0cfdbb4a` (`test_sets.zip`, `words`) | 99–100 prompts per source and language | 14 + en | Marchisio et al. (2024); the cross-lingual part (okapi, sharegpt, complex_prompts) is used raw by language_confusion; `words` is its English word list |
+| FLORES-200 | `dl.fbaipublicfiles.com/nllb` (SHA-256 in manifest) | 997 dev + 1012 devtest sentences | 204 | Parallel sentences (NLLB Team, 2022); for the language vectors of language_confusion |
 
 ## Format
 

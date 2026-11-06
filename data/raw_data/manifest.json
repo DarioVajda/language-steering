@@ -22,5 +22,21 @@
   "fasttext": {
     "url": "https://dl.fbaipublicfiles.com/fasttext/supervised-models/lid.176.ftz",
     "revision": "sha256:8f3472cfe8738a7b6099e8e999c3cbfae0dcd15696aac7d7738a8039db603e83"
+  },
+  "fasttext_bin": {
+    "url": "https://dl.fbaipublicfiles.com/fasttext/supervised-models/lid.176.bin",
+    "revision": "sha256:7e69ec5451bc261cc7844e49e4792a85d7f09c06789ec800fc4a44aec362764e"
+  },
+  "lcb": {
+    "url": "https://raw.githubusercontent.com/for-ai/language-confusion/0cfdbb4a64502648938c456b2fa9689968f22298/test_sets.zip",
+    "revision": "0cfdbb4a64502648938c456b2fa9689968f22298"
+  },
+  "lcb_words": {
+    "url": "https://raw.githubusercontent.com/for-ai/language-confusion/0cfdbb4a64502648938c456b2fa9689968f22298/words",
+    "revision": "0cfdbb4a64502648938c456b2fa9689968f22298"
+  },
+  "flores": {
+    "url": "https://dl.fbaipublicfiles.com/nllb/flores200_dataset.tar.gz",
+    "revision": "sha256:b8b0b76783024b85797e5cc75064eb83fc5288b41e9654dabc7be6ae944011f6"
   }
 }

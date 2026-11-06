@@ -1,6 +1,7 @@
 """Download the raw benchmark files (MGSM, MSVAMP, XNLI) from the Hugging Face Hub,
 plus the original cased SVAMP release from GitHub (used to truecase MSVAMP English),
-MKQA from GitHub, and the fastText language-ID model (both for the output-language experiment).
+MKQA from GitHub, the fastText language-ID models (output-language experiments), the
+Language Confusion Benchmark test sets and English word list from GitHub, and FLORES-200.
 
 Files are stored unmodified under data/raw_data/<name>/, and the exact repo commit
 (or, for fastText, the SHA-256) of every download is recorded in data/raw_data/manifest.json.
@@ -35,10 +36,23 @@ MKQA_URL = f"https://raw.githubusercontent.com/apple/ml-mkqa/{MKQA_COMMIT}/datas
 # fastText language identification, compressed model (Joulin et al., 2016); not versioned, so checked by hash.
 LID_URL = "https://dl.fbaipublicfiles.com/fasttext/supervised-models/lid.176.ftz"
 LID_SHA256 = "8f3472cfe8738a7b6099e8e999c3cbfae0dcd15696aac7d7738a8039db603e83"
+# The full model, used by the Language Confusion Benchmark's own scorer.
+LID_BIN_URL = "https://dl.fbaipublicfiles.com/fasttext/supervised-models/lid.176.bin"
+LID_BIN_SHA256 = "7e69ec5451bc261cc7844e49e4792a85d7f09c06789ec800fc4a44aec362764e"
+# Pinned commit of https://github.com/for-ai/language-confusion (Marchisio et al., 2024).
+LCB_COMMIT = "0cfdbb4a64502648938c456b2fa9689968f22298"
+LCB_URL = f"https://raw.githubusercontent.com/for-ai/language-confusion/{LCB_COMMIT}"
+# FLORES-200 (NLLB Team, 2022); not versioned, so checked by hash.
+FLORES_URL = "https://dl.fbaipublicfiles.com/nllb/flores200_dataset.tar.gz"
+FLORES_SHA256 = "b8b0b76783024b85797e5cc75064eb83fc5288b41e9654dabc7be6ae944011f6"
 FILES = {  # name -> (url, file name, revision, expected sha256 or None)
     "svamp": (SVAMP_URL, "SVAMP.json", SVAMP_COMMIT, None),
     "mkqa": (MKQA_URL, "mkqa.jsonl.gz", MKQA_COMMIT, None),
     "fasttext": (LID_URL, "lid.176.ftz", f"sha256:{LID_SHA256}", LID_SHA256),
+    "fasttext_bin": (LID_BIN_URL, "lid.176.bin", f"sha256:{LID_BIN_SHA256}", LID_BIN_SHA256),
+    "lcb": (f"{LCB_URL}/test_sets.zip", "test_sets.zip", LCB_COMMIT, None),
+    "lcb_words": (f"{LCB_URL}/words", "words", LCB_COMMIT, None),
+    "flores": (FLORES_URL, "flores200_dataset.tar.gz", f"sha256:{FLORES_SHA256}", FLORES_SHA256),
 }
 
 
