@@ -14,6 +14,7 @@ slurm/submit.sh -J lcb_instr_dev -- python $G --pilot          # instruction onl
 for L in ja zh ru hi tr ar; do                                 # one language per GPU; the runs are independent
   slurm/submit.sh -J lcb_$L -t 01:30:00 -- env PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True python $G --lang $L
 done
+slurm/submit.sh -J lcb_universal --gres gpu:2 -- bash -c "for L in ja zh ru hi tr ar; do python $G --lang \$L --universal; done"   # after all dev grids; shared setting on test
 .venv/bin/python src/experiments/language_confusion/analyse.py --pilot   # -> pilot table + results/summary_pilot.json
 .venv/bin/python src/experiments/language_confusion/analyse.py           # -> test tables + results/summary.json
 ```
@@ -87,6 +88,21 @@ The other measures, given as instruction → steering → instruction + steering
 4. **Steering acts like a switch (dev grid).** Without the instruction, α ≤ 0.5 leaves the answer in English (LPR 0.00–0.35). α = 1 switches it at every layer (0.78–1.00). From α = 2, degeneration grows quickly, especially from layer 16 on, and at α = 3 most settings exceed 50%. Every chosen setting has α ≤ 2.
 5. **Word-level mixing rises slightly under steering alone** (WPR −0.03 to −0.06 in ja, zh and ru).
 
+### One setting for all languages (test)
+
+The same selection rule, applied to the mean dev LPR and degenerate rate over the six languages and requiring the degenerate limit in every language, picks **l = 12, α = 1 for steering** and **l = 24, α = 1 for instruction + steering**. These were run once on test (`--universal`), with a fresh instruction run in the same job. That job ran on B300s, so the instruction differs from the table above by up to 0.01.
+
+LPR, with the gained / lost prompts against the instruction and the McNemar p in brackets:
+
+| | ja | zh | ru | hi | ar | tr |
+|---|---|---|---|---|---|---|
+| Instruction | .85 | .83 | .94 | .91 | .93 | .97 |
+| Steering (12, 1) | .95 (+27/−7, p = .001) | .90 (+21/−7, p = .01) | .99 (+9/−1, p = .02) | 1.00 (+17/−0, p < .001) | .99 (+14/−1, p = .001) | .96 (+2/−4, p = .69) |
+| Instruction + steering (24, 1) | .95 (+26/−7, p = .001) | .92 (+24/−5, p = .001) | 1.00 (+10/−0, p = .002) | 1.00 (+16/−0, p < .001) | 1.00 (+13/−0, p < .001) | .98 (+3/−1, p = .63) |
+
+* **Per-language tuning buys almost nothing.** Every LPR is within 0.02 of the per-language setting, and the same comparisons are significant. The dev grids are flat: at α = 1, layers 8–16 are within about 2 dev prompts of the best in nearly every language.
+* **Steering at (12, 1) is the safer default.** Instruction + steering at layer 24 keeps LPR at 1.00 in hi and ar, but degeneration rises to .06–.07 and WPR drops (hi .98 → .87, ar .91 → .86).
+
 **Hand check:** we read 20 test prompts (ja, zh, ru, hi, tr), all three arms: 2 random prompts per language, 1 where steering alone gained and 1 where it lost.
 * On the random prompts, all arms were fluent and on topic, and wrong facts appeared equally often in every arm.
 * Of the 5 gains, 3 were real: romanized Russian and Hindi became native script, and an English JSON analysis became Turkish. 2 were scorer artifacts: song titles translated, and a truncated list line.
@@ -95,7 +111,7 @@ The other measures, given as instruction → steering → instruction + steering
 
 **Caveats:**
 * LCB measures only the language, not quality or correctness.
-* The settings are tuned per language on dev.
+* The main settings are tuned per language on dev (a shared setting does as well, above).
 * fastText is unreliable on code, JSON and quoted English names.
 * One model.
 

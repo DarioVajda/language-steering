@@ -10,54 +10,6 @@
     "alpha": 1
    }
   },
-  "test": {
-   "instruction": {
-    "lpr": 0.9316370250409731,
-    "wpr": 0.9066143565553944,
-    "n": 197,
-    "english": 0.050761421319796954,
-    "degenerate": 0.030456852791878174,
-    "lpr_by_source": {
-     "okapi": 0.9552238805970149,
-     "sharegpt": 0.9848484848484849,
-     "complex_prompts": 0.8548387096774194
-    }
-   },
-   "steer": {
-    "lpr": 1.0,
-    "wpr": 0.8969200198708395,
-    "n": 197,
-    "english": 0.0,
-    "degenerate": 0.030456852791878174,
-    "lpr_by_source": {
-     "okapi": 1.0,
-     "sharegpt": 1.0,
-     "complex_prompts": 1.0
-    },
-    "layer": 12,
-    "alpha": 1,
-    "gained": 13,
-    "lost": 0,
-    "p": 0.000244140625
-   },
-   "instruction_steer": {
-    "lpr": 0.9944444444444445,
-    "wpr": 0.905797156998776,
-    "n": 197,
-    "english": 0.0,
-    "degenerate": 0.030456852791878174,
-    "lpr_by_source": {
-     "okapi": 1.0,
-     "sharegpt": 1.0,
-     "complex_prompts": 0.9833333333333333
-    },
-    "layer": 8,
-    "alpha": 1,
-    "gained": 12,
-    "lost": 0,
-    "p": 0.00048828125
-   }
-  },
   "dev_grid": [
    {
     "cond": "instruction",
@@ -467,7 +419,103 @@
     "english": 0.00980392156862745,
     "degenerate": 0.9901960784313726
    }
-  ]
+  ],
+  "test": {
+   "instruction": {
+    "lpr": 0.9316370250409731,
+    "wpr": 0.9066143565553944,
+    "n": 197,
+    "english": 0.050761421319796954,
+    "degenerate": 0.030456852791878174,
+    "lpr_by_source": {
+     "okapi": 0.9552238805970149,
+     "sharegpt": 0.9848484848484849,
+     "complex_prompts": 0.8548387096774194
+    }
+   },
+   "steer": {
+    "lpr": 1.0,
+    "wpr": 0.8969200198708395,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.030456852791878174,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 1.0,
+     "complex_prompts": 1.0
+    },
+    "layer": 12,
+    "alpha": 1,
+    "gained": 13,
+    "lost": 0,
+    "p": 0.000244140625
+   },
+   "instruction_steer": {
+    "lpr": 0.9944444444444445,
+    "wpr": 0.905797156998776,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.030456852791878174,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 1.0,
+     "complex_prompts": 0.9833333333333333
+    },
+    "layer": 8,
+    "alpha": 1,
+    "gained": 12,
+    "lost": 0,
+    "p": 0.00048828125
+   }
+  },
+  "test_universal": {
+   "instruction": {
+    "lpr": 0.9253793130719972,
+    "wpr": 0.9001728255404725,
+    "n": 197,
+    "english": 0.050761421319796954,
+    "degenerate": 0.04060913705583756,
+    "lpr_by_source": {
+     "okapi": 0.9552238805970149,
+     "sharegpt": 0.9848484848484849,
+     "complex_prompts": 0.8360655737704918
+    }
+   },
+   "steer": {
+    "lpr": 0.9949494949494949,
+    "wpr": 0.9063472047078603,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.030456852791878174,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 0.9848484848484849,
+     "complex_prompts": 1.0
+    },
+    "layer": 12,
+    "alpha": 1,
+    "gained": 14,
+    "lost": 1,
+    "p": 0.0009765625
+   },
+   "instruction_steer": {
+    "lpr": 1.0,
+    "wpr": 0.8560624008385203,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.06091370558375635,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 1.0,
+     "complex_prompts": 1.0
+    },
+    "layer": 24,
+    "alpha": 1,
+    "gained": 13,
+    "lost": 0,
+    "p": 0.000244140625
+   }
+  }
  },
  "hi": {
   "chosen": {
@@ -478,54 +526,6 @@
    "instruction_steer": {
     "layer": 16,
     "alpha": 1
-   }
-  },
-  "test": {
-   "instruction": {
-    "lpr": 0.9170577039047189,
-    "wpr": 0.9748717948717949,
-    "n": 197,
-    "english": 0.05583756345177665,
-    "degenerate": 0.0,
-    "lpr_by_source": {
-     "okapi": 0.9850746268656716,
-     "sharegpt": 0.9848484848484849,
-     "complex_prompts": 0.78125
-    }
-   },
-   "steer": {
-    "lpr": 1.0,
-    "wpr": 0.983606557377049,
-    "n": 197,
-    "english": 0.0,
-    "degenerate": 0.015228426395939087,
-    "lpr_by_source": {
-     "okapi": 1.0,
-     "sharegpt": 1.0,
-     "complex_prompts": 1.0
-    },
-    "layer": 12,
-    "alpha": 1,
-    "gained": 15,
-    "lost": 0,
-    "p": 6.103515625e-05
-   },
-   "instruction_steer": {
-    "lpr": 1.0,
-    "wpr": 0.9794823232323232,
-    "n": 197,
-    "english": 0.0,
-    "degenerate": 0.0,
-    "lpr_by_source": {
-     "okapi": 1.0,
-     "sharegpt": 1.0,
-     "complex_prompts": 1.0
-    },
-    "layer": 16,
-    "alpha": 1,
-    "gained": 16,
-    "lost": 0,
-    "p": 3.0517578125e-05
    }
   },
   "dev_grid": [
@@ -937,7 +937,103 @@
     "english": 0.0,
     "degenerate": 1.0
    }
-  ]
+  ],
+  "test": {
+   "instruction": {
+    "lpr": 0.9170577039047189,
+    "wpr": 0.9748717948717949,
+    "n": 197,
+    "english": 0.05583756345177665,
+    "degenerate": 0.0,
+    "lpr_by_source": {
+     "okapi": 0.9850746268656716,
+     "sharegpt": 0.9848484848484849,
+     "complex_prompts": 0.78125
+    }
+   },
+   "steer": {
+    "lpr": 1.0,
+    "wpr": 0.983606557377049,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.015228426395939087,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 1.0,
+     "complex_prompts": 1.0
+    },
+    "layer": 12,
+    "alpha": 1,
+    "gained": 15,
+    "lost": 0,
+    "p": 6.103515625e-05
+   },
+   "instruction_steer": {
+    "lpr": 1.0,
+    "wpr": 0.9794823232323232,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.0,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 1.0,
+     "complex_prompts": 1.0
+    },
+    "layer": 16,
+    "alpha": 1,
+    "gained": 16,
+    "lost": 0,
+    "p": 3.0517578125e-05
+   }
+  },
+  "test_universal": {
+   "instruction": {
+    "lpr": 0.9066410372380522,
+    "wpr": 0.980982905982906,
+    "n": 197,
+    "english": 0.06091370558375635,
+    "degenerate": 0.0,
+    "lpr_by_source": {
+     "okapi": 0.9850746268656716,
+     "sharegpt": 0.9848484848484849,
+     "complex_prompts": 0.75
+    }
+   },
+   "steer": {
+    "lpr": 1.0,
+    "wpr": 0.983606557377049,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.015228426395939087,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 1.0,
+     "complex_prompts": 1.0
+    },
+    "layer": 12,
+    "alpha": 1,
+    "gained": 17,
+    "lost": 0,
+    "p": 1.52587890625e-05
+   },
+   "instruction_steer": {
+    "lpr": 1.0,
+    "wpr": 0.8705125068227589,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.06598984771573604,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 1.0,
+     "complex_prompts": 1.0
+    },
+    "layer": 24,
+    "alpha": 1,
+    "gained": 16,
+    "lost": 0,
+    "p": 3.0517578125e-05
+   }
+  }
  },
  "ja": {
   "chosen": {
@@ -948,54 +1044,6 @@
    "instruction_steer": {
     "layer": 16,
     "alpha": 1
-   }
-  },
-  "test": {
-   "instruction": {
-    "lpr": 0.8568214797225991,
-    "wpr": 0.9591836734693877,
-    "n": 197,
-    "english": 0.08629441624365482,
-    "degenerate": 0.005076142131979695,
-    "lpr_by_source": {
-     "okapi": 0.8805970149253731,
-     "sharegpt": 0.9242424242424242,
-     "complex_prompts": 0.765625
-    }
-   },
-   "steer": {
-    "lpr": 0.9428661616161617,
-    "wpr": 0.9168091168091168,
-    "n": 197,
-    "english": 0.0,
-    "degenerate": 0.025380710659898477,
-    "lpr_by_source": {
-     "okapi": 1.0,
-     "sharegpt": 0.9848484848484849,
-     "complex_prompts": 0.84375
-    },
-    "layer": 8,
-    "alpha": 1,
-    "gained": 26,
-    "lost": 9,
-    "p": 0.0059881205670535564
-   },
-   "instruction_steer": {
-    "lpr": 0.974657960199005,
-    "wpr": 0.9529162593678723,
-    "n": 197,
-    "english": 0.0,
-    "degenerate": 0.01015228426395939,
-    "lpr_by_source": {
-     "okapi": 0.9552238805970149,
-     "sharegpt": 1.0,
-     "complex_prompts": 0.96875
-    },
-    "layer": 16,
-    "alpha": 1,
-    "gained": 28,
-    "lost": 5,
-    "p": 6.618769839406013e-05
    }
   },
   "dev_grid": [
@@ -1407,7 +1455,103 @@
     "english": 0.00980392156862745,
     "degenerate": 0.7941176470588235
    }
-  ]
+  ],
+  "test": {
+   "instruction": {
+    "lpr": 0.8568214797225991,
+    "wpr": 0.9591836734693877,
+    "n": 197,
+    "english": 0.08629441624365482,
+    "degenerate": 0.005076142131979695,
+    "lpr_by_source": {
+     "okapi": 0.8805970149253731,
+     "sharegpt": 0.9242424242424242,
+     "complex_prompts": 0.765625
+    }
+   },
+   "steer": {
+    "lpr": 0.9428661616161617,
+    "wpr": 0.9168091168091168,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.025380710659898477,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 0.9848484848484849,
+     "complex_prompts": 0.84375
+    },
+    "layer": 8,
+    "alpha": 1,
+    "gained": 26,
+    "lost": 9,
+    "p": 0.0059881205670535564
+   },
+   "instruction_steer": {
+    "lpr": 0.974657960199005,
+    "wpr": 0.9529162593678723,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.01015228426395939,
+    "lpr_by_source": {
+     "okapi": 0.9552238805970149,
+     "sharegpt": 1.0,
+     "complex_prompts": 0.96875
+    },
+    "layer": 16,
+    "alpha": 1,
+    "gained": 28,
+    "lost": 5,
+    "p": 6.618769839406013e-05
+   }
+  },
+  "test_universal": {
+   "instruction": {
+    "lpr": 0.8516131463892659,
+    "wpr": 0.9513888888888888,
+    "n": 197,
+    "english": 0.08629441624365482,
+    "degenerate": 0.0,
+    "lpr_by_source": {
+     "okapi": 0.8805970149253731,
+     "sharegpt": 0.9242424242424242,
+     "complex_prompts": 0.75
+    }
+   },
+   "steer": {
+    "lpr": 0.9537563131313131,
+    "wpr": 0.9276471660287954,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.01015228426395939,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 0.9393939393939394,
+     "complex_prompts": 0.921875
+    },
+    "layer": 12,
+    "alpha": 1,
+    "gained": 27,
+    "lost": 7,
+    "p": 0.0008213953115046024
+   },
+   "instruction_steer": {
+    "lpr": 0.9483077039047189,
+    "wpr": 0.931945831945832,
+    "n": 197,
+    "english": 0.005076142131979695,
+    "degenerate": 0.025380710659898477,
+    "lpr_by_source": {
+     "okapi": 0.9850746268656716,
+     "sharegpt": 0.9848484848484849,
+     "complex_prompts": 0.875
+    },
+    "layer": 24,
+    "alpha": 1,
+    "gained": 26,
+    "lost": 7,
+    "p": 0.0013187271542847157
+   }
+  }
  },
  "ru": {
   "chosen": {
@@ -1418,54 +1562,6 @@
    "instruction_steer": {
     "layer": 12,
     "alpha": 2
-   }
-  },
-  "test": {
-   "instruction": {
-    "lpr": 0.9374699374699375,
-    "wpr": 0.9453598484848484,
-    "n": 197,
-    "english": 0.050761421319796954,
-    "degenerate": 0.01015228426395939,
-    "lpr_by_source": {
-     "okapi": 0.9696969696969697,
-     "sharegpt": 0.9696969696969697,
-     "complex_prompts": 0.873015873015873
-    }
-   },
-   "steer": {
-    "lpr": 0.9948717948717949,
-    "wpr": 0.9246932709334682,
-    "n": 197,
-    "english": 0.0,
-    "degenerate": 0.04060913705583756,
-    "lpr_by_source": {
-     "okapi": 1.0,
-     "sharegpt": 0.9846153846153847,
-     "complex_prompts": 1.0
-    },
-    "layer": 12,
-    "alpha": 1,
-    "gained": 10,
-    "lost": 1,
-    "p": 0.01171875
-   },
-   "instruction_steer": {
-    "lpr": 0.9844428650398799,
-    "wpr": 0.952889551250207,
-    "n": 197,
-    "english": 0.0,
-    "degenerate": 0.03553299492385787,
-    "lpr_by_source": {
-     "okapi": 0.9850746268656716,
-     "sharegpt": 1.0,
-     "complex_prompts": 0.9682539682539683
-    },
-    "layer": 12,
-    "alpha": 2,
-    "gained": 11,
-    "lost": 3,
-    "p": 0.057373046875
    }
   },
   "dev_grid": [
@@ -1877,7 +1973,103 @@
     "english": 0.0,
     "degenerate": 0.8235294117647058
    }
-  ]
+  ],
+  "test": {
+   "instruction": {
+    "lpr": 0.9374699374699375,
+    "wpr": 0.9453598484848484,
+    "n": 197,
+    "english": 0.050761421319796954,
+    "degenerate": 0.01015228426395939,
+    "lpr_by_source": {
+     "okapi": 0.9696969696969697,
+     "sharegpt": 0.9696969696969697,
+     "complex_prompts": 0.873015873015873
+    }
+   },
+   "steer": {
+    "lpr": 0.9948717948717949,
+    "wpr": 0.9246932709334682,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.04060913705583756,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 0.9846153846153847,
+     "complex_prompts": 1.0
+    },
+    "layer": 12,
+    "alpha": 1,
+    "gained": 10,
+    "lost": 1,
+    "p": 0.01171875
+   },
+   "instruction_steer": {
+    "lpr": 0.9844428650398799,
+    "wpr": 0.952889551250207,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.03553299492385787,
+    "lpr_by_source": {
+     "okapi": 0.9850746268656716,
+     "sharegpt": 1.0,
+     "complex_prompts": 0.9682539682539683
+    },
+    "layer": 12,
+    "alpha": 2,
+    "gained": 11,
+    "lost": 3,
+    "p": 0.057373046875
+   }
+  },
+  "test_universal": {
+   "instruction": {
+    "lpr": 0.9427609427609428,
+    "wpr": 0.9397321428571429,
+    "n": 197,
+    "english": 0.04568527918781726,
+    "degenerate": 0.01015228426395939,
+    "lpr_by_source": {
+     "okapi": 0.9696969696969697,
+     "sharegpt": 0.9696969696969697,
+     "complex_prompts": 0.8888888888888888
+    }
+   },
+   "steer": {
+    "lpr": 0.9948717948717949,
+    "wpr": 0.9197181465553589,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.03553299492385787,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 0.9846153846153847,
+     "complex_prompts": 1.0
+    },
+    "layer": 12,
+    "alpha": 1,
+    "gained": 9,
+    "lost": 1,
+    "p": 0.021484375
+   },
+   "instruction_steer": {
+    "lpr": 1.0,
+    "wpr": 0.9314862636961818,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.01015228426395939,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 1.0,
+     "complex_prompts": 1.0
+    },
+    "layer": 24,
+    "alpha": 1,
+    "gained": 10,
+    "lost": 0,
+    "p": 0.001953125
+   }
+  }
  },
  "tr": {
   "chosen": {
@@ -1888,51 +2080,6 @@
    "instruction_steer": {
     "layer": 24,
     "alpha": 1
-   }
-  },
-  "test": {
-   "instruction": {
-    "lpr": 0.9739583333333334,
-    "n": 197,
-    "english": 0.015228426395939087,
-    "degenerate": 0.005076142131979695,
-    "lpr_by_source": {
-     "okapi": 1.0,
-     "sharegpt": 1.0,
-     "complex_prompts": 0.921875
-    }
-   },
-   "steer": {
-    "lpr": 0.9638573232323232,
-    "n": 197,
-    "english": 0.01015228426395939,
-    "degenerate": 0.005076142131979695,
-    "lpr_by_source": {
-     "okapi": 1.0,
-     "sharegpt": 0.9696969696969697,
-     "complex_prompts": 0.921875
-    },
-    "layer": 8,
-    "alpha": 1,
-    "gained": 2,
-    "lost": 4,
-    "p": 0.6875
-   },
-   "instruction_steer": {
-    "lpr": 0.984375,
-    "n": 197,
-    "english": 0.005076142131979695,
-    "degenerate": 0.025380710659898477,
-    "lpr_by_source": {
-     "okapi": 1.0,
-     "sharegpt": 1.0,
-     "complex_prompts": 0.953125
-    },
-    "layer": 24,
-    "alpha": 1,
-    "gained": 3,
-    "lost": 1,
-    "p": 0.625
    }
   },
   "dev_grid": [
@@ -2344,7 +2491,97 @@
     "english": 0.00980392156862745,
     "degenerate": 1.0
    }
-  ]
+  ],
+  "test": {
+   "instruction": {
+    "lpr": 0.9739583333333334,
+    "n": 197,
+    "english": 0.015228426395939087,
+    "degenerate": 0.005076142131979695,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 1.0,
+     "complex_prompts": 0.921875
+    }
+   },
+   "steer": {
+    "lpr": 0.9638573232323232,
+    "n": 197,
+    "english": 0.01015228426395939,
+    "degenerate": 0.005076142131979695,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 0.9696969696969697,
+     "complex_prompts": 0.921875
+    },
+    "layer": 8,
+    "alpha": 1,
+    "gained": 2,
+    "lost": 4,
+    "p": 0.6875
+   },
+   "instruction_steer": {
+    "lpr": 0.984375,
+    "n": 197,
+    "english": 0.005076142131979695,
+    "degenerate": 0.025380710659898477,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 1.0,
+     "complex_prompts": 0.953125
+    },
+    "layer": 24,
+    "alpha": 1,
+    "gained": 3,
+    "lost": 1,
+    "p": 0.625
+   }
+  },
+  "test_universal": {
+   "instruction": {
+    "lpr": 0.9739583333333334,
+    "n": 197,
+    "english": 0.015228426395939087,
+    "degenerate": 0.005076142131979695,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 1.0,
+     "complex_prompts": 0.921875
+    }
+   },
+   "steer": {
+    "lpr": 0.9623655913978495,
+    "n": 197,
+    "english": 0.01015228426395939,
+    "degenerate": 0.02030456852791878,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 1.0,
+     "complex_prompts": 0.8870967741935484
+    },
+    "layer": 12,
+    "alpha": 1,
+    "gained": 2,
+    "lost": 4,
+    "p": 0.6875
+   },
+   "instruction_steer": {
+    "lpr": 0.984375,
+    "n": 197,
+    "english": 0.005076142131979695,
+    "degenerate": 0.025380710659898477,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 1.0,
+     "complex_prompts": 0.953125
+    },
+    "layer": 24,
+    "alpha": 1,
+    "gained": 3,
+    "lost": 1,
+    "p": 0.625
+   }
+  }
  },
  "zh": {
   "chosen": {
@@ -2355,54 +2592,6 @@
    "instruction_steer": {
     "layer": 20,
     "alpha": 0.5
-   }
-  },
-  "test": {
-   "instruction": {
-    "lpr": 0.8257293080054273,
-    "wpr": 0.94728642355761,
-    "n": 197,
-    "english": 0.05583756345177665,
-    "degenerate": 0.0,
-    "lpr_by_source": {
-     "okapi": 0.8805970149253731,
-     "sharegpt": 0.9090909090909091,
-     "complex_prompts": 0.6875
-    }
-   },
-   "steer": {
-    "lpr": 0.8967732360922659,
-    "wpr": 0.8910518053375195,
-    "n": 197,
-    "english": 0.005076142131979695,
-    "degenerate": 0.0,
-    "lpr_by_source": {
-     "okapi": 0.9701492537313433,
-     "sharegpt": 0.9545454545454546,
-     "complex_prompts": 0.765625
-    },
-    "layer": 24,
-    "alpha": 1,
-    "gained": 23,
-    "lost": 9,
-    "p": 0.020061607006937265
-   },
-   "instruction_steer": {
-    "lpr": 0.9075738730589477,
-    "wpr": 0.9330851943755171,
-    "n": 197,
-    "english": 0.025380710659898477,
-    "degenerate": 0.005076142131979695,
-    "lpr_by_source": {
-     "okapi": 0.9253731343283582,
-     "sharegpt": 0.9848484848484849,
-     "complex_prompts": 0.8125
-    },
-    "layer": 20,
-    "alpha": 0.5,
-    "gained": 19,
-    "lost": 3,
-    "p": 0.0008554458618164062
    }
   },
   "dev_grid": [
@@ -2814,6 +3003,102 @@
     "english": 0.0196078431372549,
     "degenerate": 0.5392156862745098
    }
-  ]
+  ],
+  "test": {
+   "instruction": {
+    "lpr": 0.8257293080054273,
+    "wpr": 0.94728642355761,
+    "n": 197,
+    "english": 0.05583756345177665,
+    "degenerate": 0.0,
+    "lpr_by_source": {
+     "okapi": 0.8805970149253731,
+     "sharegpt": 0.9090909090909091,
+     "complex_prompts": 0.6875
+    }
+   },
+   "steer": {
+    "lpr": 0.8967732360922659,
+    "wpr": 0.8910518053375195,
+    "n": 197,
+    "english": 0.005076142131979695,
+    "degenerate": 0.0,
+    "lpr_by_source": {
+     "okapi": 0.9701492537313433,
+     "sharegpt": 0.9545454545454546,
+     "complex_prompts": 0.765625
+    },
+    "layer": 24,
+    "alpha": 1,
+    "gained": 23,
+    "lost": 9,
+    "p": 0.020061607006937265
+   },
+   "instruction_steer": {
+    "lpr": 0.9075738730589477,
+    "wpr": 0.9330851943755171,
+    "n": 197,
+    "english": 0.025380710659898477,
+    "degenerate": 0.005076142131979695,
+    "lpr_by_source": {
+     "okapi": 0.9253731343283582,
+     "sharegpt": 0.9848484848484849,
+     "complex_prompts": 0.8125
+    },
+    "layer": 20,
+    "alpha": 0.5,
+    "gained": 19,
+    "lost": 3,
+    "p": 0.0008554458618164062
+   }
+  },
+  "test_universal": {
+   "instruction": {
+    "lpr": 0.8251804424845469,
+    "wpr": 0.9701853308855669,
+    "n": 197,
+    "english": 0.050761421319796954,
+    "degenerate": 0.005076142131979695,
+    "lpr_by_source": {
+     "okapi": 0.8955223880597015,
+     "sharegpt": 0.9393939393939394,
+     "complex_prompts": 0.640625
+    }
+   },
+   "steer": {
+    "lpr": 0.8972467209407508,
+    "wpr": 0.9696581196581198,
+    "n": 197,
+    "english": 0.005076142131979695,
+    "degenerate": 0.025380710659898477,
+    "lpr_by_source": {
+     "okapi": 0.9701492537313433,
+     "sharegpt": 0.9090909090909091,
+     "complex_prompts": 0.8125
+    },
+    "layer": 12,
+    "alpha": 1,
+    "gained": 21,
+    "lost": 7,
+    "p": 0.012540951371192932
+   },
+   "instruction_steer": {
+    "lpr": 0.9229656641037239,
+    "wpr": 0.9369285035951703,
+    "n": 197,
+    "english": 0.005076142131979695,
+    "degenerate": 0.005076142131979695,
+    "lpr_by_source": {
+     "okapi": 0.9402985074626866,
+     "sharegpt": 0.9848484848484849,
+     "complex_prompts": 0.84375
+    },
+    "layer": 24,
+    "alpha": 1,
+    "gained": 24,
+    "lost": 5,
+    "p": 0.0005461126565933228
+   }
+  }
  }
 }

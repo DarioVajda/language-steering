@@ -12,7 +12,8 @@ A language's LPR and WPR are the means over its three sources, as in the benchma
   * degenerate: no kept line, or a substring of >= 4 characters repeated >= 4 times in a row (a loop).
 Selection (dev, per steering condition): among layer x alpha settings whose degenerate rate is at most the
 instruction's + 0.05, the highest LPR; ties go to the lower degenerate rate, then the smaller alpha, then
-the earlier layer.
+the earlier layer. The universal setting, shared by all languages, applies the same rule to the mean LPR and
+degenerate rate over the languages, among settings within the degenerate limit in every language.
 Test comparison with the instruction: paired over prompts, exact McNemar test on line-level passes.
 
 Usage: python src/experiments/language_confusion/analyse.py          # main comparison -> results/summary.json
@@ -117,16 +118,27 @@ def configs(rows):
     return g
 
 
-def select(rows, lang):
-    """{steering condition: (layer, alpha)} chosen on dev rows of one language."""
-    g = configs(rows)
-    s = {k: score(v) for k, v in g.items()}
-    limit = s[("instruction", None, None)]["degenerate"] + MAX_EXTRA_DEGENERATE
+def dev_scores(rows):
+    """{(cond, layer, alpha): score} for the dev rows of one language."""
+    return {k: score(v) for k, v in configs(rows).items()}
+
+
+def select(scores):
+    """{steering condition: (layer, alpha)} chosen on the dev scores of one language."""
+    return select_universal({None: scores})
+
+
+def select_universal(scores_by_lang):
+    """{steering condition: (layer, alpha)} shared by the languages {lang: dev scores}."""
+    S = list(scores_by_lang.values())
+    mean = lambda k, m: sum(s[k][m] for s in S) / len(S)
+    within = lambda k: all(s[k]["degenerate"] <= s[("instruction", None, None)]["degenerate"] + MAX_EXTRA_DEGENERATE
+                           for s in S)
     chosen = {}
     for cond in ("steer", "instruction_steer"):
-        keys = [k for k in s if k[0] == cond]
-        ok = [k for k in keys if s[k]["degenerate"] <= limit] or [min(keys, key=lambda k: s[k]["degenerate"])]
-        best = min(ok, key=lambda k: (-s[k]["lpr"], s[k]["degenerate"], k[2], k[1]))
+        keys = [k for k in S[0] if k[0] == cond]
+        ok = [k for k in keys if within(k)] or [min(keys, key=lambda k: mean(k, "degenerate"))]
+        best = min(ok, key=lambda k: (-mean(k, "lpr"), mean(k, "degenerate"), k[2], k[1]))
         chosen[cond] = (best[1], best[2])
     return chosen
 
@@ -158,36 +170,44 @@ def pilot():
     (HERE / "results/summary_pilot.json").write_text(json.dumps(out, indent=1) + "\n")
 
 
+def compare(test, title):
+    """Score the test conditions {(cond, layer, alpha): rows} of one language and test each against the instruction."""
+    out = {}
+    base = test[("instruction", None, None)]
+    print(f"\n== {title}  (test, n = {len(base)})")
+    print(f"{'':19}{'LPR':>6}{'complex':>9}{'WPR':>6}{'English':>9}{'degen':>7}   vs instruction (McNemar)")
+    for k, rows in sorted(test.items(), key=lambda kv: ["instruction", "steer", "instruction_steer"].index(kv[0][0])):
+        d = out[k[0]] = score(rows)
+        cmp = ""
+        if k[0] != "instruction":
+            assert [r["id"] for r in rows] == [r["id"] for r in base]
+            n01, n10, p = mcnemar([passes(r) for r in base], [passes(r) for r in rows])
+            d.update(layer=k[1], alpha=k[2], gained=n01, lost=n10, p=p)
+            cmp = f"   +{n01} / -{n10}, p = {p:.3f}   (layer {k[1]}, alpha {k[2]})"
+        wpr = f"{d['wpr']:.2f}" if "wpr" in d else "-"
+        print(f"{k[0]:19}{d['lpr']:>6.2f}{d['lpr_by_source']['complex_prompts']:>9.2f}{wpr:>6}"
+              f"{d['english']:>9.2f}{d['degenerate']:>7.2f}{cmp}")
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pilot", action="store_true")
     if ap.parse_args().pilot:
         return pilot()
+    langs = sorted(f.name.split("_")[0] for f in GEN.glob("*_test.jsonl"))
+    dev = {L: dev_scores([json.loads(l) for l in open(GEN / f"{L}_dev.jsonl")]) for L in langs}
+    universal = select_universal(dev)
+    print("universal setting:", universal)
     out = {}
-    for f in sorted(GEN.glob("*_test.jsonl")):
-        L = f.name.split("_")[0]
-        dev = [json.loads(l) for l in open(GEN / f"{L}_dev.jsonl")]
-        test = configs([json.loads(l) for l in open(f)])
-        chosen = select(dev, L)
-        dev_scores = {k: score(v) for k, v in configs(dev).items()}
-        res = {"chosen": {c: dict(layer=l, alpha=a) for c, (l, a) in chosen.items()}, "test": {},
-               "dev_grid": [dict(cond=k[0], layer=k[1], alpha=k[2], **{m: v[m] for m in ("lpr", "english", "degenerate")})
-                            for k, v in dev_scores.items()]}
-        base = test[("instruction", None, None)]
-        print(f"\n== {L}  (test, n = {len(base)})")
-        print(f"{'':19}{'LPR':>6}{'complex':>9}{'WPR':>6}{'English':>9}{'degen':>7}   vs instruction (McNemar)")
-        for k, rows in sorted(test.items(), key=lambda kv: ["instruction", "steer", "instruction_steer"].index(kv[0][0])):
-            d = res["test"][k[0]] = score(rows)
-            cmp = ""
-            if k[0] != "instruction":
-                assert [r["id"] for r in rows] == [r["id"] for r in base]
-                n01, n10, p = mcnemar([passes(r) for r in base], [passes(r) for r in rows])
-                d.update(layer=k[1], alpha=k[2], gained=n01, lost=n10, p=p)
-                cmp = f"   +{n01} / -{n10}, p = {p:.3f}   (layer {k[1]}, alpha {k[2]})"
-            wpr = f"{d['wpr']:.2f}" if "wpr" in d else "-"
-            print(f"{k[0]:19}{d['lpr']:>6.2f}{d['lpr_by_source']['complex_prompts']:>9.2f}{wpr:>6}"
-                  f"{d['english']:>9.2f}{d['degenerate']:>7.2f}{cmp}")
-        out[L] = res
+    for L in langs:
+        res = out[L] = {"chosen": {c: dict(layer=l, alpha=a) for c, (l, a) in select(dev[L]).items()},
+                        "dev_grid": [dict(cond=k[0], layer=k[1], alpha=k[2], **{m: v[m] for m in ("lpr", "english", "degenerate")})
+                                     for k, v in dev[L].items()]}
+        res["test"] = compare(configs([json.loads(l) for l in open(GEN / f"{L}_test.jsonl")]), L)
+        if (GEN / f"{L}_test_universal.jsonl").exists():
+            res["test_universal"] = compare(configs([json.loads(l) for l in open(GEN / f"{L}_test_universal.jsonl")]),
+                                            f"{L}, universal setting")
     (HERE / "results/summary.json").write_text(json.dumps(out, indent=1) + "\n")
 
 

@@ -12,7 +12,9 @@ One run does everything for one language, in a single job:
   1. dev: instruction, and both steering conditions over the grid layer x alpha;
   2. per steering condition, the dev setting chosen by analyse.select;
   3. test: instruction and both steering conditions at their chosen settings.
-Writes results/generations/<T>_{dev,test}.jsonl; an existing <T>_dev.jsonl is reused. Each configuration is generated as one call over all of
+Writes results/generations/<T>_{dev,test}.jsonl; an existing <T>_dev.jsonl is reused.
+With --universal, step 1 must have been run for every language: test is run instead at the setting shared
+by all languages (analyse.select_universal), with its own instruction run, into <T>_test_universal.jsonl. Each configuration is generated as one call over all of
 its prompts in length-sorted batches with a fixed token budget, so a run is deterministic.
 
 The --pilot flag instead generates the instruction condition for all 14 languages on dev
@@ -139,6 +141,7 @@ def main():
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--lang", choices=LANGS)
     g.add_argument("--pilot", action="store_true")
+    ap.add_argument("--universal", action="store_true")
     args = ap.parse_args()
     GEN.mkdir(parents=True, exist_ok=True)
     M = Model()
@@ -154,6 +157,16 @@ def main():
     dev = [dict(r, split="dev") for r in data.load("dev", [L])]
     test = [dict(r, split="test") for r in data.load("test", [L])]
 
+    if args.universal:
+        chosen = analyse.select_universal(
+            {l: analyse.dev_scores([json.loads(x) for x in open(GEN / f"{l}_dev.jsonl")]) for l in LANGS})
+        print("universal setting:", chosen, flush=True)
+        rows = run(M, test, "instruction")
+        for cond, (layer, a) in chosen.items():
+            rows += run(M, test, cond, vecs, layer, a)
+        write(rows, GEN / f"{L}_test_universal.jsonl")
+        return
+
     if (GEN / f"{L}_dev.jsonl").exists():  # a finished dev grid is reused (e.g. after a failed test stage)
         rows = [json.loads(l) for l in open(GEN / f"{L}_dev.jsonl")]
     else:
@@ -164,7 +177,7 @@ def main():
                     rows += run(M, dev, cond, vecs, layer, a)
         write(rows, GEN / f"{L}_dev.jsonl")
 
-    chosen = analyse.select(rows, L)
+    chosen = analyse.select(analyse.dev_scores(rows))
     print("chosen on dev:", chosen, flush=True)
     rows = run(M, test, "instruction")
     for cond, (layer, a) in chosen.items():
