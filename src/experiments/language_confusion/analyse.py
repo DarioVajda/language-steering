@@ -9,7 +9,8 @@ A port of the benchmark's compute_metrics.py (for-ai/language-confusion@0cfdbb4a
 A language's LPR and WPR are the means over its three sources, as in the benchmark. Two more measures:
   * English: the response falls back to English (every kept line, or its first kept line, is English);
     this separates real confusion from line-level errors caused by quoted names, tables or code;
-  * degenerate: no kept line, or a substring of >= 4 characters repeated >= 4 times in a row (a loop).
+  * degenerate: no kept line, or a substring of >= 4 characters repeated >= 4 times in a row (a loop);
+  * drift: among responses whose first kept line is T, the share with a later English line.
 Selection (dev, per steering condition): among layer x alpha settings whose degenerate rate is at most the
 instruction's + 0.05, the highest LPR; ties go to the lower degenerate rate, then the smaller alpha, then
 the earlier layer. The universal setting, shared by all languages, applies the same rule to the mean LPR and
@@ -17,6 +18,7 @@ degenerate rate over the languages, among settings within the degenerate limit i
 Test comparison with the instruction: paired over prompts, exact McNemar test on line-level passes.
 
 Usage: python src/experiments/language_confusion/analyse.py          # main comparison -> results/summary.json
+       python src/experiments/language_confusion/analyse.py --prompt-only   # prompt-only steering -> results/summary_prompt.json
        python src/experiments/language_confusion/analyse.py --pilot  # 14-language instruction pilot
 """
 import argparse
@@ -87,6 +89,13 @@ def english(response, lang):
     return bool(labels) and labels[0] == "en"  # covers "all lines English" too
 
 
+def drift(response, lang):
+    """None if the first kept line is not T; else whether a later kept line is English."""
+    lines = [l for l in normalize(response).split("\n") if len(tokenizer(lang)(l)) >= 5]
+    labels = [langid(l) for l in lines]
+    return any(x == "en" for x in labels[1:]) if labels and labels[0] == lang else None
+
+
 def degenerate(response, lang):
     return judge(response, lang) is None or bool(LOOP.search(response))
 
@@ -107,6 +116,7 @@ def score(rows):
     d = {k: sum(by[s][k] for s in data.SOURCES) / len(data.SOURCES) for k in ("lpr", "wpr") if k in by["okapi"]}
     d.update(n=len(rows), english=sum(english(r["response"], L) for r in rows) / len(rows),
              degenerate=sum(degenerate(r["response"], L) for r in rows) / len(rows),
+             drift=(lambda d: sum(d) / max(1, len(d)))([x for r in rows if (x := drift(r["response"], L)) is not None]),
              lpr_by_source={s: by[s]["lpr"] for s in data.SOURCES})
     return d
 
@@ -193,10 +203,13 @@ def compare(test, title):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pilot", action="store_true")
-    if ap.parse_args().pilot:
+    ap.add_argument("--prompt-only", action="store_true")
+    args = ap.parse_args()
+    if args.pilot:
         return pilot()
-    langs = sorted(f.name.split("_")[0] for f in GEN.glob("*_test.jsonl"))
-    dev = {L: dev_scores([json.loads(l) for l in open(GEN / f"{L}_dev.jsonl")]) for L in langs}
+    sfx = "_prompt" if args.prompt_only else ""
+    langs = sorted(f.name.split("_")[0] for f in GEN.glob(f"*_test{sfx}.jsonl"))
+    dev = {L: dev_scores([json.loads(l) for l in open(GEN / f"{L}_dev{sfx}.jsonl")]) for L in langs}
     universal = select_universal(dev)
     print("universal setting:", universal)
     out = {}
@@ -204,11 +217,11 @@ def main():
         res = out[L] = {"chosen": {c: dict(layer=l, alpha=a) for c, (l, a) in select(dev[L]).items()},
                         "dev_grid": [dict(cond=k[0], layer=k[1], alpha=k[2], **{m: v[m] for m in ("lpr", "english", "degenerate")})
                                      for k, v in dev[L].items()]}
-        res["test"] = compare(configs([json.loads(l) for l in open(GEN / f"{L}_test.jsonl")]), L)
-        if (GEN / f"{L}_test_universal.jsonl").exists():
-            res["test_universal"] = compare(configs([json.loads(l) for l in open(GEN / f"{L}_test_universal.jsonl")]),
+        res["test"] = compare(configs([json.loads(l) for l in open(GEN / f"{L}_test{sfx}.jsonl")]), L)
+        if (GEN / f"{L}_test_universal{sfx}.jsonl").exists():
+            res["test_universal"] = compare(configs([json.loads(l) for l in open(GEN / f"{L}_test_universal{sfx}.jsonl")]),
                                             f"{L}, universal setting")
-    (HERE / "results/summary.json").write_text(json.dumps(out, indent=1) + "\n")
+    (HERE / f"results/summary{sfx}.json").write_text(json.dumps(out, indent=1) + "\n")
 
 
 if __name__ == "__main__":

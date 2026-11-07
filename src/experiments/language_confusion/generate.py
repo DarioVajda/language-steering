@@ -6,7 +6,9 @@ Conditions (the benchmark prompt is the only user message; greedy, at most 100 n
   instruction_steer  the prompt as is, + alpha * v_(en->T)(l)
 v_(en->T)(l) = mu_T(l) - mu_en(l), the mean output of block l over the tokens (BOS excluded) of the 997
 FLORES-200 dev sentences in T and in English. The vector is added at every position from the start of
-the user message onward and at every generated token.
+the user message onward and at every generated token. With --prompt-only, it is added to the prompt only
+(from the start of the user message to the end of the prompt), so generated tokens are not steered; the
+alpha grid then extends to 6, since the vector is applied once.
 
 One run does everything for one language, in a single job:
   1. dev: instruction, and both steering conditions over the grid layer x alpha;
@@ -14,7 +16,8 @@ One run does everything for one language, in a single job:
   3. test: instruction and both steering conditions at their chosen settings.
 Writes results/generations/<T>_{dev,test}.jsonl; an existing <T>_dev.jsonl is reused.
 With --universal, step 1 must have been run for every language: test is run instead at the setting shared
-by all languages (analyse.select_universal), with its own instruction run, into <T>_test_universal.jsonl. Each configuration is generated as one call over all of
+by all languages (analyse.select_universal), with its own instruction run, into <T>_test_universal.jsonl.
+--prompt-only runs write the same files with the suffix _prompt (<T>_dev_prompt.jsonl, ...). Each configuration is generated as one call over all of
 its prompts in length-sorted batches with a fixed token budget, so a run is deterministic.
 
 The --pilot flag instead generates the instruction condition for all 14 languages on dev
@@ -45,6 +48,7 @@ MODEL = "meta-llama/Llama-3.1-8B-Instruct"
 MAX_NEW = 100
 MAX_BATCH, TOKEN_BUDGET = 64, 96_000  # prompts per batch, padded prompt tokens per batch
 LAYERS, ALPHAS = (8, 12, 16, 20, 24), (0.25, 0.5, 1, 2, 3)
+ALPHAS_PROMPT = ALPHAS + (4, 6)
 
 
 def flores(lang):
@@ -75,9 +79,10 @@ class Model:
         return acc / len(texts)
 
     @torch.no_grad()
-    def generate(self, texts, steer=None):
+    def generate(self, texts, steer=None, prompt_only=False):
         """Greedy chat responses. steer = {layer: vector} is added to the output of each listed block
-        (1-indexed) at every position from the start of the user message onward and at every generated token."""
+        (1-indexed) at every position from the start of the user message onward and at every generated token,
+        or with prompt_only up to the end of the prompt only."""
         tok = self.tok
         ps = [tok.apply_chat_template([{"role": "user", "content": t}], tokenize=False, add_generation_prompt=True)
               for t in texts]
@@ -101,6 +106,8 @@ class Model:
                     h = o[0] if isinstance(o, tuple) else o
                     if h.shape[1] > 1:  # prefill
                         w = (torch.arange(h.shape[1], device=h.device).unsqueeze(0) >= start).unsqueeze(-1).to(h.dtype)
+                    elif prompt_only:  # decoding step, not steered
+                        return o
                     else:  # decoding step
                         w = torch.ones_like(h[..., :1])
                     h = h + w * vec.to(h.dtype)
@@ -119,12 +126,13 @@ class Model:
         return out
 
 
-def run(M, items, cond, steer_vecs=None, layer=None, alpha=None):
+def run(M, items, cond, steer_vecs=None, layer=None, alpha=None, prompt_only=False):
     texts = [data.strip_instruction(r["prompt"], r["lang"]) if cond == "steer" else r["prompt"] for r in items]
     steer = {layer: alpha * steer_vecs[layer]} if layer else None
-    resps = M.generate(texts, steer)
-    rows = [dict(r, cond=cond, layer=layer, alpha=alpha, input=t, response=s) for r, t, s in zip(items, texts, resps)]
-    print(f"{items[0]['lang']} {items[0]['split']} {cond} layer={layer} alpha={alpha} | "
+    resps = M.generate(texts, steer, prompt_only)
+    rows = [dict(r, cond=cond, layer=layer, alpha=alpha, prompt_only=prompt_only, input=t, response=s)
+            for r, t, s in zip(items, texts, resps)]
+    print(f"{items[0]['lang']} {items[0]['split']} {cond} layer={layer} alpha={alpha} prompt_only={prompt_only} | "
           f"LPR {analyse.rates([analyse.judge(r['response'], r['lang']) for r in rows], items[0]['lang'])['lpr']:.2f} | "
           f"{resps[0][:80]!r}", flush=True)
     return rows
@@ -142,7 +150,9 @@ def main():
     g.add_argument("--lang", choices=LANGS)
     g.add_argument("--pilot", action="store_true")
     ap.add_argument("--universal", action="store_true")
+    ap.add_argument("--prompt-only", action="store_true")
     args = ap.parse_args()
+    po, sfx = args.prompt_only, "_prompt" if args.prompt_only else ""
     GEN.mkdir(parents=True, exist_ok=True)
     M = Model()
 
@@ -159,30 +169,30 @@ def main():
 
     if args.universal:
         chosen = analyse.select_universal(
-            {l: analyse.dev_scores([json.loads(x) for x in open(GEN / f"{l}_dev.jsonl")]) for l in LANGS})
+            {l: analyse.dev_scores([json.loads(x) for x in open(GEN / f"{l}_dev{sfx}.jsonl")]) for l in LANGS})
         print("universal setting:", chosen, flush=True)
         rows = run(M, test, "instruction")
         for cond, (layer, a) in chosen.items():
-            rows += run(M, test, cond, vecs, layer, a)
-        write(rows, GEN / f"{L}_test_universal.jsonl")
+            rows += run(M, test, cond, vecs, layer, a, po)
+        write(rows, GEN / f"{L}_test_universal{sfx}.jsonl")
         return
 
-    if (GEN / f"{L}_dev.jsonl").exists():  # a finished dev grid is reused (e.g. after a failed test stage)
-        rows = [json.loads(l) for l in open(GEN / f"{L}_dev.jsonl")]
+    if (GEN / f"{L}_dev{sfx}.jsonl").exists():  # a finished dev grid is reused (e.g. after a failed test stage)
+        rows = [json.loads(l) for l in open(GEN / f"{L}_dev{sfx}.jsonl")]
     else:
         rows = run(M, dev, "instruction")
         for cond in ("steer", "instruction_steer"):
             for layer in LAYERS:
-                for a in ALPHAS:
-                    rows += run(M, dev, cond, vecs, layer, a)
-        write(rows, GEN / f"{L}_dev.jsonl")
+                for a in ALPHAS_PROMPT if po else ALPHAS:
+                    rows += run(M, dev, cond, vecs, layer, a, po)
+        write(rows, GEN / f"{L}_dev{sfx}.jsonl")
 
     chosen = analyse.select(analyse.dev_scores(rows))
     print("chosen on dev:", chosen, flush=True)
     rows = run(M, test, "instruction")
     for cond, (layer, a) in chosen.items():
-        rows += run(M, test, cond, vecs, layer, a)
-    write(rows, GEN / f"{L}_test.jsonl")
+        rows += run(M, test, cond, vecs, layer, a, po)
+    write(rows, GEN / f"{L}_test{sfx}.jsonl")
 
 
 if __name__ == "__main__":

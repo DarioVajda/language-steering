@@ -17,6 +17,9 @@ done
 slurm/submit.sh -J lcb_universal --gres gpu:2 -- bash -c "for L in ja zh ru hi tr ar; do python $G --lang \$L --universal; done"   # after all dev grids; shared setting on test
 .venv/bin/python src/experiments/language_confusion/analyse.py --pilot   # -> pilot table + results/summary_pilot.json
 .venv/bin/python src/experiments/language_confusion/analyse.py           # -> test tables + results/summary.json
+# prompt-only steering: the same pipeline with --prompt-only (files *_prompt.jsonl), two languages per GPU
+slurm/submit.sh -J lcb_prompt_only --gres gpu:3 -- bash -c 'for s in "" --universal; do i=0; for L in ja zh ru hi tr ar; do CUDA_VISIBLE_DEVICES=$((i / 2)) python src/experiments/language_confusion/generate.py --lang $L --prompt-only $s & i=$((i + 1)); done; wait; done'
+.venv/bin/python src/experiments/language_confusion/analyse.py --prompt-only   # -> results/summary_prompt.json
 ```
 
 Each language run does everything in one job: vectors, the dev grid, selection, and test. It takes about 25 minutes on one A100. On a 40 GB A100 the Turkish test stage ran out of memory without `expandable_segments`. ja, zh, ru, hi and ar ran on A100s. Turkish ran its dev grid on an A100 and its test stage on a B200, because an existing `<T>_dev.jsonl` is reused. Another GPU type may change a few greedy decodes. For example, the zh dev instruction run differs from the pilot by 2 of 102 prompts.
@@ -26,7 +29,7 @@ Each language run does everything in one job: vectors, the dev grid, selection, 
 | `data.py` | LCB loading, dev/test split, removal of the language instruction |
 | `generate.py` | FLORES-200 vectors, steering hook, generation of all conditions, dev grid → selection → test |
 | `analyse.py` | The LCB metrics (port of the official scorer), extra measures, selection rule, McNemar test, tables |
-| `results/summary.json`, `results/summary_pilot.json` | Every number below (the per-item generations in `results/generations/` are not committed) |
+| `results/summary.json`, `results/summary_prompt.json`, `results/summary_pilot.json` | Every number below (the per-item generations in `results/generations/` are not committed) |
 
 ## Setup
 
@@ -45,7 +48,7 @@ Each language run does everything in one job: vectors, the dev grid, selection, 
   * *LPR* (LCB's line-level pass rate): fastText `lid.176.bin` labels every line of ≥ 5 tokens as T, with p > 0.3.
   * *WPR* (word-level, non-Latin scripts only): a line-level pass contains no English word from LCB's list.
   * Both are means over the three sources, as in LCB. `analyse.py` ports the official `compute_metrics.py`.
-  * Two measures of our own: *English*, the share of responses whose first scored line is English, and *degenerate*, the share with no scorable line or with a substring of ≥ 4 characters repeated ≥ 4 times in a row.
+  * Three measures of our own: *English*, the share of responses whose first scored line is English; *degenerate*, the share with no scorable line or with a substring of ≥ 4 characters repeated ≥ 4 times in a row; and *drift*, among responses whose first scored line is in T, the share with a later English line.
 * **Grid and selection (dev):** l ∈ {8, 12, 16, 20, 24} × α ∈ {0.25, 0.5, 1, 2, 3}, separately for both steering conditions. The rule picks the highest LPR among settings whose degenerate rate is at most the instruction's + 0.05. Ties go to lower degeneration, then smaller α, then the earlier layer. The chosen settings are then run once on test.
 * **Test comparison:** an exact McNemar test on per-prompt line-level passes, paired against the instruction.
 
@@ -102,6 +105,27 @@ LPR, with the gained / lost prompts against the instruction and the McNemar p in
 
 * **Per-language tuning buys almost nothing.** Every LPR is within 0.02 of the per-language setting, and the same comparisons are significant. The dev grids are flat: at α = 1, layers 8–16 are within about 2 dev prompts of the best in nearly every language.
 * **Steering at (12, 1) is the safer default.** Instruction + steering at layer 24 keeps LPR at 1.00 in hi and ar, but degeneration rises to .06–.07 and WPR drops (hi .98 → .87, ar .91 → .86).
+
+### Prompt-only steering (test)
+
+The vector is added only from the start of the user message to the end of the prompt (`--prompt-only`). The first generated token is still predicted from a steered position, but later tokens are not steered. Everything else is the same pipeline (dev grid, per-language and shared selection, test), with α extended to {…, 4, 6}. That job ran on H100s, with its own instruction run.
+
+LPR, all-token → prompt-only; brackets give the prompt-only McNemar p against the instruction when it is ≥ .05:
+
+| | ja | zh | ru | hi | ar | tr |
+|---|---|---|---|---|---|---|
+| Instruction (prompt-only job) | .85 | .83 | .94 | .91 | .93 | .97 |
+| Steering | .94 → **1.00** | .90 → .88 (p = .21) | .99 → .99 (p = .06) | 1.00 → .98 | 1.00 → .94 (p = .61) | .96 → .92 (worse, p = .007) |
+| Instruction + steering | .97 → .97 | .91 → .89 (p = .10) | .98 → .98 | 1.00 → .99 | .99 → .97 | .98 → .95 (p = .27) |
+| *chosen l, α (prompt-only): steering* | 12, 3 | 12, 3 | 12, 2 | 12, 2 | 16, 2 | 8, 2 |
+| *chosen l, α (prompt-only): instr. + steering* | 12, 2 | 16, 3 | 20, 3 | 16, 2 | 24, 4 | 8, 3 |
+
+* **Once an answer starts in T, it stays there.** Drift is 0–4% for prompt-only and 0–2% for all-token steering, so steering the generated tokens is not what keeps 100-token answers in T.
+* **A single push needs to be stronger, and the working range is narrower.** With steering alone at α = 1, dev LPR is only 0.80–0.96. α ≥ 4 degenerates, and α = 6 breaks every language.
+* **The shared setting fails for steering alone.** Larger α breaks the degenerate limit in some language, so the rule picks l = 8, α = 1. That setting gives no significant gain on test and lowers hi (.89) and tr (.91). The shared instruction + steering setting (l = 16, α = 2) gives .90–.99, significant in ja, zh, hi and ar.
+* **Less code-mixing only in ja and zh:** WPR under steering alone rises from .92 to .96 (ja) and from .89 to .95 (zh); it does not change in ru, hi or ar, and degeneration is similar.
+
+All-token steering is therefore the more robust choice on LCB. Prompt-only matches it only with per-language tuning, and is worse in ar and tr.
 
 **Hand check:** we read 20 test prompts (ja, zh, ru, hi, tr), all three arms: 2 random prompts per language, 1 where steering alone gained and 1 where it lost.
 * On the random prompts, all arms were fluent and on topic, and wrong facts appeared equally often in every arm.
