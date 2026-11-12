@@ -21,7 +21,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "mgsm_steering"))
 from analyse import lid  # noqa: E402
 from generate import FLORES_CODE, NAMES  # noqa: E402
-from generate_pairs import INSTRUCTION, LANGS, SOURCES  # noqa: E402
+from generate_pairs import INSTRUCTION, LANGS  # noqa: E402
 
 NLLB = "facebook/nllb-200-3.3B"
 EN_NAME = {"en": "English", **NAMES}
@@ -41,7 +41,7 @@ def main():
     tok = AutoTokenizer.from_pretrained(NLLB)
     model = AutoModelForSeq2SeqLM.from_pretrained(NLLB, dtype=torch.bfloat16).cuda().eval()
     res, n_fail = {}, 0
-    for s in SOURCES:
+    for s in NAMES:  # the non-English sources (the English instruction is that of ../mgsm_steering)
         ts = [t for t in LANGS if t != s]
         back = translate(tok, model, [INSTRUCTION[s][t] for t in ts], s, "en")
         fwd = translate(tok, model, [f"Answer in {EN_NAME[t]}." for t in ts], "en", s)
