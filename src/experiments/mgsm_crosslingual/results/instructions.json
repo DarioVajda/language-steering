@@ -1,0 +1,822 @@
+{
+ "bn": {
+  "en": {
+   "instruction": "ইংরেজি ভাষায় উত্তর দিন।",
+   "back_translation": "Answer in English.",
+   "nllb_from_english": "ইংরেজিতে উত্তর দাও।",
+   "passes": true,
+   "fasttext": "bn",
+   "fasttext_p": 0.982
+  },
+  "de": {
+   "instruction": "জার্মান ভাষায় উত্তর দিন।",
+   "back_translation": "Answer in German.",
+   "nllb_from_english": "জার্মান ভাষায় উত্তর দাও।",
+   "passes": true,
+   "fasttext": "bn",
+   "fasttext_p": 1.0
+  },
+  "es": {
+   "instruction": "স্প্যানিশ ভাষায় উত্তর দিন।",
+   "back_translation": "Answer in Spanish.",
+   "nllb_from_english": "স্প্যানিশ ভাষায় উত্তর দাও।",
+   "passes": true,
+   "fasttext": "bn",
+   "fasttext_p": 1.0
+  },
+  "fr": {
+   "instruction": "ফরাসি ভাষায় উত্তর দিন।",
+   "back_translation": "Answer in French.",
+   "nllb_from_english": "ফরাসি ভাষায় উত্তর দাও।",
+   "passes": true,
+   "fasttext": "bn",
+   "fasttext_p": 0.999
+  },
+  "ja": {
+   "instruction": "জাপানি ভাষায় উত্তর দিন।",
+   "back_translation": "Answer in Japanese.",
+   "nllb_from_english": "জাপানি ভাষায় উত্তর দাও।",
+   "passes": true,
+   "fasttext": "bn",
+   "fasttext_p": 0.999
+  },
+  "ru": {
+   "instruction": "রুশ ভাষায় উত্তর দিন।",
+   "back_translation": "Answer in Russian.",
+   "nllb_from_english": "রাশিয়ান ভাষায় উত্তর দাও।",
+   "passes": true,
+   "fasttext": "bn",
+   "fasttext_p": 1.0
+  },
+  "sw": {
+   "instruction": "সোয়াহিলি ভাষায় উত্তর দিন।",
+   "back_translation": "Answer in Swahili.",
+   "nllb_from_english": "সোয়াহিলি ভাষায় উত্তর দিন।",
+   "passes": true,
+   "fasttext": "bn",
+   "fasttext_p": 0.998
+  },
+  "te": {
+   "instruction": "তেলুগু ভাষায় উত্তর দিন।",
+   "back_translation": "Answer in Telugu.",
+   "nllb_from_english": "তেলেগুতে উত্তর দিন।",
+   "passes": true,
+   "fasttext": "bn",
+   "fasttext_p": 1.0
+  },
+  "th": {
+   "instruction": "থাই ভাষায় উত্তর দিন।",
+   "back_translation": "Answer in Thai.",
+   "nllb_from_english": "থাই ভাষায় উত্তর দাও।",
+   "passes": true,
+   "fasttext": "bn",
+   "fasttext_p": 0.999
+  },
+  "zh": {
+   "instruction": "চীনা ভাষায় উত্তর দিন।",
+   "back_translation": "Answer in Chinese.",
+   "nllb_from_english": "চীনা ভাষায় উত্তর দাও।",
+   "passes": true,
+   "fasttext": "bn",
+   "fasttext_p": 1.0
+  }
+ },
+ "de": {
+  "en": {
+   "instruction": "Antworte auf Englisch.",
+   "back_translation": "Answer in English.",
+   "nllb_from_english": "Antworten Sie auf Englisch.",
+   "passes": true,
+   "fasttext": "de",
+   "fasttext_p": 1.0
+  },
+  "bn": {
+   "instruction": "Antworte auf Bengalisch.",
+   "back_translation": "Answer in Bengali.",
+   "nllb_from_english": "Antworten Sie auf Bengali.",
+   "passes": true,
+   "fasttext": "de",
+   "fasttext_p": 0.998
+  },
+  "es": {
+   "instruction": "Antworte auf Spanisch.",
+   "back_translation": "Answer in Spanish.",
+   "nllb_from_english": "Antworten Sie auf Spanisch.",
+   "passes": true,
+   "fasttext": "de",
+   "fasttext_p": 1.0
+  },
+  "fr": {
+   "instruction": "Antworte auf Französisch.",
+   "back_translation": "Answer in French.",
+   "nllb_from_english": "Antworten Sie auf Französisch.",
+   "passes": true,
+   "fasttext": "de",
+   "fasttext_p": 1.0
+  },
+  "ja": {
+   "instruction": "Antworte auf Japanisch.",
+   "back_translation": "Answer in Japanese.",
+   "nllb_from_english": "Antworte auf Japanisch.",
+   "passes": true,
+   "fasttext": "de",
+   "fasttext_p": 0.999
+  },
+  "ru": {
+   "instruction": "Antworte auf Russisch.",
+   "back_translation": "Answer in Russian.",
+   "nllb_from_english": "Antworten Sie auf Russisch.",
+   "passes": true,
+   "fasttext": "de",
+   "fasttext_p": 0.999
+  },
+  "sw": {
+   "instruction": "Antworte auf Suaheli.",
+   "back_translation": "Answer in Swahili.",
+   "nllb_from_english": "Antworten Sie auf Swahili.",
+   "passes": true,
+   "fasttext": "de",
+   "fasttext_p": 0.989
+  },
+  "te": {
+   "instruction": "Antworte auf Telugu.",
+   "back_translation": "Answer in Telugu.",
+   "nllb_from_english": "Antworten Sie in Telugu.",
+   "passes": true,
+   "fasttext": "de",
+   "fasttext_p": 0.992
+  },
+  "th": {
+   "instruction": "Antworte auf Thailändisch.",
+   "back_translation": "Answer in Thai.",
+   "nllb_from_english": "Antworten Sie auf Thai.",
+   "passes": true,
+   "fasttext": "de",
+   "fasttext_p": 0.999
+  },
+  "zh": {
+   "instruction": "Antworte auf Chinesisch.",
+   "back_translation": "Answer in Chinese.",
+   "nllb_from_english": "Antworten Sie auf Chinesisch.",
+   "passes": true,
+   "fasttext": "de",
+   "fasttext_p": 0.999
+  }
+ },
+ "es": {
+  "en": {
+   "instruction": "Responde en inglés.",
+   "back_translation": "Answer in English.",
+   "nllb_from_english": "Responde en inglés.",
+   "passes": true,
+   "fasttext": "es",
+   "fasttext_p": 0.899
+  },
+  "bn": {
+   "instruction": "Responde en bengalí.",
+   "back_translation": "Answer in Bengali.",
+   "nllb_from_english": "Responde en bengalí.",
+   "passes": true,
+   "fasttext": "es",
+   "fasttext_p": 0.877
+  },
+  "de": {
+   "instruction": "Responde en alemán.",
+   "back_translation": "Answer in German.",
+   "nllb_from_english": "Responde en alemán.",
+   "passes": true,
+   "fasttext": "es",
+   "fasttext_p": 0.922
+  },
+  "fr": {
+   "instruction": "Responde en francés.",
+   "back_translation": "Answer in French.",
+   "nllb_from_english": "Responde en francés.",
+   "passes": true,
+   "fasttext": "es",
+   "fasttext_p": 0.896
+  },
+  "ja": {
+   "instruction": "Responde en japonés.",
+   "back_translation": "Answer in Japanese.",
+   "nllb_from_english": "Responde en japonés.",
+   "passes": true,
+   "fasttext": "es",
+   "fasttext_p": 0.978
+  },
+  "ru": {
+   "instruction": "Responde en ruso.",
+   "back_translation": "Answer in Russian.",
+   "nllb_from_english": "Responde en ruso.",
+   "passes": true,
+   "fasttext": "es",
+   "fasttext_p": 0.925
+  },
+  "sw": {
+   "instruction": "Responde en suajili.",
+   "back_translation": "Answer in Swahili.",
+   "nllb_from_english": "Respuesta en Swahili.",
+   "passes": true,
+   "fasttext": "nl",
+   "fasttext_p": 0.296
+  },
+  "te": {
+   "instruction": "Responde en telugu.",
+   "back_translation": "Answer in Telugu.",
+   "nllb_from_english": "Responde en telugu.",
+   "passes": true,
+   "fasttext": "eo",
+   "fasttext_p": 0.36
+  },
+  "th": {
+   "instruction": "Responde en tailandés.",
+   "back_translation": "Answer in Thai.",
+   "nllb_from_english": "Responde en tailandés.",
+   "passes": true,
+   "fasttext": "es",
+   "fasttext_p": 0.749
+  },
+  "zh": {
+   "instruction": "Responde en chino.",
+   "back_translation": "Answer in Chinese.",
+   "nllb_from_english": "Responde en chino.",
+   "passes": true,
+   "fasttext": "es",
+   "fasttext_p": 0.849
+  }
+ },
+ "fr": {
+  "en": {
+   "instruction": "Réponds en anglais.",
+   "back_translation": "Answer in English.",
+   "nllb_from_english": "Réponds en anglais.",
+   "passes": true,
+   "fasttext": "fr",
+   "fasttext_p": 0.993
+  },
+  "bn": {
+   "instruction": "Réponds en bengali.",
+   "back_translation": "Answer in Bengali.",
+   "nllb_from_english": "Réponds en bengali.",
+   "passes": true,
+   "fasttext": "fr",
+   "fasttext_p": 0.49
+  },
+  "de": {
+   "instruction": "Réponds en allemand.",
+   "back_translation": "Answer in German.",
+   "nllb_from_english": "Réponds en allemand.",
+   "passes": true,
+   "fasttext": "fr",
+   "fasttext_p": 0.879
+  },
+  "es": {
+   "instruction": "Réponds en espagnol.",
+   "back_translation": "Answer in Spanish.",
+   "nllb_from_english": "Réponds en espagnol.",
+   "passes": true,
+   "fasttext": "fr",
+   "fasttext_p": 0.982
+  },
+  "ja": {
+   "instruction": "Réponds en japonais.",
+   "back_translation": "Answer in Japanese.",
+   "nllb_from_english": "Réponds en japonais.",
+   "passes": true,
+   "fasttext": "fr",
+   "fasttext_p": 0.985
+  },
+  "ru": {
+   "instruction": "Réponds en russe.",
+   "back_translation": "Answer in Russian.",
+   "nllb_from_english": "Réponds en russe.",
+   "passes": true,
+   "fasttext": "fr",
+   "fasttext_p": 0.966
+  },
+  "sw": {
+   "instruction": "Réponds en swahili.",
+   "back_translation": "Answer in Swahili.",
+   "nllb_from_english": "Réponds en swahili.",
+   "passes": true,
+   "fasttext": "fr",
+   "fasttext_p": 0.682
+  },
+  "te": {
+   "instruction": "Réponds en télougou.",
+   "back_translation": "Answer in Telugu.",
+   "nllb_from_english": "Réponds en telugu.",
+   "passes": true,
+   "fasttext": "fr",
+   "fasttext_p": 0.98
+  },
+  "th": {
+   "instruction": "Réponds en thaï.",
+   "back_translation": "Answer in Thai.",
+   "nllb_from_english": "Réponds en thaï.",
+   "passes": true,
+   "fasttext": "fr",
+   "fasttext_p": 0.974
+  },
+  "zh": {
+   "instruction": "Réponds en chinois.",
+   "back_translation": "Answer in Chinese.",
+   "nllb_from_english": "Réponds en chinois.",
+   "passes": true,
+   "fasttext": "fr",
+   "fasttext_p": 0.917
+  }
+ },
+ "ja": {
+  "en": {
+   "instruction": "英語で答えてください。",
+   "back_translation": "Please answer in English.",
+   "nllb_from_english": "英語で答えなさい.",
+   "passes": true,
+   "fasttext": "ja",
+   "fasttext_p": 1.0
+  },
+  "bn": {
+   "instruction": "ベンガル語で答えてください。",
+   "back_translation": "Please answer in Bengali.",
+   "nllb_from_english": "ベンガル語で答えなさい",
+   "passes": true,
+   "fasttext": "ja",
+   "fasttext_p": 1.0
+  },
+  "de": {
+   "instruction": "ドイツ語で答えてください。",
+   "back_translation": "Please answer in German.",
+   "nllb_from_english": "ドイツ語で答えなさい.",
+   "passes": true,
+   "fasttext": "ja",
+   "fasttext_p": 1.0
+  },
+  "es": {
+   "instruction": "スペイン語で答えてください。",
+   "back_translation": "Please answer in Spanish.",
+   "nllb_from_english": "スペイン語で答えろ",
+   "passes": true,
+   "fasttext": "ja",
+   "fasttext_p": 1.0
+  },
+  "fr": {
+   "instruction": "フランス語で答えてください。",
+   "back_translation": "Please answer in French.",
+   "nllb_from_english": "フランス語で答えなさい.",
+   "passes": true,
+   "fasttext": "ja",
+   "fasttext_p": 1.0
+  },
+  "ru": {
+   "instruction": "ロシア語で答えてください。",
+   "back_translation": "Please answer in Russian.",
+   "nllb_from_english": "ロシア語で答えなさい.",
+   "passes": true,
+   "fasttext": "ja",
+   "fasttext_p": 1.0
+  },
+  "sw": {
+   "instruction": "スワヒリ語で答えてください。",
+   "back_translation": "Please answer in Swahili.",
+   "nllb_from_english": "スワヒリ語で答えなさい.",
+   "passes": true,
+   "fasttext": "ja",
+   "fasttext_p": 1.0
+  },
+  "te": {
+   "instruction": "テルグ語で答えてください。",
+   "back_translation": "Please answer in Telugu.",
+   "nllb_from_english": "テルグ語で答えろ",
+   "passes": true,
+   "fasttext": "ja",
+   "fasttext_p": 1.0
+  },
+  "th": {
+   "instruction": "タイ語で答えてください。",
+   "back_translation": "Please answer in Thai.",
+   "nllb_from_english": "タイ語で答えろ",
+   "passes": true,
+   "fasttext": "ja",
+   "fasttext_p": 1.0
+  },
+  "zh": {
+   "instruction": "中国語で答えてください。",
+   "back_translation": "Please answer in Chinese.",
+   "nllb_from_english": "中国語で答えろ",
+   "passes": true,
+   "fasttext": "ja",
+   "fasttext_p": 1.0
+  }
+ },
+ "ru": {
+  "en": {
+   "instruction": "Отвечай на английском языке.",
+   "back_translation": "Answer in English.",
+   "nllb_from_english": "Ответьте на английском.",
+   "passes": true,
+   "fasttext": "ru",
+   "fasttext_p": 0.977
+  },
+  "bn": {
+   "instruction": "Отвечай на бенгальском языке.",
+   "back_translation": "Answer in Bengali.",
+   "nllb_from_english": "Ответьте на бенгальском.",
+   "passes": true,
+   "fasttext": "ru",
+   "fasttext_p": 0.88
+  },
+  "de": {
+   "instruction": "Отвечай на немецком языке.",
+   "back_translation": "Answer in German.",
+   "nllb_from_english": "Ответьте по-немецки.",
+   "passes": true,
+   "fasttext": "ru",
+   "fasttext_p": 0.995
+  },
+  "es": {
+   "instruction": "Отвечай на испанском языке.",
+   "back_translation": "Answer in Spanish.",
+   "nllb_from_english": "Ответьте по-испански.",
+   "passes": true,
+   "fasttext": "ru",
+   "fasttext_p": 0.945
+  },
+  "fr": {
+   "instruction": "Отвечай на французском языке.",
+   "back_translation": "Answer in French.",
+   "nllb_from_english": "Ответьте по-французски.",
+   "passes": true,
+   "fasttext": "ru",
+   "fasttext_p": 0.987
+  },
+  "ja": {
+   "instruction": "Отвечай на японском языке.",
+   "back_translation": "Answer in Japanese.",
+   "nllb_from_english": "Ответь по-японски.",
+   "passes": true,
+   "fasttext": "ru",
+   "fasttext_p": 0.976
+  },
+  "sw": {
+   "instruction": "Отвечай на языке суахили.",
+   "back_translation": "Answer in Swahili.",
+   "nllb_from_english": "Ответьте на суахили.",
+   "passes": true,
+   "fasttext": "ru",
+   "fasttext_p": 0.49
+  },
+  "te": {
+   "instruction": "Отвечай на языке телугу.",
+   "back_translation": "Answer in Telugu.",
+   "nllb_from_english": "Ответьте на телугу.",
+   "passes": true,
+   "fasttext": "ru",
+   "fasttext_p": 0.525
+  },
+  "th": {
+   "instruction": "Отвечай на тайском языке.",
+   "back_translation": "Answer in Thai.",
+   "nllb_from_english": "Ответьте на тайском.",
+   "passes": true,
+   "fasttext": "ru",
+   "fasttext_p": 0.942
+  },
+  "zh": {
+   "instruction": "Отвечай на китайском языке.",
+   "back_translation": "Answer in Chinese.",
+   "nllb_from_english": "Ответьте на китайском.",
+   "passes": true,
+   "fasttext": "ru",
+   "fasttext_p": 0.977
+  }
+ },
+ "sw": {
+  "en": {
+   "instruction": "Jibu kwa Kiingereza.",
+   "back_translation": "Answer in English.",
+   "nllb_from_english": "Jibu kwa Kiingereza.",
+   "passes": true,
+   "fasttext": "sw",
+   "fasttext_p": 0.675
+  },
+  "bn": {
+   "instruction": "Jibu kwa Kibengali.",
+   "back_translation": "Answer in Bengali.",
+   "nllb_from_english": "Jibu kwa Kibengali.",
+   "passes": true,
+   "fasttext": "sw",
+   "fasttext_p": 0.813
+  },
+  "de": {
+   "instruction": "Jibu kwa Kijerumani.",
+   "back_translation": "Answer in German.",
+   "nllb_from_english": "Jibu kwa Kijerumani.",
+   "passes": true,
+   "fasttext": "sw",
+   "fasttext_p": 0.915
+  },
+  "es": {
+   "instruction": "Jibu kwa Kihispania.",
+   "back_translation": "Answer in Spanish.",
+   "nllb_from_english": "Jibu kwa Kihispania.",
+   "passes": true,
+   "fasttext": "sw",
+   "fasttext_p": 0.664
+  },
+  "fr": {
+   "instruction": "Jibu kwa Kifaransa.",
+   "back_translation": "Answer in French.",
+   "nllb_from_english": "Jibu kwa Kifaransa.",
+   "passes": true,
+   "fasttext": "sw",
+   "fasttext_p": 0.867
+  },
+  "ja": {
+   "instruction": "Jibu kwa Kijapani.",
+   "back_translation": "Answer in Japanese.",
+   "nllb_from_english": "Jibu kwa Kijapani.",
+   "passes": true,
+   "fasttext": "sw",
+   "fasttext_p": 0.909
+  },
+  "ru": {
+   "instruction": "Jibu kwa Kirusi.",
+   "back_translation": "Answer in Russian.",
+   "nllb_from_english": "Jibu kwa Kirusi.",
+   "passes": true,
+   "fasttext": "sw",
+   "fasttext_p": 0.92
+  },
+  "te": {
+   "instruction": "Jibu kwa Kitelugu.",
+   "back_translation": "Answer in Telugu.",
+   "nllb_from_english": "Jibu katika lugha ya Telugu.",
+   "passes": true,
+   "fasttext": "sw",
+   "fasttext_p": 0.889
+  },
+  "th": {
+   "instruction": "Jibu kwa Kithai.",
+   "back_translation": "Answer in Thai.",
+   "nllb_from_english": "Jibu kwa Kitai.",
+   "passes": true,
+   "fasttext": "sw",
+   "fasttext_p": 0.857
+  },
+  "zh": {
+   "instruction": "Jibu kwa Kichina.",
+   "back_translation": "Answer in Chinese.",
+   "nllb_from_english": "Jibu kwa Kichina.",
+   "passes": true,
+   "fasttext": "sw",
+   "fasttext_p": 0.886
+  }
+ },
+ "te": {
+  "en": {
+   "instruction": "ఇంగ్లీష్ భాషలో సమాధానం ఇవ్వండి.",
+   "back_translation": "Answer in English.",
+   "nllb_from_english": "ఆంగ్లంలో జవాబు ఇవ్వండి.",
+   "passes": true,
+   "fasttext": "te",
+   "fasttext_p": 1.0
+  },
+  "bn": {
+   "instruction": "బంగ్లా భాషలో సమాధానం ఇవ్వండి.",
+   "back_translation": "Answer in Bengali language.",
+   "nllb_from_english": "బెంగాలీలో జవాబు ఇవ్వండి.",
+   "passes": true,
+   "fasttext": "te",
+   "fasttext_p": 1.0
+  },
+  "de": {
+   "instruction": "జర్మన్ భాషలో సమాధానం ఇవ్వండి.",
+   "back_translation": "Answer in German.",
+   "nllb_from_english": "జర్మన్ భాషలో జవాబు ఇవ్వండి.",
+   "passes": true,
+   "fasttext": "te",
+   "fasttext_p": 1.0
+  },
+  "es": {
+   "instruction": "స్పానిష్ భాషలో సమాధానం ఇవ్వండి.",
+   "back_translation": "Answer in Spanish.",
+   "nllb_from_english": "స్పానిష్ లో సమాధానం.",
+   "passes": true,
+   "fasttext": "te",
+   "fasttext_p": 1.0
+  },
+  "fr": {
+   "instruction": "ఫ్రెంచ్ భాషలో సమాధానం ఇవ్వండి.",
+   "back_translation": "Answer in French.",
+   "nllb_from_english": "ఫ్రెంచ్ లో జవాబు.",
+   "passes": true,
+   "fasttext": "te",
+   "fasttext_p": 1.0
+  },
+  "ja": {
+   "instruction": "జపనీస్ భాషలో సమాధానం ఇవ్వండి.",
+   "back_translation": "Answer in Japanese.",
+   "nllb_from_english": "జపనీస్ లో జవాబు.",
+   "passes": true,
+   "fasttext": "te",
+   "fasttext_p": 1.0
+  },
+  "ru": {
+   "instruction": "రష్యన్ భాషలో సమాధానం ఇవ్వండి.",
+   "back_translation": "Answer in Russian.",
+   "nllb_from_english": "రష్యన్ లో సమాధానం.",
+   "passes": true,
+   "fasttext": "te",
+   "fasttext_p": 1.0
+  },
+  "sw": {
+   "instruction": "స్వాహిలి భాషలో సమాధానం ఇవ్వండి.",
+   "back_translation": "Answer in Swahili.",
+   "nllb_from_english": "స్వాహిలీలో జవాబు ఇవ్వండి.",
+   "passes": true,
+   "fasttext": "te",
+   "fasttext_p": 1.0
+  },
+  "th": {
+   "instruction": "థాయ్ భాషలో సమాధానం ఇవ్వండి.",
+   "back_translation": "Answer in Thai.",
+   "nllb_from_english": "థాయ్ లో జవాబు.",
+   "passes": true,
+   "fasttext": "te",
+   "fasttext_p": 1.0
+  },
+  "zh": {
+   "instruction": "చైనీస్ భాషలో సమాధానం ఇవ్వండి.",
+   "back_translation": "Answer in Chinese.",
+   "nllb_from_english": "చైనీస్ లో సమాధానం.",
+   "passes": true,
+   "fasttext": "te",
+   "fasttext_p": 1.0
+  }
+ },
+ "th": {
+  "en": {
+   "instruction": "ตอบเป็นภาษาอังกฤษ",
+   "back_translation": "Answer in English.",
+   "nllb_from_english": "ตอบด้วยภาษาอังกฤษ",
+   "passes": true,
+   "fasttext": "th",
+   "fasttext_p": 1.0
+  },
+  "bn": {
+   "instruction": "ตอบเป็นภาษาบังกลา",
+   "back_translation": "Answer in Bengali",
+   "nllb_from_english": "ตอบด้วยภาษาเบงกอลี",
+   "passes": true,
+   "fasttext": "th",
+   "fasttext_p": 1.0
+  },
+  "de": {
+   "instruction": "ตอบเป็นภาษาเยอรมัน",
+   "back_translation": "Answer in German.",
+   "nllb_from_english": "ตอบด้วยภาษาเยอรมัน",
+   "passes": true,
+   "fasttext": "th",
+   "fasttext_p": 1.0
+  },
+  "es": {
+   "instruction": "ตอบเป็นภาษาสเปน",
+   "back_translation": "Answer in Spanish.",
+   "nllb_from_english": "ตอบด้วยภาษาสเปน",
+   "passes": true,
+   "fasttext": "th",
+   "fasttext_p": 1.0
+  },
+  "fr": {
+   "instruction": "ตอบเป็นภาษาฝรั่งเศส",
+   "back_translation": "Answer in French.",
+   "nllb_from_english": "ตอบด้วยภาษาฝรั่งเศส",
+   "passes": true,
+   "fasttext": "th",
+   "fasttext_p": 1.0
+  },
+  "ja": {
+   "instruction": "ตอบเป็นภาษาญี่ปุ่น",
+   "back_translation": "Answer in Japanese.",
+   "nllb_from_english": "ตอบด้วยภาษาญี่ปุ่น",
+   "passes": true,
+   "fasttext": "th",
+   "fasttext_p": 1.0
+  },
+  "ru": {
+   "instruction": "ตอบเป็นภาษารัสเซีย",
+   "back_translation": "Answer in Russian.",
+   "nllb_from_english": "ตอบด้วยภาษารัสเซีย",
+   "passes": true,
+   "fasttext": "th",
+   "fasttext_p": 1.0
+  },
+  "sw": {
+   "instruction": "ตอบเป็นภาษาสวาฮีลี",
+   "back_translation": "Answer in Swahili.",
+   "nllb_from_english": "ตอบด้วยภาษาสวาฮิลี",
+   "passes": true,
+   "fasttext": "th",
+   "fasttext_p": 1.0
+  },
+  "te": {
+   "instruction": "ตอบเป็นภาษาเตลูกู",
+   "back_translation": "The answer is Telugu.",
+   "nllb_from_english": "ตอบด้วยภาษาเทลูกู",
+   "passes": true,
+   "fasttext": "th",
+   "fasttext_p": 1.0
+  },
+  "zh": {
+   "instruction": "ตอบเป็นภาษาจีน",
+   "back_translation": "Answer in Chinese.",
+   "nllb_from_english": "ตอบด้วยภาษาจีน",
+   "passes": true,
+   "fasttext": "th",
+   "fasttext_p": 1.0
+  }
+ },
+ "zh": {
+  "en": {
+   "instruction": "请用英语回答。",
+   "back_translation": "Please answer in English.",
+   "nllb_from_english": "用英语回答",
+   "passes": true,
+   "fasttext": "zh",
+   "fasttext_p": 0.998
+  },
+  "bn": {
+   "instruction": "请用孟加拉语回答。",
+   "back_translation": "Please answer in Bengali.",
+   "nllb_from_english": "回答在孟加拉语.",
+   "passes": true,
+   "fasttext": "zh",
+   "fasttext_p": 0.997
+  },
+  "de": {
+   "instruction": "请用德语回答。",
+   "back_translation": "Please answer in German.",
+   "nllb_from_english": "用德语回答.",
+   "passes": true,
+   "fasttext": "zh",
+   "fasttext_p": 0.996
+  },
+  "es": {
+   "instruction": "请用西班牙语回答。",
+   "back_translation": "Please answer in Spanish.",
+   "nllb_from_english": "回答在西班牙语.",
+   "passes": true,
+   "fasttext": "zh",
+   "fasttext_p": 1.0
+  },
+  "fr": {
+   "instruction": "请用法语回答。",
+   "back_translation": "Please answer in French.",
+   "nllb_from_english": "用法语回答.",
+   "passes": true,
+   "fasttext": "zh",
+   "fasttext_p": 0.994
+  },
+  "ja": {
+   "instruction": "请用日语回答。",
+   "back_translation": "Please answer in Japanese.",
+   "nllb_from_english": "在日本回答.",
+   "passes": true,
+   "fasttext": "zh",
+   "fasttext_p": 0.997
+  },
+  "ru": {
+   "instruction": "请用俄语回答。",
+   "back_translation": "Please answer in Russian.",
+   "nllb_from_english": "答复在俄罗斯.",
+   "passes": true,
+   "fasttext": "zh",
+   "fasttext_p": 0.962
+  },
+  "sw": {
+   "instruction": "请用斯瓦希里语回答。",
+   "back_translation": "Please answer in Swahili.",
+   "nllb_from_english": "回答在斯瓦希里语.",
+   "passes": true,
+   "fasttext": "zh",
+   "fasttext_p": 0.836
+  },
+  "te": {
+   "instruction": "请用泰卢固语回答。",
+   "back_translation": "Please answer in Telugu.",
+   "nllb_from_english": "回答在泰鲁古语.",
+   "passes": true,
+   "fasttext": "zh",
+   "fasttext_p": 0.992
+  },
+  "th": {
+   "instruction": "请用泰语回答。",
+   "back_translation": "Please answer in Thai.",
+   "nllb_from_english": "用泰语回答",
+   "passes": true,
+   "fasttext": "zh",
+   "fasttext_p": 0.983
+  }
+ }
+}
