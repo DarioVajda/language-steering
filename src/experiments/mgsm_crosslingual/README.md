@@ -15,6 +15,9 @@ slurm/submit.sh -J mgsm_xl_main -t 10:00:00 --gres gpu:2 --gres-flags=disable-bi
 # optional helpers on other nodes, joining the main job's queue (<id>: the job id printed above):
 slurm/submit.sh -J mgsm_xl_help -t 10:00:00 --gres gpu:4 --gres-flags=disable-binding -c 16 --mem 144G \
   --constraint 'GPU_BRD:B200|GPU_BRD:B300' -- env HF_HUB_CACHE=$PWD/logs/hf_cache bash src/experiments/mgsm_crosslingual/run.sh 4 2 <id>
+# after the main job: teacher-forced KL to the native question (kl.sh <gpus> [main job id], helpers as above)
+slurm/submit.sh -J mgsm_xl_kl -t 03:00:00 --gres gpu:1 --gres-flags=disable-binding -c 8 --mem 96G \
+  --constraint 'GPU_BRD:B300' -- env HF_HUB_CACHE=$PWD/logs/hf_cache bash src/experiments/mgsm_crosslingual/kl.sh 1
 slurm/submit.sh -J mgsm_xl_check -t 00:30:00 -c 4 --mem 48G --gres-flags=disable-binding -- \
   bash -c 'HF_HUB_OFFLINE=1 python src/experiments/mgsm_crosslingual/check_instructions.py'
 ```
@@ -23,13 +26,17 @@ slurm/submit.sh -J mgsm_xl_check -t 00:30:00 -c 4 --mem 48G --gres-flags=disable
 
 `HF_HUB_CACHE=$PWD/logs/hf_cache` is needed because the shared cache's Llama-3.1-8B-Instruct snapshot lacks its config and tokenizer files. `logs/hf_cache` holds those files, and its weight entries link into the shared snapshot.
 
-The reported run used 7 GPUs: the main job on 2 B300, and helpers on 1 B300 and 4 B200. It took 2 h 08 min, mostly the test stage. As in `../mgsm_steering/`, a unit's output depends on which GPU ran it only through bf16 differences. The third job checks the instruction strings (below).
+The reported run used 7 GPUs: the main job on 2 B300, and helpers on 1 B300 and 4 B200. It took 2 h 08 min, mostly the test stage. As in `../mgsm_steering/`, a unit's output depends on which GPU ran it only through bf16 differences. The third job checks the instruction strings (below). The KL job took 29 min on 1 B300. `robustness.py`, `agreement.py` and `analyse_kl.py` run on a CPU in under a minute each.
 
 | File | Contents |
 |---|---|
 | `generate_pairs.py` | pairs, tuning pairs, instruction strings, prompts, vectors, work units; model, split, grid and steering are imported from `../mgsm_steering/generate.py` |
 | `analyse_pairs.py` | selection, McNemar tests, tables; scoring is imported from `../mgsm_steering/analyse.py` |
 | `run.sh` | every stage in one Slurm job, optionally shared with helper jobs |
+| `robustness.py` | held-out pairs with success below 0.10 and 0.30, from `results/summary.json` -> `results/robustness.json` |
+| `agreement.py` | error consistency (Cohen's κ) with the native and source questions -> `results/agreement.json` |
+| `kl.py`, `kl.sh` | teacher-forced per-token KL and top-1 agreement with the native question, in one Slurm job (-> `results/generations/kl/`, 326 MB, not committed) |
+| `analyse_kl.py` | KL and top-1 by response position, and per S and T -> `results/kl.json` |
 | `check_instructions.py` | NLLB-200 back-translation of the 100 non-English instruction strings |
 | `results/summary.json` | every number below, and per pair every arm with its McNemar counts (the generations in `results/generations/` are not committed) |
 | `results/instructions.json` | the instruction strings, back-translations and fastText labels |
@@ -94,6 +101,18 @@ Everything is as in `../mgsm_steering/` (model, greedy decoding with at most 204
 
 Better / worse: McNemar p < 0.05 against the instruction. Each language is S once and T once among the tuning pairs, so source and native have the same mean in every column.
 
+Held-out pairs where an arm fails (`robustness.py`; test success below 0.10 and below 0.30, out of 99):
+
+| | below 0.10 | below 0.30 |
+|---|---|---|
+| Source (in S) | 0 | 0 |
+| Native | 0 | 0 |
+| Instruction | 40 | 47 |
+| Steering, all-token | 4 | 11 |
+| Instr. + steering, all-token | 4 | 7 |
+| Steering, prompt-only | 3 | 7 |
+| Instr. + steering, prompt-only | 1 | 2 |
+
 Held-out means of the other measures:
 
 | | accuracy | in the wanted language | capped at 2048 |
@@ -143,6 +162,37 @@ Held-out means of the other measures:
 * **Steering costs accuracy** (0.673 → 0.57–0.66) and lengthens answers; with the instruction, prompt-only steering costs least.
 * **An artefact:** in sw→de, 72 of 200 prompt-only answers with the instruction start with the Swahili word "Umeme" ("electricity") before continuing in German. No other sw-source pair shows this.
 * **The en-source pairs repeat `../mgsm_steering/`** with the same prompts and items: the instruction scores 0.776 over them here against 0.770 there, native 0.716 against 0.715 (different batching and GPUs).
+
+### Closeness to the native question
+
+Does steering make the model behave as when the question is asked in T? Two measures, each comparing an arm with the native question in the same pair; prompt-only steering at the dev settings, without the instruction (source → steer, PO) and with it (instr. → instr. + steer, PO).
+
+**Which items are solved** (`agreement.py`): error consistency, Cohen's κ between two arms' per-item correctness (the number only, any language), per pair, mean over all 110 pairs; 95% CIs from 2000 bootstrap resamples of the 200 items.
+
+| arm | accuracy | κ with native | κ with source |
+|---|---|---|---|
+| source | 0.727 | 0.273 [0.217, 0.333] | 1 |
+| steer, PO | 0.596 | 0.265 [0.222, 0.309] | 0.378 [0.338, 0.416] |
+| instr. | 0.673 | 0.296 [0.247, 0.348] | 0.482 [0.442, 0.523] |
+| instr. + steer, PO | 0.656 | 0.306 [0.260, 0.355] | 0.418 [0.375, 0.461] |
+
+Steering changes κ with native by −0.008 [−0.035, 0.019] without the instruction and +0.010 [−0.007, 0.026] with it, and κ with source by −0.622 [−0.662, −0.584] and −0.064 [−0.086, −0.043].
+
+**Next-token distributions** (`kl.py`, `analyse_kl.py`): the native arm's saved response is fed after each arm's prompt (teacher forcing), and at every response token the arm's next-token distribution is compared with the native question's: KL(P_native ‖ P_arm) in nats, and whether the two most likely tokens agree (top-1). Token-weighted over all 110 pairs, by position in the response (22k, 198k, 880k and 5.3M arm tokens):
+
+| arm | token 1 | tokens 2–10 | 11–50 | 51+ |
+|---|---|---|---|---|
+| source | 14.90 / 0.00 | 2.27 / 0.61 | 0.60 / 0.80 | 0.13 / 0.94 |
+| steer, PO | 3.26 / 0.26 | 0.77 / 0.74 | 0.39 / 0.84 | 0.10 / 0.95 |
+| instr. | 4.71 / 0.20 | 0.89 / 0.74 | 0.42 / 0.83 | 0.11 / 0.95 |
+| instr. + steer, PO | 1.79 / 0.40 | 0.67 / 0.77 | 0.39 / 0.84 | 0.10 / 0.95 |
+
+KL / top-1. The 95% bootstrap CIs over items (`results/kl.json`) are at most ±0.09 nats and ±0.01 top-1; the file also has the breakdown per S and per T (without CIs).
+
+* **The same question in S and in T fails on different items** (κ 0.27), so "behaving like native" is a low, noisy target at the level of items.
+* **Steering moves the model away from the source question's errors, not towards the native question's.** Which problems are solved does not measurably change towards native.
+* **Steering does bring the next-token distributions closer to native, mostly at the start of the answer**, where the model commits to a language and a way of answering: token-1 KL falls from 14.9 to 3.3 without the instruction and from 4.7 to 1.8 with it. After ~50 tokens every arm is close to native (KL ≈ 0.1, top-1 0.95): the text so far, not the prompt, decides the next token.
+* Together: steering acts on how and in which language the model starts to answer, not on which problems it solves.
 
 ### Checks on the judge
 
