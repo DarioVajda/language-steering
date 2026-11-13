@@ -4,13 +4,13 @@ Every statement text is run through the model on its own (raw text, no chat temp
 fp32), exactly as in pca_analysis/hidden_state.py. A word (from align.py) owns the tokens
 whose character span overlaps it; Llama's tokens carry their leading space, which is not
 counted as overlap. For each word two vectors are kept per layer:
-  last  the state of its last token (the main representation, EXP1.md)
+  last  the state of its last token (the main representation, docs/plans/EXP1.md)
   mean  the mean over its tokens (robustness check)
 All words are stored, not only the aligned ones, so other aligners can reuse the states
 as long as the segmentation is unchanged.
 
 Also stored are the sums and counts of the states of all non-BOS tokens per (language,
-benchmark, half), from which the global token means mu_L (EXP1.md, Setup) are computed.
+benchmark, half), from which the global token means mu_L (docs/plans/EXP1.md, Setup) are computed.
 
 Output directory (default: states/<model> next to this script):
   last.npy, mean.npy   float16 [n_layers + 1, n_words, d]  (computed in fp32; one layer is

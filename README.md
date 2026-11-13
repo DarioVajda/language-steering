@@ -130,7 +130,7 @@ Instead of contrasting source language $S$ directly with target language $T$, we
 
 The experiments which would be conducted in this study would include:
 
-* **I.** Verifying the validity of our two hypotheses on the word-level scale by extracting word-pairs in parallel corpora by either using SimAlign ([Jalili Sabet et al., 2020](#jalilisabet-2020)) or awesome-align ([Dou & Neubig, 2021](#dou-2021)). See [EXP1.md](EXP1.md) for the detailed plan.
+* **I.** Verifying the validity of our two hypotheses on the word-level scale by extracting word-pairs in parallel corpora by either using SimAlign ([Jalili Sabet et al., 2020](#jalilisabet-2020)) or awesome-align ([Dou & Neubig, 2021](#dou-2021)). See [docs/plans/EXP1.md](docs/plans/EXP1.md) for the detailed plan.
 
 * **II.** Evaluating the method proposed in [The Proposed Method](#the-proposed-method-mathematical-derivation) on the aforementioned benchmarks and data.
 

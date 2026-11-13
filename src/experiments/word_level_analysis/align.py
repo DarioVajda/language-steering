@@ -1,6 +1,6 @@
 """EXP1 word alignment: find concepts, i.e. English words aligned one-to-one in all languages.
 
-Steps (see EXP1.md, Setup, "Word alignment"):
+Steps (see docs/plans/EXP1.md, Setup, "Word alignment"):
   1. Segment every text into words with character spans. Han runs (zh) are segmented
      with jieba and Thai runs (th) with PyThaiNLP (newmm); everything else is split by a
      regex into numbers ("1,500", "3.5"), words (with inner "-" or "'": "4-mal",

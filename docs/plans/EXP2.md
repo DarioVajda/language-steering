@@ -1,10 +1,10 @@
 # Experiment 2: Output-Language Control by Steering
 
-**Goal:** Test one thing: whether language steering can make the model **answer in a different language than it was asked in**, and whether it does so better than simply telling the model which language to use. This is TODO item 7 in the [README](README.md).
+**Goal:** Test one thing: whether language steering can make the model **answer in a different language than it was asked in**, and whether it does so better than simply telling the model which language to use. This is TODO item 7 in the [README](../../README.md).
 
 The experiment is deliberately small: one task, four languages, four conditions and three measurements.
 
-**Status:** the pilot is done. On MKQA the instruction already reaches 97–100% fidelity, so the stopping rule applied and the full experiment was not run. Code and results: [src/experiments/output_language](src/experiments/output_language/README.md).
+**Status:** the pilot is done. On MKQA the instruction already reaches 97–100% fidelity, so the stopping rule applied and the full experiment was not run. Code and results: [src/experiments/output_language](../../src/experiments/output_language/README.md).
 
 ## Setup
 

@@ -4,7 +4,7 @@ A *statement* is one piece of source text together with its translations into al
 languages: an MGSM/MSVAMP question, or an XNLI premise or hypothesis. Each XNLI premise
 is shared by 3 hypotheses and is returned once.
 
-Selection (see EXP1.md, Setup):
+Selection (see docs/plans/EXP1.md, Setup):
   * MGSM and MSVAMP: split "compute". XNLI: split "analysis".
   * A row is dropped if any requested language is in its "flags" (broken translation).
     For XNLI, a premise is dropped if any of its rows is flagged.

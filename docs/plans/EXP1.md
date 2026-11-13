@@ -1,6 +1,6 @@
 # Experiment 1: Testing the Language Decomposition Hypothesis
 
-**Goal:** Check, using forward passes only, whether hidden states follow the decomposition from the [README](README.md):
+**Goal:** Check, using forward passes only, whether hidden states follow the decomposition from the [README](../../README.md):
 
 $$
 \mathbf{h}^L_c(l) = \mu_l + \mathbf{a}_c(l) + \gamma^L_c \cdot \mathbf{u}^L_l, \qquad \mathbf{a}_c(l) \perp \mathbf{u}^L_l, \quad \Vert \mathbf{u}^L_l \Vert = 1
@@ -13,8 +13,8 @@ The notation generalises the README's:
 * $\gamma$ may depend on the language, since T3 tests whether the README's single $\gamma$ holds.
 
 The tests map to the README as follows:
-* T1, T3 and T4 test [Hypothesis 1](README.md#hyp-decomposition).
-* T2 and W5 test [Hypothesis 2](README.md#hyp-orthogonality).
+* T1, T3 and T4 test [Hypothesis 1](../../README.md#hyp-decomposition).
+* T2 and W5 test [Hypothesis 2](../../README.md#hyp-orthogonality).
 * T5 and W2 test the per-token scale $\alpha^{(S,T)}(\mathbf{h}^S_t)$ that the method relies on.
 
 The experiment also checks:
@@ -30,7 +30,7 @@ Results are indicative only and come before any downstream ICL experiments.
 * **Languages:** English plus the 7 languages common to all three benchmarks used by [Kirtane and Huang (2026)](#kirtane-2026): Chinese, French, German, Russian, Spanish, Swahili and Thai. This covers Latin, Cyrillic, Chinese and Thai scripts and one low-resource language, and every language can be compared with its downstream steering results.
 * **Data (in-domain, parallel across languages):** source text only, i.e. questions, or premises and hypotheses. Answers and reasoning are not used. In-domain data is used because [Kirtane and Huang (2026)](#kirtane-2026) found FLORES-based vectors worse than benchmark-format vectors.
 
-  * **Items:** use the processed data in `data/processed_data/` (see [`src/data/README.md`](src/data/README.md)):
+  * **Items:** use the processed data in `data/processed_data/` (see [`src/data/README.md`](../../src/data/README.md)):
     * `split == "compute"` for MGSM ([Shi et al., 2023](#shi-2023); 83 items) and MSVAMP ([Chen et al., 2023](#chen-2023); 333);
     * `split == "analysis"` for XNLI ([Conneau et al., 2018](#conneau-2018); 2490 validation items, with no premise shared with the ICL splits).
   * **Filtering:** drop any (item, language) pair listed in `flags`; these are broken machine translations. MSVAMP English is used in its truecased form.

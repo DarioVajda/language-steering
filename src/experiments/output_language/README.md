@@ -1,6 +1,6 @@
 # Output-language control by steering (Experiment 2 pilot)
 
-Can a language vector make Llama-3.1-8B-Instruct **answer in another language than it was asked in**, and does it do this better than simply asking for that language? This is the pilot from [EXP2.md](../../../EXP2.md), run on a small scale with French, Hungarian, Chinese and Russian.
+Can a language vector make Llama-3.1-8B-Instruct **answer in another language than it was asked in**, and does it do this better than simply asking for that language? This is the pilot from [EXP2.md](../../../docs/plans/EXP2.md), run on a small scale with French, Hungarian, Chinese and Russian.
 
 **Result: steering switches the language reliably, but on MKQA it never beats the plain instruction "Answer in T."** The instruction already gets the language right 97–100% of the time and keeps more answers correct, so the task leaves steering no room. By the plan's stopping rule we did not build the full experiment (KL, 1000 test items) on MKQA.
 
@@ -69,6 +69,6 @@ Test, 60 items per language: share correct, with the share in the target languag
 
 **Caveats:** 60 test items; fastText on 1–3 sentence explanations; localized-answer matching is harsh for Chinese.
 
-**Deviations from [EXP2.md](../../../EXP2.md):** a pilot, so 60 test and 100 val items instead of 1000 and 200; fastText instead of GlotLID; 200 instead of 256 new tokens; no KL measurement.
+**Deviations from [EXP2.md](../../../docs/plans/EXP2.md):** a pilot, so 60 test and 100 val items instead of 1000 and 200; fastText instead of GlotLID; 200 instead of 256 new tokens; no KL measurement.
 
 **Next:** steering can only win where the instruction fails. The next step is an instruction-only pilot in settings expected to pull answers back to English (an English context passage, long answers, the instruction far from the end), moving on to steering only where the instruction gets the language right less than about 85–90% of the time.
