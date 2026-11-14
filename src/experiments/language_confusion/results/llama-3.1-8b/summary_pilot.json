@@ -4,6 +4,8 @@
   "n": 102,
   "english": 0.00980392156862745,
   "degenerate": 0.0,
+  "thinking": 0.0,
+  "drift": 0.04,
   "lpr_by_source": {
    "okapi": 1.0,
    "sharegpt": 1.0,
@@ -15,6 +17,8 @@
   "n": 102,
   "english": 0.00980392156862745,
   "degenerate": 0.00980392156862745,
+  "thinking": 0.0,
+  "drift": 0.04,
   "lpr_by_source": {
    "okapi": 1.0,
    "sharegpt": 0.9705882352941176,
@@ -26,6 +30,8 @@
   "n": 102,
   "english": 0.029411764705882353,
   "degenerate": 0.0,
+  "thinking": 0.0,
+  "drift": 0.020202020202020204,
   "lpr_by_source": {
    "okapi": 1.0,
    "sharegpt": 1.0,
@@ -37,6 +43,8 @@
   "n": 102,
   "english": 0.0196078431372549,
   "degenerate": 0.0,
+  "thinking": 0.0,
+  "drift": 0.020202020202020204,
   "lpr_by_source": {
    "okapi": 0.9696969696969697,
    "sharegpt": 0.9705882352941176,
@@ -48,6 +56,8 @@
   "n": 102,
   "english": 0.0,
   "degenerate": 0.0,
+  "thinking": 0.0,
+  "drift": 0.029411764705882353,
   "lpr_by_source": {
    "okapi": 1.0,
    "sharegpt": 1.0,
@@ -60,6 +70,8 @@
   "n": 102,
   "english": 0.09803921568627451,
   "degenerate": 0.0,
+  "thinking": 0.0,
+  "drift": 0.044444444444444446,
   "lpr_by_source": {
    "okapi": 0.8787878787878788,
    "sharegpt": 0.9411764705882353,
@@ -72,6 +84,8 @@
   "n": 102,
   "english": 0.058823529411764705,
   "degenerate": 0.0196078431372549,
+  "thinking": 0.0,
+  "drift": 0.031914893617021274,
   "lpr_by_source": {
    "okapi": 0.9393939393939394,
    "sharegpt": 1.0,
@@ -84,6 +98,8 @@
   "n": 102,
   "english": 0.0784313725490196,
   "degenerate": 0.0196078431372549,
+  "thinking": 0.0,
+  "drift": 0.05434782608695652,
   "lpr_by_source": {
    "okapi": 0.9696969696969697,
    "sharegpt": 0.9411764705882353,
@@ -96,6 +112,8 @@
   "n": 102,
   "english": 0.058823529411764705,
   "degenerate": 0.00980392156862745,
+  "thinking": 0.0,
+  "drift": 0.031578947368421054,
   "lpr_by_source": {
    "okapi": 0.9393939393939394,
    "sharegpt": 1.0,
@@ -107,6 +125,8 @@
   "n": 102,
   "english": 0.00980392156862745,
   "degenerate": 0.0,
+  "thinking": 0.0,
+  "drift": 0.02,
   "lpr_by_source": {
    "okapi": 0.9090909090909091,
    "sharegpt": 1.0,
@@ -119,6 +139,8 @@
   "n": 102,
   "english": 0.058823529411764705,
   "degenerate": 0.0,
+  "thinking": 0.0,
+  "drift": 0.0,
   "lpr_by_source": {
    "okapi": 1.0,
    "sharegpt": 0.9705882352941176,
@@ -131,6 +153,8 @@
   "n": 102,
   "english": 0.06862745098039216,
   "degenerate": 0.0,
+  "thinking": 0.0,
+  "drift": 0.010752688172043012,
   "lpr_by_source": {
    "okapi": 0.9696969696969697,
    "sharegpt": 0.9705882352941176,
@@ -142,6 +166,8 @@
   "n": 102,
   "english": 0.00980392156862745,
   "degenerate": 0.0,
+  "thinking": 0.0,
+  "drift": 0.03333333333333333,
   "lpr_by_source": {
    "okapi": 0.7575757575757576,
    "sharegpt": 0.9705882352941176,
@@ -153,6 +179,8 @@
   "n": 102,
   "english": 0.00980392156862745,
   "degenerate": 0.00980392156862745,
+  "thinking": 0.0,
+  "drift": 0.06,
   "lpr_by_source": {
    "okapi": 0.9696969696969697,
    "sharegpt": 0.9705882352941176,

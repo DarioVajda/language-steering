@@ -6,10 +6,13 @@ A port of the benchmark's compute_metrics.py (for-ai/language-confusion@0cfdbb4a
   * line-level pass (LPR): fastText lid.176.bin labels every kept line as T with probability > 0.3;
   * word-level pass (WPR, non-Latin-script languages only): among line-level passes, no token is an
     English word from the benchmark's word list (lower-case, > 3 letters).
-A language's LPR and WPR are the means over its three sources, as in the benchmark. Two more measures:
+A language's LPR and WPR are the means over its three sources, as in the benchmark. Our own measures:
   * English: the response falls back to English (every kept line, or its first kept line, is English);
     this separates real confusion from line-level errors caused by quoted names, tables or code;
-  * degenerate: no kept line, or a substring of >= 4 characters repeated >= 4 times in a row (a loop);
+  * degenerate: no kept line, a substring of >= 4 characters repeated >= 4 times in a row (a loop), or a
+    thinking tag (<think> or </think>: Qwen3 runs with thinking off, so its prompt ends with an empty thinking
+    block, and strong prompt-only steering can make it reopen one and reason in the answer);
+  * thinking: the share of responses with a thinking tag (counted in degenerate);
   * drift: among responses whose first kept line is T, the share with a later English line.
 Selection (dev, per steering condition): among layer x alpha settings whose degenerate rate is at most the
 instruction's + 0.05, the highest LPR; ties go to the lower degenerate rate, then the smaller alpha, then
@@ -17,25 +20,38 @@ the earlier layer. The universal setting, shared by all languages, applies the s
 degenerate rate over the languages, among settings within the degenerate limit in every language.
 Test comparison with the instruction: paired over prompts, exact McNemar test on line-level passes.
 
-Usage: python src/experiments/language_confusion/analyse.py          # main comparison -> results/summary.json
-       python src/experiments/language_confusion/analyse.py --prompt-only   # prompt-only steering -> results/summary_prompt.json
-       python src/experiments/language_confusion/analyse.py --pilot  # 14-language instruction pilot
+The model is set by the environment variable LCB_MODEL, as in generate.py; results are read from and written to
+results/<LCB_MODEL>/.
+
+Usage: LCB_MODEL=<model> python src/experiments/language_confusion/analyse.py   # main comparison -> summary.json
+       LCB_MODEL=<model> python src/experiments/language_confusion/analyse.py --prompt-only   # -> summary_prompt.json
+       LCB_MODEL=<model> python src/experiments/language_confusion/analyse.py --pilot  # 14 languages -> summary_pilot.json
 """
 import argparse
 import collections
 import functools
 import json
 import math
+import os
 import re
 import string
+import sys
 from pathlib import Path
 
 import fasttext
 
 import data
 
-HERE = Path(__file__).resolve().parent
-GEN = HERE / "results/generations"
+# Hugging Face id and steering-layer grid (1-indexed blocks, about 25-75% of the depth; the grids of
+# ../mgsm_steering/generate.py) of each model.
+MODELS = {"llama-3.1-8b": dict(hf="meta-llama/Llama-3.1-8B-Instruct", layers=(8, 12, 16, 20, 24)),
+          "qwen3-8b": dict(hf="Qwen/Qwen3-8B", layers=(8, 12, 16, 20, 24, 28)),
+          "qwen3-32b": dict(hf="Qwen/Qwen3-32B", layers=(16, 24, 32, 40, 48))}
+MODEL = os.environ.get("LCB_MODEL")
+if MODEL not in MODELS:
+    sys.exit(f"set LCB_MODEL to one of {', '.join(MODELS)}")
+RESULTS = Path(__file__).resolve().parent / "results" / MODEL
+GEN = RESULTS / "generations"
 LOOP = re.compile(r"(.{4,}?)\1{3,}", re.S)
 MAX_EXTRA_DEGENERATE = 0.05
 NON_LATIN = ("ar", "hi", "ja", "ko", "ru", "zh")
@@ -96,8 +112,12 @@ def drift(response, lang):
     return any(x == "en" for x in labels[1:]) if labels and labels[0] == lang else None
 
 
+def thinking(response):
+    return "<think>" in response or "</think>" in response
+
+
 def degenerate(response, lang):
-    return judge(response, lang) is None or bool(LOOP.search(response))
+    return judge(response, lang) is None or bool(LOOP.search(response)) or thinking(response)
 
 
 def rates(verdicts, lang):
@@ -116,6 +136,7 @@ def score(rows):
     d = {k: sum(by[s][k] for s in data.SOURCES) / len(data.SOURCES) for k in ("lpr", "wpr") if k in by["okapi"]}
     d.update(n=len(rows), english=sum(english(r["response"], L) for r in rows) / len(rows),
              degenerate=sum(degenerate(r["response"], L) for r in rows) / len(rows),
+             thinking=sum(thinking(r["response"]) for r in rows) / len(rows),
              drift=(lambda d: sum(d) / max(1, len(d)))([x for r in rows if (x := drift(r["response"], L)) is not None]),
              lpr_by_source={s: by[s]["lpr"] for s in data.SOURCES})
     return d
@@ -177,7 +198,7 @@ def pilot():
         wpr = f"{d['wpr']:.2f}" if "wpr" in d else "-"
         print(f"{L:4}{d['lpr']:>6.2f}" + "".join(f"{d['lpr_by_source'][s]:>17.2f}" for s in data.SOURCES)
               + f"{wpr:>6}{d['english']:>6.2f}{d['degenerate']:>7.2f}")
-    (HERE / "results/summary_pilot.json").write_text(json.dumps(out, indent=1) + "\n")
+    (RESULTS / "summary_pilot.json").write_text(json.dumps(out, indent=1) + "\n")
 
 
 def compare(test, title):
@@ -215,13 +236,13 @@ def main():
     out = {}
     for L in langs:
         res = out[L] = {"chosen": {c: dict(layer=l, alpha=a) for c, (l, a) in select(dev[L]).items()},
-                        "dev_grid": [dict(cond=k[0], layer=k[1], alpha=k[2], **{m: v[m] for m in ("lpr", "english", "degenerate")})
+                        "dev_grid": [dict(cond=k[0], layer=k[1], alpha=k[2], **{m: v[m] for m in ("lpr", "english", "degenerate", "thinking")})
                                      for k, v in dev[L].items()]}
         res["test"] = compare(configs([json.loads(l) for l in open(GEN / f"{L}_test{sfx}.jsonl")]), L)
         if (GEN / f"{L}_test_universal{sfx}.jsonl").exists():
             res["test_universal"] = compare(configs([json.loads(l) for l in open(GEN / f"{L}_test_universal{sfx}.jsonl")]),
                                             f"{L}, universal setting")
-    (HERE / f"results/summary{sfx}.json").write_text(json.dumps(out, indent=1) + "\n")
+    (RESULTS / f"summary{sfx}.json").write_text(json.dumps(out, indent=1) + "\n")
 
 
 if __name__ == "__main__":

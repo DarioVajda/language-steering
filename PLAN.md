@@ -67,7 +67,7 @@ Priority: **P1** needed for a credible paper, **P2** strengthens it, **P3** only
 ### Experiments
 
 - [x] **P1 Second model on cross-lingual MGSM:** Qwen3-8B (thinking off), and Qwen3-32B for scale. The model is a parameter (`XL_MODEL`); each model has its own layer grid (about 25-75% of its depth); same items, tuning pairs, α grid and judge; all analyses rerun. Results in `src/experiments/mgsm_crosslingual/README.md`. The sink token is now left out of the vector means for every model.
-- [ ] **P1 Second model on LCB**, with the same settings.
+- [x] **P1 Second model on LCB:** Qwen3-8B and Qwen3-32B (thinking off), with the same settings and each model's MGSM layer grid; one job per model (`run.sh`). Results in `src/experiments/language_confusion/README.md`.
 - [x] **P1 Steering controls in cross-lingual MGSM**, at the chosen setting of instruction + prompt-only steering, on all test pairs: a norm-matched random direction and a wrong-target vector v(S→U), U ≠ S, T, each drawn per item.
 - [ ] **P1 Stronger prompt baselines.** Done: the instruction in English and as a system message (the dev winner goes to test), and instruction in English + steering. Not done: the instruction after the question; demonstrations answered in T; translate-then-ask (NLLB).
 - [ ] **P2 Sensitivity:** success over the layer × α dev grid (data exists, needs a figure); number of FLORES sentences used for the vectors (e.g. 10, 100, 997).

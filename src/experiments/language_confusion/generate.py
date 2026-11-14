@@ -1,12 +1,16 @@
 """Instruction vs language steering on the cross-lingual Language Confusion Benchmark, one target language.
 
+The model is set by the environment variable LCB_MODEL, a key of analyse.MODELS (llama-3.1-8b:
+Llama-3.1-8B-Instruct; qwen3-8b, qwen3-32b: Qwen3-8B, Qwen3-32B, thinking off); its outputs go to
+results/<LCB_MODEL>/.
+
 Conditions (the benchmark prompt is the only user message; greedy, at most 100 new tokens as in the benchmark):
   instruction        the prompt as is (English request + "Write in <T>." or similar)
   steer              the prompt with its language instruction removed, + alpha * v_(en->T)(l)
   instruction_steer  the prompt as is, + alpha * v_(en->T)(l)
-v_(en->T)(l) = mu_T(l) - mu_en(l), the mean output of block l over the tokens (BOS excluded) of the 997
-FLORES-200 dev sentences in T and in English. The vector is added at every position from the start of
-the user message onward and at every generated token. With --prompt-only, it is added to the prompt only
+v_(en->T)(l) = mu_T(l) - mu_en(l), the mean output of block l over the tokens of the 997 FLORES-200 dev
+sentences in T and in English, without the first (the attention sink: Llama's BOS, Qwen's first word). The
+vector is added at every position from the start of the user message onward and at every generated token. With --prompt-only, it is added to the prompt only
 (from the start of the user message to the end of the prompt), so generated tokens are not steered; the
 alpha grid then extends to 6, since the vector is applied once.
 
@@ -14,16 +18,16 @@ One run does everything for one language, in a single job:
   1. dev: instruction, and both steering conditions over the grid layer x alpha;
   2. per steering condition, the dev setting chosen by analyse.select;
   3. test: instruction and both steering conditions at their chosen settings.
-Writes results/generations/<T>_{dev,test}.jsonl; an existing <T>_dev.jsonl is reused.
+Writes results/<model>/generations/<T>_{dev,test}.jsonl; an existing <T>_dev.jsonl is reused.
 With --universal, step 1 must have been run for every language: test is run instead at the setting shared
 by all languages (analyse.select_universal), with its own instruction run, into <T>_test_universal.jsonl.
 --prompt-only runs write the same files with the suffix _prompt (<T>_dev_prompt.jsonl, ...). Each configuration is generated as one call over all of
 its prompts in length-sorted batches with a fixed token budget, so a run is deterministic.
 
 The --pilot flag instead generates the instruction condition for all 14 languages on dev
-(results/generations/pilot_dev.jsonl), the run used to choose the languages.
+(results/<model>/generations/pilot_dev.jsonl), the run used to choose the languages.
 
-Usage: python src/experiments/language_confusion/generate.py --lang ja
+Usage: LCB_MODEL=<model> python src/experiments/language_confusion/generate.py --lang ja
 """
 import argparse
 import io
@@ -38,16 +42,14 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import analyse
 import data
 
-HERE = Path(__file__).resolve().parent
-GEN = HERE / "results/generations"
+GEN = analyse.GEN
 FLORES = data.ROOT / "data/raw_data/flores/flores200_dataset.tar.gz"
 FLORES_CODE = {"en": "eng_Latn", "ja": "jpn_Jpan", "zh": "zho_Hans", "ru": "rus_Cyrl", "hi": "hin_Deva",
                "tr": "tur_Latn", "ar": "arb_Arab"}
 LANGS = ("ja", "zh", "ru", "hi", "tr", "ar")
-MODEL = "meta-llama/Llama-3.1-8B-Instruct"
 MAX_NEW = 100
 MAX_BATCH, TOKEN_BUDGET = 64, 96_000  # prompts per batch, padded prompt tokens per batch
-LAYERS, ALPHAS = (8, 12, 16, 20, 24), (0.25, 0.5, 1, 2, 3)
+LAYERS, ALPHAS = analyse.MODELS[analyse.MODEL]["layers"], (0.25, 0.5, 1, 2, 3)
 ALPHAS_PROMPT = ALPHAS + (4, 6)
 
 
@@ -59,20 +61,22 @@ def flores(lang):
 
 class Model:
     def __init__(self):
-        self.tok = AutoTokenizer.from_pretrained(MODEL)
+        name = analyse.MODELS[analyse.MODEL]["hf"]
+        self.tok = AutoTokenizer.from_pretrained(name)
         self.tok.pad_token, self.tok.padding_side = self.tok.eos_token, "left"
-        self.model = AutoModelForCausalLM.from_pretrained(MODEL, dtype=torch.bfloat16).cuda().eval()
+        self.model = AutoModelForCausalLM.from_pretrained(name, dtype=torch.bfloat16).cuda().eval()
         self.blocks = self.model.model.layers
 
     @torch.no_grad()
     def mean_states(self, texts, bs=50):
-        """[n_layers + 1, d]: mean over tokens (BOS excluded) of each layer's output, then over texts."""
+        """[n_layers + 1, d]: mean over tokens of each layer's output, then over texts. The first token (the
+        attention sink: Llama's BOS; Qwen3 adds no BOS, so the first word) is excluded."""
         acc = torch.zeros(len(self.blocks) + 1, self.model.config.hidden_size, device="cuda")
         for i in range(0, len(texts), bs):
             b = self.tok(texts[i:i + bs], return_tensors="pt", padding=True).to("cuda")
             hs = self.model(**b, output_hidden_states=True).hidden_states
             m = b.attention_mask.clone()
-            m[torch.arange(m.shape[0]), m.argmax(1)] = 0  # first real token is BOS
+            m[torch.arange(m.shape[0]), m.argmax(1)] = 0  # the first real token (the sink)
             m = m.unsqueeze(-1).float()
             for l, h in enumerate(hs):
                 acc[l] += ((h.float() * m).sum(1) / m.sum(1)).sum(0)
@@ -82,10 +86,11 @@ class Model:
     def generate(self, texts, steer=None, prompt_only=False):
         """Greedy chat responses. steer = {layer: vector} is added to the output of each listed block
         (1-indexed) at every position from the start of the user message onward and at every generated token,
-        or with prompt_only up to the end of the prompt only."""
+        or with prompt_only up to the end of the prompt only. Qwen3's thinking is off (enable_thinking=False; Llama's
+        template ignores it)."""
         tok = self.tok
-        ps = [tok.apply_chat_template([{"role": "user", "content": t}], tokenize=False, add_generation_prompt=True)
-              for t in texts]
+        ps = [tok.apply_chat_template([{"role": "user", "content": t}], tokenize=False, add_generation_prompt=True,
+                                     enable_thinking=False) for t in texts]
         ids = [tok(p, add_special_tokens=False).input_ids for p in ps]
         pre = [len(tok(p.split(t)[0], add_special_tokens=False).input_ids) for p, t in zip(ps, texts)]
         order = sorted(range(len(texts)), key=lambda i: (len(ids[i]), i))
@@ -116,7 +121,7 @@ class Model:
             try:
                 with sdpa_kernel([SDPBackend.FLASH_ATTENTION, SDPBackend.EFFICIENT_ATTENTION, SDPBackend.MATH]):
                     g = self.model.generate(input_ids=x, attention_mask=m, max_new_tokens=MAX_NEW, do_sample=False,
-                                            temperature=None, top_p=None, pad_token_id=tok.eos_token_id)
+                                            temperature=None, top_p=None, top_k=None, pad_token_id=tok.eos_token_id)
             finally:
                 for h_ in handles:
                     h_.remove()
@@ -139,9 +144,12 @@ def run(M, items, cond, steer_vecs=None, layer=None, alpha=None, prompt_only=Fal
 
 
 def write(rows, path):
-    with open(path, "w") as f:
+    """Written to a temporary file, then renamed, so that a file that exists is complete (run.sh waits for them)."""
+    tmp = path.with_suffix(".tmp")
+    with open(tmp, "w") as f:
         for r in rows:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
+    tmp.rename(path)
 
 
 def main():

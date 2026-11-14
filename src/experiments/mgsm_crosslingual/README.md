@@ -237,7 +237,7 @@ Dev (tuning pairs): source 0.738, native 0.740; instruction 0.338, in English 0.
 * **The same picture as Llama.** Instruction + prompt-only steering is never significantly worse than the instruction, and beats both controls (in 75 and 92 held-out pairs; never worse).
 * **The two prompt-only arms with the instruction chose layer 28, the last of the grid;** layer 24 is within 0.002 on dev (0.676 against 0.678).
 * **Qwen3-8B answers Swahili questions in English**: source and native success are 0.15 for sw (accuracy is normal), which is why the native ceiling has 9 held-out pairs below 0.30. For T = sw, the English instruction with steering (0.44) is far above the native question (0.15).
-* A few steered answers begin with a literal "</think>" (plain text, not the special token) before the answer; it does not affect the judge.
+* **Thinking off is not watertight:** a few answers contain a thinking tag (`<think>` or `</think>`, as plain text) and reason inside the answer. On test this is at most 0.6% of answers per arm, highest in the instruction (0.5%) and the two controls (0.6%), and 0.00–0.27% in the steering arms; Qwen3-32B at most 0.08% per arm, Llama never. It does not favour steering, so the answers are scored as they are.
 * Closeness to native: κ with native changes by +0.035 [0.012, 0.057] without the instruction and +0.004 [−0.010, 0.018] with it; κ with source by −0.514 and −0.051 [−0.067, −0.034]. KL / top-1 by response position:
 
   | arm | token 1 | tokens 2–10 | 11–50 | 51+ |
