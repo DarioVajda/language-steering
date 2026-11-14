@@ -32,6 +32,22 @@
   "instruction_steer_prompt": {
    "0.1": 1,
    "0.3": 2
+  },
+  "instruction_en": {
+   "0.1": 13,
+   "0.3": 19
+  },
+  "instruction_en_steer_prompt": {
+   "0.1": 0,
+   "0.3": 0
+  },
+  "instruction_steer_prompt_random": {
+   "0.1": 40,
+   "0.3": 50
+  },
+  "instruction_steer_prompt_wrong": {
+   "0.1": 42,
+   "0.3": 83
   }
  }
 }

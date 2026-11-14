@@ -8,7 +8,7 @@ accuracies alone. Arms: source and steer_prompt (no instruction), instruction an
 it), the steering arms at the setting chosen on dev. Means over all 110 pairs; 95% CIs from a bootstrap over
 items (2000 resamples, the same items for every pair and arm in a resample, so differences get CIs too).
 
-Usage: python src/experiments/mgsm_crosslingual/agreement.py   # -> results/agreement.json (after run.sh)
+Usage: XL_MODEL=<model> python src/experiments/mgsm_crosslingual/agreement.py   # -> results/<model>/agreement.json (after run.sh)
 """
 import json
 import sys
@@ -19,7 +19,7 @@ import numpy as np
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "mgsm_steering"))
 from analyse import correct, load  # noqa: E402
-from generate_pairs import GEN, KEY, PAIRS  # noqa: E402
+from generate_pairs import GEN, KEY, PAIRS, RES  # noqa: E402
 
 ARMS = ("source", "steer_prompt", "instruction", "instruction_steer_prompt")
 REFS = ("native", "source")
@@ -80,7 +80,7 @@ def main():
     print("\ndifference made by steering")
     for a, b in DIFFS:
         print(f"{a + ' - ' + b:40}" + "".join(f"   {r}: {f(out['diff'][f'{a}-{b}|{r}'])}" for r in REFS))
-    (HERE / "results/agreement.json").write_text(json.dumps(out, indent=1) + "\n")
+    (RES / "agreement.json").write_text(json.dumps(out, indent=1) + "\n")
 
 
 if __name__ == "__main__":

@@ -1,13 +1,14 @@
 #!/bin/bash
 # Run every stage of the experiment inside one Slurm job: vectors, dev, selection, test, tables.
-# Usage: run.sh <gpus> <workers per gpu> [main job id]
+# Usage: run.sh <model> <gpus> <workers per gpu> [main job id]   (model: a key of MODELS in mgsm_steering/generate.py)
 # With a main job id, the job is a helper: it waits for the main job's vectors and selection and takes units from
-# the same claim queue (results/generations/claims/<main job id>/); the main job writes the tables.
+# the same claim queue (results/<model>/generations/claims/<main job id>/); the main job writes the tables.
 set -u
 cd "$(dirname "$0")/../../.."
 G=src/experiments/mgsm_crosslingual
-D=$G/results/generations
-N=$1 W=$2 MAIN=${3:-}
+export XL_MODEL=$1
+D=$G/results/$XL_MODEL/generations
+N=$2 W=$3 MAIN=${4:-}
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True HF_HUB_OFFLINE=1
 [ -n "$MAIN" ] && export SLURM_JOB_ID=$MAIN
 

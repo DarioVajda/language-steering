@@ -53,10 +53,15 @@ FLORES_CODE = {"en": "eng_Latn", "bn": "ben_Beng", "de": "deu_Latn", "es": "spa_
 NAMES = {"bn": "Bengali", "de": "German", "es": "Spanish", "fr": "French", "ja": "Japanese", "ru": "Russian",
          "sw": "Swahili", "te": "Telugu", "th": "Thai", "zh": "Chinese"}
 LANGS = tuple(NAMES)
-MODEL = "meta-llama/Llama-3.1-8B-Instruct"
+# Models: Hugging Face id, the end-of-turn token of the chat template, and the steering-layer grid (1-indexed
+# blocks). This experiment uses Llama; ../mgsm_crosslingual uses any of them.
+MODELS = {"llama-3.1-8b": dict(hf="meta-llama/Llama-3.1-8B-Instruct", eot="<|eot_id|>", layers=(8, 12, 16, 20, 24)),
+          "qwen3-8b": dict(hf="Qwen/Qwen3-8B", eot="<|im_end|>", layers=(8, 12, 16, 20, 24, 28)),
+          "qwen3-32b": dict(hf="Qwen/Qwen3-32B", eot="<|im_end|>", layers=(16, 24, 32, 40, 48))}
+MODEL = MODELS["llama-3.1-8b"]["hf"]
 MAX_NEW, MAX_BATCH = 2048, 128
 N_DEV = 50
-LAYERS, ALPHAS = (8, 12, 16, 20, 24), (0.25, 0.5, 1, 2, 3)
+LAYERS, ALPHAS = MODELS["llama-3.1-8b"]["layers"], (0.25, 0.5, 1, 2, 3)
 STEER_ARMS = ("steer", "instruction_steer", "steer_prompt", "instruction_steer_prompt")
 
 
@@ -81,11 +86,21 @@ def flores(lang):
         return [l.rstrip("\n") for l in io.TextIOWrapper(f, encoding="utf-8")]
 
 
+def chat(tok, texts, system=None):
+    """The chat prompts (generation prompt included) of user messages texts, with system messages system[i] if
+    given. Qwen3's thinking is off (enable_thinking=False; Llama's template ignores it)."""
+    system = system or [None] * len(texts)
+    return [tok.apply_chat_template(([{"role": "system", "content": s}] if s else [])
+                                    + [{"role": "user", "content": t}],
+                                    tokenize=False, add_generation_prompt=True, enable_thinking=False)
+            for t, s in zip(texts, system)]
+
+
 class Model:
-    def __init__(self):
-        self.tok = AutoTokenizer.from_pretrained(MODEL)
+    def __init__(self, name=MODEL):
+        self.tok = AutoTokenizer.from_pretrained(name)
         self.tok.pad_token, self.tok.padding_side = self.tok.eos_token, "left"
-        self.model = AutoModelForCausalLM.from_pretrained(MODEL, dtype=torch.bfloat16).cuda().eval()
+        self.model = AutoModelForCausalLM.from_pretrained(name, dtype=torch.bfloat16).cuda().eval()
         self.model.set_attn_implementation("sdpa_gqa_decode")
         self.blocks = self.model.model.layers
         eos = self.model.generation_config.eos_token_id
@@ -93,27 +108,28 @@ class Model:
 
     @torch.inference_mode()
     def mean_states(self, texts, bs=50):
-        """[n_layers + 1, d]: mean over tokens (BOS excluded) of each layer's output, then over texts."""
+        """[n_layers + 1, d]: mean over tokens of each layer's output, then over texts. The first token is
+        excluded: it is the attention sink, with a norm 50-100x that of the others (Llama's BOS; Qwen3, which adds
+        no BOS, uses the first word of the text)."""
         acc = torch.zeros(len(self.blocks) + 1, self.model.config.hidden_size, device="cuda")
         for i in range(0, len(texts), bs):
             b = self.tok(texts[i:i + bs], return_tensors="pt", padding=True).to("cuda")
             pos = (b.attention_mask.cumsum(1) - 1).clamp(min=0)
             hs = self.model(**b, position_ids=pos, output_hidden_states=True).hidden_states
             m = b.attention_mask.clone()
-            m[torch.arange(m.shape[0]), m.argmax(1)] = 0  # first real token is BOS
+            m[torch.arange(m.shape[0]), m.argmax(1)] = 0  # the first real token (the sink)
             m = m.unsqueeze(-1).float()
             for l, h in enumerate(hs):
                 acc[l] += ((h.float() * m).sum(1) / m.sum(1)).sum(0)
         return acc / len(texts)
 
     @torch.inference_mode()
-    def generate(self, texts, layer=None, vecs=None, prompt_only=False):
-        """Greedy chat responses [(text, n_tokens, capped)]. With a layer, row i adds vecs[i] to the output of
-        that block (1-indexed) from the start of its user message onward, and at every generated token unless
-        prompt_only."""
+    def generate(self, texts, layer=None, vecs=None, prompt_only=False, system=None):
+        """Greedy chat responses [(text, n_tokens, capped)]. texts[i] is the user message, system[i] (if given) a
+        system message before it. With a layer, row i adds vecs[i] to the output of that block (1-indexed) from
+        the start of its user message onward, and at every generated token unless prompt_only."""
         tok = self.tok
-        ps = [tok.apply_chat_template([{"role": "user", "content": t}], tokenize=False, add_generation_prompt=True)
-              for t in texts]
+        ps = chat(tok, texts, system)
         ids = [tok(p, add_special_tokens=False).input_ids for p in ps]
         pre = [len(tok(p[:p.index(t)], add_special_tokens=False).input_ids) for p, t in zip(ps, texts)]
         order = sorted(range(len(texts)), key=lambda i: (len(ids[i]), i))

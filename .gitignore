@@ -27,4 +27,4 @@ src/experiments/language_confusion/results/generations/
 src/experiments/mgsm_steering/results/generations/
 
 # cross-lingual MGSM experiment: per-item generations, vectors, claims (regenerable); results/*.json are kept
-src/experiments/mgsm_crosslingual/results/generations/
+src/experiments/mgsm_crosslingual/results/*/generations/

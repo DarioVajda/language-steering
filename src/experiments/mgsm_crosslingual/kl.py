@@ -2,12 +2,12 @@
 next-token distribution to the native question's?
 
 For a target T and a test item, the text is the native arm's saved greedy response (re-tokenised, followed by
-<|eot_id|> unless it hit the token limit). Each prompt below is followed by that same text, and the model's
+the end-of-turn token unless it hit the token limit). Each prompt below is followed by that same text, and the model's
 next-token distribution is taken at every response position:
   native                       the question in T (the reference distribution P)
   source, steer_prompt         the question in S, without and with prompt-only steering   } for each of the
   instruction, instruction_steer_prompt   the instruction prompt, without and with it     } 10 sources S != T
-The steering arms use the settings chosen on dev (results/generations/chosen.json); as in generation, prompt-only
+The steering arms use the settings chosen on dev (generations/chosen.json); as in generation, prompt-only
 steering adds alpha * v_(S->T)(l) from the start of the user message to the end of the prompt, and not on the
 response. All 110 pairs, the 200 test items.
 
@@ -15,7 +15,7 @@ Saved per token (nothing is aggregated here; the metrics are computed from these
   kl     KL(P_native || P_arm)      rkl    KL(P_arm || P_native)
   top1   argmax P_arm == argmax P_native
   lp     log P(response token) under each row, the native row (row 0) included
--> results/generations/kl/<T>.pt: {item id: {"n", "capped", "rows": [(arm, S)], "kl", "rkl", "top1", "lp"}}
+-> results/<model>/generations/kl/<T>.pt: {item id: {"n", "capped", "rows": [(arm, S)], "kl", "rkl", "top1", "lp"}}
 
 A (T, item) group is the 41 sequences that share a response. Groups are sorted by length and packed into
 batches of at most TOKENS padded tokens, so a batch's output does not depend on which worker ran it. Workers
@@ -36,8 +36,8 @@ from transformers import AutoTokenizer
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "mgsm_steering"))
-from generate import MODEL, Model, split  # noqa: E402
-from generate_pairs import GEN, LANGS, claim, prompt  # noqa: E402
+from generate import MODELS, Model, chat, split  # noqa: E402
+from generate_pairs import GEN, LANGS, MODEL, claim, prompt  # noqa: E402
 
 ARMS = ("source", "steer_prompt", "instruction", "instruction_steer_prompt")
 OUT = GEN / "kl"
@@ -50,7 +50,7 @@ def groups(tok):
     [start, len(prompt)) and its steering vector spec (layer, alpha, S, T) or None."""
     chosen = json.loads((GEN / "chosen.json").read_text())
     items = {r["id"]: r for r in split()["test"]}
-    eot = tok.convert_tokens_to_ids("<|eot_id|>")
+    eot = tok.convert_tokens_to_ids(MODELS[MODEL]["eot"])
     out = []
     for t in LANGS:
         for nat in map(json.loads, open(GEN / "test" / f"native_{t}.jsonl")):
@@ -61,8 +61,7 @@ def groups(tok):
             steer += [(chosen[a]["layer"], chosen[a]["alpha"], s, t) if a in chosen else None for a, s in rows[1:]]
             for a, s in rows:
                 x = prompt(a, r, s, t)
-                p = tok.apply_chat_template([{"role": "user", "content": x}], tokenize=False,
-                                            add_generation_prompt=True)
+                p, = chat(tok, [x])
                 ids.append(tok(p, add_special_tokens=False).input_ids)
                 start.append(len(tok(p[:p.index(x)], add_special_tokens=False).input_ids))
             out.append(dict(t=t, id=nat["id"], capped=nat["capped"], target=target, rows=rows, ids=ids,
@@ -143,7 +142,7 @@ def run_batch(M, mu, gs):
 
 
 def run():
-    M = Model()
+    M = Model(MODELS[MODEL]["hf"])
     mu = torch.load(GEN / "vectors.pt")
     gs = groups(M.tok)
     bs = batches(gs)
@@ -164,7 +163,7 @@ def run():
 
 def merge():
     """Waits until every batch is written (helper jobs may still be running some), then merges."""
-    n = len(batches(groups(AutoTokenizer.from_pretrained(MODEL))))
+    n = len(batches(groups(AutoTokenizer.from_pretrained(MODELS[MODEL]["hf"]))))
     while len(files := sorted((OUT / "batches").glob("[0-9]*.pt"))) < n:
         time.sleep(30)
     per = {t: {} for t in LANGS}

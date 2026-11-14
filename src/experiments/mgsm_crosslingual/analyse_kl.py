@@ -5,7 +5,7 @@ and top-1 agreement, averaged over all tokens of the bucket in all 110 pairs (to
 bootstrap over the 200 test items (2000 resamples, seed 0, the same items for every pair and arm), as in
 agreement.py. Also per source language S and per target language T (no CIs; for inspection).
 
-Usage: python src/experiments/mgsm_crosslingual/analyse_kl.py   # -> results/kl.json (after kl.sh)
+Usage: XL_MODEL=<model> python src/experiments/mgsm_crosslingual/analyse_kl.py   # -> results/<model>/kl.json (after kl.sh)
 """
 import json
 import sys
@@ -16,7 +16,7 @@ import torch
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "mgsm_steering"))
-from generate_pairs import GEN, LANGS  # noqa: E402
+from generate_pairs import GEN, LANGS, RES  # noqa: E402
 from kl import ARMS  # noqa: E402
 
 BUCKETS = ((0, 1), (1, 10), (10, 50), (50, None))
@@ -65,7 +65,7 @@ def main():
     for a in ARMS:
         print(f"{a:26}" + "".join(f"{out['kl'][a][nm]['mean']:>9.2f} / {out['top1'][a][nm]['mean']:.2f}"
                                   for nm in NAMES))
-    (HERE / "results/kl.json").write_text(json.dumps(out, indent=1) + "\n")
+    (RES / "kl.json").write_text(json.dumps(out, indent=1) + "\n")
 
 
 if __name__ == "__main__":

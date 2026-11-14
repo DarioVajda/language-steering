@@ -2,12 +2,15 @@
 
 Scoring is that of ../mgsm_steering/analyse.py (imported): success = correct AND in the wanted language (T, or S
 for the source reference). Selection (dev, per steering arm): the (layer, alpha) with the highest success rate
-averaged over the 11 tuning pairs; ties go to the smaller alpha, then the earlier layer. Test: exact McNemar
+averaged over the 11 tuning pairs; ties go to the smaller alpha, then the earlier layer. The instruction
+variant (INSTRUCTION_ARMS) is chosen the same way, ties to the first (the instruction), -> chosen_instruction.json;
+if it is not the instruction, it is added to the test comparison. The controls (CONTROL_ARMS) are also tested
+against instruction_steer_prompt (vs_steer). Test: exact McNemar
 test on per-item success within each pair, against the instruction; means over the tuning pairs, the 99
 held-out pairs and all 110, and per source and per target language over the held-out pairs.
 
-Usage: python src/experiments/mgsm_crosslingual/analyse_pairs.py --select   # dev -> results/generations/chosen.json
-       python src/experiments/mgsm_crosslingual/analyse_pairs.py            # all -> results/summary.json
+Usage: XL_MODEL=<model> python src/experiments/mgsm_crosslingual/analyse_pairs.py --select   # dev -> results/<model>/generations/chosen.json
+       XL_MODEL=<model> python src/experiments/mgsm_crosslingual/analyse_pairs.py            # all -> results/<model>/summary.json
 """
 import argparse
 import collections
@@ -19,9 +22,9 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "mgsm_steering"))
 from analyse import load, mcnemar, score, success  # noqa: E402
-from generate_pairs import GEN, KEY, LANGS, PAIRS, STEER_ARMS, TUNE, units  # noqa: E402
+from generate_pairs import CONTROL_ARMS, GEN, RES, INSTRUCTION_ARMS, KEY, LANGS, PAIRS, STEER_ARMS, TUNE, units  # noqa: E402
 
-ARMS = ("source", "native", "instruction") + STEER_ARMS
+BASE_ARMS = ("source", "native", "instruction") + STEER_ARMS + CONTROL_ARMS
 COLS = ("success", "accuracy", "in_lang", "english", "capped")
 HELD = tuple(p for p in PAIRS if p not in TUNE)
 
@@ -41,17 +44,18 @@ def by_pair(rows):
 
 
 def select():
-    """{steering arm: {layer, alpha, mean_success}} chosen on dev, and the dev grids; prints the dev scores."""
+    """{steering arm: {layer, alpha, mean_success}} chosen on dev, the dev grids, the dev baselines and the chosen
+    instruction variant; prints the dev scores."""
     wait_for("dev")
     dev = {f.stem: by_pair(load(f)) for f in sorted((GEN / "dev").glob("*.jsonl"))}
     keys = [KEY[p] for p in TUNE]
     print("dev, success / accuracy / in the wanted language per tuning pair")
-    print(f"{'':12}" + "".join(f"{k:>16}" for k in keys))
+    print(f"{'':18}" + "".join(f"{k:>16}" for k in keys))
     base = {}
-    for arm in ("source", "native", "instruction"):
+    for arm in ("source", "native") + INSTRUCTION_ARMS:
         s = {k: score(dev[arm][k]) for k in keys}
         base[arm] = sum(s[k]["success"] for k in keys) / len(keys)
-        print(f"{arm:12}" + "".join(f"  {s[k]['success']:.2f} {s[k]['accuracy']:.2f} {s[k]['in_lang']:.2f}"
+        print(f"{arm[:18]:18}" + "".join(f"  {s[k]['success']:.2f} {s[k]['accuracy']:.2f} {s[k]['in_lang']:.2f}"
                                     for k in keys) + f"   mean success {base[arm]:.3f}")
     chosen, grid = {}, {}
     for arm in STEER_ARMS:
@@ -70,7 +74,11 @@ def select():
             print(f"{l:>6}" + "".join(f"{means[(l, a)]:>7.3f}" for a in alphas))
         print(f"chosen: layer {layer}, alpha {alpha} ({means[(layer, alpha)]:.3f})")
     (GEN / "chosen.json").write_text(json.dumps(chosen, indent=1) + "\n")
-    return chosen, grid, base
+    variant = min(INSTRUCTION_ARMS, key=lambda a: (-base[a], INSTRUCTION_ARMS.index(a)))
+    print(f"\ninstruction variant: {variant} ({base[variant]:.3f})")
+    (GEN / "chosen_instruction.json").write_text(json.dumps(
+        dict(arm=variant, mean_success={a: base[a] for a in INSTRUCTION_ARMS}), indent=1) + "\n")
+    return chosen, grid, base, variant
 
 
 def mean(test, pairs, arm, c):
@@ -85,7 +93,10 @@ def main():
         select()
         return
     out = {"tuning_pairs": [KEY[p] for p in TUNE]}
-    out["chosen"], out["dev_grid"], out["dev_baselines"] = select()
+    out["chosen"], out["dev_grid"], out["dev_baselines"], variant = select()
+    out["instruction_variant"] = variant
+    extra = (variant,) if variant != "instruction" else ()
+    ARMS = BASE_ARMS + extra
     wait_for("test")
     T = GEN / "test"
     src = {L: load(T / f"source_{L}.jsonl") for L in LANGS}
@@ -96,7 +107,7 @@ def main():
     for p in PAIRS:
         k = KEY[p]
         rows = {"source": src[p[0]], "native": nat[p[1]]}
-        rows.update({arm: load(T / f"{arm}_{k}.jsonl") for arm in ("instruction",) + STEER_ARMS})
+        rows.update({arm: load(T / f"{arm}_{k}.jsonl") for arm in ("instruction",) + STEER_ARMS + CONTROL_ARMS + extra})
         base = rows["instruction"]
         res = test[k] = {}
         cells = []
@@ -107,6 +118,10 @@ def main():
                 assert [r["id"] for r in rows[arm]] == [r["id"] for r in base]
                 n01, n10, pv = mcnemar([success(r) for r in base], [success(r) for r in rows[arm]])
                 d.update(gained=n01, lost=n10, p=pv)
+            if arm in CONTROL_ARMS:
+                isp = [success(r) for r in rows["instruction_steer_prompt"]]
+                n01, n10, pv = mcnemar(isp, [success(r) for r in rows[arm]])
+                d["vs_steer"] = dict(gained=n01, lost=n10, p=pv)
                 mark = "*" if pv < 0.05 else " "
             if arm in STEER_ARMS:
                 d.update(layer=out["chosen"][arm]["layer"], alpha=out["chosen"][arm]["alpha"])
@@ -133,8 +148,7 @@ def main():
         print(f"{'':6}" + "".join(f"{a[:14]:>16}" for a in ARMS))
         for L in LANGS:
             print(f"{L:6}" + "".join(f"{out[f'by_{side}'][L][arm]:>16.3f}" for arm in ARMS))
-    (HERE / "results").mkdir(exist_ok=True)
-    (HERE / "results/summary.json").write_text(json.dumps(out, indent=1) + "\n")
+    (RES / "summary.json").write_text(json.dumps(out, indent=1) + "\n")
 
 
 if __name__ == "__main__":

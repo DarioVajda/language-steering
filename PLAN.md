@@ -66,17 +66,13 @@ Priority: **P1** needed for a credible paper, **P2** strengthens it, **P3** only
 
 ### Experiments
 
-- [ ] **P1 Second model on cross-lingual MGSM.** Qwen2.5-7B-Instruct (different language balance: strong zh/ja, weaker sw/te).
-  - [ ] Check that `mgsm_steering/generate.py` does not assume Llama (32 layers, block access, chat template, `<|eot_id|>`); make the model a parameter.
-  - [ ] Express the layer grid in relative depth so it carries over between models.
-  - [ ] Same items, tuning pairs, grid, judge; one job with one process per GPU.
-  - [ ] Rerun `analyse_pairs.py`, `agreement.py`, `kl.py`, `analyse_kl.py`, `robustness.py`.
+- [x] **P1 Second model on cross-lingual MGSM:** Qwen3-8B (thinking off), and Qwen3-32B for scale. The model is a parameter (`XL_MODEL`); each model has its own layer grid (about 25-75% of its depth); same items, tuning pairs, α grid and judge; all analyses rerun. Results in `src/experiments/mgsm_crosslingual/README.md`. The sink token is now left out of the vector means for every model.
 - [ ] **P1 Second model on LCB**, with the same settings.
-- [ ] **P1 Steering controls in cross-lingual MGSM**, at the chosen settings, on the test pairs: a norm-matched random vector (3 draws) and a wrong-target vector v(S→U), U ≠ S, T. Same definitions as the ICL controls.
-- [ ] **P1 Stronger prompt baselines** (decide which): the instruction in a system prompt; the instruction after the question; one or two demonstrations answered in T; translate the question into T (NLLB), then ask natively.
+- [x] **P1 Steering controls in cross-lingual MGSM**, at the chosen setting of instruction + prompt-only steering, on all test pairs: a norm-matched random direction and a wrong-target vector v(S→U), U ≠ S, T, each drawn per item.
+- [ ] **P1 Stronger prompt baselines.** Done: the instruction in English and as a system message (the dev winner goes to test), and instruction in English + steering. Not done: the instruction after the question; demonstrations answered in T; translate-then-ask (NLLB).
 - [ ] **P2 Sensitivity:** success over the layer × α dev grid (data exists, needs a figure); number of FLORES sentences used for the vectors (e.g. 10, 100, 997).
 - [ ] **P2 Interpretability, one analysis:** where the language of the first answer token is decided, across layers (logit lens, or projection on the language direction), for instruction vs instruction + steering, in pairs where the instruction fails.
-- [ ] **P3 Third model** (e.g. Gemma-2-9B-it), mainly if the second model disagrees with Llama.
+- [ ] **P3 Third model family** (e.g. Gemma), only if needed: Qwen3-8B and Qwen3-32B agree with Llama.
 - [ ] **P3 "Reason in English, answer in T":** a possible route to beating native in low-resource targets; a separate experiment.
 
 ### Analysis and statistics
@@ -98,5 +94,4 @@ Priority: **P1** needed for a credible paper, **P2** strengthens it, **P3** only
 
 - [ ] Deadlines for the report and the paper.
 - [ ] Target venue and page limit; report length limit.
-- [ ] Which prompt baselines (above).
-- [ ] Which second (and third) model.
+- [ ] Which further prompt baselines (above).
