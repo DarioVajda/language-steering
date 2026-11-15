@@ -124,13 +124,18 @@ class Model:
         return acc / len(texts)
 
     @torch.inference_mode()
-    def generate(self, texts, layer=None, vecs=None, prompt_only=False, system=None):
+    def generate(self, texts, layer=None, vecs=None, prompt_only=False, system=None, prefix=None):
         """Greedy chat responses [(text, n_tokens, capped)]. texts[i] is the user message, system[i] (if given) a
         system message before it. With a layer, row i adds vecs[i] to the output of that block (1-indexed) from
-        the start of its user message onward, and at every generated token unless prompt_only."""
+        the start of its user message onward, and at every generated token unless prompt_only.
+        With prefix (token ids per row, possibly empty), row i's answer starts with prefix[i] (forced; part of
+        the answer, so not steered when prompt_only) and the model continues it, within MAX_NEW answer tokens in
+        all; then each result is (answer, n_tokens, capped, continuation), the answer being prefix +
+        continuation and n_tokens counting the continuation."""
         tok = self.tok
         ps = chat(tok, texts, system)
-        ids = [tok(p, add_special_tokens=False).input_ids for p in ps]
+        forced, prefix = prefix is not None, prefix or [[] for _ in texts]
+        ids = [tok(p, add_special_tokens=False).input_ids + f for p, f in zip(ps, prefix)]
         pre = [len(tok(p[:p.index(t)], add_special_tokens=False).input_ids) for p, t in zip(ps, texts)]
         order = sorted(range(len(texts)), key=lambda i: (len(ids[i]), i))
         out = [None] * len(texts)
@@ -138,22 +143,31 @@ class Model:
             for s in range(0, len(order), MAX_BATCH):
                 b = order[s:s + MAX_BATCH]
                 v = torch.stack([vecs[i] for i in b]).to("cuda", torch.bfloat16)[:, None] if layer else None
-                for i, r in zip(b, self._batch([ids[i] for i in b], [pre[i] for i in b], layer, v, prompt_only)):
-                    out[i] = r
+                for i, (row, k, d) in zip(b, self._batch([ids[i] for i in b], [pre[i] for i in b],
+                                                       [len(prefix[i]) for i in b], layer, v, prompt_only)):
+                    text = tok.decode(prefix[i] + row[:k], skip_special_tokens=True).strip()
+                    out[i] = (text, k, not d) + ((tok.decode(row[:k], skip_special_tokens=True).strip(),)
+                                                 if forced else ())
         return out
 
-    def _batch(self, ids, pre, layer, vec, prompt_only):
+    def _batch(self, ids, pre, forced, layer, vec, prompt_only):
+        """[(generated token ids, n_tokens, finished)]; the last forced[i] tokens of ids[i] are a forced start of
+        the answer, which takes forced[i] of the MAX_NEW answer tokens of row i."""
         n = max(map(len, ids))
         x = torch.tensor([[self.tok.pad_token_id] * (n - len(r)) + r for r in ids], device="cuda")
         mask = torch.tensor([[0] * (n - len(r)) + [1] * len(r) for r in ids], device="cuda")
         start = torch.tensor([n - len(r) + p for r, p in zip(ids, pre)], device="cuda")[:, None]
+        stop = torch.tensor([n - f for f in forced], device="cuda")[:, None]  # the end of the prompt
+        budget = torch.tensor([MAX_NEW - f for f in forced], device="cuda")
         pos = (mask.cumsum(1) - 1).clamp(min=0)
         st = {"vec": vec}  # the steering vectors of the rows still generating
 
         def hook(mod, args, o):
             h = o[0] if isinstance(o, tuple) else o
             if h.shape[1] > 1:  # prefill
-                h = h + (torch.arange(h.shape[1], device="cuda")[None] >= start)[..., None].to(h.dtype) * st["vec"]
+                p = torch.arange(h.shape[1], device="cuda")[None]
+                on = (p >= start) & (p < stop) if prompt_only else p >= start
+                h = h + on[..., None].to(h.dtype) * st["vec"]
             elif not prompt_only:  # decoding step
                 h = h + st["vec"]
             return (h, *o[1:]) if isinstance(o, tuple) else h
@@ -173,6 +187,7 @@ class Model:
                 fin = torch.isin(nxt, self.eos)
                 n_tok[active] += (~fin).long()
                 done[active[fin]] = True
+                fin |= n_tok[active] >= budget[active]  # out of answer tokens (only before MAX_NEW with a prefix)
                 if fin.all() or step == MAX_NEW - 1:
                     break
                 if fin.any():  # finished rows leave the batch and the KV cache
@@ -189,10 +204,7 @@ class Model:
         finally:
             if handle:
                 handle.remove()
-        res = []
-        for row, k, d in zip(tokens.tolist(), n_tok.tolist(), done.tolist()):
-            res.append((self.tok.decode(row[:k], skip_special_tokens=True).strip(), k, not d))
-        return res
+        return list(zip(tokens.tolist(), n_tok.tolist(), done.tolist()))
 
 
 def units(stage):
