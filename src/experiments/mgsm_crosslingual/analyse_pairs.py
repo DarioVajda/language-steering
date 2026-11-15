@@ -7,7 +7,9 @@ variant (INSTRUCTION_ARMS) is chosen the same way, ties to the first (the instru
 if it is not the instruction, it is added to the test comparison. The controls (CONTROL_ARMS) are also tested
 against instruction_steer_prompt (vs_steer). Test: exact McNemar
 test on per-item success within each pair, against the instruction; means over the tuning pairs, the 99
-held-out pairs and all 110, and per source and per target language over the held-out pairs.
+held-out pairs and all 110, and per source and per target language over the held-out pairs. Held-out pairs better /
+worse (better_worse, better_worse_vs_steer): p < 0.05, uncorrected (p) and Holm-corrected over the 99 held-out pairs
+of each comparison (p_holm, stored for the held-out pairs).
 
 Usage: XL_MODEL=<model> python src/experiments/mgsm_crosslingual/analyse_pairs.py --select   # dev -> results/<model>/generations/chosen.json
        XL_MODEL=<model> python src/experiments/mgsm_crosslingual/analyse_pairs.py            # all -> results/<model>/summary.json
@@ -21,7 +23,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "mgsm_steering"))
-from analyse import load, mcnemar, score, success  # noqa: E402
+from analyse import holm, load, mcnemar, score, success  # noqa: E402
 from generate_pairs import CONTROL_ARMS, GEN, RES, INSTRUCTION_ARMS, KEY, LANGS, PAIRS, STEER_ARMS, TUNE, units  # noqa: E402
 
 BASE_ARMS = ("source", "native", "instruction") + STEER_ARMS + CONTROL_ARMS
@@ -34,6 +36,18 @@ def wait_for(stage):
     while missing := [n for n in units(stage) if not (GEN / stage / f"{n}.jsonl").exists()]:
         print(f"waiting for {len(missing)} {stage} units", flush=True)
         time.sleep(30)
+
+
+def correct(ds):
+    """Add p_holm to the comparisons ds (one per held-out pair): Holm over the pairs."""
+    for d, q in zip(ds, holm([d["p"] for d in ds])):
+        d["p_holm"] = q
+
+
+def better_worse(ds):
+    """Number of comparisons significantly better / worse, uncorrected (p) and Holm-corrected (p_holm)."""
+    return {k: [sum(d[k] < 0.05 and d["gained"] > d["lost"] for d in ds), sum(d[k] < 0.05 and d["gained"] < d["lost"] for d in ds)]
+            for k in ("p", "p_holm")}
 
 
 def by_pair(rows):
@@ -128,18 +142,29 @@ def main():
             cells.append(f"{d['success']:>15.2f}{mark}")
         print(f"{k:6}{'T' if p in TUNE else ' ':2}" + "".join(cells))
 
+    tested = [arm for arm in ARMS if arm not in ("instruction", "source")]
+    for arm in tested:
+        correct([test[KEY[p]][arm] for p in HELD])
+    for arm in CONTROL_ARMS:
+        correct([test[KEY[p]][arm]["vs_steer"] for p in HELD])
+    out["better_worse"] = {arm: better_worse([test[KEY[p]][arm] for p in HELD]) for arm in tested}
+    out["better_worse_vs_steer"] = {arm: better_worse([test[KEY[p]][arm]["vs_steer"] for p in HELD]) for arm in CONTROL_ARMS}
+
     groups = {"tuning": TUNE, "held_out": HELD, "all": PAIRS}
     out["means"] = {g: {arm: {c: mean(test, ps, arm, c) for c in COLS} for arm in ARMS} for g, ps in groups.items()}
     for g, ps in groups.items():
         print(f"\n== mean over the {len(ps)} {g} pairs")
-        print(f"{'':26}" + "".join(f"{c:>9}" for c in COLS) + "   held-out pairs better / worse than instruction")
+        print(f"{'':26}" + "".join(f"{c:>9}" for c in COLS) + "   held-out pairs better / worse than instruction (Holm)")
         for arm in ARMS:
             sig = ""
-            if g == "held_out" and arm not in ("instruction", "source"):
-                ss = [test[KEY[p]][arm] for p in ps]
-                sig = (f"   {sum(d['p'] < 0.05 and d['gained'] > d['lost'] for d in ss)} / "
-                       f"{sum(d['p'] < 0.05 and d['gained'] < d['lost'] for d in ss)}")
+            if g == "held_out" and arm in tested:
+                bw = out["better_worse"][arm]
+                sig = f"   {bw['p'][0]} / {bw['p'][1]}   ({bw['p_holm'][0]} / {bw['p_holm'][1]})"
             print(f"{arm:26}" + "".join(f"{out['means'][g][arm][c]:>9.3f}" for c in COLS) + sig)
+
+    print("\ncontrols against instruction + prompt-only steering, held-out pairs better / worse (Holm)")
+    for arm, bw in out["better_worse_vs_steer"].items():
+        print(f"{arm:26}   {bw['p'][0]} / {bw['p'][1]}   ({bw['p_holm'][0]} / {bw['p_holm'][1]})")
 
     for side, i in (("source", 0), ("target", 1)):
         out[f"by_{side}"] = {L: {arm: sum(test[KEY[p]][arm]["success"] for p in HELD if p[i] == L) / 9

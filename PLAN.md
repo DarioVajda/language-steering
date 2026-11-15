@@ -78,7 +78,7 @@ Priority: **P1** needed for a credible paper, **P2** strengthens it, **P3** only
 
 ### Analysis and statistics
 
-- [ ] **P1** Multiple-comparison correction (Holm) for the per-pair McNemar tests.
+- [x] **P1** Multiple-comparison correction (Holm) for the per-pair McNemar tests: over the 99 held-out pairs (MGSM), the 6 languages (LCB) and the 10 languages (MGSM from English), stored as `p_holm` and reported next to the uncorrected counts in each README. The main claim holds: instruction + prompt-only steering is better in 57 / 62 / 31 held-out pairs and worse in 0 / 0 / 4 (Llama / Qwen3-8B / Qwen3-32B). What weakens: Qwen3-32B on LCB (no prompt-only gain survives) and the single es gain on MGSM from English.
 - [ ] **P2** Per-pair tests against native (high-resource S into each T), Holm-corrected; the Japanese result.
 - [ ] **P2** One consistent statement of CIs and tests across all experiments.
 

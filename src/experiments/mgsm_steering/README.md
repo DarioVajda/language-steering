@@ -4,7 +4,7 @@ On MGSM, does a language vector make Llama-3.1-8B-Instruct **answer in the targe
 
 **Result: steering adds little.** The instruction already yields answers in T 99% of the time, so there is almost nothing to fix. On test, the success rate averaged over 10 languages is:
 * **0.770 with the instruction alone;**
-* 0.786 when prompt-only steering is added on top, significant only in Spanish;
+* 0.786 when prompt-only steering is added on top, significant only in Spanish (not after a Holm correction over the languages);
 * 0.763 when all-token steering is added on top.
 
 **Steering alone is worse.** Its mean is 0.60 in both versions:
@@ -58,7 +58,7 @@ The reported run used 9 GPUs: 4 B200, 3 B300 and 2 A100-80GB. It took about 45 m
   * grid: l ∈ {8, 12, 16, 20, 24} × α ∈ {0.25, 0.5, 1, 2, 3}, for each of the 4 steering arms;
   * one setting per arm, shared by all languages: the highest dev success averaged over the 10 languages (500 answers);
   * ties go to the smaller α, then the earlier layer.
-* **Test comparison:** an exact McNemar test on per-item success within each language, paired against the instruction.
+* **Test comparison:** an exact McNemar test on per-item success within each language, paired against the instruction, also Holm-corrected over the 10 languages for each arm.
 
 ## Results
 
@@ -80,14 +80,14 @@ The reported run used 9 GPUs: 4 B200, 3 B300 and 2 A100-80GB. It took about 45 m
 
 | | bn | de | es | fr | ja | ru | sw | te | th | zh | mean |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Native | **0.64**↓ | 0.78 | 0.83 | 0.75 | **0.62**↓ | 0.77 | 0.64 | 0.65 | 0.73 | 0.76 | 0.715 |
+| Native | **0.64**↓† | 0.78 | 0.83 | 0.75 | **0.62**↓† | 0.77 | 0.64 | 0.65 | 0.73 | 0.76 | 0.715 |
 | Instruction | 0.77 | 0.79 | 0.78 | 0.81 | 0.77 | 0.79 | 0.69 | 0.71 | 0.79 | 0.82 | 0.770 |
-| Steering, all-token | **0.01**↓ | 0.76 | 0.79 | 0.80 | **0.67**↓ | 0.80 | **0.48**↓ | **0.26**↓ | **0.71**↓ | **0.74**↓ | 0.602 |
+| Steering, all-token | **0.01**↓† | 0.76 | 0.79 | 0.80 | **0.67**↓ | 0.80 | **0.48**↓† | **0.26**↓† | **0.71**↓ | **0.74**↓ | 0.602 |
 | Instr. + steering, all-token | 0.75 | 0.78 | 0.81 | 0.82 | 0.77 | 0.76 | **0.62**↓ | 0.76 | 0.78 | 0.80 | 0.763 |
-| Steering, prompt-only | **0.01**↓ | **0.69**↓ | 0.76 | 0.78 | 0.72 | 0.76 | **0.55**↓ | **0.20**↓ | **0.71**↓ | 0.80 | 0.596 |
+| Steering, prompt-only | **0.01**↓† | **0.69**↓ | 0.76 | 0.78 | 0.72 | 0.76 | **0.55**↓† | **0.20**↓† | **0.71**↓ | 0.80 | 0.596 |
 | Instr. + steering, prompt-only | 0.78 | 0.81 | **0.83**↑ | 0.80 | 0.79 | 0.81 | 0.70 | 0.71 | 0.82 | 0.82 | 0.786 |
 
-Bold: McNemar p < 0.05 against the instruction (↑ better, ↓ worse). English questions answered in English score 0.80.
+Bold: McNemar p < 0.05 against the instruction (↑ better, ↓ worse); †: still significant after a Holm correction over the 10 languages, for each arm (`p_holm` in `summary.json`). English questions answered in English score 0.80.
 
 Mean over languages of the other measures:
 
@@ -100,11 +100,12 @@ Mean over languages of the other measures:
 | Steering, prompt-only | 0.712 | 0.805 | 0.044 |
 | Instr. + steering, prompt-only | 0.791 | 0.991 | 0.021 |
 
-* **The instruction already solves the language problem on MGSM.** It is in T 99% of the time, in every language except Swahili (0.94). Success is therefore limited by the arithmetic, and steering can only cost accuracy. With the instruction and a weak α (0.25), it costs nothing. The prompt-only variant is even +1.6 points on average, but it is significant only in es (+13 / −2).
+* **The instruction already solves the language problem on MGSM.** It is in T 99% of the time, in every language except Swahili (0.94). Success is therefore limited by the arithmetic, and steering can only cost accuracy. With the instruction and a weak α (0.25), it costs nothing. The prompt-only variant is even +1.6 points on average, but it is significant only in es (+13 / −2), and not after Holm. No difference between the instruction with and without steering survives Holm.
 * **Steering alone works in high-resource languages and fails in others:**
   * in de, es, fr and ru it is within noise of the instruction;
   * **Bengali:** the en→bn vector at l 8 sends the model into **Hindi** (179 of 200 answers in both versions), so success is 0.01 even though half the answers are correct;
   * **Telugu:** all-token answers degenerate (44% hit the cap, with broken characters). Prompt-only answers are often in English or Hindi;
   * **Swahili:** the model falls back to English or mixes it in.
   * The single shared setting (l 8, α 1) is too weak for some languages and too strong for others.
-* **Native questions** hurt accuracy compared with English questions plus an instruction. The gap is significant in bn and ja.
+  * After Holm, both versions remain significantly worse than the instruction in bn, sw and te.
+* **Native questions** hurt accuracy compared with English questions plus an instruction. The gap is significant in bn and ja, also after Holm.

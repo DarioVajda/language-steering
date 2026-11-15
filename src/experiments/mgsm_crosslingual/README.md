@@ -8,13 +8,13 @@ The question is in a source language S and the answer is wanted in a target lang
 |---|---|---|---|
 | Native question (in T), the ceiling | 0.723 | 0.763 | 0.835 |
 | Instruction | 0.340 | 0.412 | 0.694 |
-| **Instruction + prompt-only steering** | **0.634** (59 / 1) | **0.711** (69 / 0) | **0.800** (36 / 6) |
-| Instruction in English + prompt-only steering | 0.653 (65 / 1) | 0.722 (71 / 1) | 0.817 (39 / 5) |
-| Control: random direction, same norm | 0.322 (0 / 10) | 0.402 (4 / 12) | 0.693 (10 / 10) |
-| Control: vector towards a wrong language | 0.162 (13 / 53) | 0.301 (23 / 49) | 0.698 (18 / 28) |
+| **Instruction + prompt-only steering** | **0.634** (59 / 1 [57 / 0]) | **0.711** (69 / 0 [62 / 0]) | **0.800** (36 / 6 [31 / 4]) |
+| Instruction in English + prompt-only steering | 0.653 (65 / 1 [61 / 0]) | 0.722 (71 / 1 [67 / 0]) | 0.817 (39 / 5 [31 / 4]) |
+| Control: random direction, same norm | 0.322 (0 / 10 [0 / 2]) | 0.402 (4 / 12 [0 / 2]) | 0.693 (10 / 10 [6 / 3]) |
+| Control: vector towards a wrong language | 0.162 (13 / 53 [6 / 48]) | 0.301 (23 / 49 [16 / 46]) | 0.698 (18 / 28 [14 / 16]) |
 | Held-out pairs below 0.30: instruction / instr. + steering | 47 / 2 | 42 / 5 | 13 / 1 |
 
-In brackets: held-out pairs significantly better / worse than the instruction (McNemar p < 0.05). Steering does not change which problems are solved: the error consistency with the native question moves by +0.010 [−0.007, 0.026], +0.004 [−0.010, 0.018] and +0.002 [−0.014, 0.018] (Cohen's κ, below).
+In brackets: held-out pairs significantly better / worse than the instruction (McNemar p < 0.05), and in square brackets the same after a Holm correction over the 99 held-out pairs (each arm and model separately). Steering does not change which problems are solved: the error consistency with the native question moves by +0.010 [−0.007, 0.026], +0.004 [−0.010, 0.018] and +0.002 [−0.014, 0.018] (Cohen's κ, below).
 
 ## Reproduce
 
@@ -70,7 +70,7 @@ Runs: Llama on 7 GPUs (2 B300 in the main job, helpers on 1 B300 and 4 B200), 2 
 
 ## Setup
 
-Everything is as in `../mgsm_steering/` (greedy decoding with at most 2048 new tokens, the 50 dev / 200 test split, the α grid, success and the McNemar test), with English replaced by S. The layer grid is per model: 8–24 (Llama, 32 layers), 8–28 (Qwen3-8B, 36 layers), 16–48 (Qwen3-32B, 64 layers), in steps of 4, 4 and 8.
+Everything is as in `../mgsm_steering/` (greedy decoding with at most 2048 new tokens, the 50 dev / 200 test split, the α grid, success and the McNemar test), with English replaced by S. Counts of significantly better / worse pairs are given both uncorrected and Holm-corrected over the 99 held-out pairs of each comparison (`p_holm` in `summary.json`). The layer grid is per model: 8–24 (Llama, 32 layers), 8–28 (Qwen3-8B, 36 layers), 16–48 (Qwen3-32B, 64 layers), in steps of 4, 4 and 8.
 
 * **Pairs:** all 110 ordered pairs (S, T), S ≠ T, of en, bn, de, es, fr, ja, ru, sw, te, th, zh.
 * **Tuning pairs:** 11 pairs drawn before any generation (`draw_tuning`, seed 0), uniformly among the assignments in which every language is the source of exactly one pair and the target of exactly one, and no two languages are tuned in both directions:
@@ -126,18 +126,18 @@ Everything is as in `../mgsm_steering/` (greedy decoding with at most 2048 new t
 | | tuning (11) | held-out (99) | all (110) | held-out pairs better / worse |
 |---|---|---|---|---|
 | Source (in S) | 0.723 | 0.723 | 0.723 | – |
-| Native | 0.723 | 0.723 | 0.723 | 71 / 2 |
+| Native | 0.723 | 0.723 | 0.723 | 71 / 2 [65 / 1] |
 | Instruction | 0.350 | 0.340 | 0.341 | – |
-| Instruction in English | 0.499 | 0.514 | 0.512 | 50 / 3 |
-| Steering, all-token | 0.491 | 0.528 | 0.524 | 58 / 23 |
-| Instr. + steering, all-token | 0.640 | 0.602 | 0.606 | 56 / 1 |
-| Steering, prompt-only | 0.550 | 0.554 | 0.554 | 57 / 21 |
-| Instr. + steering, prompt-only | 0.655 | 0.634 | 0.636 | 59 / 1 |
-| Instr. in English + steering, prompt-only | 0.638 | 0.653 | 0.652 | 65 / 1 |
-| Control: random direction | 0.319 | 0.322 | 0.321 | 0 / 10 |
-| Control: wrong language | 0.141 | 0.162 | 0.160 | 13 / 53 |
+| Instruction in English | 0.499 | 0.514 | 0.512 | 50 / 3 [44 / 0] |
+| Steering, all-token | 0.491 | 0.528 | 0.524 | 58 / 23 [50 / 19] |
+| Instr. + steering, all-token | 0.640 | 0.602 | 0.606 | 56 / 1 [52 / 1] |
+| Steering, prompt-only | 0.550 | 0.554 | 0.554 | 57 / 21 [53 / 13] |
+| Instr. + steering, prompt-only | 0.655 | 0.634 | 0.636 | 59 / 1 [57 / 0] |
+| Instr. in English + steering, prompt-only | 0.638 | 0.653 | 0.652 | 65 / 1 [61 / 0] |
+| Control: random direction | 0.319 | 0.322 | 0.321 | 0 / 10 [0 / 2] |
+| Control: wrong language | 0.141 | 0.162 | 0.160 | 13 / 53 [6 / 48] |
 
-Mean success. Better / worse: McNemar p < 0.05 against the instruction. Each language is S once and T once among the tuning pairs, so source and native have the same mean in every column.
+Mean success. Better / worse: McNemar p < 0.05 against the instruction; in square brackets, Holm-corrected over the 99 held-out pairs. Each language is S once and T once among the tuning pairs, so source and native have the same mean in every column.
 
 Held-out means of the other measures, and the pairs where an arm fails (`robustness.py`; test success below 0.10 and below 0.30, out of 99):
 
@@ -188,9 +188,9 @@ Held-out means of the other measures, and the pairs where an arm fails (`robustn
 * **The held-out pairs agree with the tuning pairs.** The arms with the instruction lose 0.02–0.04 on held-out pairs, the arms without it none; the ranking is the same.
 * **The instruction fails by staying in S.** Of its 11,044 test answers that fastText does not label T (whole response), 10,723 are labelled S. The source language decides whether it works: from en 0.785, from de, es, fr, ja, ru and zh 0.37–0.57, from bn, sw, te and th 0.00–0.06. "Answer in English" fails from every source (0.013).
 * **Steering recovers most of the gap where the instruction fails.** In the 38 pairs where the instruction scores ≤ 0.05, prompt-only steering with the instruction reaches 0.59 (native 0.75). In the 32 pairs where it scores ≥ 0.60, it is level with the instruction (0.72 vs 0.70).
-* **The gain comes from the direction towards T.** At the same setting, a random direction of the same norm leaves the instruction where it is (0.322 against 0.340), and a vector towards a wrong language U pulls answers into U (0.162, in T 0.239). Instruction + prompt-only steering beats them in 69 and 97 of the 99 held-out pairs and loses to them in none.
+* **The gain comes from the direction towards T.** At the same setting, a random direction of the same norm leaves the instruction where it is (0.322 against 0.340), and a vector towards a wrong language U pulls answers into U (0.162, in T 0.239). Instruction + prompt-only steering beats them in 69 and 97 of the 99 held-out pairs (61 and 97 after Holm) and loses to them in none.
 * **Writing the instruction in English helps, and steering still adds to it:** 0.514 alone (dev winner of the three variants; as a system message it is worst, 0.167 on dev), 0.653 with prompt-only steering, the best arm, with no held-out pair below 0.30.
-* **Steering without the instruction is risky:** it is worse than the instruction in 21–23 held-out pairs, mostly from English or into te, bn, sw and de.
+* **Steering without the instruction is risky:** it is worse than the instruction in 21–23 held-out pairs (13–19 after Holm), mostly from English or into te, bn, sw and de.
 * **Steering costs accuracy** (0.673 → 0.57–0.66) and lengthens answers; with the instruction, prompt-only steering costs least.
 * **An artefact:** in sw→de, 72 of 200 prompt-only answers with the instruction start with the Swahili word "Umeme" ("electricity") before continuing in German. No other sw-source pair shows this.
 * **The en-source pairs repeat `../mgsm_steering/`** with the same prompts and items: the instruction scores 0.776 over them here against 0.770 there, native 0.716 against 0.715 (different batching and GPUs).
@@ -233,18 +233,18 @@ Dev (tuning pairs): source 0.738, native 0.740; instruction 0.338, in English 0.
 | | chosen (dev) | tuning | held-out | held-out better / worse | accuracy | in T | capped | below 0.10 / 0.30 |
 |---|---|---|---|---|---|---|---|---|
 | Source (in S) | – | 0.763 | 0.763 | – | 0.797 | 0.932 | 0.016 | 0 / 9 |
-| Native | – | 0.763 | 0.763 | 71 / 6 | 0.797 | 0.932 | 0.016 | 0 / 9 |
+| Native | – | 0.763 | 0.763 | 71 / 6 [65 / 3] | 0.797 | 0.932 | 0.016 | 0 / 9 |
 | Instruction | – | 0.385 | 0.412 | – | 0.766 | 0.516 | 0.037 | 30 / 42 |
-| Instruction in English | – | 0.401 | 0.449 | 38 / 22 | 0.771 | 0.588 | 0.029 | 17 / 41 |
-| Steering, all-token | l 24, α 1 | 0.608 | 0.613 | 58 / 16 | 0.690 | 0.862 | 0.115 | 9 / 12 |
-| Instr. + steering, all-token | l 24, α 0.5 | 0.727 | 0.705 | 72 / 0 | 0.738 | 0.941 | 0.056 | 1 / 6 |
-| Steering, prompt-only | l 24, α 1 | 0.572 | 0.556 | 55 / 25 | 0.751 | 0.742 | 0.039 | 14 / 19 |
-| Instr. + steering, prompt-only | l 28, α 1 | 0.696 | 0.711 | 69 / 0 | 0.741 | 0.945 | 0.053 | 2 / 5 |
-| Instr. in English + steering, prompt-only | l 28, α 1 | 0.719 | 0.722 | 71 / 1 | 0.747 | 0.962 | 0.051 | 0 / 0 |
-| Control: random direction | l 28, α 1 | 0.370 | 0.402 | 4 / 12 | 0.764 | 0.504 | 0.041 | 30 / 43 |
-| Control: wrong language | l 28, α 1 | 0.266 | 0.301 | 23 / 49 | 0.746 | 0.378 | 0.048 | 24 / 51 |
+| Instruction in English | – | 0.401 | 0.449 | 38 / 22 [30 / 18] | 0.771 | 0.588 | 0.029 | 17 / 41 |
+| Steering, all-token | l 24, α 1 | 0.608 | 0.613 | 58 / 16 [53 / 12] | 0.690 | 0.862 | 0.115 | 9 / 12 |
+| Instr. + steering, all-token | l 24, α 0.5 | 0.727 | 0.705 | 72 / 0 [67 / 0] | 0.738 | 0.941 | 0.056 | 1 / 6 |
+| Steering, prompt-only | l 24, α 1 | 0.572 | 0.556 | 55 / 25 [49 / 20] | 0.751 | 0.742 | 0.039 | 14 / 19 |
+| Instr. + steering, prompt-only | l 28, α 1 | 0.696 | 0.711 | 69 / 0 [62 / 0] | 0.741 | 0.945 | 0.053 | 2 / 5 |
+| Instr. in English + steering, prompt-only | l 28, α 1 | 0.719 | 0.722 | 71 / 1 [67 / 0] | 0.747 | 0.962 | 0.051 | 0 / 0 |
+| Control: random direction | l 28, α 1 | 0.370 | 0.402 | 4 / 12 [0 / 2] | 0.764 | 0.504 | 0.041 | 30 / 43 |
+| Control: wrong language | l 28, α 1 | 0.266 | 0.301 | 23 / 49 [16 / 46] | 0.746 | 0.378 | 0.048 | 24 / 51 |
 
-* **The same picture as Llama.** Instruction + prompt-only steering is never significantly worse than the instruction, and beats both controls (in 75 and 92 held-out pairs; never worse).
+* **The same picture as Llama.** Instruction + prompt-only steering is never significantly worse than the instruction, and beats both controls (in 75 and 92 held-out pairs, 71 and 91 after Holm; never worse).
 * **The two prompt-only arms with the instruction chose layer 28, the last of the grid;** layer 24 is within 0.002 on dev (0.676 against 0.678).
 * **Qwen3-8B answers Swahili questions in English**: source and native success are 0.15 for sw (accuracy is normal), which is why the native ceiling has 9 held-out pairs below 0.30. For T = sw, the English instruction with steering (0.44) is far above the native question (0.15).
 * **Thinking off is not watertight:** a few answers contain a thinking tag (`<think>` or `</think>`, as plain text) and reason inside the answer. On test this is at most 0.6% of answers per arm, highest in the instruction (0.5%) and the two controls (0.6%), and 0.00–0.27% in the steering arms; Qwen3-32B at most 0.08% per arm, Llama never. It does not favour steering, so the answers are scored as they are.
@@ -259,26 +259,26 @@ Dev (tuning pairs): source 0.738, native 0.740; instruction 0.338, in English 0.
 
 ### Prompt variants (Qwen3-8B, test)
 
-Mean over the 99 held-out pairs; better / worse: held-out pairs significantly different from the instruction (McNemar, p < 0.05). The instruction and instruction + steering rows are the ones above.
+Mean over the 99 held-out pairs; better / worse: held-out pairs significantly different from the instruction (McNemar, p < 0.05; in square brackets Holm-corrected over the 99). The instruction and instruction + steering rows are the ones above.
 
 | | held-out | held-out better / worse | accuracy | in T | capped | below 0.10 / 0.30 |
 |---|---|---|---|---|---|---|
 | Instruction (after the question, in S) | 0.412 | – | 0.766 | 0.516 | 0.037 | 30 / 42 |
-| Instruction in T | 0.451 | 45 / 26 | 0.754 | 0.610 | 0.032 | 17 / 36 |
-| Instruction first | 0.420 | 21 / 19 | 0.753 | 0.528 | 0.046 | 31 / 40 |
-| Instr. + steering, prompt-only | 0.711 | 69 / 0 | 0.741 | 0.945 | 0.053 | 2 / 5 |
+| Instruction in T | 0.451 | 45 / 26 [32 / 23] | 0.754 | 0.610 | 0.032 | 17 / 36 |
+| Instruction first | 0.420 | 21 / 19 [17 / 13] | 0.753 | 0.528 | 0.046 | 31 / 40 |
+| Instr. + steering, prompt-only | 0.711 | 69 / 0 [62 / 0] | 0.741 | 0.945 | 0.053 | 2 / 5 |
 
-Held-out success by T (9 pairs each), with better / worse:
+Held-out success by T (9 pairs each), with better / worse [Holm-corrected over the 99 held-out pairs]:
 
 | T | en | bn | de | es | fr | ja | ru | sw | te | th | zh |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | Instruction | 0.63 | 0.55 | 0.46 | 0.46 | 0.47 | 0.31 | 0.36 | 0.20 | 0.48 | 0.52 | 0.10 |
-| Instruction in T | 0.57 (4 / 4) | 0.70 (5 / 2) | 0.33 (2 / 5) | 0.46 (3 / 2) | 0.37 (1 / 5) | 0.43 (7 / 1) | 0.41 (3 / 3) | 0.24 (5 / 0) | 0.65 (5 / 0) | 0.43 (2 / 4) | 0.37 (8 / 0) |
-| Instruction first | 0.61 (3 / 2) | 0.59 (3 / 0) | 0.41 (1 / 4) | 0.46 (2 / 1) | 0.49 (1 / 2) | 0.34 (3 / 1) | 0.47 (4 / 1) | 0.22 (1 / 0) | 0.42 (1 / 3) | 0.46 (1 / 4) | 0.14 (1 / 1) |
+| Instruction in T | 0.57 (4 / 4 [3 / 4]) | 0.70 (5 / 2 [4 / 1]) | 0.33 (2 / 5 [1 / 5]) | 0.46 (3 / 2 [2 / 2]) | 0.37 (1 / 5 [1 / 4]) | 0.43 (7 / 1 [5 / 1]) | 0.41 (3 / 3 [3 / 2]) | 0.24 (5 / 0 [2 / 0]) | 0.65 (5 / 0 [3 / 0]) | 0.43 (2 / 4 [2 / 4]) | 0.37 (8 / 0 [6 / 0]) |
+| Instruction first | 0.61 (3 / 2 [2 / 2]) | 0.59 (3 / 0 [2 / 0]) | 0.41 (1 / 4 [1 / 3]) | 0.46 (2 / 1 [2 / 1]) | 0.49 (1 / 2 [1 / 1]) | 0.34 (3 / 1 [2 / 0]) | 0.47 (4 / 1 [4 / 1]) | 0.22 (1 / 0 [1 / 0]) | 0.42 (1 / 3 [0 / 2]) | 0.46 (1 / 4 [1 / 2]) | 0.14 (1 / 1 [1 / 1]) |
 
 * **Neither variant closes the gap:** 0.451 and 0.420 against 0.711 with steering; accuracy is unchanged (0.75–0.77), so both act only on the language of the answer.
-* **The instruction in T is unreliable rather than better:** it lifts T = zh (0.10 to 0.37), bn, te and ja, and lowers T = de, fr, th and en; 26 held-out pairs are significantly worse. The losses are in the answer language (T = de: in T 0.60 to 0.44), not in accuracy.
-* **Placing the instruction first changes little** (21 better, 19 worse): letting the question tokens attend to the instruction does not help.
+* **The instruction in T is unreliable rather than better:** it lifts T = zh (0.10 to 0.37), bn, te and ja, and lowers T = de, fr, th and en; 26 held-out pairs are significantly worse (23 after Holm). The losses are in the answer language (T = de: in T 0.60 to 0.44), not in accuracy.
+* **Placing the instruction first changes little** (21 better, 19 worse; 17 and 13 after Holm): letting the question tokens attend to the instruction does not help.
 * Not run on Llama or Qwen3-32B, since neither variant changes the conclusion. Run on A100 80 GB, the other Qwen3-8B arms on B200; a unit's output depends on the GPU only through bf16 differences.
 
 ## Results: Qwen3-32B
@@ -288,19 +288,19 @@ Dev (tuning pairs): source 0.811, native 0.813; instruction 0.611 (tested), in E
 | | chosen (dev) | tuning | held-out | held-out better / worse | accuracy | in T | capped | below 0.10 / 0.30 |
 |---|---|---|---|---|---|---|---|---|
 | Source (in S) | – | 0.835 | 0.835 | – | 0.850 | 0.980 | 0.003 | 0 / 0 |
-| Native | – | 0.835 | 0.835 | 42 / 12 | 0.850 | 0.980 | 0.003 | 0 / 0 |
+| Native | – | 0.835 | 0.835 | 42 / 12 [32 / 5] | 0.850 | 0.980 | 0.003 | 0 / 0 |
 | Instruction | – | 0.616 | 0.694 | – | 0.854 | 0.802 | 0.002 | 6 / 13 |
-| Steering, all-token | l 16, α 1 | 0.606 | 0.616 | 21 / 41 | 0.783 | 0.782 | 0.017 | 13 / 18 |
-| Instr. + steering, all-token | l 40, α 0.5 | 0.815 | 0.802 | 37 / 2 | 0.846 | 0.942 | 0.003 | 2 / 2 |
-| Steering, prompt-only | l 48, α 2 | 0.675 | 0.660 | 31 / 33 | 0.823 | 0.797 | 0.012 | 10 / 15 |
-| Instr. + steering, prompt-only | l 40, α 1 | 0.810 | 0.800 | 36 / 6 | 0.836 | 0.953 | 0.004 | 1 / 1 |
-| Instr. in English + steering, prompt-only | l 48, α 1 | 0.831 | 0.817 | 39 / 5 | 0.849 | 0.961 | 0.003 | 0 / 0 |
-| Control: random direction | l 40, α 1 | 0.620 | 0.693 | 10 / 10 | 0.840 | 0.816 | 0.003 | 4 / 10 |
-| Control: wrong language | l 40, α 1 | 0.682 | 0.698 | 18 / 28 | 0.836 | 0.822 | 0.005 | 2 / 6 |
+| Steering, all-token | l 16, α 1 | 0.606 | 0.616 | 21 / 41 [17 / 28] | 0.783 | 0.782 | 0.017 | 13 / 18 |
+| Instr. + steering, all-token | l 40, α 0.5 | 0.815 | 0.802 | 37 / 2 [31 / 0] | 0.846 | 0.942 | 0.003 | 2 / 2 |
+| Steering, prompt-only | l 48, α 2 | 0.675 | 0.660 | 31 / 33 [24 / 25] | 0.823 | 0.797 | 0.012 | 10 / 15 |
+| Instr. + steering, prompt-only | l 40, α 1 | 0.810 | 0.800 | 36 / 6 [31 / 4] | 0.836 | 0.953 | 0.004 | 1 / 1 |
+| Instr. in English + steering, prompt-only | l 48, α 1 | 0.831 | 0.817 | 39 / 5 [31 / 4] | 0.849 | 0.961 | 0.003 | 0 / 0 |
+| Control: random direction | l 40, α 1 | 0.620 | 0.693 | 10 / 10 [6 / 3] | 0.840 | 0.816 | 0.003 | 4 / 10 |
+| Control: wrong language | l 40, α 1 | 0.682 | 0.698 | 18 / 28 [14 / 16] | 0.836 | 0.822 | 0.005 | 2 / 6 |
 
 * **The larger model follows the instruction far more often** (0.694, 13 pairs below 0.30), so there is less to gain; steering with the instruction still adds 0.106 and removes almost all failing pairs. Without the instruction, steering is worse than the instruction alone.
-* **Where the instruction already works, steering costs accuracy.** The 6 held-out pairs where instruction + prompt-only steering is significantly worse are en and zh into bn, te and sw, where the instruction scores 0.65–0.98 (above native in en→bn and en→te). There steering stays in T and loses accuracy (e.g. zh→bn 0.92 → 0.79).
-* **Both controls stay at the instruction's level** (0.693 and 0.698): at this setting a direction that is not towards T neither helps nor, unlike in the 8B models, drags the answer elsewhere. Instruction + steering beats them in 41 and 51 held-out pairs (worse in 4 and 5).
+* **Where the instruction already works, steering costs accuracy.** The 6 held-out pairs (4 after Holm) where instruction + prompt-only steering is significantly worse are en and zh into bn, te and sw, where the instruction scores 0.65–0.98 (above native in en→bn and en→te). There steering stays in T and loses accuracy (e.g. zh→bn 0.92 → 0.79).
+* **Both controls stay at the instruction's level** (0.693 and 0.698): at this setting a direction that is not towards T neither helps nor, unlike in the 8B models, drags the answer elsewhere. Instruction + steering beats them in 41 and 51 held-out pairs (worse in 4 and 5; after Holm 30 and 35, worse in 0 and 1).
 * **Settings at the edge of the layer grid:** steering, all-token chose layer 16 (the first); steering, prompt-only and the English-instruction arm chose layer 48 (the last). At layer 48 some answers start in English ("Let's calculate …") and switch to T, which costs the English-instruction arm in-T rate in en→de (0.99 → 0.80) and en→es, zh→ja.
 * Closeness to native: κ with native changes by +0.057 [0.022, 0.091] without the instruction and +0.002 [−0.014, 0.018] with it; κ with source by −0.476 and −0.039 [−0.060, −0.019]. KL / top-1 by response position:
 

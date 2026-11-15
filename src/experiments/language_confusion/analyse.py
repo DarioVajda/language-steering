@@ -18,7 +18,8 @@ Selection (dev, per steering condition): among layer x alpha settings whose dege
 instruction's + 0.05, the highest LPR; ties go to the lower degenerate rate, then the smaller alpha, then
 the earlier layer. The universal setting, shared by all languages, applies the same rule to the mean LPR and
 degenerate rate over the languages, among settings within the degenerate limit in every language.
-Test comparison with the instruction: paired over prompts, exact McNemar test on line-level passes.
+Test comparison with the instruction: paired over prompts, exact McNemar test on line-level passes; p_holm is the
+p-value Holm-corrected over the languages, for each condition (per-language and universal settings separately).
 
 The model is set by the environment variable LCB_MODEL, as in generate.py; results are read from and written to
 results/<LCB_MODEL>/.
@@ -188,6 +189,16 @@ def mcnemar(a, b):
     return n01, n10, p
 
 
+def holm(ps):
+    """Holm-adjusted p-values (step-down, family-wise error rate), in the order of ps."""
+    order = sorted(range(len(ps)), key=lambda i: ps[i])
+    adj, run = [1.0] * len(ps), 0.0
+    for r, i in enumerate(order):
+        run = max(run, min(1.0, (len(ps) - r) * ps[i]))
+        adj[i] = run
+    return adj
+
+
 def pilot():
     rows = [json.loads(l) for l in open(GEN / "pilot_dev.jsonl")]
     out = {}
@@ -242,6 +253,16 @@ def main():
         if (GEN / f"{L}_test_universal{sfx}.jsonl").exists():
             res["test_universal"] = compare(configs([json.loads(l) for l in open(GEN / f"{L}_test_universal{sfx}.jsonl")]),
                                             f"{L}, universal setting")
+    print("\n== languages better / worse than the instruction (p < 0.05; Holm over the languages)")
+    for setting in ("test", "test_universal"):
+        ls = [L for L in langs if setting in out[L]]
+        for cond in ("steer", "instruction_steer"):
+            ds = [out[L][setting][cond] for L in ls]
+            for d, q in zip(ds, holm([d["p"] for d in ds])):
+                d["p_holm"] = q
+            sig = {k: ", ".join(f"{L}{'+' if d['gained'] > d['lost'] else '-'}" for L, d in zip(ls, ds) if d[k] < 0.05)
+                   for k in ("p", "p_holm")}
+            print(f"{setting:15}{cond:18}  p: {sig['p'] or '-':24}  Holm: {sig['p_holm'] or '-'}")
     (RESULTS / f"summary{sfx}.json").write_text(json.dumps(out, indent=1) + "\n")
 
 

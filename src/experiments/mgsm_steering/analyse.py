@@ -14,7 +14,8 @@ Main measure, "success": the answer is correct AND the response is in the target
 Also reported: accuracy, in-T rate, English (the whole response labelled English), capped (hit 2048 tokens).
 Selection (dev, per steering arm): the (layer, alpha) with the highest success rate averaged over the 10
 languages; ties go to the smaller alpha, then the earlier layer.
-Test comparison with the instruction: paired over items within a language, exact McNemar test on success.
+Test comparison with the instruction: paired over items within a language, exact McNemar test on success; p_holm
+is the p-value Holm-corrected over the 10 languages, for each arm.
 Both steps first wait until every unit of their stage has been generated (by the workers of any job).
 
 Usage: python src/experiments/mgsm_steering/analyse.py --select   # dev -> results/generations/chosen.json
@@ -151,6 +152,16 @@ def mcnemar(a, b):
     return n01, n10, p
 
 
+def holm(ps):
+    """Holm-adjusted p-values (step-down, family-wise error rate), in the order of ps."""
+    order = sorted(range(len(ps)), key=lambda i: ps[i])
+    adj, run = [1.0] * len(ps), 0.0
+    for r, i in enumerate(order):
+        run = max(run, min(1.0, (len(ps) - r) * ps[i]))
+        adj[i] = run
+    return adj
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--select", action="store_true")
@@ -181,6 +192,14 @@ def main():
             if arm in STEER_ARMS:
                 d.update(layer=chosen[arm]["layer"], alpha=chosen[arm]["alpha"])
             print(f"{arm:26}" + "".join(f"{d[c]:>9.2f}" for c in cols) + f"{d['median_tokens']:>8}{cmp}")
+    print("\n== languages better / worse than the instruction (p < 0.05; Holm over the languages)")
+    for arm in [a for a in ARMS if a != "instruction"]:
+        ds = [out["test"][L][arm] for L in LANGS]
+        for d, q in zip(ds, holm([d["p"] for d in ds])):
+            d["p_holm"] = q
+        sig = {k: ", ".join(f"{L}{'+' if d['gained'] > d['lost'] else '-'}" for L, d in zip(LANGS, ds) if d[k] < 0.05)
+               for k in ("p", "p_holm")}
+        print(f"{arm:26}  p: {sig['p'] or '-':30}  Holm: {sig['p_holm'] or '-'}")
     print("\n== mean over languages")
     for arm in ARMS:
         print(f"{arm:26}" + "".join(f"{sum(out['test'][L][arm][c] for L in LANGS) / len(LANGS):>9.3f}" for c in cols))

@@ -705,7 +705,8 @@
     "median_tokens": 425,
     "gained": 3,
     "lost": 20,
-    "p": 0.00048828125
+    "p": 0.00048828125,
+    "p_holm": 0.03173828125
    },
    "instruction": {
     "n": 200,
@@ -728,7 +729,8 @@
     "lost": 146,
     "p": 1.6591373817605834e-42,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.4434495221317076e-40
    },
    "instruction_steer": {
     "n": 200,
@@ -742,7 +744,8 @@
     "lost": 2,
     "p": 0.6875,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -756,7 +759,8 @@
     "lost": 187,
     "p": 1.0195788231247695e-56,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 9.99187246662274e-55
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -770,7 +774,8 @@
     "lost": 12,
     "p": 0.00048828125,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.0322265625
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -784,7 +789,8 @@
     "lost": 8,
     "p": 0.3876953125,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -800,8 +806,10 @@
     "vs_steer": {
      "gained": 11,
      "lost": 2,
-     "p": 0.0224609375
-    }
+     "p": 0.0224609375,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -817,8 +825,10 @@
     "vs_steer": {
      "gained": 12,
      "lost": 2,
-     "p": 0.012939453125
-    }
+     "p": 0.012939453125,
+     "p_holm": 0.634033203125
+    },
+    "p_holm": 1.0
    }
   },
   "en-de": {
@@ -841,7 +851,8 @@
     "median_tokens": 252,
     "gained": 6,
     "lost": 17,
-    "p": 0.03468966484069824
+    "p": 0.03468966484069824,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -864,7 +875,8 @@
     "lost": 9,
     "p": 0.4239501953125,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -878,7 +890,8 @@
     "lost": 3,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -892,7 +905,8 @@
     "lost": 29,
     "p": 2.5560148060321808e-06,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.00014824885874986649
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -906,7 +920,8 @@
     "lost": 11,
     "p": 0.057373046875,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -920,7 +935,8 @@
     "lost": 40,
     "p": 3.0213413992896676e-09,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 2.3566462914459407e-07
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -936,8 +952,10 @@
     "vs_steer": {
      "gained": 9,
      "lost": 5,
-     "p": 0.4239501953125
-    }
+     "p": 0.4239501953125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -953,8 +971,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 6,
-     "p": 1.0
-    }
+     "p": 1.0,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "en-es": {
@@ -977,7 +997,8 @@
     "median_tokens": 236,
     "gained": 10,
     "lost": 18,
-    "p": 0.1849333420395851
+    "p": 0.1849333420395851,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -1000,7 +1021,8 @@
     "lost": 15,
     "p": 0.42435622215270996,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -1014,7 +1036,8 @@
     "lost": 4,
     "p": 0.548828125,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -1028,7 +1051,8 @@
     "lost": 15,
     "p": 0.7011080384254456,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -1042,7 +1066,8 @@
     "lost": 6,
     "p": 0.454498291015625,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -1056,7 +1081,8 @@
     "lost": 29,
     "p": 0.00031255115754902363,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.020940927555784583
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -1072,8 +1098,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 8,
-     "p": 0.79052734375
-    }
+     "p": 0.79052734375,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -1089,8 +1117,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 20,
-     "p": 0.004077315330505371
-    }
+     "p": 0.004077315330505371,
+     "p_holm": 0.23240697383880615
+    },
+    "p_holm": 1.0
    }
   },
   "en-fr": {
@@ -1113,7 +1143,8 @@
     "median_tokens": 232,
     "gained": 7,
     "lost": 27,
-    "p": 0.0008213953115046024
+    "p": 0.0008213953115046024,
+    "p_holm": 0.05092650931328535
    },
    "instruction": {
     "n": 200,
@@ -1136,7 +1167,8 @@
     "lost": 18,
     "p": 0.010622024536132812,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.509857177734375
    },
    "instruction_steer": {
     "n": 200,
@@ -1150,7 +1182,8 @@
     "lost": 5,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -1164,7 +1197,8 @@
     "lost": 44,
     "p": 3.243740565039843e-08,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.9786817446743044e-06
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -1178,7 +1212,8 @@
     "lost": 4,
     "p": 0.75390625,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -1192,7 +1227,8 @@
     "lost": 17,
     "p": 0.06391465663909912,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -1208,8 +1244,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 7,
-     "p": 0.7744140625
-    }
+     "p": 0.7744140625,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -1225,8 +1263,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 10,
-     "p": 0.3017578125
-    }
+     "p": 0.3017578125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "en-ja": {
@@ -1249,7 +1289,8 @@
     "median_tokens": 246,
     "gained": 2,
     "lost": 25,
-    "p": 5.647540092468262e-06
+    "p": 5.647540092468262e-06,
+    "p_holm": 0.00040662288665771484
    },
    "instruction": {
     "n": 200,
@@ -1272,7 +1313,8 @@
     "lost": 11,
     "p": 0.210113525390625,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -1286,7 +1328,8 @@
     "lost": 3,
     "p": 0.7265625,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -1300,7 +1343,8 @@
     "lost": 149,
     "p": 2.1159606811304738e-43,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.862045399394817e-41
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -1314,7 +1358,8 @@
     "lost": 7,
     "p": 1.0,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -1328,7 +1373,8 @@
     "lost": 17,
     "p": 0.000728607177734375,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.047359466552734375
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -1344,8 +1390,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 5,
-     "p": 1.0
-    }
+     "p": 1.0,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -1361,8 +1409,10 @@
     "vs_steer": {
      "gained": 3,
      "lost": 7,
-     "p": 0.34375
-    }
+     "p": 0.34375,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "en-ru": {
@@ -1385,7 +1435,8 @@
     "median_tokens": 260,
     "gained": 1,
     "lost": 17,
-    "p": 0.00014495849609375
+    "p": 0.00014495849609375,
+    "p_holm": 0.009857177734375
    },
    "instruction": {
     "n": 200,
@@ -1408,7 +1459,8 @@
     "lost": 19,
     "p": 0.00022125244140625,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.01305389404296875
    },
    "instruction_steer": {
     "n": 200,
@@ -1422,7 +1474,8 @@
     "lost": 5,
     "p": 0.453125,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -1436,7 +1489,8 @@
     "lost": 15,
     "p": 0.002349853515625,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.11749267578125
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -1450,7 +1504,8 @@
     "lost": 6,
     "p": 0.125,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -1464,7 +1519,8 @@
     "lost": 7,
     "p": 0.34375,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -1480,8 +1536,10 @@
     "vs_steer": {
      "gained": 8,
      "lost": 2,
-     "p": 0.109375
-    }
+     "p": 0.109375,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -1497,8 +1555,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 6,
-     "p": 1.0
-    }
+     "p": 1.0,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "en-sw": {
@@ -1657,7 +1717,8 @@
     "median_tokens": 640,
     "gained": 0,
     "lost": 30,
-    "p": 1.862645149230957e-09
+    "p": 1.862645149230957e-09,
+    "p_holm": 1.4156103134155273e-07
    },
    "instruction": {
     "n": 200,
@@ -1680,7 +1741,8 @@
     "lost": 183,
     "p": 1.6313261169996311e-55,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.5986995946596385e-53
    },
    "instruction_steer": {
     "n": 200,
@@ -1694,7 +1756,8 @@
     "lost": 9,
     "p": 0.00390625,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 0.265625
    },
    "steer_prompt": {
     "n": 200,
@@ -1708,7 +1771,8 @@
     "lost": 194,
     "p": 7.965459555662261e-59,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 7.885804960105639e-57
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -1722,7 +1786,8 @@
     "lost": 16,
     "p": 3.0517578125e-05,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.002288818359375
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -1736,7 +1801,8 @@
     "lost": 9,
     "p": 0.021484375,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -1752,8 +1818,10 @@
     "vs_steer": {
      "gained": 12,
      "lost": 4,
-     "p": 0.076812744140625
-    }
+     "p": 0.076812744140625,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -1769,8 +1837,10 @@
     "vs_steer": {
      "gained": 11,
      "lost": 16,
-     "p": 0.44206833839416504
-    }
+     "p": 0.44206833839416504,
+     "p_holm": 1.0
+    },
+    "p_holm": 0.0004520416259765625
    }
   },
   "en-th": {
@@ -1793,7 +1863,8 @@
     "median_tokens": 343,
     "gained": 16,
     "lost": 16,
-    "p": 1.0
+    "p": 1.0,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -1816,7 +1887,8 @@
     "lost": 14,
     "p": 0.8450189828872681,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -1830,7 +1902,8 @@
     "lost": 3,
     "p": 0.007537841796875,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 0.49749755859375
    },
    "steer_prompt": {
     "n": 200,
@@ -1844,7 +1917,8 @@
     "lost": 34,
     "p": 0.0030876764615186403,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.15129614661441337
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -1858,7 +1932,8 @@
     "lost": 8,
     "p": 0.10775214433670044,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -1872,7 +1947,8 @@
     "lost": 3,
     "p": 0.09228515625,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -1888,8 +1964,10 @@
     "vs_steer": {
      "gained": 11,
      "lost": 16,
-     "p": 0.44206833839416504
-    }
+     "p": 0.44206833839416504,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -1905,8 +1983,10 @@
     "vs_steer": {
      "gained": 9,
      "lost": 9,
-     "p": 1.0
-    }
+     "p": 1.0,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "en-zh": {
@@ -1929,7 +2009,8 @@
     "median_tokens": 252,
     "gained": 5,
     "lost": 20,
-    "p": 0.004077315330505371
+    "p": 0.004077315330505371,
+    "p_holm": 0.24463891983032227
    },
    "instruction": {
     "n": 200,
@@ -1952,7 +2033,8 @@
     "lost": 12,
     "p": 0.076812744140625,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -1966,7 +2048,8 @@
     "lost": 4,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -1980,7 +2063,8 @@
     "lost": 12,
     "p": 0.076812744140625,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -1994,7 +2078,8 @@
     "lost": 5,
     "p": 0.7265625,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -2008,7 +2093,8 @@
     "lost": 4,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -2024,8 +2110,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 2,
-     "p": 0.2890625
-    }
+     "p": 0.2890625,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -2041,8 +2129,10 @@
     "vs_steer": {
      "gained": 4,
      "lost": 31,
-     "p": 3.4654513001441956e-06
-    }
+     "p": 3.4654513001441956e-06,
+     "p_holm": 0.0002460470423102379
+    },
+    "p_holm": 8.783592784311622e-05
    }
   },
   "bn-en": {
@@ -2065,7 +2155,8 @@
     "median_tokens": 235,
     "gained": 28,
     "lost": 8,
-    "p": 0.0011932429624721408
+    "p": 0.0011932429624721408,
+    "p_holm": 0.07278782071080059
    },
    "instruction": {
     "n": 200,
@@ -2088,7 +2179,8 @@
     "lost": 35,
     "p": 0.006600447966810918,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.33662284630735684
    },
    "instruction_steer": {
     "n": 200,
@@ -2102,7 +2194,8 @@
     "lost": 9,
     "p": 0.16863754391670227,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -2116,7 +2209,8 @@
     "lost": 13,
     "p": 0.47312965989112854,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -2130,7 +2224,8 @@
     "lost": 16,
     "p": 1.0,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -2144,7 +2239,8 @@
     "lost": 11,
     "p": 0.26493089646101,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -2160,8 +2256,10 @@
     "vs_steer": {
      "gained": 16,
      "lost": 12,
-     "p": 0.5715881884098053
-    }
+     "p": 0.5715881884098053,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -2177,8 +2275,10 @@
     "vs_steer": {
      "gained": 10,
      "lost": 10,
-     "p": 1.0
-    }
+     "p": 1.0,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "bn-de": {
@@ -2201,7 +2301,8 @@
     "median_tokens": 252,
     "gained": 28,
     "lost": 12,
-    "p": 0.01658900337497471
+    "p": 0.01658900337497471,
+    "p_holm": 0.8792171788736596
    },
    "instruction": {
     "n": 200,
@@ -2224,7 +2325,8 @@
     "lost": 23,
     "p": 0.6439689563703723,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -2238,7 +2340,8 @@
     "lost": 14,
     "p": 0.48685024166479707,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -2252,7 +2355,8 @@
     "lost": 23,
     "p": 1.0,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -2266,7 +2370,8 @@
     "lost": 14,
     "p": 0.48685024166479707,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -2280,7 +2385,8 @@
     "lost": 9,
     "p": 0.020061607006937265,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -2296,8 +2402,10 @@
     "vs_steer": {
      "gained": 14,
      "lost": 24,
-     "p": 0.14330665429588407
-    }
+     "p": 0.14330665429588407,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -2313,8 +2421,10 @@
     "vs_steer": {
      "gained": 9,
      "lost": 19,
-     "p": 0.08715855330228806
-    }
+     "p": 0.08715855330228806,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "bn-es": {
@@ -2337,7 +2447,8 @@
     "median_tokens": 236,
     "gained": 28,
     "lost": 13,
-    "p": 0.027533155829587486
+    "p": 0.027533155829587486,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -2360,7 +2471,8 @@
     "lost": 18,
     "p": 0.8714146793645341,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -2374,7 +2486,8 @@
     "lost": 8,
     "p": 0.03569813817739487,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -2388,7 +2501,8 @@
     "lost": 16,
     "p": 0.417692190836533,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -2402,7 +2516,8 @@
     "lost": 7,
     "p": 0.012540951371192932,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.7649980336427689
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -2416,7 +2531,8 @@
     "lost": 5,
     "p": 0.0005461126565933228,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.0360434353351593
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -2432,8 +2548,10 @@
     "vs_steer": {
      "gained": 10,
      "lost": 21,
-     "p": 0.07075554598122835
-    }
+     "p": 0.07075554598122835,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -2449,8 +2567,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 26,
-     "p": 0.0013187271542847157
-    }
+     "p": 0.0013187271542847157,
+     "p_holm": 0.08176108356565237
+    },
+    "p_holm": 1.0
    }
   },
   "bn-fr": {
@@ -2473,7 +2593,8 @@
     "median_tokens": 232,
     "gained": 31,
     "lost": 18,
-    "p": 0.08543313315739454
+    "p": 0.08543313315739454,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -2496,7 +2617,8 @@
     "lost": 18,
     "p": 0.7492586247608415,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -2510,7 +2632,8 @@
     "lost": 10,
     "p": 0.13604594767093658,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -2524,7 +2647,8 @@
     "lost": 25,
     "p": 0.7838463022094988,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -2538,7 +2662,8 @@
     "lost": 8,
     "p": 0.0070003666914999485,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.4340227348729968
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -2552,7 +2677,8 @@
     "lost": 9,
     "p": 0.020061607006937265,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -2568,8 +2694,10 @@
     "vs_steer": {
      "gained": 11,
      "lost": 29,
-     "p": 0.006426576095691416
-    }
+     "p": 0.006426576095691416,
+     "p_holm": 0.41259765625
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -2585,8 +2713,10 @@
     "vs_steer": {
      "gained": 10,
      "lost": 22,
-     "p": 0.050102459732443094
-    }
+     "p": 0.050102459732443094,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "bn-ja": {
@@ -2609,7 +2739,8 @@
     "median_tokens": 246,
     "gained": 23,
     "lost": 22,
-    "p": 1.0
+    "p": 1.0,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -2632,7 +2763,8 @@
     "lost": 19,
     "p": 0.8679394004284404,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -2646,7 +2778,8 @@
     "lost": 6,
     "p": 0.022655844688415527,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -2660,7 +2793,8 @@
     "lost": 10,
     "p": 0.32693958282470703,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -2674,7 +2808,8 @@
     "lost": 12,
     "p": 0.5715881884098053,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -2688,7 +2823,8 @@
     "lost": 7,
     "p": 0.13380050659179688,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -2704,8 +2840,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 42,
-     "p": 1.0087482138487758e-07
-    }
+     "p": 1.0087482138487758e-07,
+     "p_holm": 7.767361246635573e-06
+    },
+    "p_holm": 0.00017399661089712026
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -2721,8 +2859,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 48,
-     "p": 3.256530156647841e-09
-    }
+     "p": 3.256530156647841e-09,
+     "p_holm": 2.7354853315841865e-07
+    },
+    "p_holm": 6.200250405565336e-05
    }
   },
   "bn-ru": {
@@ -2881,7 +3021,8 @@
     "median_tokens": 294,
     "gained": 33,
     "lost": 37,
-    "p": 0.7202027723528613
+    "p": 0.7202027723528613,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -2904,7 +3045,8 @@
     "lost": 54,
     "p": 0.04221061162240416,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -2918,7 +3060,8 @@
     "lost": 30,
     "p": 0.6888797607233396,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -2932,7 +3075,8 @@
     "lost": 50,
     "p": 0.016853089894602595,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.7246828654679116
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -2946,7 +3090,8 @@
     "lost": 34,
     "p": 0.8043170001933986,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -2960,7 +3105,8 @@
     "lost": 37,
     "p": 0.9062943247030809,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -2976,8 +3122,10 @@
     "vs_steer": {
      "gained": 34,
      "lost": 40,
-     "p": 0.5613807442989819
-    }
+     "p": 0.5613807442989819,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -2993,8 +3141,10 @@
     "vs_steer": {
      "gained": 30,
      "lost": 30,
-     "p": 1.0
-    }
+     "p": 1.0,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "bn-te": {
@@ -3017,7 +3167,8 @@
     "median_tokens": 640,
     "gained": 160,
     "lost": 0,
-    "p": 1.3684555315672042e-48
+    "p": 1.3684555315672042e-48,
+    "p_holm": 1.313717310304516e-46
    },
    "instruction": {
     "n": 200,
@@ -3040,7 +3191,8 @@
     "lost": 6,
     "p": 0.03125,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -3054,7 +3206,8 @@
     "lost": 0,
     "p": 0.25,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -3068,7 +3221,8 @@
     "lost": 6,
     "p": 0.03125,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -3082,7 +3236,8 @@
     "lost": 1,
     "p": 1.0,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -3096,7 +3251,8 @@
     "lost": 0,
     "p": 2.350988701644575e-38,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 2.2099293795459005e-36
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -3112,8 +3268,10 @@
     "vs_steer": {
      "gained": 2,
      "lost": 2,
-     "p": 1.0
-    }
+     "p": 1.0,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -3129,8 +3287,10 @@
     "vs_steer": {
      "gained": 54,
      "lost": 2,
-     "p": 4.4325654258159375e-14
-    }
+     "p": 4.4325654258159375e-14,
+     "p_holm": 3.944983228976184e-12
+    },
+    "p_holm": 2.0564716596283006e-11
    }
   },
   "bn-th": {
@@ -3153,7 +3313,8 @@
     "median_tokens": 343,
     "gained": 44,
     "lost": 14,
-    "p": 0.00010049669926914806
+    "p": 0.00010049669926914806,
+    "p_holm": 0.006934272249571216
    },
    "instruction": {
     "n": 200,
@@ -3176,7 +3337,8 @@
     "lost": 34,
     "p": 0.9049745264594623,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -3190,7 +3352,8 @@
     "lost": 9,
     "p": 0.0006795482549932785,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 0.04688882959453622
    },
    "steer_prompt": {
     "n": 200,
@@ -3204,7 +3367,8 @@
     "lost": 15,
     "p": 0.013283281562245008,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.5844643887387804
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -3218,7 +3382,8 @@
     "lost": 9,
     "p": 0.000430857042374555,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.02929827888146974
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -3232,7 +3397,8 @@
     "lost": 13,
     "p": 0.0002685401188191605,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.018260728079702915
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -3248,8 +3414,10 @@
     "vs_steer": {
      "gained": 10,
      "lost": 37,
-     "p": 9.848878492846325e-05
-    }
+     "p": 9.848878492846325e-05,
+     "p_holm": 0.0069927037299208905
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -3265,8 +3433,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 37,
-     "p": 5.299581744111492e-06
-    }
+     "p": 5.299581744111492e-06,
+     "p_holm": 0.00037097072208780446
+    },
+    "p_holm": 1.0
    }
   },
   "bn-zh": {
@@ -3289,7 +3459,8 @@
     "median_tokens": 252,
     "gained": 167,
     "lost": 3,
-    "p": 1.094465075606233e-45
+    "p": 1.094465075606233e-45,
+    "p_holm": 1.028797171069859e-43
    },
    "instruction": {
     "n": 200,
@@ -3312,7 +3483,8 @@
     "lost": 1,
     "p": 3.29585398809197e-42,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 2.834434429759094e-40
    },
    "instruction_steer": {
     "n": 200,
@@ -3326,7 +3498,8 @@
     "lost": 1,
     "p": 1.4112197669286793e-47,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.3829953715901057e-45
    },
    "steer_prompt": {
     "n": 200,
@@ -3340,7 +3513,8 @@
     "lost": 1,
     "p": 1.729727791900946e-45,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.539457734791842e-43
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -3354,7 +3528,8 @@
     "lost": 2,
     "p": 5.856989675107634e-46,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 5.739849881605481e-44
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -3368,7 +3543,8 @@
     "lost": 0,
     "p": 6.842277657836021e-49,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 6.7054321046793e-47
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -3384,8 +3560,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 148,
-     "p": 1.1851321278320514e-37
-    }
+     "p": 1.1851321278320514e-37,
+     "p_holm": 1.1495781639970898e-35
+    },
+    "p_holm": 0.3461192259564996
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -3401,8 +3579,10 @@
     "vs_steer": {
      "gained": 3,
      "lost": 140,
-     "p": 8.743887177942738e-38
-    }
+     "p": 8.743887177942738e-38,
+     "p_holm": 8.656448306163311e-36
+    },
+    "p_holm": 0.019279285634638654
    }
   },
   "de-en": {
@@ -3425,7 +3605,8 @@
     "median_tokens": 235,
     "gained": 18,
     "lost": 4,
-    "p": 0.004343509674072266
+    "p": 0.004343509674072266,
+    "p_holm": 0.25626707077026367
    },
    "instruction": {
     "n": 200,
@@ -3448,7 +3629,8 @@
     "lost": 11,
     "p": 0.6476058959960938,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -3462,7 +3644,8 @@
     "lost": 5,
     "p": 0.5810546875,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -3476,7 +3659,8 @@
     "lost": 8,
     "p": 0.8145294189453125,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -3490,7 +3674,8 @@
     "lost": 8,
     "p": 1.0,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -3504,7 +3689,8 @@
     "lost": 9,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -3520,8 +3706,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 10,
-     "p": 0.454498291015625
-    }
+     "p": 0.454498291015625,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -3537,8 +3725,10 @@
     "vs_steer": {
      "gained": 11,
      "lost": 4,
-     "p": 0.11846923828125
-    }
+     "p": 0.11846923828125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "de-bn": {
@@ -3561,7 +3751,8 @@
     "median_tokens": 425,
     "gained": 13,
     "lost": 19,
-    "p": 0.37708558747544885
+    "p": 0.37708558747544885,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -3584,7 +3775,8 @@
     "lost": 173,
     "p": 1.4616682008316695e-50,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.4032014727984027e-48
    },
    "instruction_steer": {
     "n": 200,
@@ -3598,7 +3790,8 @@
     "lost": 6,
     "p": 0.5078125,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -3612,7 +3805,8 @@
     "lost": 13,
     "p": 0.09625244140625,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -3626,7 +3820,8 @@
     "lost": 7,
     "p": 1.0,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -3640,7 +3835,8 @@
     "lost": 7,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -3656,8 +3852,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 9,
-     "p": 0.803619384765625
-    }
+     "p": 0.803619384765625,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -3673,8 +3871,10 @@
     "vs_steer": {
      "gained": 8,
      "lost": 17,
-     "p": 0.10775214433670044
-    }
+     "p": 0.10775214433670044,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "de-es": {
@@ -3697,7 +3897,8 @@
     "median_tokens": 236,
     "gained": 55,
     "lost": 11,
-    "p": 3.601449657605633e-08
+    "p": 3.601449657605633e-08,
+    "p_holm": 2.7010872432042246e-06
    },
    "instruction": {
     "n": 200,
@@ -3720,7 +3921,8 @@
     "lost": 4,
     "p": 1.5138326148189662e-09,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.029406178076897e-07
    },
    "instruction_steer": {
     "n": 200,
@@ -3734,7 +3936,8 @@
     "lost": 6,
     "p": 5.805322444984995e-09,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 4.702311180437846e-07
    },
    "steer_prompt": {
     "n": 200,
@@ -3748,7 +3951,8 @@
     "lost": 5,
     "p": 1.170292474039769e-10,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 7.840959576066453e-09
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -3762,7 +3966,8 @@
     "lost": 4,
     "p": 8.225455871979648e-10,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 6.744873815023311e-08
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -3776,7 +3981,8 @@
     "lost": 5,
     "p": 1.3680484300948592e-08,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.039716806872093e-06
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -3792,8 +3998,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 34,
-     "p": 8.364584573428147e-06
-    }
+     "p": 8.364584573428147e-06,
+     "p_holm": 0.0006106146738602547
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -3809,8 +4017,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 44,
-     "p": 1.2115257419509362e-07
-    }
+     "p": 1.2115257419509362e-07,
+     "p_holm": 9.449900787217302e-06
+    },
+    "p_holm": 1.0
    }
   },
   "de-fr": {
@@ -3833,7 +4043,8 @@
     "median_tokens": 232,
     "gained": 20,
     "lost": 21,
-    "p": 1.0
+    "p": 1.0,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -3856,7 +4067,8 @@
     "lost": 16,
     "p": 0.711071103811264,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -3870,7 +4082,8 @@
     "lost": 9,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -3884,7 +4097,8 @@
     "lost": 17,
     "p": 0.45825831964612007,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -3898,7 +4112,8 @@
     "lost": 6,
     "p": 0.79052734375,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -3912,7 +4127,8 @@
     "lost": 9,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -3928,8 +4144,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 17,
-     "p": 0.03468966484069824
-    }
+     "p": 0.03468966484069824,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -3945,8 +4163,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 18,
-     "p": 0.043285250663757324
-    }
+     "p": 0.043285250663757324,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "de-ja": {
@@ -3969,7 +4189,8 @@
     "median_tokens": 246,
     "gained": 14,
     "lost": 20,
-    "p": 0.39152830513194203
+    "p": 0.39152830513194203,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -3992,7 +4213,8 @@
     "lost": 11,
     "p": 0.480682373046875,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -4006,7 +4228,8 @@
     "lost": 3,
     "p": 0.057373046875,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -4020,7 +4243,8 @@
     "lost": 7,
     "p": 0.803619384765625,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -4034,7 +4258,8 @@
     "lost": 2,
     "p": 0.03857421875,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -4048,7 +4273,8 @@
     "lost": 9,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -4064,8 +4290,10 @@
     "vs_steer": {
      "gained": 1,
      "lost": 11,
-     "p": 0.00634765625
-    }
+     "p": 0.00634765625,
+     "p_holm": 0.41259765625
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -4081,8 +4309,10 @@
     "vs_steer": {
      "gained": 2,
      "lost": 23,
-     "p": 1.9431114196777344e-05
-    }
+     "p": 1.9431114196777344e-05,
+     "p_holm": 0.0012824535369873047
+    },
+    "p_holm": 1.0
    }
   },
   "de-ru": {
@@ -4105,7 +4335,8 @@
     "median_tokens": 260,
     "gained": 14,
     "lost": 12,
-    "p": 0.8450189828872681
+    "p": 0.8450189828872681,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -4128,7 +4359,8 @@
     "lost": 12,
     "p": 0.076812744140625,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -4142,7 +4374,8 @@
     "lost": 6,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -4156,7 +4389,8 @@
     "lost": 8,
     "p": 1.0,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -4170,7 +4404,8 @@
     "lost": 7,
     "p": 1.0,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -4184,7 +4419,8 @@
     "lost": 7,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -4200,8 +4436,10 @@
     "vs_steer": {
      "gained": 8,
      "lost": 4,
-     "p": 0.3876953125
-    }
+     "p": 0.3876953125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -4217,8 +4455,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 9,
-     "p": 0.60723876953125
-    }
+     "p": 0.60723876953125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "de-sw": {
@@ -4241,7 +4481,8 @@
     "median_tokens": 294,
     "gained": 37,
     "lost": 37,
-    "p": 1.0
+    "p": 1.0,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -4264,7 +4505,8 @@
     "lost": 51,
     "p": 0.018316097516916315,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.8059082907443179
    },
    "instruction_steer": {
     "n": 200,
@@ -4278,7 +4520,8 @@
     "lost": 23,
     "p": 0.6718110337653656,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -4292,7 +4535,8 @@
     "lost": 78,
     "p": 1.8477591781478763e-12,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.2934314247035134e-10
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -4306,7 +4550,8 @@
     "lost": 26,
     "p": 0.4349928051221534,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -4320,7 +4565,8 @@
     "lost": 28,
     "p": 0.8919231511047494,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -4336,8 +4582,10 @@
     "vs_steer": {
      "gained": 35,
      "lost": 45,
-     "p": 0.31430657986393706
-    }
+     "p": 0.31430657986393706,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -4353,8 +4601,10 @@
     "vs_steer": {
      "gained": 27,
      "lost": 44,
-     "p": 0.05681467793283902
-    }
+     "p": 0.05681467793283902,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "de-te": {
@@ -4513,7 +4763,8 @@
     "median_tokens": 343,
     "gained": 20,
     "lost": 16,
-    "p": 0.617719317029696
+    "p": 0.617719317029696,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -4536,7 +4787,8 @@
     "lost": 18,
     "p": 0.07551869750022888,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -4550,7 +4802,8 @@
     "lost": 8,
     "p": 0.6476058959960938,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -4564,7 +4817,8 @@
     "lost": 15,
     "p": 1.0,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -4578,7 +4832,8 @@
     "lost": 7,
     "p": 0.629058837890625,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -4592,7 +4847,8 @@
     "lost": 11,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -4608,8 +4864,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 12,
-     "p": 0.143463134765625
-    }
+     "p": 0.143463134765625,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -4625,8 +4883,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 10,
-     "p": 0.629058837890625
-    }
+     "p": 0.629058837890625,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "de-zh": {
@@ -4649,7 +4909,8 @@
     "median_tokens": 252,
     "gained": 71,
     "lost": 14,
-    "p": 2.427174154689865e-10
+    "p": 2.427174154689865e-10,
+    "p_holm": 1.893195840658095e-08
    },
    "instruction": {
     "n": 200,
@@ -4672,7 +4933,8 @@
     "lost": 8,
     "p": 3.243250603517968e-11,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 2.2702754224625775e-09
    },
    "instruction_steer": {
     "n": 200,
@@ -4686,7 +4948,8 @@
     "lost": 4,
     "p": 3.1147468230931924e-15,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 2.6475347996292135e-13
    },
    "steer_prompt": {
     "n": 200,
@@ -4700,7 +4963,8 @@
     "lost": 9,
     "p": 4.181227909275131e-11,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 2.843234978307089e-09
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -4714,7 +4978,8 @@
     "lost": 4,
     "p": 2.0835438409305684e-14,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.7501768263816775e-12
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -4728,7 +4993,8 @@
     "lost": 7,
     "p": 6.9644370929921e-13,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 5.710838416253522e-11
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -4744,8 +5010,10 @@
     "vs_steer": {
      "gained": 3,
      "lost": 42,
-     "p": 8.654978955746628e-10
-    }
+     "p": 8.654978955746628e-10,
+     "p_holm": 7.010532954154769e-08
+    },
+    "p_holm": 0.5551411187516351
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -4761,8 +5029,10 @@
     "vs_steer": {
      "gained": 3,
      "lost": 87,
-     "p": 1.9641662139013065e-22
-    }
+     "p": 1.9641662139013065e-22,
+     "p_holm": 1.8659579032062412e-20
+    },
+    "p_holm": 0.26086403110979445
    }
   },
   "es-en": {
@@ -4785,7 +5055,8 @@
     "median_tokens": 235,
     "gained": 15,
     "lost": 6,
-    "p": 0.0783538818359375
+    "p": 0.0783538818359375,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -4808,7 +5079,8 @@
     "lost": 16,
     "p": 0.01181793212890625,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.5554428100585938
    },
    "instruction_steer": {
     "n": 200,
@@ -4822,7 +5094,8 @@
     "lost": 3,
     "p": 0.34375,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -4836,7 +5109,8 @@
     "lost": 6,
     "p": 1.0,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -4850,7 +5124,8 @@
     "lost": 5,
     "p": 1.0,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -4864,7 +5139,8 @@
     "lost": 8,
     "p": 0.5810546875,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -4880,8 +5156,10 @@
     "vs_steer": {
      "gained": 8,
      "lost": 5,
-     "p": 0.5810546875
-    }
+     "p": 0.5810546875,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -4897,8 +5175,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 3,
-     "p": 0.34375
-    }
+     "p": 0.34375,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "es-bn": {
@@ -4921,7 +5201,8 @@
     "median_tokens": 425,
     "gained": 10,
     "lost": 16,
-    "p": 0.32693958282470703
+    "p": 0.32693958282470703,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -4944,7 +5225,8 @@
     "lost": 164,
     "p": 2.9639891529038413e-46,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 2.6379503460844187e-44
    },
    "instruction_steer": {
     "n": 200,
@@ -4958,7 +5240,8 @@
     "lost": 2,
     "p": 0.6875,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -4972,7 +5255,8 @@
     "lost": 34,
     "p": 1.941225491464138e-08,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.2035598047077656e-06
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -4986,7 +5270,8 @@
     "lost": 5,
     "p": 1.0,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -5000,7 +5285,8 @@
     "lost": 4,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -5016,8 +5302,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 3,
-     "p": 0.7265625
-    }
+     "p": 0.7265625,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -5033,8 +5321,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 3,
-     "p": 0.5078125
-    }
+     "p": 0.5078125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "es-de": {
@@ -5193,7 +5483,8 @@
     "median_tokens": 232,
     "gained": 18,
     "lost": 25,
-    "p": 0.3603776529357674
+    "p": 0.3603776529357674,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -5216,7 +5507,8 @@
     "lost": 18,
     "p": 0.26493089646101,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -5230,7 +5522,8 @@
     "lost": 10,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -5244,7 +5537,8 @@
     "lost": 22,
     "p": 0.12144948495551944,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -5258,7 +5552,8 @@
     "lost": 10,
     "p": 1.0,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -5272,7 +5567,8 @@
     "lost": 10,
     "p": 0.8145294189453125,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -5288,8 +5584,10 @@
     "vs_steer": {
      "gained": 3,
      "lost": 12,
-     "p": 0.03515625
-    }
+     "p": 0.03515625,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -5305,8 +5603,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 37,
-     "p": 5.299581744111492e-06
-    }
+     "p": 5.299581744111492e-06,
+     "p_holm": 0.00037097072208780446
+    },
+    "p_holm": 0.004163782495304247
    }
   },
   "es-ja": {
@@ -5329,7 +5629,8 @@
     "median_tokens": 246,
     "gained": 9,
     "lost": 23,
-    "p": 0.020061607006937265
+    "p": 0.020061607006937265,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -5352,7 +5653,8 @@
     "lost": 14,
     "p": 0.012725830078125,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.58538818359375
    },
    "instruction_steer": {
     "n": 200,
@@ -5366,7 +5668,8 @@
     "lost": 6,
     "p": 0.75390625,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -5380,7 +5683,8 @@
     "lost": 50,
     "p": 3.8029690507812575e-11,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 2.6240486450390677e-09
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -5394,7 +5698,8 @@
     "lost": 6,
     "p": 0.79052734375,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -5408,7 +5713,8 @@
     "lost": 7,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -5424,8 +5730,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 11,
-     "p": 0.332305908203125
-    }
+     "p": 0.332305908203125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -5441,8 +5749,10 @@
     "vs_steer": {
      "gained": 4,
      "lost": 19,
-     "p": 0.002599477767944336
-    }
+     "p": 0.002599477767944336,
+     "p_holm": 0.15336918830871582
+    },
+    "p_holm": 0.46063232421875
    }
   },
   "es-ru": {
@@ -5465,7 +5775,8 @@
     "median_tokens": 260,
     "gained": 14,
     "lost": 16,
-    "p": 0.855535551905632
+    "p": 0.855535551905632,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -5488,7 +5799,8 @@
     "lost": 15,
     "p": 0.04138946533203125,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -5502,7 +5814,8 @@
     "lost": 5,
     "p": 0.4239501953125,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -5516,7 +5829,8 @@
     "lost": 11,
     "p": 1.0,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -5530,7 +5844,8 @@
     "lost": 7,
     "p": 0.803619384765625,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -5544,7 +5859,8 @@
     "lost": 6,
     "p": 0.454498291015625,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -5560,8 +5876,10 @@
     "vs_steer": {
      "gained": 4,
      "lost": 4,
-     "p": 1.0
-    }
+     "p": 1.0,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -5577,8 +5895,10 @@
     "vs_steer": {
      "gained": 4,
      "lost": 32,
-     "p": 1.941574737429619e-06
-    }
+     "p": 1.941574737429619e-06,
+     "p_holm": 0.00013979338109493256
+    },
+    "p_holm": 0.0010072519071400166
    }
   },
   "es-sw": {
@@ -5601,7 +5921,8 @@
     "median_tokens": 294,
     "gained": 29,
     "lost": 46,
-    "p": 0.06394991646706695
+    "p": 0.06394991646706695,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -5624,7 +5945,8 @@
     "lost": 66,
     "p": 3.040683333139466e-07,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 2.0372578332034424e-05
    },
    "instruction_steer": {
     "n": 200,
@@ -5638,7 +5960,8 @@
     "lost": 31,
     "p": 0.21160856876151612,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -5652,7 +5975,8 @@
     "lost": 73,
     "p": 7.237363065075456e-10,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 4.704285992299046e-08
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -5666,7 +5990,8 @@
     "lost": 26,
     "p": 1.0,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -5680,7 +6005,8 @@
     "lost": 30,
     "p": 0.5900533317766357,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -5696,8 +6022,10 @@
     "vs_steer": {
      "gained": 28,
      "lost": 30,
-     "p": 0.8956832138895903
-    }
+     "p": 0.8956832138895903,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -5713,8 +6041,10 @@
     "vs_steer": {
      "gained": 25,
      "lost": 33,
-     "p": 0.3581433018061379
-    }
+     "p": 0.3581433018061379,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "es-te": {
@@ -5737,7 +6067,8 @@
     "median_tokens": 640,
     "gained": 4,
     "lost": 23,
-    "p": 0.000310748815536499
+    "p": 0.000310748815536499,
+    "p_holm": 0.020820170640945435
    },
    "instruction": {
     "n": 200,
@@ -5760,7 +6091,8 @@
     "lost": 185,
     "p": 4.078315292499078e-56,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 4.037532139574087e-54
    },
    "instruction_steer": {
     "n": 200,
@@ -5774,7 +6106,8 @@
     "lost": 4,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -5788,7 +6121,8 @@
     "lost": 113,
     "p": 3.2119696647518126e-31,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 2.601695428448968e-29
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -5802,7 +6136,8 @@
     "lost": 8,
     "p": 0.109375,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -5816,7 +6151,8 @@
     "lost": 4,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -5832,8 +6168,10 @@
     "vs_steer": {
      "gained": 9,
      "lost": 3,
-     "p": 0.14599609375
-    }
+     "p": 0.14599609375,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -5849,8 +6187,10 @@
     "vs_steer": {
      "gained": 4,
      "lost": 9,
-     "p": 0.266845703125
-    }
+     "p": 0.266845703125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "es-th": {
@@ -5873,7 +6213,8 @@
     "median_tokens": 343,
     "gained": 12,
     "lost": 17,
-    "p": 0.45825831964612007
+    "p": 0.45825831964612007,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -5896,7 +6237,8 @@
     "lost": 24,
     "p": 0.0005461126565933228,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.03003619611263275
    },
    "instruction_steer": {
     "n": 200,
@@ -5910,7 +6252,8 @@
     "lost": 9,
     "p": 0.60723876953125,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -5924,7 +6267,8 @@
     "lost": 12,
     "p": 0.8318119049072266,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -5938,7 +6282,8 @@
     "lost": 10,
     "p": 0.3017578125,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -5952,7 +6297,8 @@
     "lost": 14,
     "p": 0.063568115234375,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -5968,8 +6314,10 @@
     "vs_steer": {
      "gained": 8,
      "lost": 10,
-     "p": 0.8145294189453125
-    }
+     "p": 0.8145294189453125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -5985,8 +6333,10 @@
     "vs_steer": {
      "gained": 10,
      "lost": 10,
-     "p": 1.0
-    }
+     "p": 1.0,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "es-zh": {
@@ -6009,7 +6359,8 @@
     "median_tokens": 252,
     "gained": 29,
     "lost": 14,
-    "p": 0.03153949735315109
+    "p": 0.03153949735315109,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -6032,7 +6383,8 @@
     "lost": 10,
     "p": 0.07075554598122835,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -6046,7 +6398,8 @@
     "lost": 3,
     "p": 8.430331945419312e-06,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 0.000649135559797287
    },
    "steer_prompt": {
     "n": 200,
@@ -6060,7 +6413,8 @@
     "lost": 5,
     "p": 0.0009122341871261597,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.04652394354343414
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -6074,7 +6428,8 @@
     "lost": 3,
     "p": 0.0002771615982055664,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.01940131187438965
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -6088,7 +6443,8 @@
     "lost": 8,
     "p": 0.0070003666914999485,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.42702236818149686
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -6104,8 +6460,10 @@
     "vs_steer": {
      "gained": 4,
      "lost": 20,
-     "p": 0.001543879508972168
-    }
+     "p": 0.001543879508972168,
+     "p_holm": 0.10498380661010742
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -6121,8 +6479,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 75,
-     "p": 1.7292396771428031e-15
-    }
+     "p": 1.7292396771428031e-15,
+     "p_holm": 1.5909005029713789e-13
+    },
+    "p_holm": 1.5797299542270882e-08
    }
   },
   "fr-en": {
@@ -6281,7 +6641,8 @@
     "median_tokens": 425,
     "gained": 13,
     "lost": 14,
-    "p": 1.0
+    "p": 1.0,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -6304,7 +6665,8 @@
     "lost": 152,
     "p": 1.0453686543863135e-42,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 9.19924415859956e-41
    },
    "instruction_steer": {
     "n": 200,
@@ -6318,7 +6680,8 @@
     "lost": 4,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -6332,7 +6695,8 @@
     "lost": 18,
     "p": 0.12207812070846558,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -6346,7 +6710,8 @@
     "lost": 12,
     "p": 0.143463134765625,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -6360,7 +6725,8 @@
     "lost": 8,
     "p": 0.79052734375,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -6376,8 +6742,10 @@
     "vs_steer": {
      "gained": 10,
      "lost": 5,
-     "p": 0.3017578125
-    }
+     "p": 0.3017578125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -6393,8 +6761,10 @@
     "vs_steer": {
      "gained": 10,
      "lost": 5,
-     "p": 0.3017578125
-    }
+     "p": 0.3017578125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "fr-de": {
@@ -6417,7 +6787,8 @@
     "median_tokens": 252,
     "gained": 22,
     "lost": 16,
-    "p": 0.417692190836533
+    "p": 0.417692190836533,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -6440,7 +6811,8 @@
     "lost": 24,
     "p": 0.003326892852783203,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.17632532119750977
    },
    "instruction_steer": {
     "n": 200,
@@ -6454,7 +6826,8 @@
     "lost": 5,
     "p": 0.143463134765625,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -6468,7 +6841,8 @@
     "lost": 11,
     "p": 1.0,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -6482,7 +6856,8 @@
     "lost": 5,
     "p": 0.3017578125,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -6496,7 +6871,8 @@
     "lost": 4,
     "p": 0.1795654296875,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -6512,8 +6888,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 12,
-     "p": 0.359283447265625
-    }
+     "p": 0.359283447265625,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -6529,8 +6907,10 @@
     "vs_steer": {
      "gained": 4,
      "lost": 36,
-     "p": 1.8570244719740003e-07
-    }
+     "p": 1.8570244719740003e-07,
+     "p_holm": 1.3927683539805003e-05
+    },
+    "p_holm": 0.0011010431153408717
    }
   },
   "fr-es": {
@@ -6553,7 +6933,8 @@
     "median_tokens": 236,
     "gained": 34,
     "lost": 10,
-    "p": 0.00038813090293388086
+    "p": 0.00038813090293388086,
+    "p_holm": 0.025616639593636137
    },
    "instruction": {
     "n": 200,
@@ -6576,7 +6957,8 @@
     "lost": 15,
     "p": 0.048766765904474596,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -6590,7 +6972,8 @@
     "lost": 4,
     "p": 0.0005335211753845215,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 0.03841352462768555
    },
    "steer_prompt": {
     "n": 200,
@@ -6604,7 +6987,8 @@
     "lost": 5,
     "p": 6.618769839406013e-05,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.0036403234116733074
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -6618,7 +7002,8 @@
     "lost": 7,
     "p": 0.0005082604475319386,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.033036929089576006
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -6632,7 +7017,8 @@
     "lost": 8,
     "p": 0.001878225477412343,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.12020643055438995
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -6648,8 +7034,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 28,
-     "p": 6.618769839406013e-05
-    }
+     "p": 6.618769839406013e-05,
+     "p_holm": 0.00476551428437233
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -6665,8 +7053,10 @@
     "vs_steer": {
      "gained": 2,
      "lost": 57,
-     "p": 6.144390551909851e-15
-    }
+     "p": 6.144390551909851e-15,
+     "p_holm": 5.591395402237964e-13
+    },
+    "p_holm": 0.0013245677177240317
    }
   },
   "fr-ja": {
@@ -6689,7 +7079,8 @@
     "median_tokens": 246,
     "gained": 12,
     "lost": 17,
-    "p": 0.45825831964612007
+    "p": 0.45825831964612007,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -6712,7 +7103,8 @@
     "lost": 20,
     "p": 0.009355306625366211,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.46776533126831055
    },
    "instruction_steer": {
     "n": 200,
@@ -6726,7 +7118,8 @@
     "lost": 5,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -6740,7 +7133,8 @@
     "lost": 16,
     "p": 0.02660369873046875,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -6754,7 +7148,8 @@
     "lost": 4,
     "p": 1.0,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -6768,7 +7163,8 @@
     "lost": 10,
     "p": 0.454498291015625,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -6784,8 +7180,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 8,
-     "p": 0.5810546875
-    }
+     "p": 0.5810546875,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -6801,8 +7199,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 19,
-     "p": 0.006610751152038574
-    }
+     "p": 0.006610751152038574,
+     "p_holm": 0.34375905990600586
+    },
+    "p_holm": 0.4296988248825073
    }
   },
   "fr-ru": {
@@ -6825,7 +7225,8 @@
     "median_tokens": 260,
     "gained": 12,
     "lost": 9,
-    "p": 0.6636238098144531
+    "p": 0.6636238098144531,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -6848,7 +7249,8 @@
     "lost": 16,
     "p": 0.052478790283203125,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -6862,7 +7264,8 @@
     "lost": 5,
     "p": 0.453125,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -6876,7 +7279,8 @@
     "lost": 12,
     "p": 0.5034446716308594,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -6890,7 +7294,8 @@
     "lost": 7,
     "p": 0.7744140625,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -6904,7 +7309,8 @@
     "lost": 6,
     "p": 0.75390625,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -6920,8 +7326,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 4,
-     "p": 0.548828125
-    }
+     "p": 0.548828125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -6937,8 +7345,10 @@
     "vs_steer": {
      "gained": 3,
      "lost": 34,
-     "p": 1.233129296451807e-07
-    }
+     "p": 1.233129296451807e-07,
+     "p_holm": 9.495095582678914e-06
+    },
+    "p_holm": 8.71961674420163e-06
    }
   },
   "fr-sw": {
@@ -6961,7 +7371,8 @@
     "median_tokens": 294,
     "gained": 35,
     "lost": 44,
-    "p": 0.3681876338306308
+    "p": 0.3681876338306308,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -6984,7 +7395,8 @@
     "lost": 73,
     "p": 2.718821367078067e-11,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.9303631706254277e-09
    },
    "instruction_steer": {
     "n": 200,
@@ -6998,7 +7410,8 @@
     "lost": 29,
     "p": 0.5831321542611763,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -7012,7 +7425,8 @@
     "lost": 73,
     "p": 1.94823766277557e-09,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.2468721041763648e-07
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -7026,7 +7440,8 @@
     "lost": 35,
     "p": 0.08142681460950621,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -7040,7 +7455,8 @@
     "lost": 33,
     "p": 0.09837064844049181,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -7056,8 +7472,10 @@
     "vs_steer": {
      "gained": 36,
      "lost": 25,
-     "p": 0.20003136851310316
-    }
+     "p": 0.20003136851310316,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -7073,8 +7491,10 @@
     "vs_steer": {
      "gained": 34,
      "lost": 31,
-     "p": 0.8043170001933986
-    }
+     "p": 0.8043170001933986,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "fr-te": {
@@ -7097,7 +7517,8 @@
     "median_tokens": 640,
     "gained": 13,
     "lost": 24,
-    "p": 0.09887174959294498
+    "p": 0.09887174959294498,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -7120,7 +7541,8 @@
     "lost": 175,
     "p": 4.176194859519056e-53,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 4.050909013733484e-51
    },
    "instruction_steer": {
     "n": 200,
@@ -7134,7 +7556,8 @@
     "lost": 10,
     "p": 0.629058837890625,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -7148,7 +7571,8 @@
     "lost": 77,
     "p": 5.137564699362503e-16,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 3.8531735245218773e-14
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -7162,7 +7586,8 @@
     "lost": 8,
     "p": 1.0,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -7176,7 +7601,8 @@
     "lost": 9,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -7192,8 +7618,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 7,
-     "p": 1.0
-    }
+     "p": 1.0,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -7209,8 +7637,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 18,
-     "p": 0.043285250663757324
-    }
+     "p": 0.043285250663757324,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "fr-th": {
@@ -7233,7 +7663,8 @@
     "median_tokens": 343,
     "gained": 21,
     "lost": 13,
-    "p": 0.22948101302608848
+    "p": 0.22948101302608848,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -7256,7 +7687,8 @@
     "lost": 20,
     "p": 0.0191572904586792,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.8237634897232056
    },
    "instruction_steer": {
     "n": 200,
@@ -7270,7 +7702,8 @@
     "lost": 8,
     "p": 0.6476058959960938,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -7284,7 +7717,8 @@
     "lost": 8,
     "p": 1.0,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -7298,7 +7732,8 @@
     "lost": 6,
     "p": 0.79052734375,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -7312,7 +7747,8 @@
     "lost": 12,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -7328,8 +7764,10 @@
     "vs_steer": {
      "gained": 4,
      "lost": 13,
-     "p": 0.049041748046875
-    }
+     "p": 0.049041748046875,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -7345,8 +7783,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 11,
-     "p": 0.480682373046875
-    }
+     "p": 0.480682373046875,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "fr-zh": {
@@ -7369,7 +7809,8 @@
     "median_tokens": 252,
     "gained": 62,
     "lost": 10,
-    "p": 2.6890686575861277e-10
+    "p": 2.6890686575861277e-10,
+    "p_holm": 2.0705828663413183e-08
    },
    "instruction": {
     "n": 200,
@@ -7392,7 +7833,8 @@
     "lost": 2,
     "p": 6.123990203832363e-13,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 4.531752750835949e-11
    },
    "instruction_steer": {
     "n": 200,
@@ -7406,7 +7848,8 @@
     "lost": 1,
     "p": 8.049116928532385e-16,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 6.922240558537851e-14
    },
    "steer_prompt": {
     "n": 200,
@@ -7420,7 +7863,8 @@
     "lost": 2,
     "p": 1.1879386363489175e-14,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 8.790745908981989e-13
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -7434,7 +7878,8 @@
     "lost": 0,
     "p": 4.440892098500626e-16,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 3.774758283725532e-14
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -7448,7 +7893,8 @@
     "lost": 2,
     "p": 1.6497914145929826e-13,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.3693268741121756e-11
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -7464,8 +7910,10 @@
     "vs_steer": {
      "gained": 1,
      "lost": 37,
-     "p": 2.837623469531536e-10
-    }
+     "p": 2.837623469531536e-10,
+     "p_holm": 2.3268512450158596e-08
+    },
+    "p_holm": 0.4439447447657585
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -7481,8 +7929,10 @@
     "vs_steer": {
      "gained": 1,
      "lost": 104,
-     "p": 5.226203497089203e-30
-    }
+     "p": 5.226203497089203e-30,
+     "p_holm": 5.069417392176527e-28
+    },
+    "p_holm": 4.519598898448386e-07
    }
   },
   "ja-en": {
@@ -7505,7 +7955,8 @@
     "median_tokens": 235,
     "gained": 38,
     "lost": 6,
-    "p": 9.430375484953402e-07
+    "p": 9.430375484953402e-07,
+    "p_holm": 6.884174104015983e-05
    },
    "instruction": {
     "n": 200,
@@ -7528,7 +7979,8 @@
     "lost": 12,
     "p": 0.28104151505976915,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -7542,7 +7994,8 @@
     "lost": 5,
     "p": 0.006610751152038574,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 0.4429203271865845
    },
    "steer_prompt": {
     "n": 200,
@@ -7556,7 +8009,8 @@
     "lost": 12,
     "p": 0.28104151505976915,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -7570,7 +8024,8 @@
     "lost": 5,
     "p": 0.002493917942047119,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.1571168303489685
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -7584,7 +8039,8 @@
     "lost": 5,
     "p": 0.006610751152038574,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.4098665714263916
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -7600,8 +8056,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 20,
-     "p": 0.009355306625366211
-    }
+     "p": 0.009355306625366211,
+     "p_holm": 0.5893843173980713
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -7617,8 +8075,10 @@
     "vs_steer": {
      "gained": 3,
      "lost": 26,
-     "p": 1.5236437320709229e-05
-    }
+     "p": 1.5236437320709229e-05,
+     "p_holm": 0.0010208413004875183
+    },
+    "p_holm": 1.0
    }
   },
   "ja-bn": {
@@ -7641,7 +8101,8 @@
     "median_tokens": 425,
     "gained": 29,
     "lost": 12,
-    "p": 0.011507789735333063
+    "p": 0.011507789735333063,
+    "p_holm": 0.635689120459574
    },
    "instruction": {
     "n": 200,
@@ -7664,7 +8125,8 @@
     "lost": 143,
     "p": 1.1632167341972592e-38,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 9.771020567256977e-37
    },
    "instruction_steer": {
     "n": 200,
@@ -7678,7 +8140,8 @@
     "lost": 14,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -7692,7 +8155,8 @@
     "lost": 10,
     "p": 0.5412561893463135,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -7706,7 +8170,8 @@
     "lost": 26,
     "p": 0.16414940178310644,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -7720,7 +8185,8 @@
     "lost": 6,
     "p": 0.0783538818359375,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -7736,8 +8202,10 @@
     "vs_steer": {
      "gained": 23,
      "lost": 20,
-     "p": 0.7607916425613439
-    }
+     "p": 0.7607916425613439,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -7753,8 +8221,10 @@
     "vs_steer": {
      "gained": 20,
      "lost": 27,
-     "p": 0.38169339766321286
-    }
+     "p": 0.38169339766321286,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "ja-de": {
@@ -7777,7 +8247,8 @@
     "median_tokens": 252,
     "gained": 51,
     "lost": 10,
-    "p": 9.624425087798039e-08
+    "p": 9.624425087798039e-08,
+    "p_holm": 7.122074564970549e-06
    },
    "instruction": {
     "n": 200,
@@ -7800,7 +8271,8 @@
     "lost": 12,
     "p": 0.0016414913408482334,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.0886405324058046
    },
    "instruction_steer": {
     "n": 200,
@@ -7814,7 +8286,8 @@
     "lost": 8,
     "p": 0.0004719867429230362,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 0.034455032233381644
    },
    "steer_prompt": {
     "n": 200,
@@ -7828,7 +8301,8 @@
     "lost": 8,
     "p": 0.0004719867429230362,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.02501529737492092
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -7842,7 +8316,8 @@
     "lost": 5,
     "p": 3.8558151572942734e-05,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.0028147450648248196
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -7856,7 +8331,8 @@
     "lost": 3,
     "p": 3.608874976634979e-08,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 2.7066562324762344e-06
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -7872,8 +8348,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 25,
-     "p": 0.0021024015732109547
-    }
+     "p": 0.0021024015732109547,
+     "p_holm": 0.14086090540513396
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -7889,8 +8367,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 21,
-     "p": 0.012540951371192932
-    }
+     "p": 0.012540951371192932,
+     "p_holm": 0.6270475685596466
+    },
+    "p_holm": 1.0
    }
   },
   "ja-es": {
@@ -7913,7 +8393,8 @@
     "median_tokens": 236,
     "gained": 119,
     "lost": 0,
-    "p": 3.009265538105056e-36
+    "p": 3.009265538105056e-36,
+    "p_holm": 2.6782463289135e-34
    },
    "instruction": {
     "n": 200,
@@ -7936,7 +8417,8 @@
     "lost": 3,
     "p": 1.2944899305885702e-27,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0355919444708561e-25
    },
    "instruction_steer": {
     "n": 200,
@@ -7950,7 +8432,8 @@
     "lost": 0,
     "p": 1.925929944387236e-34,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.8488927466117464e-32
    },
    "steer_prompt": {
     "n": 200,
@@ -7964,7 +8447,8 @@
     "lost": 1,
     "p": 2.195560136601449e-32,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.800359312013188e-30
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -7978,7 +8462,8 @@
     "lost": 0,
     "p": 7.52316384526264e-37,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 7.147005652999508e-35
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -7992,7 +8477,8 @@
     "lost": 0,
     "p": 1.5407439555097887e-33,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.4174844390690056e-31
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -8008,8 +8494,10 @@
     "vs_steer": {
      "gained": 1,
      "lost": 98,
-     "p": 3.155443620884047e-28
-    }
+     "p": 3.155443620884047e-28,
+     "p_holm": 2.9661170036310044e-26
+    },
+    "p_holm": 0.10636570848065396
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -8025,8 +8513,10 @@
     "vs_steer": {
      "gained": 2,
      "lost": 45,
-     "p": 1.6044054973463062e-11
-    }
+     "p": 1.6044054973463062e-11,
+     "p_holm": 1.3797887277178233e-09
+    },
+    "p_holm": 1.0379679419867156e-16
    }
   },
   "ja-fr": {
@@ -8049,7 +8539,8 @@
     "median_tokens": 232,
     "gained": 94,
     "lost": 12,
-    "p": 6.198097598927683e-17
+    "p": 6.198097598927683e-17,
+    "p_holm": 5.144421007109977e-15
    },
    "instruction": {
     "n": 200,
@@ -8072,7 +8563,8 @@
     "lost": 11,
     "p": 3.918121146030225e-12,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 2.821047225141762e-10
    },
    "instruction_steer": {
     "n": 200,
@@ -8086,7 +8578,8 @@
     "lost": 1,
     "p": 4.446095792472524e-24,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 4.0014862132252714e-22
    },
    "steer_prompt": {
     "n": 200,
@@ -8100,7 +8593,8 @@
     "lost": 12,
     "p": 1.567340030469408e-12,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.1128114216332796e-10
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -8114,7 +8608,8 @@
     "lost": 3,
     "p": 2.7421554294015713e-21,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 2.385675223579367e-19
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -8128,7 +8623,8 @@
     "lost": 1,
     "p": 4.446095792472524e-24,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 3.912564297375821e-22
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -8144,8 +8640,10 @@
     "vs_steer": {
      "gained": 4,
      "lost": 71,
-     "p": 6.8071061652263e-17
-    }
+     "p": 6.8071061652263e-17,
+     "p_holm": 5.990253425399144e-15
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -8161,8 +8659,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 28,
-     "p": 0.0005082604475319386
-    }
+     "p": 0.0005082604475319386,
+     "p_holm": 0.03252866864204407
+    },
+    "p_holm": 1.05271174508723e-09
    }
   },
   "ja-ru": {
@@ -8185,7 +8685,8 @@
     "median_tokens": 260,
     "gained": 44,
     "lost": 12,
-    "p": 2.0876568218419767e-05
+    "p": 2.0876568218419767e-05,
+    "p_holm": 0.0014822363435078034
    },
    "instruction": {
     "n": 200,
@@ -8208,7 +8709,8 @@
     "lost": 16,
     "p": 0.015346677832630107,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.6906005024683548
    },
    "instruction_steer": {
     "n": 200,
@@ -8222,7 +8724,8 @@
     "lost": 8,
     "p": 0.0002940768754342571,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 0.021761688782135025
    },
    "steer_prompt": {
     "n": 200,
@@ -8236,7 +8739,8 @@
     "lost": 13,
     "p": 0.009559878856634896,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.4397544274052052
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -8250,7 +8754,8 @@
     "lost": 8,
     "p": 0.0002940768754342571,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.02029130440496374
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -8264,7 +8769,8 @@
     "lost": 5,
     "p": 7.427530363202095e-06,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.0005422097165137529
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -8280,8 +8786,10 @@
     "vs_steer": {
      "gained": 3,
      "lost": 42,
-     "p": 8.654978955746628e-10
-    }
+     "p": 8.654978955746628e-10,
+     "p_holm": 7.010532954154769e-08
+    },
+    "p_holm": 0.9178097188705578
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -8297,8 +8805,10 @@
     "vs_steer": {
      "gained": 9,
      "lost": 45,
-     "p": 7.288430776686283e-07
-    }
+     "p": 7.288430776686283e-07,
+     "p_holm": 5.3934387747478496e-05
+    },
+    "p_holm": 1.0
    }
   },
   "ja-sw": {
@@ -8321,7 +8831,8 @@
     "median_tokens": 294,
     "gained": 28,
     "lost": 43,
-    "p": 0.09592363141082376
+    "p": 0.09592363141082376,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -8344,7 +8855,8 @@
     "lost": 55,
     "p": 0.00021680385841747665,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.013008231505048599
    },
    "instruction_steer": {
     "n": 200,
@@ -8358,7 +8870,8 @@
     "lost": 23,
     "p": 0.7754496546815659,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -8372,7 +8885,8 @@
     "lost": 74,
     "p": 4.3857845641773173e-10,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 2.8946178123570295e-08
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -8386,7 +8900,8 @@
     "lost": 35,
     "p": 0.027008317653722358,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -8400,7 +8915,8 @@
     "lost": 31,
     "p": 0.34089094122009733,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -8416,8 +8932,10 @@
     "vs_steer": {
      "gained": 28,
      "lost": 42,
-     "p": 0.11960933562988493
-    }
+     "p": 0.11960933562988493,
+     "p_holm": 1.0
+    },
+    "p_holm": 0.010769098299629718
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -8433,8 +8951,10 @@
     "vs_steer": {
      "gained": 28,
      "lost": 30,
-     "p": 0.8956832138895903
-    }
+     "p": 0.8956832138895903,
+     "p_holm": 1.0
+    },
+    "p_holm": 0.6913344626823923
    }
   },
   "ja-te": {
@@ -8457,7 +8977,8 @@
     "median_tokens": 640,
     "gained": 28,
     "lost": 16,
-    "p": 0.09614175442061423
+    "p": 0.09614175442061423,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -8480,7 +9001,8 @@
     "lost": 153,
     "p": 1.7516230804060213e-46,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.5764607723654192e-44
    },
    "instruction_steer": {
     "n": 200,
@@ -8494,7 +9016,8 @@
     "lost": 10,
     "p": 0.024306510109454393,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -8508,7 +9031,8 @@
     "lost": 36,
     "p": 0.030028945411892494,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -8522,7 +9046,8 @@
     "lost": 12,
     "p": 0.06524533522315323,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -8536,7 +9061,8 @@
     "lost": 8,
     "p": 0.004551384132355452,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.28673720033839345
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -8552,8 +9078,10 @@
     "vs_steer": {
      "gained": 13,
      "lost": 31,
-     "p": 0.009559878856634896
-    }
+     "p": 0.009559878856634896,
+     "p_holm": 0.5927124891113635
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -8569,8 +9097,10 @@
     "vs_steer": {
      "gained": 13,
      "lost": 26,
-     "p": 0.05325191409792751
-    }
+     "p": 0.05325191409792751,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "ja-th": {
@@ -8593,7 +9123,8 @@
     "median_tokens": 343,
     "gained": 35,
     "lost": 11,
-    "p": 0.0005355850721002753
+    "p": 0.0005355850721002753,
+    "p_holm": 0.03427744461441762
    },
    "instruction": {
     "n": 200,
@@ -8616,7 +9147,8 @@
     "lost": 17,
     "p": 0.7428293587290682,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -8630,7 +9162,8 @@
     "lost": 6,
     "p": 0.03468966484069824,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -8644,7 +9177,8 @@
     "lost": 14,
     "p": 0.31050465907901525,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -8658,7 +9192,8 @@
     "lost": 11,
     "p": 0.20048842206597328,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -8672,7 +9207,8 @@
     "lost": 11,
     "p": 0.20048842206597328,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -8688,8 +9224,10 @@
     "vs_steer": {
      "gained": 11,
      "lost": 26,
-     "p": 0.020073851919732988
-    }
+     "p": 0.020073851919732988,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -8705,8 +9243,10 @@
     "vs_steer": {
      "gained": 11,
      "lost": 19,
-     "p": 0.20048842206597328
-    }
+     "p": 0.20048842206597328,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "ja-zh": {
@@ -8865,7 +9405,8 @@
     "median_tokens": 235,
     "gained": 13,
     "lost": 10,
-    "p": 0.6776394844055176
+    "p": 0.6776394844055176,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -8888,7 +9429,8 @@
     "lost": 11,
     "p": 0.332305908203125,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -8902,7 +9444,8 @@
     "lost": 7,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -8916,7 +9459,8 @@
     "lost": 9,
     "p": 1.0,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -8930,7 +9474,8 @@
     "lost": 8,
     "p": 1.0,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -8944,7 +9489,8 @@
     "lost": 10,
     "p": 0.629058837890625,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -8960,8 +9506,10 @@
     "vs_steer": {
      "gained": 8,
      "lost": 9,
-     "p": 1.0
-    }
+     "p": 1.0,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -8977,8 +9525,10 @@
     "vs_steer": {
      "gained": 4,
      "lost": 7,
-     "p": 0.548828125
-    }
+     "p": 0.548828125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "ru-bn": {
@@ -9001,7 +9551,8 @@
     "median_tokens": 425,
     "gained": 11,
     "lost": 17,
-    "p": 0.34492845088243484
+    "p": 0.34492845088243484,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -9024,7 +9575,8 @@
     "lost": 150,
     "p": 4.0739249604083244e-42,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 3.4628362163470758e-40
    },
    "instruction_steer": {
     "n": 200,
@@ -9038,7 +9590,8 @@
     "lost": 5,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -9052,7 +9605,8 @@
     "lost": 8,
     "p": 1.0,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -9066,7 +9620,8 @@
     "lost": 13,
     "p": 0.38331031799316406,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -9080,7 +9635,8 @@
     "lost": 9,
     "p": 0.60723876953125,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -9096,8 +9652,10 @@
     "vs_steer": {
      "gained": 10,
      "lost": 8,
-     "p": 0.8145294189453125
-    }
+     "p": 0.8145294189453125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -9113,8 +9671,10 @@
     "vs_steer": {
      "gained": 12,
      "lost": 17,
-     "p": 0.45825831964612007
-    }
+     "p": 0.45825831964612007,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "ru-de": {
@@ -9137,7 +9697,8 @@
     "median_tokens": 252,
     "gained": 19,
     "lost": 18,
-    "p": 1.0
+    "p": 1.0,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -9160,7 +9721,8 @@
     "lost": 14,
     "p": 1.0,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -9174,7 +9736,8 @@
     "lost": 7,
     "p": 0.480682373046875,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -9188,7 +9751,8 @@
     "lost": 10,
     "p": 0.8318119049072266,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -9202,7 +9766,8 @@
     "lost": 9,
     "p": 0.6636238098144531,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -9216,7 +9781,8 @@
     "lost": 8,
     "p": 0.21003961563110352,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -9232,8 +9798,10 @@
     "vs_steer": {
      "gained": 11,
      "lost": 14,
-     "p": 0.6900379657745361
-    }
+     "p": 0.6900379657745361,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -9249,8 +9817,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 23,
-     "p": 0.005222879350185394
-    }
+     "p": 0.005222879350185394,
+     "p_holm": 0.2768126055598259
+    },
+    "p_holm": 1.0
    }
   },
   "ru-es": {
@@ -9409,7 +9979,8 @@
     "median_tokens": 232,
     "gained": 15,
     "lost": 16,
-    "p": 1.0
+    "p": 1.0,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -9432,7 +10003,8 @@
     "lost": 7,
     "p": 0.13380050659179688,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -9446,7 +10018,8 @@
     "lost": 5,
     "p": 0.09625244140625,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -9460,7 +10033,8 @@
     "lost": 14,
     "p": 0.855535551905632,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -9474,7 +10048,8 @@
     "lost": 9,
     "p": 0.30745625495910645,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -9488,7 +10063,8 @@
     "lost": 8,
     "p": 0.21003961563110352,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -9504,8 +10080,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 12,
-     "p": 0.359283447265625
-    }
+     "p": 0.359283447265625,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -9521,8 +10099,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 41,
-     "p": 1.7716986633331544e-07
-    }
+     "p": 1.7716986633331544e-07,
+     "p_holm": 1.3464909841331973e-05
+    },
+    "p_holm": 0.001842898266204429
    }
   },
   "ru-ja": {
@@ -9545,7 +10125,8 @@
     "median_tokens": 246,
     "gained": 26,
     "lost": 16,
-    "p": 0.16414940178310644
+    "p": 0.16414940178310644,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -9568,7 +10149,8 @@
     "lost": 3,
     "p": 8.430331945419312e-06,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.0005564019083976746
    },
    "instruction_steer": {
     "n": 200,
@@ -9582,7 +10164,8 @@
     "lost": 5,
     "p": 0.0005461126565933228,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 0.03841352462768555
    },
    "steer_prompt": {
     "n": 200,
@@ -9596,7 +10179,8 @@
     "lost": 11,
     "p": 0.020073851919732988,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.8431017806287855
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -9610,7 +10194,8 @@
     "lost": 2,
     "p": 1.049041748046875e-05,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.000797271728515625
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -9624,7 +10209,8 @@
     "lost": 4,
     "p": 3.39532271027565e-05,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.002376725897192955
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -9640,8 +10226,10 @@
     "vs_steer": {
      "gained": 4,
      "lost": 30,
-     "p": 6.16488978266716e-06
-    }
+     "p": 6.16488978266716e-06,
+     "p_holm": 0.000462366733700037
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -9657,8 +10245,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 25,
-     "p": 0.0008779102936387062
-    }
+     "p": 0.0008779102936387062,
+     "p_holm": 0.05530834849923849
+    },
+    "p_holm": 1.0
    }
   },
   "ru-sw": {
@@ -9681,7 +10271,8 @@
     "median_tokens": 294,
     "gained": 24,
     "lost": 48,
-    "p": 0.006309827313666047
+    "p": 0.006309827313666047,
+    "p_holm": 0.3659699841926307
    },
    "instruction": {
     "n": 200,
@@ -9704,7 +10295,8 @@
     "lost": 49,
     "p": 2.436457216293327e-05,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.0015593326184277292
    },
    "instruction_steer": {
     "n": 200,
@@ -9718,7 +10310,8 @@
     "lost": 26,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -9732,7 +10325,8 @@
     "lost": 57,
     "p": 2.9263110699308384e-05,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.0016387341991612695
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -9746,7 +10340,8 @@
     "lost": 32,
     "p": 0.6988834276200057,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -9760,7 +10355,8 @@
     "lost": 33,
     "p": 0.13367423536410528,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -9776,8 +10372,10 @@
     "vs_steer": {
      "gained": 28,
      "lost": 21,
-     "p": 0.3916029105474905
-    }
+     "p": 0.3916029105474905,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -9793,8 +10391,10 @@
     "vs_steer": {
      "gained": 29,
      "lost": 33,
-     "p": 0.7035366713552734
-    }
+     "p": 0.7035366713552734,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "ru-te": {
@@ -9817,7 +10417,8 @@
     "median_tokens": 640,
     "gained": 9,
     "lost": 25,
-    "p": 0.00904118549078703
+    "p": 0.00904118549078703,
+    "p_holm": 0.5153475729748607
    },
    "instruction": {
     "n": 200,
@@ -9840,7 +10441,8 @@
     "lost": 163,
     "p": 1.7105694144590052e-49,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.607935249591465e-47
    },
    "instruction_steer": {
     "n": 200,
@@ -9854,7 +10456,8 @@
     "lost": 4,
     "p": 0.3876953125,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -9868,7 +10471,8 @@
     "lost": 31,
     "p": 1.5366822481155396e-08,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 9.6810981631279e-07
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -9882,7 +10486,8 @@
     "lost": 7,
     "p": 1.0,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -9896,7 +10501,8 @@
     "lost": 6,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -9912,8 +10518,10 @@
     "vs_steer": {
      "gained": 10,
      "lost": 3,
-     "p": 0.09228515625
-    }
+     "p": 0.09228515625,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -9929,8 +10537,10 @@
     "vs_steer": {
      "gained": 10,
      "lost": 25,
-     "p": 0.01667384780012071
-    }
+     "p": 0.01667384780012071,
+     "p_holm": 0.8003446944057941
+    },
+    "p_holm": 0.17208033800125122
    }
   },
   "ru-th": {
@@ -9953,7 +10563,8 @@
     "median_tokens": 343,
     "gained": 20,
     "lost": 19,
-    "p": 1.0
+    "p": 1.0,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -9976,7 +10587,8 @@
     "lost": 13,
     "p": 0.6776394844055176,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -9990,7 +10602,8 @@
     "lost": 9,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -10004,7 +10617,8 @@
     "lost": 10,
     "p": 0.42435622215270996,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -10018,7 +10632,8 @@
     "lost": 9,
     "p": 1.0,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -10032,7 +10647,8 @@
     "lost": 9,
     "p": 0.6636238098144531,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -10048,8 +10664,10 @@
     "vs_steer": {
      "gained": 12,
      "lost": 11,
-     "p": 1.0
-    }
+     "p": 1.0,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -10065,8 +10683,10 @@
     "vs_steer": {
      "gained": 13,
      "lost": 14,
-     "p": 1.0
-    }
+     "p": 1.0,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "ru-zh": {
@@ -10089,7 +10709,8 @@
     "median_tokens": 252,
     "gained": 22,
     "lost": 15,
-    "p": 0.3240086000878364
+    "p": 0.3240086000878364,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -10112,7 +10733,8 @@
     "lost": 12,
     "p": 0.28104151505976915,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -10126,7 +10748,8 @@
     "lost": 1,
     "p": 0.00014495849609375,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 0.01087188720703125
    },
    "steer_prompt": {
     "n": 200,
@@ -10140,7 +10763,8 @@
     "lost": 4,
     "p": 0.004343509674072266,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.20848846435546875
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -10154,7 +10778,8 @@
     "lost": 1,
     "p": 7.62939453125e-05,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.0054168701171875
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -10168,7 +10793,8 @@
     "lost": 1,
     "p": 2.09808349609375e-05,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.0015106201171875
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -10184,8 +10810,10 @@
     "vs_steer": {
      "gained": 4,
      "lost": 14,
-     "p": 0.0308837890625
-    }
+     "p": 0.0308837890625,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -10201,8 +10829,10 @@
     "vs_steer": {
      "gained": 2,
      "lost": 55,
-     "p": 2.295386103412511e-14
-    }
+     "p": 2.295386103412511e-14,
+     "p_holm": 2.06584749307126e-12
+    },
+    "p_holm": 0.0001625275628835965
    }
   },
   "sw-en": {
@@ -10225,7 +10855,8 @@
     "median_tokens": 235,
     "gained": 51,
     "lost": 5,
-    "p": 1.170292474039769e-10
+    "p": 1.170292474039769e-10,
+    "p_holm": 9.245310544914176e-09
    },
    "instruction": {
     "n": 200,
@@ -10248,7 +10879,8 @@
     "lost": 42,
     "p": 5.2094472007935266e-05,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.0032819517364999218
    },
    "instruction_steer": {
     "n": 200,
@@ -10262,7 +10894,8 @@
     "lost": 17,
     "p": 0.24778856337070465,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -10276,7 +10909,8 @@
     "lost": 23,
     "p": 0.18774155899882317,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -10290,7 +10924,8 @@
     "lost": 19,
     "p": 0.6075913612730801,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -10304,7 +10939,8 @@
     "lost": 16,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -10320,8 +10956,10 @@
     "vs_steer": {
      "gained": 16,
      "lost": 19,
-     "p": 0.7358788008568808
-    }
+     "p": 0.7358788008568808,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -10337,8 +10975,10 @@
     "vs_steer": {
      "gained": 16,
      "lost": 16,
-     "p": 1.0
-    }
+     "p": 1.0,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "sw-bn": {
@@ -10361,7 +11001,8 @@
     "median_tokens": 425,
     "gained": 157,
     "lost": 1,
-    "p": 8.703377180767419e-46
+    "p": 8.703377180767419e-46,
+    "p_holm": 8.268208321729048e-44
    },
    "instruction": {
     "n": 200,
@@ -10384,7 +11025,8 @@
     "lost": 15,
     "p": 0.1538599441628321,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -10398,7 +11040,8 @@
     "lost": 2,
     "p": 8.829183686723235e-25,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 8.122848991785376e-23
    },
    "steer_prompt": {
     "n": 200,
@@ -10412,7 +11055,8 @@
     "lost": 4,
     "p": 1.74595783696353e-24,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.3618471128315535e-22
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -10426,7 +11070,8 @@
     "lost": 5,
     "p": 5.006007865146344e-24,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 4.555467157283173e-22
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -10440,7 +11085,8 @@
     "lost": 3,
     "p": 7.84059433975869e-33,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 7.134940849180408e-31
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -10456,8 +11102,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 92,
-     "p": 7.09532095861481e-21
-    }
+     "p": 7.09532095861481e-21,
+     "p_holm": 6.527695281925625e-19
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -10473,8 +11121,10 @@
     "vs_steer": {
      "gained": 12,
      "lost": 51,
-     "p": 7.459722282164658e-07
-    }
+     "p": 7.459722282164658e-07,
+     "p_holm": 5.4455972659802005e-05
+    },
+    "p_holm": 1.586928505270535e-12
    }
   },
   "sw-de": {
@@ -10497,7 +11147,8 @@
     "median_tokens": 252,
     "gained": 144,
     "lost": 0,
-    "p": 8.96831017167883e-44
+    "p": 8.96831017167883e-44,
+    "p_holm": 8.340528459661311e-42
    },
    "instruction": {
     "n": 200,
@@ -10520,7 +11171,8 @@
     "lost": 10,
     "p": 5.91755837353286e-14,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 4.438168780149645e-12
    },
    "instruction_steer": {
     "n": 200,
@@ -10534,7 +11186,8 @@
     "lost": 3,
     "p": 3.708322537931963e-11,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 3.114990931862849e-09
    },
    "steer_prompt": {
     "n": 200,
@@ -10548,7 +11201,8 @@
     "lost": 18,
     "p": 0.010454818321892184,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.4704668244851483
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -10562,7 +11216,8 @@
     "lost": 6,
     "p": 1.3321308760808536e-13,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.1056686271471085e-11
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -10576,7 +11231,8 @@
     "lost": 5,
     "p": 1.1112241759254372e-20,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 9.334283077773672e-19
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -10592,8 +11248,10 @@
     "vs_steer": {
      "gained": 3,
      "lost": 69,
-     "p": 2.6371947296289014e-17
-    }
+     "p": 2.6371947296289014e-17,
+     "p_holm": 2.3734752566660113e-15
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -10609,8 +11267,10 @@
     "vs_steer": {
      "gained": 13,
      "lost": 61,
-     "p": 1.3936467518320874e-08
-    }
+     "p": 1.3936467518320874e-08,
+     "p_holm": 1.1427903365023117e-06
+    },
+    "p_holm": 1.0
    }
   },
   "sw-es": {
@@ -10633,7 +11293,8 @@
     "median_tokens": 236,
     "gained": 92,
     "lost": 7,
-    "p": 5.0749031687767575e-20
+    "p": 5.0749031687767575e-20,
+    "p_holm": 4.313667693460244e-18
    },
    "instruction": {
     "n": 200,
@@ -10656,7 +11317,8 @@
     "lost": 23,
     "p": 0.01033766119369546,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.5065453984910776
    },
    "instruction_steer": {
     "n": 200,
@@ -10670,7 +11332,8 @@
     "lost": 10,
     "p": 2.361627111046021e-09,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.9365342310577374e-07
    },
    "steer_prompt": {
     "n": 200,
@@ -10684,7 +11347,8 @@
     "lost": 14,
     "p": 6.921916920059638e-07,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 4.0839309828351864e-05
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -10698,7 +11362,8 @@
     "lost": 12,
     "p": 3.7422494875036195e-08,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 2.9937995900028956e-06
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -10712,7 +11377,8 @@
     "lost": 11,
     "p": 1.2750032374450517e-08,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 9.817524928326898e-07
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -10728,8 +11394,10 @@
     "vs_steer": {
      "gained": 14,
      "lost": 55,
-     "p": 6.921916920059638e-07
-    }
+     "p": 6.921916920059638e-07,
+     "p_holm": 5.260656859245325e-05
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -10745,8 +11413,10 @@
     "vs_steer": {
      "gained": 14,
      "lost": 36,
-     "p": 0.0026021714567221466
-    }
+     "p": 0.0026021714567221466,
+     "p_holm": 0.15336918830871582
+    },
+    "p_holm": 0.3906165946728744
    }
   },
   "sw-fr": {
@@ -10769,7 +11439,8 @@
     "median_tokens": 232,
     "gained": 77,
     "lost": 14,
-    "p": 1.0476614334105002e-11
+    "p": 1.0476614334105002e-11,
+    "p_holm": 8.486057610625052e-10
    },
    "instruction": {
     "n": 200,
@@ -10792,7 +11463,8 @@
     "lost": 37,
     "p": 1.0,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -10806,7 +11478,8 @@
     "lost": 7,
     "p": 6.973810151578164e-08,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 5.579048121262531e-06
    },
    "steer_prompt": {
     "n": 200,
@@ -10820,7 +11493,8 @@
     "lost": 23,
     "p": 0.007620521855025697,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.3581645271862077
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -10834,7 +11508,8 @@
     "lost": 13,
     "p": 7.333218396948782e-05,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.005279917245803123
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -10848,7 +11523,8 @@
     "lost": 12,
     "p": 3.3053764732060564e-05,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.0023468172959763
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -10864,8 +11540,10 @@
     "vs_steer": {
      "gained": 11,
      "lost": 35,
-     "p": 0.0005355850721002753
-    }
+     "p": 0.0005355850721002753,
+     "p_holm": 0.03749095504701927
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -10881,8 +11559,10 @@
     "vs_steer": {
      "gained": 12,
      "lost": 55,
-     "p": 1.0273195443541005e-07
-    }
+     "p": 1.0273195443541005e-07,
+     "p_holm": 8.115824400397394e-06
+    },
+    "p_holm": 1.0
    }
   },
   "sw-ja": {
@@ -11041,7 +11721,8 @@
     "median_tokens": 260,
     "gained": 175,
     "lost": 0,
-    "p": 4.176194859519056e-53
+    "p": 4.176194859519056e-53,
+    "p_holm": 4.134432910923865e-51
    },
    "instruction": {
     "n": 200,
@@ -11064,7 +11745,8 @@
     "lost": 0,
     "p": 9.860761315262648e-32,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 8.085824278515371e-30
    },
    "instruction_steer": {
     "n": 200,
@@ -11078,7 +11760,8 @@
     "lost": 0,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -11092,7 +11775,8 @@
     "lost": 0,
     "p": 1.8367099231598242e-40,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.5795705339174488e-38
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -11106,7 +11790,8 @@
     "lost": 0,
     "p": 2.168404344971009e-19,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.8648277366750676e-17
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -11120,7 +11805,8 @@
     "lost": 0,
     "p": 1.793662034335766e-43,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.739852173305693e-41
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -11136,8 +11822,10 @@
     "vs_steer": {
      "gained": 0,
      "lost": 63,
-     "p": 2.168404344971009e-19
-    }
+     "p": 2.168404344971009e-19,
+     "p_holm": 1.973247953923618e-17
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -11153,8 +11841,10 @@
     "vs_steer": {
      "gained": 0,
      "lost": 63,
-     "p": 2.168404344971009e-19
-    }
+     "p": 2.168404344971009e-19,
+     "p_holm": 2.0383000842727483e-17
+    },
+    "p_holm": 1.0
    }
   },
   "sw-te": {
@@ -11177,7 +11867,8 @@
     "median_tokens": 640,
     "gained": 153,
     "lost": 3,
-    "p": 1.385680555034147e-41
+    "p": 1.385680555034147e-41,
+    "p_holm": 1.2748261106314151e-39
    },
    "instruction": {
     "n": 200,
@@ -11200,7 +11891,8 @@
     "lost": 16,
     "p": 0.15158963203430176,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -11214,7 +11906,8 @@
     "lost": 4,
     "p": 3.9973254947441296e-19,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 3.477673180427393e-17
    },
    "steer_prompt": {
     "n": 200,
@@ -11228,7 +11921,8 @@
     "lost": 7,
     "p": 3.845005957472025e-13,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 2.768404289379858e-11
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -11242,7 +11936,8 @@
     "lost": 7,
     "p": 2.8012475593516644e-23,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 2.521122803416498e-21
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -11256,7 +11951,8 @@
     "lost": 5,
     "p": 5.984800900580216e-30,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 5.326472801516392e-28
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -11272,8 +11968,10 @@
     "vs_steer": {
      "gained": 2,
      "lost": 93,
-     "p": 2.3027165367763423e-25
-    }
+     "p": 2.3027165367763423e-25,
+     "p_holm": 2.1415263792019983e-23
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -11289,8 +11987,10 @@
     "vs_steer": {
      "gained": 13,
      "lost": 70,
-     "p": 1.3333193226298718e-10
-    }
+     "p": 1.3333193226298718e-10,
+     "p_holm": 1.133321424235391e-08
+    },
+    "p_holm": 2.331534965880136e-05
    }
   },
   "sw-th": {
@@ -11313,7 +12013,8 @@
     "median_tokens": 343,
     "gained": 136,
     "lost": 2,
-    "p": 5.505537994671573e-38
+    "p": 5.505537994671573e-38,
+    "p_holm": 5.0100395751511316e-36
    },
    "instruction": {
     "n": 200,
@@ -11336,7 +12037,8 @@
     "lost": 7,
     "p": 7.116545719844092e-18,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 5.550905661478392e-16
    },
    "instruction_steer": {
     "n": 200,
@@ -11350,7 +12052,8 @@
     "lost": 3,
     "p": 2.7088953370761237e-23,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 2.41091684999775e-21
    },
    "steer_prompt": {
     "n": 200,
@@ -11364,7 +12067,8 @@
     "lost": 6,
     "p": 4.46794029757118e-23,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 3.395634626154097e-21
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -11378,7 +12082,8 @@
     "lost": 4,
     "p": 3.35638779268828e-24,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 3.0878767692732175e-22
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -11392,7 +12097,8 @@
     "lost": 6,
     "p": 1.2514492494239994e-23,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0887608469988795e-21
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -11408,8 +12114,10 @@
     "vs_steer": {
      "gained": 1,
      "lost": 103,
-     "p": 1.035379938102578e-29
-    }
+     "p": 1.035379938102578e-29,
+     "p_holm": 9.836109411974491e-28
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -11425,8 +12133,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 58,
-     "p": 1.6623508125590547e-12
-    }
+     "p": 1.6623508125590547e-12,
+     "p_holm": 1.4462452069263776e-10
+    },
+    "p_holm": 4.031838327755999e-06
    }
   },
   "sw-zh": {
@@ -11449,7 +12159,8 @@
     "median_tokens": 252,
     "gained": 172,
     "lost": 1,
-    "p": 2.906631622225263e-50
+    "p": 2.906631622225263e-50,
+    "p_holm": 2.819432673558505e-48
    },
    "instruction": {
     "n": 200,
@@ -11472,7 +12183,8 @@
     "lost": 2,
     "p": 1.2406840701742573e-30,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0049540968411484e-28
    },
    "instruction_steer": {
     "n": 200,
@@ -11486,7 +12198,8 @@
     "lost": 2,
     "p": 3.6281438664344504e-29,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 3.374173795784039e-27
    },
    "steer_prompt": {
     "n": 200,
@@ -11500,7 +12213,8 @@
     "lost": 2,
     "p": 2.1390782942600103e-37,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.8182165501210088e-35
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -11514,7 +12228,8 @@
     "lost": 0,
     "p": 4.591774807899561e-41,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 4.408103815583578e-39
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -11528,7 +12243,8 @@
     "lost": 1,
     "p": 4.0178029569121155e-40,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 3.8169128090665097e-38
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -11544,8 +12260,10 @@
     "vs_steer": {
      "gained": 0,
      "lost": 135,
-     "p": 4.591774807899561e-41
-    }
+     "p": 4.591774807899561e-41,
+     "p_holm": 4.4999393117415694e-39
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -11561,8 +12279,10 @@
     "vs_steer": {
      "gained": 2,
      "lost": 126,
-     "p": 4.853028427369814e-35
-    }
+     "p": 4.853028427369814e-35,
+     "p_holm": 4.755967858822418e-33
+    },
+    "p_holm": 1.0
    }
   },
   "te-en": {
@@ -11585,7 +12305,8 @@
     "median_tokens": 235,
     "gained": 29,
     "lost": 8,
-    "p": 0.0007528970600105822
+    "p": 0.0007528970600105822,
+    "p_holm": 0.04743251478066668
    },
    "instruction": {
     "n": 200,
@@ -11608,7 +12329,8 @@
     "lost": 71,
     "p": 1.7993441704367062e-12,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.3135212444187955e-10
    },
    "instruction_steer": {
     "n": 200,
@@ -11622,7 +12344,8 @@
     "lost": 11,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -11636,7 +12359,8 @@
     "lost": 19,
     "p": 0.48685024166479707,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -11650,7 +12374,8 @@
     "lost": 21,
     "p": 0.07075554598122835,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -11664,7 +12389,8 @@
     "lost": 10,
     "p": 0.8318119049072266,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -11680,8 +12406,10 @@
     "vs_steer": {
      "gained": 14,
      "lost": 21,
-     "p": 0.31050465907901525
-    }
+     "p": 0.31050465907901525,
+     "p_holm": 1.0
+    },
+    "p_holm": 0.3461192259564996
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -11697,8 +12425,10 @@
     "vs_steer": {
      "gained": 12,
      "lost": 6,
-     "p": 0.237884521484375
-    }
+     "p": 0.237884521484375,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "te-bn": {
@@ -11721,7 +12451,8 @@
     "median_tokens": 425,
     "gained": 21,
     "lost": 13,
-    "p": 0.22948101302608848
+    "p": 0.22948101302608848,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -11744,7 +12475,8 @@
     "lost": 166,
     "p": 2.1382117680737565e-50,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 2.0313011796700687e-48
    },
    "instruction_steer": {
     "n": 200,
@@ -11758,7 +12490,8 @@
     "lost": 10,
     "p": 0.454498291015625,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -11772,7 +12505,8 @@
     "lost": 168,
     "p": 5.345529420184391e-51,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 5.078252949175172e-49
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -11786,7 +12520,8 @@
     "lost": 4,
     "p": 0.548828125,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -11800,7 +12535,8 @@
     "lost": 12,
     "p": 0.359283447265625,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -11816,8 +12552,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 10,
-     "p": 0.3017578125
-    }
+     "p": 0.3017578125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -11833,8 +12571,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 60,
-     "p": 4.869560700851427e-13
-    }
+     "p": 4.869560700851427e-13,
+     "p_holm": 4.285213416749256e-11
+    },
+    "p_holm": 2.758973128083597e-10
    }
   },
   "te-de": {
@@ -11857,7 +12597,8 @@
     "median_tokens": 252,
     "gained": 28,
     "lost": 15,
-    "p": 0.0659940344557981
+    "p": 0.0659940344557981,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -11880,7 +12621,8 @@
     "lost": 39,
     "p": 0.0001980394513374506,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.012080406531584487
    },
    "instruction_steer": {
     "n": 200,
@@ -11894,7 +12636,8 @@
     "lost": 15,
     "p": 0.0783538818359375,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -11908,7 +12651,8 @@
     "lost": 25,
     "p": 0.028816719655878842,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -11922,7 +12666,8 @@
     "lost": 17,
     "p": 0.45825831964612007,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -11936,7 +12681,8 @@
     "lost": 11,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -11952,8 +12698,10 @@
     "vs_steer": {
      "gained": 15,
      "lost": 28,
-     "p": 0.0659940344557981
-    }
+     "p": 0.0659940344557981,
+     "p_holm": 1.0
+    },
+    "p_holm": 0.6570194787964283
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -11969,8 +12717,10 @@
     "vs_steer": {
      "gained": 13,
      "lost": 15,
-     "p": 0.8505540192127228
-    }
+     "p": 0.8505540192127228,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "te-es": {
@@ -11993,7 +12743,8 @@
     "median_tokens": 236,
     "gained": 24,
     "lost": 11,
-    "p": 0.04095959151163697
+    "p": 0.04095959151163697,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -12016,7 +12767,8 @@
     "lost": 42,
     "p": 2.2475594023241285e-05,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.0014609136115106836
    },
    "instruction_steer": {
     "n": 200,
@@ -12030,7 +12782,8 @@
     "lost": 10,
     "p": 0.8145294189453125,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -12044,7 +12797,8 @@
     "lost": 14,
     "p": 0.720100131817162,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -12058,7 +12812,8 @@
     "lost": 15,
     "p": 1.0,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -12072,7 +12827,8 @@
     "lost": 5,
     "p": 0.02660369873046875,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -12088,8 +12844,10 @@
     "vs_steer": {
      "gained": 15,
      "lost": 16,
-     "p": 1.0
-    }
+     "p": 1.0,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -12105,8 +12863,10 @@
     "vs_steer": {
      "gained": 8,
      "lost": 27,
-     "p": 0.001878225477412343
-    }
+     "p": 0.001878225477412343,
+     "p_holm": 0.11457175412215292
+    },
+    "p_holm": 0.30376872600666616
    }
   },
   "te-fr": {
@@ -12129,7 +12889,8 @@
     "median_tokens": 232,
     "gained": 27,
     "lost": 19,
-    "p": 0.3019956131896606
+    "p": 0.3019956131896606,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -12152,7 +12913,8 @@
     "lost": 40,
     "p": 0.0005354355028570623,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.02998438815999549
    },
    "instruction_steer": {
     "n": 200,
@@ -12166,7 +12928,8 @@
     "lost": 14,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -12180,7 +12943,8 @@
     "lost": 28,
     "p": 0.3916029105474905,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -12194,7 +12958,8 @@
     "lost": 20,
     "p": 0.49955983320251107,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -12208,7 +12973,8 @@
     "lost": 12,
     "p": 0.7011080384254456,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -12224,8 +12990,10 @@
     "vs_steer": {
      "gained": 19,
      "lost": 33,
-     "p": 0.07039422106706228
-    }
+     "p": 0.07039422106706228,
+     "p_holm": 1.0
+    },
+    "p_holm": 0.899832157777082
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -12241,8 +13009,10 @@
     "vs_steer": {
      "gained": 12,
      "lost": 15,
-     "p": 0.7011080384254456
-    }
+     "p": 0.7011080384254456,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "te-ja": {
@@ -12265,7 +13035,8 @@
     "median_tokens": 246,
     "gained": 37,
     "lost": 18,
-    "p": 0.014453833533827731
+    "p": 0.014453833533827731,
+    "p_holm": 0.7805070108266975
    },
    "instruction": {
     "n": 200,
@@ -12288,7 +13059,8 @@
     "lost": 19,
     "p": 0.4513808323961257,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -12302,7 +13074,8 @@
     "lost": 6,
     "p": 0.0005350527353584766,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 0.03841352462768555
    },
    "steer_prompt": {
     "n": 200,
@@ -12316,7 +13089,8 @@
     "lost": 16,
     "p": 0.054076031858869555,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -12330,7 +13104,8 @@
     "lost": 11,
     "p": 0.013852965261321515,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.8311779156792909
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -12344,7 +13119,8 @@
     "lost": 13,
     "p": 0.019520472782460274,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -12360,8 +13136,10 @@
     "vs_steer": {
      "gained": 8,
      "lost": 48,
-     "p": 4.688184102041859e-08
-    }
+     "p": 4.688184102041859e-08,
+     "p_holm": 3.65678359959265e-06
+    },
+    "p_holm": 0.06455427060551244
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -12377,8 +13155,10 @@
     "vs_steer": {
      "gained": 8,
      "lost": 38,
-     "p": 9.24769992138863e-06
-    }
+     "p": 9.24769992138863e-06,
+     "p_holm": 0.0006288435946544269
+    },
+    "p_holm": 1.0
    }
   },
   "te-ru": {
@@ -12401,7 +13181,8 @@
     "median_tokens": 260,
     "gained": 65,
     "lost": 8,
-    "p": 3.230981506909271e-12
+    "p": 3.230981506909271e-12,
+    "p_holm": 2.649404835665602e-10
    },
    "instruction": {
     "n": 200,
@@ -12424,7 +13205,8 @@
     "lost": 33,
     "p": 0.4159851975073048,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -12438,7 +13220,8 @@
     "lost": 8,
     "p": 1.3843354973452904e-07,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0936250429027794e-05
    },
    "steer_prompt": {
     "n": 200,
@@ -12452,7 +13235,8 @@
     "lost": 17,
     "p": 0.0007299045109347684,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.03795503456860796
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -12466,7 +13250,8 @@
     "lost": 13,
     "p": 3.015952084642337e-06,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.00023222831051745996
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -12480,7 +13265,8 @@
     "lost": 8,
     "p": 8.067609591488889e-08,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 5.970031097701778e-06
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -12496,8 +13282,10 @@
     "vs_steer": {
      "gained": 10,
      "lost": 71,
-     "p": 1.7993441704367062e-12
-    }
+     "p": 1.7993441704367062e-12,
+     "p_holm": 1.5114491031668332e-10
+    },
+    "p_holm": 0.4216908964066103
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -12513,8 +13301,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 44,
-     "p": 3.243740565039843e-08
-    }
+     "p": 3.243740565039843e-08,
+     "p_holm": 2.627429857682273e-06
+    },
+    "p_holm": 1.0
    }
   },
   "te-sw": {
@@ -12537,7 +13327,8 @@
     "median_tokens": 294,
     "gained": 34,
     "lost": 29,
-    "p": 0.6146550157654618
+    "p": 0.6146550157654618,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -12560,7 +13351,8 @@
     "lost": 52,
     "p": 5.849547318695842e-05,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.0036267193375914223
    },
    "instruction_steer": {
     "n": 200,
@@ -12574,7 +13366,8 @@
     "lost": 32,
     "p": 0.630456491786798,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -12588,7 +13381,8 @@
     "lost": 57,
     "p": 0.00018311656412975104,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.009888294463006556
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -12602,7 +13396,8 @@
     "lost": 37,
     "p": 0.4638176178968696,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -12616,7 +13411,8 @@
     "lost": 34,
     "p": 0.8125886494061618,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -12632,8 +13428,10 @@
     "vs_steer": {
      "gained": 36,
      "lost": 38,
-     "p": 0.9075606176124987
-    }
+     "p": 0.9075606176124987,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -12649,8 +13447,10 @@
     "vs_steer": {
      "gained": 42,
      "lost": 24,
-     "p": 0.03558272445223169
-    }
+     "p": 0.03558272445223169,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "te-th": {
@@ -12809,7 +13609,8 @@
     "median_tokens": 252,
     "gained": 69,
     "lost": 11,
-    "p": 2.0495153187175896e-11
+    "p": 2.0495153187175896e-11,
+    "p_holm": 1.6396122549740717e-09
    },
    "instruction": {
     "n": 200,
@@ -12832,7 +13633,8 @@
     "lost": 34,
     "p": 0.15067520762630382,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -12846,7 +13648,8 @@
     "lost": 6,
     "p": 1.822834494458192e-09,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.5129526304002994e-07
    },
    "steer_prompt": {
     "n": 200,
@@ -12860,7 +13663,8 @@
     "lost": 11,
     "p": 2.775636864143019e-07,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.6653821184858114e-05
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -12874,7 +13678,8 @@
     "lost": 10,
     "p": 1.6163814566157175e-07,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.2769413507264168e-05
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -12888,7 +13693,8 @@
     "lost": 7,
     "p": 1.363671398024735e-10,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.090937118419788e-08
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -12904,8 +13710,10 @@
     "vs_steer": {
      "gained": 9,
      "lost": 78,
-     "p": 7.467088418731596e-15
-    }
+     "p": 7.467088418731596e-15,
+     "p_holm": 6.421696040109173e-13
+    },
+    "p_holm": 0.038413859436243675
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -12921,8 +13729,10 @@
     "vs_steer": {
      "gained": 9,
      "lost": 89,
-     "p": 1.10187438523874e-17
-    }
+     "p": 1.10187438523874e-17,
+     "p_holm": 1.0247431782720282e-15
+    },
+    "p_holm": 0.0014072097675054819
    }
   },
   "th-en": {
@@ -12945,7 +13755,8 @@
     "median_tokens": 235,
     "gained": 17,
     "lost": 10,
-    "p": 0.24778856337070465
+    "p": 0.24778856337070465,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -12968,7 +13779,8 @@
     "lost": 24,
     "p": 0.003326892852783203,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.17632532119750977
    },
    "instruction_steer": {
     "n": 200,
@@ -12982,7 +13794,8 @@
     "lost": 7,
     "p": 1.0,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -12996,7 +13809,8 @@
     "lost": 18,
     "p": 0.022655844688415527,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.9288896322250366
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -13010,7 +13824,8 @@
     "lost": 8,
     "p": 0.8145294189453125,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -13024,7 +13839,8 @@
     "lost": 6,
     "p": 0.60723876953125,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -13040,8 +13856,10 @@
     "vs_steer": {
      "gained": 8,
      "lost": 15,
-     "p": 0.21003961563110352
-    }
+     "p": 0.21003961563110352,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -13057,8 +13875,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 14,
-     "p": 0.063568115234375
-    }
+     "p": 0.063568115234375,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "th-bn": {
@@ -13217,7 +14037,8 @@
     "median_tokens": 252,
     "gained": 109,
     "lost": 7,
-    "p": 1.1979893557656218e-24
+    "p": 1.1979893557656218e-24,
+    "p_holm": 1.0302708459584347e-22
    },
    "instruction": {
     "n": 200,
@@ -13240,7 +14061,8 @@
     "lost": 15,
     "p": 7.121860330286235e-16,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 5.412613851017539e-14
    },
    "instruction_steer": {
     "n": 200,
@@ -13254,7 +14076,8 @@
     "lost": 4,
     "p": 9.078769416373848e-25,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 8.261680168900201e-23
    },
    "steer_prompt": {
     "n": 200,
@@ -13268,7 +14091,8 @@
     "lost": 6,
     "p": 1.8478334088755076e-24,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.422831724834141e-22
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -13282,7 +14106,8 @@
     "lost": 9,
     "p": 5.85515720264212e-23,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 5.211089910351487e-21
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -13296,7 +14121,8 @@
     "lost": 6,
     "p": 4.46794029757118e-23,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 3.842428655911215e-21
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -13312,8 +14138,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 66,
-     "p": 3.845005957472025e-13
-    }
+     "p": 3.845005957472025e-13,
+     "p_holm": 3.2682550638512214e-11
+    },
+    "p_holm": 1.6065591539771162e-05
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -13329,8 +14157,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 21,
-     "p": 0.002493917942047119
-    }
+     "p": 0.002493917942047119,
+     "p_holm": 0.14963507652282715
+    },
+    "p_holm": 1.840284984481769e-15
    }
   },
   "th-es": {
@@ -13353,7 +14183,8 @@
     "median_tokens": 236,
     "gained": 111,
     "lost": 4,
-    "p": 3.4507445333269977e-28
+    "p": 3.4507445333269977e-28,
+    "p_holm": 3.036655189327758e-26
    },
    "instruction": {
     "n": 200,
@@ -13376,7 +14207,8 @@
     "lost": 6,
     "p": 6.61789839683711e-24,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 5.228139733501317e-22
    },
    "instruction_steer": {
     "n": 200,
@@ -13390,7 +14222,8 @@
     "lost": 1,
     "p": 8.628166150854817e-32,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 8.110476181803528e-30
    },
    "steer_prompt": {
     "n": 200,
@@ -13404,7 +14237,8 @@
     "lost": 3,
     "p": 4.633363741607924e-29,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 3.66035735587026e-27
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -13418,7 +14252,8 @@
     "lost": 2,
     "p": 1.6339108165695212e-31,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.5195370594096547e-29
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -13432,7 +14267,8 @@
     "lost": 2,
     "p": 1.2406840701742573e-30,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.1166156631568316e-28
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -13448,8 +14284,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 70,
-     "p": 6.3117184695685895e-15
-    }
+     "p": 6.3117184695685895e-15,
+     "p_holm": 5.491195068524673e-13
+    },
+    "p_holm": 9.625732055179581e-09
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -13465,8 +14303,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 20,
-     "p": 0.004077315330505371
-    }
+     "p": 0.004077315330505371,
+     "p_holm": 0.23240697383880615
+    },
+    "p_holm": 3.4856166195988704e-24
    }
   },
   "th-fr": {
@@ -13489,7 +14329,8 @@
     "median_tokens": 232,
     "gained": 140,
     "lost": 3,
-    "p": 8.743887177942738e-38
+    "p": 8.743887177942738e-38,
+    "p_holm": 7.869498460148464e-36
    },
    "instruction": {
     "n": 200,
@@ -13512,7 +14353,8 @@
     "lost": 3,
     "p": 4.9209361850038406e-36,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 4.084377033553188e-34
    },
    "instruction_steer": {
     "n": 200,
@@ -13526,7 +14368,8 @@
     "lost": 0,
     "p": 5.605193857299268e-45,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 5.43703804158029e-43
    },
    "steer_prompt": {
     "n": 200,
@@ -13540,7 +14383,8 @@
     "lost": 5,
     "p": 6.201799122350081e-36,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 5.209511262774068e-34
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -13554,7 +14398,8 @@
     "lost": 0,
     "p": 1.401298464324817e-45,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.3592595103950726e-43
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -13568,7 +14413,8 @@
     "lost": 1,
     "p": 8.35173884737591e-43,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 8.017669293480873e-41
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -13584,8 +14430,10 @@
     "vs_steer": {
      "gained": 2,
      "lost": 125,
-     "p": 9.555593577834375e-35
-    }
+     "p": 9.555593577834375e-35,
+     "p_holm": 9.173369834721e-33
+    },
+    "p_holm": 0.003899876687910364
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -13601,8 +14449,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 41,
-     "p": 4.405936238072172e-08
-    }
+     "p": 4.405936238072172e-08,
+     "p_holm": 3.524748990457738e-06
+    },
+    "p_holm": 4.2915134334283435e-29
    }
   },
   "th-ja": {
@@ -13625,7 +14475,8 @@
     "median_tokens": 246,
     "gained": 43,
     "lost": 12,
-    "p": 3.3053764732060564e-05
+    "p": 3.3053764732060564e-05,
+    "p_holm": 0.0023137635312442395
    },
    "instruction": {
     "n": 200,
@@ -13648,7 +14499,8 @@
     "lost": 13,
     "p": 0.0002685401188191605,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.01557532689151131
    },
    "instruction_steer": {
     "n": 200,
@@ -13662,7 +14514,8 @@
     "lost": 8,
     "p": 2.3683513772354559e-07,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.8473140742436556e-05
    },
    "steer_prompt": {
     "n": 200,
@@ -13676,7 +14529,8 @@
     "lost": 10,
     "p": 1.4737715885004832e-05,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 0.0008400498054452754
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -13690,7 +14544,8 @@
     "lost": 8,
     "p": 1.5702617754687065e-08,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.2719120381296523e-06
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -13704,7 +14559,8 @@
     "lost": 4,
     "p": 2.0474233419776056e-11,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.6584129070018605e-09
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -13720,8 +14576,10 @@
     "vs_steer": {
      "gained": 8,
      "lost": 61,
-     "p": 3.243250603517968e-11
-    }
+     "p": 3.243250603517968e-11,
+     "p_holm": 2.6918980009199133e-09
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -13737,8 +14595,10 @@
     "vs_steer": {
      "gained": 8,
      "lost": 15,
-     "p": 0.21003961563110352
-    }
+     "p": 0.21003961563110352,
+     "p_holm": 1.0
+    },
+    "p_holm": 3.0084000108843156e-05
    }
   },
   "th-ru": {
@@ -13761,7 +14621,8 @@
     "median_tokens": 260,
     "gained": 32,
     "lost": 14,
-    "p": 0.011351591436778108
+    "p": 0.011351591436778108,
+    "p_holm": 0.635689120459574
    },
    "instruction": {
     "n": 200,
@@ -13784,7 +14645,8 @@
     "lost": 19,
     "p": 0.3712980344710104,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -13798,7 +14660,8 @@
     "lost": 5,
     "p": 6.618769839406013e-05,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 0.00503026507794857
    },
    "steer_prompt": {
     "n": 200,
@@ -13812,7 +14675,8 @@
     "lost": 14,
     "p": 0.04355852192384191,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -13826,7 +14690,8 @@
     "lost": 4,
     "p": 3.39532271027565e-05,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.002512538805603981
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -13840,7 +14705,8 @@
     "lost": 4,
     "p": 0.00017999112606048584,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.012419387698173523
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -13856,8 +14722,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 32,
-     "p": 7.427530363202095e-06
-    }
+     "p": 7.427530363202095e-06,
+     "p_holm": 0.000549637246876955
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -13873,8 +14741,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 14,
-     "p": 0.063568115234375
-    }
+     "p": 0.063568115234375,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "th-sw": {
@@ -13897,7 +14767,8 @@
     "median_tokens": 294,
     "gained": 93,
     "lost": 9,
-    "p": 9.977557876076285e-19
+    "p": 9.977557876076285e-19,
+    "p_holm": 8.381148615904079e-17
    },
    "instruction": {
     "n": 200,
@@ -13920,7 +14791,8 @@
     "lost": 19,
     "p": 7.127385901074282e-10,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 4.917896271741255e-08
    },
    "instruction_steer": {
     "n": 200,
@@ -13934,7 +14806,8 @@
     "lost": 12,
     "p": 3.2078083504135384e-20,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 2.8228713483639137e-18
    },
    "steer_prompt": {
     "n": 200,
@@ -13948,7 +14821,8 @@
     "lost": 14,
     "p": 2.4575158375112673e-13,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.793986561383225e-11
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -13962,7 +14836,8 @@
     "lost": 10,
     "p": 6.450875441383256e-22,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 5.676770388417265e-20
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -13976,7 +14851,8 @@
     "lost": 9,
     "p": 6.81401734593305e-22,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 5.791914744043093e-20
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -13992,8 +14868,10 @@
     "vs_steer": {
      "gained": 17,
      "lost": 73,
-     "p": 1.94823766277557e-09
-    }
+     "p": 1.94823766277557e-09,
+     "p_holm": 1.5391077535927004e-07
+    },
+    "p_holm": 2.992484541155735e-06
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -14009,8 +14887,10 @@
     "vs_steer": {
      "gained": 31,
      "lost": 39,
-     "p": 0.40296307504607976
-    }
+     "p": 0.40296307504607976,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.435767173462463e-16
    }
   },
   "th-te": {
@@ -14033,7 +14913,8 @@
     "median_tokens": 640,
     "gained": 117,
     "lost": 8,
-    "p": 5.928488920821206e-26
+    "p": 5.928488920821206e-26,
+    "p_holm": 5.157785361114449e-24
    },
    "instruction": {
     "n": 200,
@@ -14056,7 +14937,8 @@
     "lost": 57,
     "p": 1.3877787807814457e-17,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0685896612017132e-15
    },
    "instruction_steer": {
     "n": 200,
@@ -14070,7 +14952,8 @@
     "lost": 2,
     "p": 3.7032774028305346e-34,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 3.518113532689008e-32
    },
    "steer_prompt": {
     "n": 200,
@@ -14084,7 +14967,8 @@
     "lost": 2,
     "p": 4.853028427369814e-35,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 4.0280135947169456e-33
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -14098,7 +14982,8 @@
     "lost": 4,
     "p": 6.475582675466606e-32,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 6.0870477149386096e-30
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -14112,7 +14997,8 @@
     "lost": 2,
     "p": 3.7032774028305346e-34,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 3.444047984632397e-32
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -14128,8 +15014,10 @@
     "vs_steer": {
      "gained": 8,
      "lost": 84,
-     "p": 4.144248005348919e-17
-    }
+     "p": 4.144248005348919e-17,
+     "p_holm": 3.688380724760538e-15
+    },
+    "p_holm": 1.9565682593104903e-06
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -14145,8 +15033,10 @@
     "vs_steer": {
      "gained": 10,
      "lost": 55,
-     "p": 1.1753602809018611e-08
-    }
+     "p": 1.1753602809018611e-08,
+     "p_holm": 9.755490331485447e-07
+    },
+    "p_holm": 1.333846478327081e-13
    }
   },
   "th-zh": {
@@ -14169,7 +15059,8 @@
     "median_tokens": 252,
     "gained": 174,
     "lost": 0,
-    "p": 8.352389719038111e-53
+    "p": 8.352389719038111e-53,
+    "p_holm": 8.185341924657349e-51
    },
    "instruction": {
     "n": 200,
@@ -14192,7 +15083,8 @@
     "lost": 0,
     "p": 1.7105694144590052e-49,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.607935249591465e-47
    },
    "instruction_steer": {
     "n": 200,
@@ -14206,7 +15098,8 @@
     "lost": 0,
     "p": 4.176194859519056e-53,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 4.134432910923865e-51
    },
    "steer_prompt": {
     "n": 200,
@@ -14220,7 +15113,8 @@
     "lost": 0,
     "p": 8.352389719038111e-53,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 8.101818027466968e-51
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -14234,7 +15128,8 @@
     "lost": 1,
     "p": 3.0016400552793213e-53,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 2.971623654726528e-51
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -14248,7 +15143,8 @@
     "lost": 0,
     "p": 2.088097429759528e-53,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 2.0672164554619326e-51
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -14264,8 +15160,10 @@
     "vs_steer": {
      "gained": 0,
      "lost": 159,
-     "p": 2.7369110631344083e-48
-    }
+     "p": 2.7369110631344083e-48,
+     "p_holm": 2.7095419525030643e-46
+    },
+    "p_holm": 0.00028014183044433594
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -14281,8 +15179,10 @@
     "vs_steer": {
      "gained": 2,
      "lost": 97,
-     "p": 1.5622601366996918e-26
-    }
+     "p": 1.5622601366996918e-26,
+     "p_holm": 1.4997697312317041e-24
+    },
+    "p_holm": 2.5332406259436473e-24
    }
   },
   "zh-en": {
@@ -14305,7 +15205,8 @@
     "median_tokens": 235,
     "gained": 18,
     "lost": 6,
-    "p": 0.022655844688415527
+    "p": 0.022655844688415527,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -14328,7 +15229,8 @@
     "lost": 12,
     "p": 0.359283447265625,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -14342,7 +15244,8 @@
     "lost": 5,
     "p": 0.7744140625,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -14356,7 +15259,8 @@
     "lost": 11,
     "p": 0.6476058959960938,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -14370,7 +15274,8 @@
     "lost": 6,
     "p": 0.332305908203125,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -14384,7 +15289,8 @@
     "lost": 6,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -14400,8 +15306,10 @@
     "vs_steer": {
      "gained": 5,
      "lost": 10,
-     "p": 0.3017578125
-    }
+     "p": 0.3017578125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -14417,8 +15325,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 11,
-     "p": 0.480682373046875
-    }
+     "p": 0.480682373046875,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "zh-bn": {
@@ -14441,7 +15351,8 @@
     "median_tokens": 425,
     "gained": 10,
     "lost": 18,
-    "p": 0.1849333420395851
+    "p": 0.1849333420395851,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -14464,7 +15375,8 @@
     "lost": 173,
     "p": 6.431757703145298e-49,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 5.852899509862221e-47
    },
    "instruction_steer": {
     "n": 200,
@@ -14478,7 +15390,8 @@
     "lost": 14,
     "p": 0.0308837890625,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -14492,7 +15405,8 @@
     "lost": 163,
     "p": 1.7105694144590052e-49,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.5908295554468748e-47
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -14506,7 +15420,8 @@
     "lost": 29,
     "p": 2.5560148060321808e-06,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.0001993691548705101
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -14520,7 +15435,8 @@
     "lost": 11,
     "p": 0.210113525390625,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -14536,8 +15452,10 @@
     "vs_steer": {
      "gained": 26,
      "lost": 7,
-     "p": 0.0013187271542847157
-    }
+     "p": 0.0013187271542847157,
+     "p_holm": 0.09099217364564538
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -14553,8 +15471,10 @@
     "vs_steer": {
      "gained": 25,
      "lost": 8,
-     "p": 0.004551384132355452
-    }
+     "p": 0.004551384132355452,
+     "p_holm": 0.25032612727954984
+    },
+    "p_holm": 1.0
    }
   },
   "zh-de": {
@@ -14577,7 +15497,8 @@
     "median_tokens": 252,
     "gained": 22,
     "lost": 13,
-    "p": 0.17546524899080396
+    "p": 0.17546524899080396,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -14600,7 +15521,8 @@
     "lost": 11,
     "p": 1.0,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -14614,7 +15536,8 @@
     "lost": 6,
     "p": 0.332305908203125,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -14628,7 +15551,8 @@
     "lost": 156,
     "p": 2.1895288505075267e-47,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.9924712539618493e-45
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -14642,7 +15566,8 @@
     "lost": 5,
     "p": 0.143463134765625,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -14656,7 +15581,8 @@
     "lost": 5,
     "p": 0.210113525390625,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -14672,8 +15598,10 @@
     "vs_steer": {
      "gained": 7,
      "lost": 12,
-     "p": 0.359283447265625
-    }
+     "p": 0.359283447265625,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -14689,8 +15617,10 @@
     "vs_steer": {
      "gained": 8,
      "lost": 21,
-     "p": 0.0241195447742939
-    }
+     "p": 0.0241195447742939,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "zh-es": {
@@ -14713,7 +15643,8 @@
     "median_tokens": 236,
     "gained": 18,
     "lost": 16,
-    "p": 0.8641662404406816
+    "p": 0.8641662404406816,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -14736,7 +15667,8 @@
     "lost": 19,
     "p": 0.028959274291992188,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -14750,7 +15682,8 @@
     "lost": 4,
     "p": 0.3876953125,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -14764,7 +15697,8 @@
     "lost": 159,
     "p": 2.7369110631344083e-48,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 2.5179581780836557e-46
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -14778,7 +15712,8 @@
     "lost": 6,
     "p": 0.454498291015625,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -14792,7 +15727,8 @@
     "lost": 14,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -14808,8 +15744,10 @@
     "vs_steer": {
      "gained": 9,
      "lost": 12,
-     "p": 0.6636238098144531
-    }
+     "p": 0.6636238098144531,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -14825,8 +15763,10 @@
     "vs_steer": {
      "gained": 4,
      "lost": 27,
-     "p": 3.39532271027565e-05
-    }
+     "p": 3.39532271027565e-05,
+     "p_holm": 0.0022069597616791725
+    },
+    "p_holm": 0.03822788596153259
    }
   },
   "zh-fr": {
@@ -14985,7 +15925,8 @@
     "median_tokens": 246,
     "gained": 10,
     "lost": 23,
-    "p": 0.03508203336969018
+    "p": 0.03508203336969018,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -15008,7 +15949,8 @@
     "lost": 14,
     "p": 0.063568115234375,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -15022,7 +15964,8 @@
     "lost": 7,
     "p": 0.34375,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -15036,7 +15979,8 @@
     "lost": 174,
     "p": 8.352389719038111e-53,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 8.101818027466968e-51
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -15050,7 +15994,8 @@
     "lost": 10,
     "p": 0.1795654296875,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -15064,7 +16009,8 @@
     "lost": 43,
     "p": 4.6219383875722997e-10,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 3.651331326182117e-08
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -15080,8 +16026,10 @@
     "vs_steer": {
      "gained": 9,
      "lost": 5,
-     "p": 0.4239501953125
-    }
+     "p": 0.4239501953125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -15097,8 +16045,10 @@
     "vs_steer": {
      "gained": 6,
      "lost": 9,
-     "p": 0.60723876953125
-    }
+     "p": 0.60723876953125,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "zh-ru": {
@@ -15121,7 +16071,8 @@
     "median_tokens": 260,
     "gained": 16,
     "lost": 13,
-    "p": 0.711071103811264
+    "p": 0.711071103811264,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -15144,7 +16095,8 @@
     "lost": 15,
     "p": 0.21003961563110352,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -15158,7 +16110,8 @@
     "lost": 2,
     "p": 0.109375,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -15172,7 +16125,8 @@
     "lost": 164,
     "p": 8.552847072295026e-50,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 8.039676247957325e-48
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -15186,7 +16140,8 @@
     "lost": 13,
     "p": 0.1670684814453125,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -15200,7 +16155,8 @@
     "lost": 8,
     "p": 0.6476058959960938,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -15216,8 +16172,10 @@
     "vs_steer": {
      "gained": 12,
      "lost": 10,
-     "p": 0.8318119049072266
-    }
+     "p": 0.8318119049072266,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -15233,8 +16191,10 @@
     "vs_steer": {
      "gained": 10,
      "lost": 27,
-     "p": 0.007632078602910042
-    }
+     "p": 0.007632078602910042,
+     "p_holm": 0.38923600874841213
+    },
+    "p_holm": 0.005011321976780891
    }
   },
   "zh-sw": {
@@ -15257,7 +16217,8 @@
     "median_tokens": 294,
     "gained": 32,
     "lost": 44,
-    "p": 0.20673684180839233
+    "p": 0.20673684180839233,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -15280,7 +16241,8 @@
     "lost": 60,
     "p": 0.0003169992822776409,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.01806895908982553
    },
    "instruction_steer": {
     "n": 200,
@@ -15294,7 +16256,8 @@
     "lost": 31,
     "p": 0.5044037600228256,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -15308,7 +16271,8 @@
     "lost": 115,
     "p": 1.6487043659548457e-30,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.3189634927638765e-28
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -15322,7 +16286,8 @@
     "lost": 52,
     "p": 0.0017618720029406244,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.11275980818819996
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -15336,7 +16301,8 @@
     "lost": 29,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -15352,8 +16318,10 @@
     "vs_steer": {
      "gained": 49,
      "lost": 26,
-     "p": 0.010582117051705276
-    }
+     "p": 0.010582117051705276,
+     "p_holm": 0.6455091401540218
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -15369,8 +16337,10 @@
     "vs_steer": {
      "gained": 49,
      "lost": 24,
-     "p": 0.004626293921895511
-    }
+     "p": 0.004626293921895511,
+     "p_holm": 0.25032612727954984
+    },
+    "p_holm": 1.0
    }
   },
   "zh-te": {
@@ -15393,7 +16363,8 @@
     "median_tokens": 640,
     "gained": 14,
     "lost": 24,
-    "p": 0.14330665429588407
+    "p": 0.14330665429588407,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -15416,7 +16387,8 @@
     "lost": 168,
     "p": 4.5437000071567326e-49,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 4.180204006584194e-47
    },
    "instruction_steer": {
     "n": 200,
@@ -15430,7 +16402,8 @@
     "lost": 16,
     "p": 0.2295229434967041,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -15444,7 +16417,8 @@
     "lost": 159,
     "p": 2.2032134058231987e-46,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 1.9828920652408788e-44
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -15458,7 +16432,8 @@
     "lost": 30,
     "p": 0.0004719867429230362,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 0.03162311177584343
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -15472,7 +16447,8 @@
     "lost": 7,
     "p": 1.0,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -15488,8 +16464,10 @@
     "vs_steer": {
      "gained": 28,
      "lost": 9,
-     "p": 0.0025632079923525453
-    }
+     "p": 0.0025632079923525453,
+     "p_holm": 0.169171727495268
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -15505,8 +16483,10 @@
     "vs_steer": {
      "gained": 27,
      "lost": 15,
-     "p": 0.08842954698775429
-    }
+     "p": 0.08842954698775429,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
   },
   "zh-th": {
@@ -15529,7 +16509,8 @@
     "median_tokens": 343,
     "gained": 20,
     "lost": 12,
-    "p": 0.21532714972272515
+    "p": 0.21532714972272515,
+    "p_holm": 1.0
    },
    "instruction": {
     "n": 200,
@@ -15552,7 +16533,8 @@
     "lost": 11,
     "p": 0.557197093963623,
     "layer": 16,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer": {
     "n": 200,
@@ -15566,7 +16548,8 @@
     "lost": 7,
     "p": 0.803619384765625,
     "layer": 40,
-    "alpha": 0.5
+    "alpha": 0.5,
+    "p_holm": 1.0
    },
    "steer_prompt": {
     "n": 200,
@@ -15580,7 +16563,8 @@
     "lost": 140,
     "p": 1.018800035502715e-40,
     "layer": 48,
-    "alpha": 2
+    "alpha": 2,
+    "p_holm": 8.86356030887362e-39
    },
    "instruction_steer_prompt": {
     "n": 200,
@@ -15594,7 +16578,8 @@
     "lost": 8,
     "p": 0.5034446716308594,
     "layer": 40,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_en_steer_prompt": {
     "n": 200,
@@ -15608,7 +16593,8 @@
     "lost": 8,
     "p": 0.38331031799316406,
     "layer": 48,
-    "alpha": 1
+    "alpha": 1,
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_random": {
     "n": 200,
@@ -15624,8 +16610,10 @@
     "vs_steer": {
      "gained": 10,
      "lost": 13,
-     "p": 0.6776394844055176
-    }
+     "p": 0.6776394844055176,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    },
    "instruction_steer_prompt_wrong": {
     "n": 200,
@@ -15641,9 +16629,115 @@
     "vs_steer": {
      "gained": 10,
      "lost": 12,
-     "p": 0.8318119049072266
-    }
+     "p": 0.8318119049072266,
+     "p_holm": 1.0
+    },
+    "p_holm": 1.0
    }
+  }
+ },
+ "better_worse": {
+  "native": {
+   "p": [
+    42,
+    12
+   ],
+   "p_holm": [
+    32,
+    5
+   ]
+  },
+  "steer": {
+   "p": [
+    21,
+    41
+   ],
+   "p_holm": [
+    17,
+    28
+   ]
+  },
+  "instruction_steer": {
+   "p": [
+    37,
+    2
+   ],
+   "p_holm": [
+    31,
+    0
+   ]
+  },
+  "steer_prompt": {
+   "p": [
+    31,
+    33
+   ],
+   "p_holm": [
+    24,
+    25
+   ]
+  },
+  "instruction_steer_prompt": {
+   "p": [
+    36,
+    6
+   ],
+   "p_holm": [
+    31,
+    4
+   ]
+  },
+  "instruction_en_steer_prompt": {
+   "p": [
+    39,
+    5
+   ],
+   "p_holm": [
+    31,
+    4
+   ]
+  },
+  "instruction_steer_prompt_random": {
+   "p": [
+    10,
+    10
+   ],
+   "p_holm": [
+    6,
+    3
+   ]
+  },
+  "instruction_steer_prompt_wrong": {
+   "p": [
+    18,
+    28
+   ],
+   "p_holm": [
+    14,
+    16
+   ]
+  }
+ },
+ "better_worse_vs_steer": {
+  "instruction_steer_prompt_random": {
+   "p": [
+    4,
+    41
+   ],
+   "p_holm": [
+    0,
+    30
+   ]
+  },
+  "instruction_steer_prompt_wrong": {
+   "p": [
+    5,
+    51
+   ],
+   "p_holm": [
+    1,
+    35
+   ]
   }
  },
  "means": {

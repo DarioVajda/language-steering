@@ -3,7 +3,7 @@
 
 They have no settings, so they are not selected on dev: each is compared directly with the instruction, by the
 measures of analyse_pairs.py (an exact McNemar test on per-item success within each pair; means over the tuning,
-held-out and all pairs; held-out pairs significantly better / worse), and with the failure counts of
+held-out and all pairs; held-out pairs significantly better / worse, uncorrected and Holm-corrected), and with the failure counts of
 robustness.py (held-out pairs with success below 0.10 and 0.30). The instruction and
 instruction + prompt-only steering are listed for reference, from the same test files. Waits until every unit of
 the prompts stage exists (helper jobs may still be running some).
@@ -18,7 +18,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "mgsm_steering"))
 from analyse import load, mcnemar, score, success  # noqa: E402
-from analyse_pairs import COLS, HELD  # noqa: E402
+from analyse_pairs import COLS, HELD, better_worse, correct  # noqa: E402
 from generate_pairs import GEN, KEY, PAIRS, PROMPT_ARMS, RES, TUNE, units  # noqa: E402
 from robustness import THRESHOLDS  # noqa: E402
 
@@ -46,19 +46,21 @@ def main():
     means = {g: {arm: {c: sum(test[KEY[p]][arm][c] for p in ps) / len(ps) for c in COLS} for arm in ARMS}
              for g, ps in groups.items()}
     held = [test[KEY[p]] for p in HELD]
-    better = {arm: sum(d[arm]["p"] < 0.05 and d[arm]["gained"] > d[arm]["lost"] for d in held) for arm in ARMS[1:]}
-    worse = {arm: sum(d[arm]["p"] < 0.05 and d[arm]["gained"] < d[arm]["lost"] for d in held) for arm in ARMS[1:]}
+    for arm in ARMS[1:]:
+        correct([d[arm] for d in held])
+    bw = {arm: better_worse([d[arm] for d in held]) for arm in ARMS[1:]}
     below = {arm: {str(x): sum(d[arm]["success"] < x for d in held) for x in THRESHOLDS} for arm in ARMS}
 
     print(f"== mean over the {len(HELD)} held-out pairs")
-    print(f"{'':26}" + "".join(f"{c:>9}" for c in COLS) + "   better / worse   " +
+    print(f"{'':26}" + "".join(f"{c:>9}" for c in COLS) + "   better / worse (Holm)   " +
           "   ".join(f"< {x}" for x in THRESHOLDS))
     for arm in ARMS:
-        sig = f"{better[arm]:>7} / {worse[arm]:<5}" if arm in better else " " * 15
+        sig = (f"{bw[arm]['p'][0]:>7} / {bw[arm]['p'][1]:<3} ({bw[arm]['p_holm'][0]} / {bw[arm]['p_holm'][1]})".ljust(22)
+               if arm in bw else " " * 22)
         print(f"{arm:26}" + "".join(f"{means['held_out'][arm][c]:>9.3f}" for c in COLS) + f"   {sig}   " +
               "".join(f"{below[arm][str(x)]:>7}" for x in THRESHOLDS))
     (RES / "prompt_variants.json").write_text(json.dumps(
-        dict(arms=ARMS, means=means, better=better, worse=worse, below=below, test=test), indent=1) + "\n")
+        dict(arms=ARMS, means=means, better_worse=bw, below=below, test=test), indent=1) + "\n")
 
 
 if __name__ == "__main__":
