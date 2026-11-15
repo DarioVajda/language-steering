@@ -37,6 +37,13 @@ slurm/submit.sh -J mgsm_xl_tables -c 4 --mem 16G --gres=none --constraint= -- \
 # Qwen3-32B: one worker per GPU, on B200/B300
 slurm/submit.sh -J mgsm_xl_q32 -t 24:00:00 --gres gpu:8 --gres-flags=disable-binding -c 32 --mem 320G \
   --constraint 'GPU_BRD:B200|GPU_BRD:B300' -- env HF_HUB_CACHE=$PWD/logs/hf_cache bash src/experiments/mgsm_crosslingual/run.sh qwen3-32b 8 1
+
+# prompt variants (Qwen3-8B, after its main run): 2 GPUs, 2 workers each, then the comparison
+slurm/submit.sh -J xl-q8-prompts -t 10:00:00 --gres gpu:A100_80GB:2 --gres-flags=disable-binding -c 16 --mem 96G \
+  --constraint GPU_BRD:A100 -- bash -c 'export XL_MODEL=qwen3-8b PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True HF_HUB_OFFLINE=1
+  G=src/experiments/mgsm_crosslingual; for i in 0 1 2 3; do CUDA_VISIBLE_DEVICES=$((i / 2)) python $G/generate_pairs.py prompts & done
+  wait; python $G/prompt_variants.py'
+# optional helpers: the same without prompt_variants.py, and with SLURM_JOB_ID=<id> added to the export
 ```
 
 `run.sh <model> <gpus> <workers per gpu> [main job id]` runs every stage in one job: vectors, the dev grid, selection, test and the tables. The model is a key of `MODELS` in `../mgsm_steering/generate.py` (`llama-3.1-8b`, `qwen3-8b`, `qwen3-32b`); every script reads it from the environment variable `XL_MODEL` (set by `run.sh` and `kl.sh`) and writes to `results/<model>/`. Workers share each stage through claim files under `results/<model>/generations/claims/<main job id>/`, as in `../mgsm_steering/`. A helper (with a main job id) waits for the main job's vectors and selection, takes units from the same queue, and leaves the tables to the main job.
@@ -45,7 +52,7 @@ For Llama, `HF_HUB_CACHE=$PWD/logs/hf_cache` is needed because the shared cache'
 
 The Qwen3-32B checkpoint (revision 9216db5) is also in `logs/hf_cache`, downloaded from the Hub; Qwen3-8B (revision b968826) is in the shared cache. Qwen3-32B runs one worker per GPU (B200/B300 only), the 8B models two.
 
-Runs: Llama on 7 GPUs (2 B300 in the main job, helpers on 1 B300 and 4 B200), 2 h 08 min; Qwen3-8B on 9 B200, 3 h 01 min; Qwen3-32B on 20 B200, 1 h 50 min; mostly the test stage. As in `../mgsm_steering/`, a unit's output depends on which GPU ran it only through bf16 differences. KL: 29 min on 1 B300 (Llama), 37 min on 1 B200 (Qwen3-8B), 18 min on 8 B200 (Qwen3-32B, main job and a helper). `robustness.py`, `agreement.py` and `analyse_kl.py` run on a CPU in under a minute each.
+Runs: Llama on 7 GPUs (2 B300 in the main job, helpers on 1 B300 and 4 B200), 2 h 08 min; Qwen3-8B on 9 B200, 3 h 01 min; Qwen3-32B on 20 B200, 1 h 50 min; mostly the test stage. As in `../mgsm_steering/`, a unit's output depends on which GPU ran it only through bf16 differences. KL: 29 min on 1 B300 (Llama), 37 min on 1 B200 (Qwen3-8B), 18 min on 8 B200 (Qwen3-32B, main job and a helper). `robustness.py`, `agreement.py` and `analyse_kl.py` run on a CPU in under a minute each. Prompt variants (Qwen3-8B): 4 A100 80 GB (main job and a helper, 2 each), 1 h 53 min.
 
 | File | Contents |
 |---|---|
@@ -56,6 +63,7 @@ Runs: Llama on 7 GPUs (2 B300 in the main job, helpers on 1 B300 and 4 B200), 2 
 | `agreement.py` | error consistency (Cohen's κ) with the native and source questions -> `results/<model>/agreement.json` |
 | `kl.py`, `kl.sh` | teacher-forced per-token KL and top-1 agreement with the native question, in one Slurm job (-> `results/<model>/generations/kl/`, 0.3–0.5 GB per model, not committed) |
 | `analyse_kl.py` | KL and top-1 by response position, and per S and T -> `results/<model>/kl.json` |
+| `prompt_variants.py` | the instruction in T and the instruction before the question against the instruction, on test -> `results/<model>/prompt_variants.json` |
 | `check_instructions.py` | NLLB-200 back-translation of the 100 non-English instruction strings |
 | `results/<model>/summary.json` | every number below, and per pair every arm with its McNemar counts (the generations in `results/<model>/generations/` are not committed) |
 | `results/instructions.json` | the instruction strings, back-translations and fastText labels |
@@ -79,12 +87,14 @@ Everything is as in `../mgsm_steering/` (greedy decoding with at most 2048 new t
   | Instruction | the S question + "\n\n" + "Answer in T." written in S (baseline) |
   | Instruction in English | the same, with "Answer in T." in English |
   | Instruction as system message | the S question, with the instruction in S as the system message |
+  | Instruction in T (Qwen3-8B only) | the S question + "\n\n" + "Answer in T." written in T, with T's own name for itself (e.g. "Antworte auf Deutsch.") |
+  | Instruction first (Qwen3-8B only) | the instruction + "\n\n" + the S question |
   | Steering | the S question, + α·v at layer l |
   | Instruction + steering | the instruction prompt, + α·v at layer l |
   | Instruction in English + steering | the English-instruction prompt, + α·v at layer l (prompt-only) |
   | Controls | instruction + prompt-only steering at its chosen (l, α), with v replaced, per item, by a random direction of the same norm, or by v_(S→U) for a wrong language U ≠ S, T drawn at random |
 
-  Each steering arm except the English-instruction one comes in an all-token and a prompt-only version. Source depends only on S and native only on T, so each is generated once per language. Of the three instruction variants, only the one with the best dev success goes to test as a baseline (besides the instruction itself).
+  Each steering arm except the English-instruction one comes in an all-token and a prompt-only version. The two Qwen3-8B-only prompt variants have no settings and are not selected on dev: both go to test on all 110 pairs, and each is compared directly with the instruction. Source depends only on S and native only on T, so each is generated once per language. Of the three instruction variants, only the one with the best dev success goes to test as a baseline (besides the instruction itself).
 * **Vectors:** v_(S→T)(l) = μ_T(l) − μ_S(l), μ_L(l) the mean output of block l over the tokens of the 997 FLORES-200 dev sentences in L. The first token of each sentence is left out: it is the attention sink, with a norm 50–100 times that of the others (Llama's BOS; Qwen3 adds no BOS, so its first word). With it, Qwen's vectors are dominated by the sink and break the model at α = 1.
 * **Instruction strings:** the name of T in S from CLDR 47, in a per-language imperative template (Russian takes the prepositional case). For S = en they are the strings of `../mgsm_steering/`. NLLB-200 3.3B translates all 100 non-English strings back into a correct English instruction.
 
@@ -246,6 +256,30 @@ Dev (tuning pairs): source 0.738, native 0.740; instruction 0.338, in English 0.
   | steer, PO | 1.44 / 0.63 | 0.67 / 0.80 | 0.60 / 0.84 | 0.14 / 0.95 |
   | instr. | 7.69 / 0.18 | 0.86 / 0.78 | 0.72 / 0.82 | 0.17 / 0.94 |
   | instr. + steer, PO | 3.07 / 0.33 | 0.81 / 0.78 | 0.70 / 0.82 | 0.16 / 0.94 |
+
+### Prompt variants (Qwen3-8B, test)
+
+Mean over the 99 held-out pairs; better / worse: held-out pairs significantly different from the instruction (McNemar, p < 0.05). The instruction and instruction + steering rows are the ones above.
+
+| | held-out | held-out better / worse | accuracy | in T | capped | below 0.10 / 0.30 |
+|---|---|---|---|---|---|---|
+| Instruction (after the question, in S) | 0.412 | – | 0.766 | 0.516 | 0.037 | 30 / 42 |
+| Instruction in T | 0.451 | 45 / 26 | 0.754 | 0.610 | 0.032 | 17 / 36 |
+| Instruction first | 0.420 | 21 / 19 | 0.753 | 0.528 | 0.046 | 31 / 40 |
+| Instr. + steering, prompt-only | 0.711 | 69 / 0 | 0.741 | 0.945 | 0.053 | 2 / 5 |
+
+Held-out success by T (9 pairs each), with better / worse:
+
+| T | en | bn | de | es | fr | ja | ru | sw | te | th | zh |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Instruction | 0.63 | 0.55 | 0.46 | 0.46 | 0.47 | 0.31 | 0.36 | 0.20 | 0.48 | 0.52 | 0.10 |
+| Instruction in T | 0.57 (4 / 4) | 0.70 (5 / 2) | 0.33 (2 / 5) | 0.46 (3 / 2) | 0.37 (1 / 5) | 0.43 (7 / 1) | 0.41 (3 / 3) | 0.24 (5 / 0) | 0.65 (5 / 0) | 0.43 (2 / 4) | 0.37 (8 / 0) |
+| Instruction first | 0.61 (3 / 2) | 0.59 (3 / 0) | 0.41 (1 / 4) | 0.46 (2 / 1) | 0.49 (1 / 2) | 0.34 (3 / 1) | 0.47 (4 / 1) | 0.22 (1 / 0) | 0.42 (1 / 3) | 0.46 (1 / 4) | 0.14 (1 / 1) |
+
+* **Neither variant closes the gap:** 0.451 and 0.420 against 0.711 with steering; accuracy is unchanged (0.75–0.77), so both act only on the language of the answer.
+* **The instruction in T is unreliable rather than better:** it lifts T = zh (0.10 to 0.37), bn, te and ja, and lowers T = de, fr, th and en; 26 held-out pairs are significantly worse. The losses are in the answer language (T = de: in T 0.60 to 0.44), not in accuracy.
+* **Placing the instruction first changes little** (21 better, 19 worse): letting the question tokens attend to the instruction does not help.
+* Not run on Llama or Qwen3-32B, since neither variant changes the conclusion. Run on A100 80 GB, the other Qwen3-8B arms on B200; a unit's output depends on the GPU only through bf16 differences.
 
 ## Results: Qwen3-32B
 

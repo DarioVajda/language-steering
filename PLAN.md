@@ -69,8 +69,9 @@ Priority: **P1** needed for a credible paper, **P2** strengthens it, **P3** only
 - [x] **P1 Second model on cross-lingual MGSM:** Qwen3-8B (thinking off), and Qwen3-32B for scale. The model is a parameter (`XL_MODEL`); each model has its own layer grid (about 25-75% of its depth); same items, tuning pairs, α grid and judge; all analyses rerun. Results in `src/experiments/mgsm_crosslingual/README.md`. The sink token is now left out of the vector means for every model.
 - [x] **P1 Second model on LCB:** Qwen3-8B and Qwen3-32B (thinking off), with the same settings and each model's MGSM layer grid; one job per model (`run.sh`). Results in `src/experiments/language_confusion/README.md`.
 - [x] **P1 Steering controls in cross-lingual MGSM**, at the chosen setting of instruction + prompt-only steering, on all test pairs: a norm-matched random direction and a wrong-target vector v(S→U), U ≠ S, T, each drawn per item.
-- [ ] **P1 Stronger prompt baselines.** Done: the instruction in English and as a system message (the dev winner goes to test), and instruction in English + steering. Not done: the instruction after the question; demonstrations answered in T; translate-then-ask (NLLB).
-- [ ] **P2 Sensitivity:** success over the layer × α dev grid (data exists, needs a figure); number of FLORES sentences used for the vectors (e.g. 10, 100, 997).
+- [x] **P1 Stronger prompt baselines.** The instruction in English and as a system message (the dev winner goes to test), and instruction in English + steering. On Qwen3-8B only: the instruction written in T (0.451 held-out success; better in 45 pairs, worse in 26, depending on T) and the instruction before the question (0.420), against 0.412 for the instruction and 0.711 with steering; not extended to the other models, as neither changes the conclusion. For the paper: one sentence in the main body (or rows marked "Qwen3-8B only" in the prompt-baselines table), details in the appendix. Dropped: demonstrations answered in T (they assume the target-language data the method is meant to do without); translate-then-ask (NLLB), which changes the task and is close to the native ceiling.
+- [ ] **P2 Sensitivity:** success over the layer × α dev grid (data exists, needs a figure).
+- [ ] **P2 Number of FLORES sentences for the vectors** (e.g. 10, 100, 997): how little target-language text the method needs, which supports the low-resource framing. Recompute the vectors from subsets and rerun test at the chosen settings. Deferred; to be discussed before running.
 - [ ] **P2 Interpretability, one analysis:** where the language of the first answer token is decided, across layers (logit lens, or projection on the language direction), for instruction vs instruction + steering, in pairs where the instruction fails.
 - [ ] **P3 Third model family** (e.g. Gemma), only if needed: Qwen3-8B and Qwen3-32B agree with Llama.
 - [ ] **P3 "Reason in English, answer in T":** a possible route to beating native in low-resource targets; a separate experiment.
@@ -94,4 +95,3 @@ Priority: **P1** needed for a credible paper, **P2** strengthens it, **P3** only
 
 - [ ] Deadlines for the report and the paper.
 - [ ] Target venue and page limit; report length limit.
-- [ ] Which further prompt baselines (above).

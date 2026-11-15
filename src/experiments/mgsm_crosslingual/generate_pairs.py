@@ -16,6 +16,9 @@ The arms are those of ../mgsm_steering (en -> T) one-to-one, with English replac
   instruction_steer         the instruction prompt, + alpha * v_(S->T)(l)
   steer_prompt, instruction_steer_prompt   the same, but steering the prompt only
   instruction_en_steer_prompt              the instruction_en prompt, steering the prompt only
+  instruction_target        the S question + "\n\n" + "Answer in <T>." written in T (TARGET[T]; for T = en the
+                            instruction_en prompt)
+  instruction_first         INSTRUCTION[S][T] + "\n\n" + the S question (the instruction before the question)
   instruction_steer_prompt_random          controls for instruction_steer_prompt, at its chosen setting: per item,
   instruction_steer_prompt_wrong           a random direction of the norm of alpha * v_(S->T)(l), resp.
                                            alpha * v_(S->U)(l) for a language U != S, T drawn uniformly
@@ -40,6 +43,9 @@ Stages (each skips work whose output already exists):
             and the instruction variant chosen on dev if it is not the instruction (-> chosen_instruction.json);
             a unit is one arm on one pair, or for source and native (which depend only on S, resp. T) one
             language -> .../test/<unit>.jsonl
+  prompts   the two prompt variants PROMPT_ARMS (instruction_target, instruction_first) on the test items of all
+            110 pairs, untuned and compared directly with the instruction (prompt_variants.py); run separately,
+            after test -> .../test/<unit>.jsonl
 The two variants are prompt baselines without steering. instruction_en was chosen on dev for Llama, so instruction
 + prompt-only steering is also tuned and tested with it (instruction_en_steer_prompt), for every model.
 Workers share a stage through claim files, as in ../mgsm_steering.
@@ -120,6 +126,11 @@ TEMPLATE = {"en": "Answer in {}.", "bn": "{} ভাষায় উত্তর 
 INSTRUCTION = {s: {t: TEMPLATE[s].format(n) for t, n in NAME_IN[s].items() if t != s} for s in LANGS}
 ENGLISH = {t: TEMPLATE["en"].format(n) for t, n in NAME_IN["en"].items()}  # "Answer in <T>." for every T
 INSTRUCTION_ARMS = ("instruction", "instruction_en", "instruction_system")  # the first is the default
+# Each language's name for itself, as the templates take it: "Answer in <T>." written in T.
+SELF_NAME = {"en": "English", "bn": "বাংলা", "de": "Deutsch", "es": "español", "fr": "français", "ja": "日本語",
+             "ru": "русском языке", "sw": "Kiswahili", "te": "తెలుగు", "th": "ไทย", "zh": "中文"}
+TARGET = {t: TEMPLATE[t].format(n) for t, n in SELF_NAME.items()}
+PROMPT_ARMS = ("instruction_target", "instruction_first")
 
 
 def prompt(arm, row, src, tgt):
@@ -127,6 +138,10 @@ def prompt(arm, row, src, tgt):
     if arm == "native":
         return row["text"][tgt]["question"]
     q = row["text"][src]["question"]
+    if arm == "instruction_target":
+        return f"{q}\n\n{TARGET[tgt]}"
+    if arm == "instruction_first":
+        return f"{INSTRUCTION[src][tgt]}\n\n{q}"
     if arm.startswith("instruction_en"):
         return f"{q}\n\n{ENGLISH[tgt]}"
     if arm.startswith("instruction") and arm != "instruction_system":
@@ -150,6 +165,8 @@ def units(stage):
                 for a in ALPHAS:
                     u[f"{arm}_L{l}_a{a}"] = (arm, l, a, items())
         return u
+    if stage == "prompts":
+        return {f"{arm}_{KEY[p]}": (arm, None, None, [(r, *p) for r in sp["test"]]) for arm in PROMPT_ARMS for p in PAIRS}
     chosen = json.loads((GEN / "chosen.json").read_text())
     u = {}
     for L in LANGS:
@@ -208,7 +225,7 @@ def claim(stage, name):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("stage", choices=("vectors", "dev", "test"))
+    ap.add_argument("stage", choices=("vectors", "dev", "test", "prompts"))
     args = ap.parse_args()
     GEN.mkdir(parents=True, exist_ok=True)
     M = Model(MODELS[MODEL]["hf"])
@@ -220,7 +237,7 @@ def main():
             tmp.rename(GEN / "vectors.pt")
         return
     mu = torch.load(GEN / "vectors.pt")
-    out = GEN / args.stage
+    out = GEN / ("test" if args.stage == "prompts" else args.stage)
     out.mkdir(exist_ok=True)
     for name, (arm, layer, alpha, items) in units(args.stage).items():
         if (out / f"{name}.jsonl").exists() or not claim(args.stage, name):
