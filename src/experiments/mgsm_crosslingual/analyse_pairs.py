@@ -78,7 +78,8 @@ def select():
             r0 = next(iter(g.values()))[0]
             if r0["arm"] == arm:
                 means[(r0["layer"], r0["alpha"])] = sum(score(g[k])["success"] for k in keys) / len(keys)
-        (layer, alpha) = min(means, key=lambda k: (-means[k], k[1], k[0]))
+        # rounded, so that equal success counts tie exactly whatever the order of the float sum
+        (layer, alpha) = min(means, key=lambda k: (-round(means[k], 9), k[1], k[0]))
         chosen[arm] = dict(layer=layer, alpha=alpha, mean_success=means[(layer, alpha)])
         grid[arm] = [dict(layer=l, alpha=a, mean_success=m) for (l, a), m in sorted(means.items())]
         print(f"\n{arm}: mean dev success over tuning pairs (rows: layer, columns: alpha)")

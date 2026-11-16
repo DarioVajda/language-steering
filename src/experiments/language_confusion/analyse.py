@@ -47,7 +47,8 @@ import data
 # ../mgsm_steering/generate.py) of each model.
 MODELS = {"llama-3.1-8b": dict(hf="meta-llama/Llama-3.1-8B-Instruct", layers=(8, 12, 16, 20, 24)),
           "qwen3-8b": dict(hf="Qwen/Qwen3-8B", layers=(8, 12, 16, 20, 24, 28)),
-          "qwen3-32b": dict(hf="Qwen/Qwen3-32B", layers=(16, 24, 32, 40, 48))}
+          "qwen3-32b": dict(hf="Qwen/Qwen3-32B", layers=(16, 24, 32, 40, 48)),
+          "gemma3-12b": dict(hf="google/gemma-3-12b-it", layers=(12, 18, 24, 30, 36))}
 MODEL = os.environ.get("LCB_MODEL")
 if MODEL not in MODELS:
     sys.exit(f"set LCB_MODEL to one of {', '.join(MODELS)}")
@@ -170,7 +171,8 @@ def select_universal(scores_by_lang):
     for cond in ("steer", "instruction_steer"):
         keys = [k for k in S[0] if k[0] == cond]
         ok = [k for k in keys if within(k)] or [min(keys, key=lambda k: mean(k, "degenerate"))]
-        best = min(ok, key=lambda k: (-mean(k, "lpr"), mean(k, "degenerate"), k[2], k[1]))
+        # rounded, so that equal scores tie exactly whatever the order of the float sum
+        best = min(ok, key=lambda k: (-round(mean(k, "lpr"), 9), round(mean(k, "degenerate"), 9), k[2], k[1]))
         chosen[cond] = (best[1], best[2])
     return chosen
 

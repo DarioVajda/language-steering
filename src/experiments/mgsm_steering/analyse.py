@@ -26,6 +26,7 @@ import collections
 import functools
 import json
 import math
+import re
 import time
 import unicodedata
 
@@ -64,10 +65,15 @@ def letters(line):
     return "".join(" " if unicodedata.category(ch)[0] in "NPS" else ch for ch in line)
 
 
+# Gemma-3 often ends with this English template line ("Final Answer: The final answer is $\boxed{18}$"), even
+# after an answer fully in T; it is not scored. No Llama-3.1 or Qwen3 response in this project contains it.
+ANSWER_LINE = re.compile(r"^[\s*#]*Final Answer[\s*:]*The final answer is.*$", re.M)
+
+
 @functools.cache
 def judge(response, lang):
     """(in T, whole response labelled English)."""
-    lines = [" ".join(letters(l).split()) for l in response.split("\n")]
+    lines = [" ".join(letters(l).split()) for l in ANSWER_LINE.sub("", response).split("\n")]
     lines = [l for l in lines if l]
     if not lines:
         return False, False
@@ -131,7 +137,8 @@ def select():
             r0 = next(iter(g.values()))[0]
             if r0["arm"] == arm:
                 means[(r0["layer"], r0["alpha"])] = sum(score(g[L])["success"] for L in LANGS) / len(LANGS)
-        (layer, alpha) = min(means, key=lambda k: (-means[k], k[1], k[0]))
+        # rounded, so that equal success counts tie exactly whatever the order of the float sum
+        (layer, alpha) = min(means, key=lambda k: (-round(means[k], 9), k[1], k[0]))
         chosen[arm] = dict(layer=layer, alpha=alpha, mean_success=means[(layer, alpha)])
         grid[arm] = [dict(layer=l, alpha=a, mean_success=m) for (l, a), m in sorted(means.items())]
         print(f"\n{arm}: mean dev success over languages (rows: layer, columns: alpha)")
