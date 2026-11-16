@@ -1,8 +1,8 @@
 # Instruction vs language steering on the Language Confusion Benchmark
 
-Does a language vector make an instruction-tuned model **answer in the requested language more reliably than the instruction itself?** We use the cross-lingual part of the Language Confusion Benchmark (LCB; Marchisio et al., 2024): English prompts that ask for a reply in another language ("Write in Japanese."). The model sometimes ignores the request and answers in English, especially for long prompts. Three models: Llama-3.1-8B-Instruct (the main one), Qwen3-8B and Qwen3-32B (thinking off).
+Does a language vector make an instruction-tuned model **answer in the requested language more reliably than the instruction itself?** We use the cross-lingual part of the Language Confusion Benchmark (LCB; Marchisio et al., 2024): English prompts that ask for a reply in another language ("Write in Japanese."). The model sometimes ignores the request and answers in English, especially for long prompts. Four models: Llama-3.1-8B-Instruct (the main one), Qwen3-8B and Qwen3-32B (thinking off), and Gemma-3-12B-it.
 
-**Result: yes, wherever the instruction fails.** On held-out test prompts, steering raises the line-level pass rate from 0.83–0.94 to 0.90–1.00 in Japanese, Chinese, Russian, Hindi and Arabic, and removes nearly all English fallbacks. Turkish, where the instruction already scores 0.97, is unchanged. Adding the vector on top of the instruction is the most consistent arm. Qwen3-8B, whose instruction fails more often (0.77–0.91), gains significantly in all six languages with all-token steering, also after a Holm correction over the languages. Qwen3-32B follows the instruction better (0.87–0.97) and gains less: all-token steering is significant in five languages (three after Holm), and no prompt-only gain survives the correction. LCB only checks the language, though. By hand, steered answers show more code-mixing inside words and, in Turkish and Hindi, some loss of fluency. A benchmark with checkable answers is still needed to measure quality.
+**Result: yes, wherever the instruction fails.** On held-out test prompts, steering raises the line-level pass rate from 0.83–0.94 to 0.90–1.00 in Japanese, Chinese, Russian, Hindi and Arabic, and removes nearly all English fallbacks. Turkish, where the instruction already scores 0.97, is unchanged. Adding the vector on top of the instruction is the most consistent arm. Qwen3-8B, whose instruction fails more often (0.77–0.91), gains significantly in all six languages with all-token steering, also after a Holm correction over the languages. Qwen3-32B follows the instruction better (0.87–0.97) and gains less: all-token steering is significant in five languages (three after Holm), and no prompt-only gain survives the correction. Gemma-3-12B-it almost never follows the instruction (LPR .07–.35; 63–89% of its answers start in English, often with a preamble such as "Okay, here's an essay on Machine Learning in Japanese, …"). Steering raises it to .82–1.00 in all six languages, significant after Holm in every mode and setting. LCB only checks the language, though. By hand, steered answers show more code-mixing inside words and, in Turkish and Hindi, some loss of fluency. A benchmark with checkable answers is still needed to measure quality.
 
 ## Reproduce
 
@@ -26,10 +26,11 @@ slurm/submit.sh -J lcb_prompt_only --gres gpu:3 -- bash -c 'for s in "" --univer
 R=src/experiments/language_confusion/run.sh
 slurm/submit.sh -J lcb-q8-main -t 06:00:00 --gres gpu:2 --constraint 'GPU_BRD:B200|GPU_BRD:B300' -- bash $R qwen3-8b 2 2
 slurm/submit.sh -J lcb-q32-main -t 12:00:00 --gres gpu:4 --constraint 'GPU_BRD:B200|GPU_BRD:B300' -- bash $R qwen3-32b 4 1
+slurm/submit.sh -J lcb-gemma -t 12:00:00 --gres gpu:2 --constraint GPU_BRD:B200 -- bash $R gemma3-12b 2 2
 # optional helpers on other nodes join the same queue: ... -- bash $R <model> <gpus> <workers per gpu> <main job id>
 ```
 
-The model is set by `LCB_MODEL` (a key of `MODELS` in `analyse.py`: `llama-3.1-8b`, `qwen3-8b`, `qwen3-32b`); each model has its own layer grid, the one used in cross-lingual MGSM, and writes to `results/<model>/`. `run.sh` hands the runs (pilot; per language all-token and prompt-only; the universal runs once all dev grids of a mode exist) to workers through a claim queue, then writes the three summaries. Qwen3-32B is loaded from the project's own Hugging Face cache (`HF_HUB_CACHE=logs/hf_cache`, revision `9216db5`, downloaded from the Hub).
+The model is set by `LCB_MODEL` (a key of `MODELS` in `analyse.py`: `llama-3.1-8b`, `qwen3-8b`, `qwen3-32b`, `gemma3-12b`); each model has its own layer grid, the one used in cross-lingual MGSM, and writes to `results/<model>/`. `run.sh` hands the runs (pilot; per language all-token and prompt-only; the universal runs once all dev grids of a mode exist) to workers through a claim queue, then writes the three summaries. Qwen3-32B is loaded from the project's own Hugging Face cache (`HF_HUB_CACHE=logs/hf_cache`, revision `9216db5`, downloaded from the Hub); Gemma-3-12B-it (revision `96b6f1e`) from the shared cache. Gemma's run took 1 h 34 min on 4 B200 (2 in the main job, 2 in a helper).
 
 Each language run does everything in one job: vectors, the dev grid, selection, and test. It takes about 25 minutes on one A100. On a 40 GB A100 the Turkish test stage ran out of memory without `expandable_segments`. ja, zh, ru, hi and ar ran on A100s. Turkish ran its dev grid on an A100 and its test stage on a B200, because an existing `<T>_dev.jsonl` is reused. Another GPU type may change a few greedy decodes. For example, the zh dev instruction run differs from the pilot by 2 of 102 prompts.
 
@@ -53,13 +54,13 @@ Each language run does everything in one job: vectors, the dev grid, selection, 
   | Steering | the prompt with its language instruction removed (e.g. "Write in Russian." or "… in Russian"), + α·v at layer l |
   | Instruction + steering | the prompt as is, + α·v at layer l |
 
-* **Vectors:** v_(en→T)(l) = μ_T(l) − μ_en(l). This is the mean output of block l over the tokens (the first, BOS for Llama, excluded) of the 997 FLORES-200 dev sentences, as raw text without the chat template. The vector is added at every position from the start of the user message and at every generated token. LCB has no target-language prompts, so the vectors come from out-of-domain parallel text.
+* **Vectors:** v_(en→T)(l) = μ_T(l) − μ_en(l). This is the mean output of block l over the tokens (the first, BOS for Llama and Gemma, excluded) of the 997 FLORES-200 dev sentences, as raw text without the chat template. The vector is added at every position from the start of the user message and at every generated token. LCB has no target-language prompts, so the vectors come from out-of-domain parallel text.
 * **Measures:**
   * *LPR* (LCB's line-level pass rate): fastText `lid.176.bin` labels every line of ≥ 5 tokens as T, with p > 0.3.
   * *WPR* (word-level, non-Latin scripts only): a line-level pass contains no English word from LCB's list.
   * Both are means over the three sources, as in LCB. `analyse.py` ports the official `compute_metrics.py`.
   * Three measures of our own: *English*, the share of responses whose first scored line is English; *degenerate*, the share with no scorable line, with a substring of ≥ 4 characters repeated ≥ 4 times in a row, or with a thinking tag (`<think>` or `</think>`: strong prompt-only steering can make Qwen3 reopen thinking and reason inside the answer; *thinking* is reported separately); and *drift*, among responses whose first scored line is in T, the share with a later English line.
-* **Grid and selection (dev):** l × α ∈ {0.25, 0.5, 1, 2, 3}, separately for both steering conditions, with the layer grid of cross-lingual MGSM: l ∈ {8, 12, …, 24} (Llama, 32 layers), {8, 12, …, 28} (Qwen3-8B, 36 layers), {16, 24, …, 48} (Qwen3-32B, 64 layers). The rule picks the highest LPR among settings whose degenerate rate is at most the instruction's + 0.05. Ties go to lower degeneration, then smaller α, then the earlier layer. The chosen settings are then run once on test.
+* **Grid and selection (dev):** l × α ∈ {0.25, 0.5, 1, 2, 3}, separately for both steering conditions, with the layer grid of cross-lingual MGSM: l ∈ {8, 12, …, 24} (Llama, 32 layers), {8, 12, …, 28} (Qwen3-8B, 36 layers), {16, 24, …, 48} (Qwen3-32B, 64 layers), {12, 18, …, 36} (Gemma-3-12B, 48 layers: its full-attention blocks). The rule picks the highest LPR among settings whose degenerate rate is at most the instruction's + 0.05. Ties go to lower degeneration, then smaller α, then the earlier layer. The chosen settings are then run once on test.
 * **Test comparison:** an exact McNemar test on per-prompt line-level passes, paired against the instruction. † marks a p-value still below .05 after a Holm correction over the six languages (each model, condition and setting separately; `p_holm` in the summaries).
 
 ## Results: Llama-3.1-8B-Instruct
@@ -73,8 +74,10 @@ Each language run does everything in one job: vectors, the dev grid, selection, 
 | English | .01 | .01 | .03 | .02 | .00 | .10 | .06 | .08 | .06 | .01 | .06 | .07 | .01 | .01 |
 | LPR, Qwen3-8B | .91 | .89 | .91 | .87 | .91 | .85 | .85 | .82 | .89 | .86 | .91 | .91 | .73 | .87 |
 | LPR, Qwen3-32B | .90 | .92 | .92 | .92 | .94 | .86 | .92 | .87 | .95 | .92 | .95 | .95 | .76 | .92 |
+| LPR, Gemma-3-12B | .17 | .15 | .15 | .13 | .18 | .15 | .11 | .08 | .10 | .38 | .22 | .09 | .31 | .17 |
+| English, Gemma-3-12B | .80 | .81 | .79 | .84 | .77 | .81 | .86 | .84 | .87 | .59 | .74 | .87 | .55 | .80 |
 
-The instruction fails mostly on the long complex prompts. The languages were chosen on Llama's pilot and kept for Qwen; for Qwen3-8B, Turkish is not an easy language (.86). Indonesian's low LPR is largely fastText labelling it as Malay, not English fallback.
+The instruction fails mostly on the long complex prompts. The languages were chosen on Llama's pilot and kept for Qwen and Gemma; Gemma fails in all 14, mostly by answering in English; for Qwen3-8B, Turkish is not an easy language (.86). Indonesian's low LPR is largely fastText labelling it as Malay, not English fallback.
 
 ### Test (197 prompts per language)
 
@@ -227,9 +230,55 @@ Qwen3-32B, the other measures on test (per-language settings), instruction → s
 * **Settings at the edge of the grid:** α = 6, the largest, in Qwen3-8B prompt-only zh (both arms) and ar (instruction + steering), and in Qwen3-32B prompt-only tr (instruction + steering). Qwen3-32B often chose layer 16, the lowest of its grid.
 * Drift is ≤ .04 in every arm, so once an answer starts in T it stays there, as in Llama.
 
-### All-token or prompt-only
+## Results: Gemma-3-12B-it
 
-On LCB all-token steering keeps the language at least as well as prompt-only steering in every model, by a wide margin without the instruction. With the instruction, the two are within .03 of each other in every language and model. LCB scores only the language of a 100-token answer, so it cannot show what steering the generated tokens costs. Cross-lingual MGSM ([../mgsm_crosslingual/](../mgsm_crosslingual/)) can: at matched settings, all-token steering loses accuracy over long answers, partly through loops and answers that run to the token limit.
+The same pipeline (`run.sh`), with the layer grid {12, 18, 24, 30, 36}, on B200 GPUs. The instruction runs are identical in every test file. Test, 197 prompts per language; LPR, with the gained / lost prompts against the instruction and the McNemar p in brackets.
+
+#### Gemma-3-12B, per-language settings
+
+| | ja | zh | ru | hi | ar | tr |
+|---|---|---|---|---|---|---|
+| Instruction | .13 | .07 | .09 | .19 | .12 | .35 |
+| Steering, all-token | 1.00 (+170/−0, p < .001†) | .91 (+168/−1, p < .001†) | 1.00 (+177/−0, p < .001†) | 1.00 (+160/−0, p < .001†) | 1.00 (+172/−0, p < .001†) | .98 (+124/−1, p < .001†) |
+| Instruction + steering, all-token | .97 (+167/−2, p < .001†) | .91 (+168/−1, p < .001†) | 1.00 (+178/−0, p < .001†) | .99 (+159/−1, p < .001†) | .99 (+173/−0, p < .001†) | .99 (+127/−0, p < .001†) |
+| Steering, prompt-only | .91 (+156/−2, p < .001†) | .82 (+151/−3, p < .001†) | .98 (+172/−0, p < .001†) | .99 (+158/−0, p < .001†) | .98 (+170/−1, p < .001†) | .98 (+118/−2, p < .001†) |
+| Instruction + steering, prompt-only | .93 (+159/−1, p < .001†) | .85 (+155/−1, p < .001†) | .98 (+173/−0, p < .001†) | .98 (+157/−0, p < .001†) | .99 (+171/−0, p < .001†) | .96 (+123/−3, p < .001†) |
+| *chosen l, α, all-token: steering; instr. + steering* | 24, 2; 18, 3 | 24, 3; 18, 3 | 12, 2; 12, 2 | 12, 3; 24, 1 | 12, 2; 12, 2 | 30, 1; 12, 3 |
+| *chosen l, α, prompt-only: steering; instr. + steering* | 12, 2; 12, 2 | 12, 4; 12, 4 | 12, 4; 12, 2 | 12, 2; 12, 2 | 12, 3; 18, 2 | 12, 6; 18, 2 |
+
+#### Gemma-3-12B, one setting for all languages
+
+| | ja | zh | ru | hi | ar | tr |
+|---|---|---|---|---|---|---|
+| Instruction | .13 | .07 | .09 | .19 | .12 | .35 |
+| Steering, all-token (12, 3) | .99 (+169/−0, p < .001†) | .88 (+163/−2, p < .001†) | 1.00 (+177/−0, p < .001†) | 1.00 (+160/−0, p < .001†) | 1.00 (+172/−0, p < .001†) | .96 (+125/−3, p < .001†) |
+| Instruction + steering, all-token (18, 3) | .97 (+167/−2, p < .001†) | .91 (+168/−1, p < .001†) | 1.00 (+178/−0, p < .001†) | 1.00 (+159/−0, p < .001†) | .99 (+173/−1, p < .001†) | .99 (+128/−0, p < .001†) |
+| Steering, prompt-only (12, 6) | .92 (+155/−3, p < .001†) | .87 (+159/−1, p < .001†) | .95 (+170/−2, p < .001†) | .99 (+154/−2, p < .001†) | .95 (+165/−5, p < .001†) | .98 (+118/−2, p < .001†) |
+| Instruction + steering, prompt-only (12, 4) | .92 (+157/−2, p < .001†) | .85 (+155/−1, p < .001†) | .98 (+173/−0, p < .001†) | .98 (+157/−1, p < .001†) | .98 (+171/−2, p < .001†) | .97 (+125/−1, p < .001†) |
+
+Gemma-3-12B, the other measures on test (per-language settings), instruction → steering → instruction + steering:
+
+| | ja | zh | ru | hi | ar | tr |
+|---|---|---|---|---|---|---|
+| LPR, complex prompts, all-token | .30 → 1.00 → .95 | .20 → .88 → .86 | .24 → 1.00 → 1.00 | .31 → 1.00 → 1.00 | .33 → 1.00 → .98 | .42 → .97 → .98 |
+| LPR, complex prompts, prompt-only | .30 → .91 → .91 | .20 → .75 → .80 | .24 → .97 → .95 | .31 → .97 → .97 | .33 → .97 → .98 | .42 → 1.00 → .95 |
+| English, all-token | .83 → .00 → .00 | .88 → .00 → .01 | .89 → .00 → .00 | .78 → .00 → .00 | .87 → .00 → .00 | .63 → .01 → .00 |
+| English, prompt-only | .83 → .00 → .00 | .88 → .04 → .02 | .89 → .01 → .01 | .78 → .00 → .00 | .87 → .00 → .00 | .63 → .01 → .01 |
+| WPR, all-token | .56 → .98 → .97 | .26 → .98 → .97 | .56 → .98 → .99 | .75 → .95 → .98 | .62 → .99 → .99 | – |
+| WPR, prompt-only | .56 → .97 → .95 | .26 → 1.00 → .98 | .56 → .96 → .94 | .75 → .96 → .95 | .62 → .97 → .97 | – |
+| Degenerate, all-token | .00 → .00 → .01 | .00 → .01 → .01 | .01 → .02 → .01 | .00 → .01 → .00 | .01 → .03 → .01 | .00 → .03 → .01 |
+| Degenerate, prompt-only | .00 → .01 → .01 | .00 → .00 → .01 | .01 → .05 → .02 | .00 → .01 → .01 | .01 → .03 → .02 | .00 → .07 → .02 |
+
+* **Gemma ignores the instruction far more often than the other models:** LPR .07–.35, and 63–89% of the answers start in English, typically with an English preamble ("Okay, here's an essay on Machine Learning in Japanese, …"). Turkish, the control where Llama's instruction works, fails too (.35).
+* **Steering fixes it in every language, mode and setting:** LPR .82–1.00, English ≤ .04, every comparison p < .001 and significant after Holm, with at most 5 prompts lost.
+* **Word-level mixing falls as well** (WPR .26–.75 → .94–1.00).
+* **Prompt-only is a little weaker than all-token**, as in the other models (zh .82–.87 against .88–.91, ja .91–.93 against .97–1.00), mostly on the long complex prompts.
+* **One setting is enough:** every shared-setting LPR is within .03 of the per-language one. Most chosen settings use layer 12, the lowest of the grid; α = 6, the largest, in tr (prompt-only steering) and in the shared prompt-only setting.
+* Degeneration is at most .07 (tr, prompt-only steering) and drift at most .07.
+
+## All-token or prompt-only
+
+On LCB all-token steering keeps the language at least as well as prompt-only steering in every model, by a wide margin without the instruction. With the instruction, the two are within .03 of each other in every language for Llama and Qwen, and within .06 for Gemma (zh). LCB scores only the language of a 100-token answer, so it cannot show what steering the generated tokens costs. Cross-lingual MGSM ([../mgsm_crosslingual/](../mgsm_crosslingual/)) can: at matched settings, all-token steering loses accuracy over long answers, partly through loops and answers that run to the token limit.
 
 ## Caveats
 

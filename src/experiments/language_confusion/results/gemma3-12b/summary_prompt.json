@@ -1,0 +1,4586 @@
+{
+ "ar": {
+  "chosen": {
+   "steer": {
+    "layer": 12,
+    "alpha": 3
+   },
+   "instruction_steer": {
+    "layer": 18,
+    "alpha": 2
+   }
+  },
+  "dev_grid": [
+   {
+    "cond": "instruction",
+    "layer": null,
+    "alpha": null,
+    "lpr": 0.10476190476190476,
+    "english": 0.8725490196078431,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 1,
+    "lpr": 0.6156608097784568,
+    "english": 0.24509803921568626,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 2,
+    "lpr": 0.9714285714285714,
+    "english": 0.0,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 3,
+    "lpr": 0.9904761904761905,
+    "english": 0.0,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 4,
+    "lpr": 0.9904761904761905,
+    "english": 0.0,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 6,
+    "lpr": 0.9797979797979798,
+    "english": 0.0196078431372549,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 1,
+    "lpr": 0.2585603938545115,
+    "english": 0.6764705882352942,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 2,
+    "lpr": 0.9414226296579238,
+    "english": 0.029411764705882353,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 3,
+    "lpr": 0.9218147865206688,
+    "english": 0.049019607843137254,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 4,
+    "lpr": 0.8508615567439097,
+    "english": 0.11764705882352941,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 6,
+    "lpr": 0.7387073347857661,
+    "english": 0.23529411764705882,
+    "degenerate": 0.10784313725490197,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9705882352941176,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 1,
+    "lpr": 0.41295306001188353,
+    "english": 0.5490196078431373,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 2,
+    "lpr": 0.47890671420083186,
+    "english": 0.4803921568627451,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 3,
+    "lpr": 0.38918597742127153,
+    "english": 0.5686274509803921,
+    "degenerate": 0.0392156862745098,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 4,
+    "lpr": 0.4457256387403446,
+    "english": 0.5,
+    "degenerate": 0.08823529411764706,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 6,
+    "lpr": 0.5167224080267558,
+    "english": 0.22549019607843138,
+    "degenerate": 0.45098039215686275,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 1,
+    "lpr": 0.22300314065019947,
+    "english": 0.7450980392156863,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 2,
+    "lpr": 0.2382650029708853,
+    "english": 0.7254901960784313,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 3,
+    "lpr": 0.3212121212121212,
+    "english": 0.6372549019607843,
+    "degenerate": 0.049019607843137254,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 4,
+    "lpr": 0.30145997793056617,
+    "english": 0.5294117647058824,
+    "degenerate": 0.18627450980392157,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 6,
+    "lpr": 0.1485215053763441,
+    "english": 0.5686274509803921,
+    "degenerate": 0.35294117647058826,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9705882352941176,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 1,
+    "lpr": 0.08882947118241236,
+    "english": 0.8823529411764706,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 2,
+    "lpr": 0.167260843731432,
+    "english": 0.803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 3,
+    "lpr": 0.11794414735591208,
+    "english": 0.8431372549019608,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 4,
+    "lpr": 0.12121212121212122,
+    "english": 0.8137254901960784,
+    "degenerate": 0.0392156862745098,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 6,
+    "lpr": 0.20359848484848486,
+    "english": 0.6470588235294118,
+    "degenerate": 0.20588235294117646,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 0.25,
+    "lpr": 0.1728291316526611,
+    "english": 0.803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 0.5,
+    "lpr": 0.38828622358034126,
+    "english": 0.5784313725490197,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 1,
+    "lpr": 0.980952380952381,
+    "english": 0.0,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 2,
+    "lpr": 0.9901960784313726,
+    "english": 0.0,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 3,
+    "lpr": 0.9904761904761905,
+    "english": 0.0,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 4,
+    "lpr": 0.9901960784313726,
+    "english": 0.0,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 6,
+    "lpr": 0.9753086419753086,
+    "english": 0.0196078431372549,
+    "degenerate": 0.0784313725490196,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 0.25,
+    "lpr": 0.19215686274509805,
+    "english": 0.7745098039215687,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 0.5,
+    "lpr": 0.34907053730583143,
+    "english": 0.6176470588235294,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 1,
+    "lpr": 0.9619047619047619,
+    "english": 0.0,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 2,
+    "lpr": 0.9904761904761905,
+    "english": 0.0,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 3,
+    "lpr": 0.9901960784313726,
+    "english": 0.0,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 4,
+    "lpr": 0.9619047619047619,
+    "english": 0.00980392156862745,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 6,
+    "lpr": 0.8768568033273917,
+    "english": 0.0392156862745098,
+    "degenerate": 0.06862745098039216,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 0.25,
+    "lpr": 0.2311094134623546,
+    "english": 0.7549019607843137,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 0.5,
+    "lpr": 0.49416857652151774,
+    "english": 0.4803921568627451,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 1,
+    "lpr": 0.9619047619047619,
+    "english": 0.00980392156862745,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 2,
+    "lpr": 0.9901960784313726,
+    "english": 0.0,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 3,
+    "lpr": 0.9422799422799423,
+    "english": 0.00980392156862745,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 4,
+    "lpr": 0.8594214200831848,
+    "english": 0.049019607843137254,
+    "degenerate": 0.06862745098039216,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 6,
+    "lpr": 0.8001899335232668,
+    "english": 0.029411764705882353,
+    "degenerate": 0.39215686274509803,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 0.25,
+    "lpr": 0.15294117647058825,
+    "english": 0.8235294117647058,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 0.5,
+    "lpr": 0.3101349630761396,
+    "english": 0.6470588235294118,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 1,
+    "lpr": 0.883982683982684,
+    "english": 0.058823529411764705,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 2,
+    "lpr": 0.8484848484848485,
+    "english": 0.0784313725490196,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 3,
+    "lpr": 0.7709447415329769,
+    "english": 0.0392156862745098,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 4,
+    "lpr": 0.8941728206434089,
+    "english": 0.0196078431372549,
+    "degenerate": 0.19607843137254902,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 6,
+    "lpr": 0.44180718475073316,
+    "english": 0.0784313725490196,
+    "degenerate": 0.5588235294117647,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 0.25,
+    "lpr": 0.1728291316526611,
+    "english": 0.7941176470588235,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 0.5,
+    "lpr": 0.40850522026992614,
+    "english": 0.5588235294117647,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 1,
+    "lpr": 0.8124183006535949,
+    "english": 0.08823529411764706,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 2,
+    "lpr": 0.7639249639249638,
+    "english": 0.06862745098039216,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 3,
+    "lpr": 0.7945250827603768,
+    "english": 0.0784313725490196,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 4,
+    "lpr": 0.74777183600713,
+    "english": 0.0784313725490196,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 6,
+    "lpr": 0.5011883541295306,
+    "english": 0.13725490196078433,
+    "degenerate": 0.27450980392156865,
+    "thinking": 0.0
+   }
+  ],
+  "test": {
+   "instruction": {
+    "lpr": 0.11616161616161615,
+    "wpr": 0.6190476190476191,
+    "n": 197,
+    "english": 0.868020304568528,
+    "degenerate": 0.005076142131979695,
+    "thinking": 0.0,
+    "drift": 0.08,
+    "lpr_by_source": {
+     "okapi": 0.0,
+     "sharegpt": 0.015151515151515152,
+     "complex_prompts": 0.3333333333333333
+    }
+   },
+   "steer": {
+    "lpr": 0.984020533200861,
+    "wpr": 0.9717514124293786,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.025380710659898477,
+    "thinking": 0.0,
+    "drift": 0.0,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 0.9848484848484849,
+     "complex_prompts": 0.9672131147540983
+    },
+    "layer": 12,
+    "alpha": 3,
+    "gained": 170,
+    "lost": 1,
+    "p": 1.1492888253396441e-49,
+    "p_holm": 5.746444126698221e-49
+   },
+   "instruction_steer": {
+    "lpr": 0.9897338703308852,
+    "wpr": 0.9687194525904204,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.015228426395939087,
+    "thinking": 0.0,
+    "drift": 0.0,
+    "lpr_by_source": {
+     "okapi": 0.9850746268656716,
+     "sharegpt": 1.0,
+     "complex_prompts": 0.9841269841269841
+    },
+    "layer": 18,
+    "alpha": 2,
+    "gained": 171,
+    "lost": 0,
+    "p": 6.681911775230489e-52,
+    "p_holm": 3.3409558876152446e-51
+   }
+  },
+  "test_universal": {
+   "instruction": {
+    "lpr": 0.11616161616161615,
+    "wpr": 0.6190476190476191,
+    "n": 197,
+    "english": 0.868020304568528,
+    "degenerate": 0.005076142131979695,
+    "thinking": 0.0,
+    "drift": 0.08,
+    "lpr_by_source": {
+     "okapi": 0.0,
+     "sharegpt": 0.015151515151515152,
+     "complex_prompts": 0.3333333333333333
+    }
+   },
+   "steer": {
+    "lpr": 0.9519851110175351,
+    "wpr": 0.9635416666666666,
+    "n": 197,
+    "english": 0.02030456852791878,
+    "degenerate": 0.04060913705583756,
+    "thinking": 0.0,
+    "drift": 0.0106951871657754,
+    "lpr_by_source": {
+     "okapi": 0.9552238805970149,
+     "sharegpt": 0.9696969696969697,
+     "complex_prompts": 0.9310344827586207
+    },
+    "layer": 12,
+    "alpha": 6,
+    "gained": 165,
+    "lost": 5,
+    "p": 1.5360895033403603e-42,
+    "p_holm": 4.608268510021081e-42
+   },
+   "instruction_steer": {
+    "lpr": 0.9845226458129684,
+    "wpr": 0.9624941379169725,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.015228426395939087,
+    "thinking": 0.0,
+    "drift": 0.005128205128205128,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 0.9696969696969697,
+     "complex_prompts": 0.9838709677419355
+    },
+    "layer": 12,
+    "alpha": 4,
+    "gained": 171,
+    "lost": 2,
+    "p": 2.514403401019233e-48,
+    "p_holm": 1.2572017005096165e-47
+   }
+  }
+ },
+ "hi": {
+  "chosen": {
+   "steer": {
+    "layer": 12,
+    "alpha": 2
+   },
+   "instruction_steer": {
+    "layer": 12,
+    "alpha": 2
+   }
+  },
+  "dev_grid": [
+   {
+    "cond": "instruction",
+    "layer": null,
+    "alpha": null,
+    "lpr": 0.23196672608437316,
+    "english": 0.7254901960784313,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 1,
+    "lpr": 0.5323826500297089,
+    "english": 0.3431372549019608,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 2,
+    "lpr": 0.9904761904761905,
+    "english": 0.0,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 3,
+    "lpr": 0.9711484593837536,
+    "english": 0.0196078431372549,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 4,
+    "lpr": 0.961624649859944,
+    "english": 0.0196078431372549,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 6,
+    "lpr": 0.989247311827957,
+    "english": 0.00980392156862745,
+    "degenerate": 0.049019607843137254,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 1,
+    "lpr": 0.24789915966386555,
+    "english": 0.7352941176470589,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 2,
+    "lpr": 0.970571258806553,
+    "english": 0.00980392156862745,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 3,
+    "lpr": 0.970571258806553,
+    "english": 0.00980392156862745,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 4,
+    "lpr": 0.9506833036244801,
+    "english": 0.0196078431372549,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 6,
+    "lpr": 0.7122622001654261,
+    "english": 0.2549019607843137,
+    "degenerate": 0.14705882352941177,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9705882352941176,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 1,
+    "lpr": 0.4477124183006536,
+    "english": 0.5,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 2,
+    "lpr": 0.5317884729649435,
+    "english": 0.4019607843137255,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 3,
+    "lpr": 0.6203208556149732,
+    "english": 0.3431372549019608,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 4,
+    "lpr": 0.5811051693404635,
+    "english": 0.38235294117647056,
+    "degenerate": 0.08823529411764706,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 6,
+    "lpr": 0.8368369291290184,
+    "english": 0.06862745098039216,
+    "degenerate": 0.3333333333333333,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9705882352941176,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 1,
+    "lpr": 0.344622697563874,
+    "english": 0.5980392156862745,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 2,
+    "lpr": 0.35472370766488415,
+    "english": 0.5882352941176471,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 3,
+    "lpr": 0.46761734997029114,
+    "english": 0.47058823529411764,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 4,
+    "lpr": 0.43787974622889236,
+    "english": 0.5098039215686274,
+    "degenerate": 0.0784313725490196,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 6,
+    "lpr": 0.4235458028561477,
+    "english": 0.37254901960784315,
+    "degenerate": 0.27450980392156865,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9705882352941176,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 1,
+    "lpr": 0.06862745098039215,
+    "english": 0.9019607843137255,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 2,
+    "lpr": 0.2162804515745692,
+    "english": 0.6862745098039216,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 3,
+    "lpr": 0.18716577540106952,
+    "english": 0.7058823529411765,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 4,
+    "lpr": 0.18865121806298277,
+    "english": 0.7352941176470589,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 6,
+    "lpr": 0.17361111111111108,
+    "english": 0.6666666666666666,
+    "degenerate": 0.17647058823529413,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 0.25,
+    "lpr": 0.39033189033189036,
+    "english": 0.5784313725490197,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 0.5,
+    "lpr": 0.6961378490790255,
+    "english": 0.2647058823529412,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 1,
+    "lpr": 0.9806722689075631,
+    "english": 0.0,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 2,
+    "lpr": 0.9904761904761905,
+    "english": 0.0,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 3,
+    "lpr": 0.9901960784313726,
+    "english": 0.0,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 4,
+    "lpr": 0.980952380952381,
+    "english": 0.00980392156862745,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 6,
+    "lpr": 0.9770114942528735,
+    "english": 0.0196078431372549,
+    "degenerate": 0.08823529411764706,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 0.25,
+    "lpr": 0.35052202699261525,
+    "english": 0.6078431372549019,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 0.5,
+    "lpr": 0.5968933027756557,
+    "english": 0.35294117647058826,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 1,
+    "lpr": 0.9310415075120956,
+    "english": 0.0196078431372549,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 2,
+    "lpr": 0.961624649859944,
+    "english": 0.0196078431372549,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 3,
+    "lpr": 0.9806722689075631,
+    "english": 0.0,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 4,
+    "lpr": 0.9901960784313726,
+    "english": 0.0,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 6,
+    "lpr": 0.9666666666666667,
+    "english": 0.0196078431372549,
+    "degenerate": 0.11764705882352941,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 0.25,
+    "lpr": 0.4584160937102113,
+    "english": 0.5098039215686274,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 0.5,
+    "lpr": 0.6551735845853494,
+    "english": 0.29411764705882354,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 1,
+    "lpr": 0.9523809523809524,
+    "english": 0.029411764705882353,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 2,
+    "lpr": 0.9619047619047619,
+    "english": 0.00980392156862745,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 3,
+    "lpr": 0.970851370851371,
+    "english": 0.0,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 4,
+    "lpr": 0.9509803921568628,
+    "english": 0.0196078431372549,
+    "degenerate": 0.0392156862745098,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 6,
+    "lpr": 0.9169823232323232,
+    "english": 0.0392156862745098,
+    "degenerate": 0.2549019607843137,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 0.25,
+    "lpr": 0.37965367965367963,
+    "english": 0.5784313725490197,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 0.5,
+    "lpr": 0.6266021560139207,
+    "english": 0.3333333333333333,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 1,
+    "lpr": 0.8828282828282829,
+    "english": 0.049019607843137254,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 2,
+    "lpr": 0.8637806637806639,
+    "english": 0.049019607843137254,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 3,
+    "lpr": 0.8828452593158476,
+    "english": 0.0392156862745098,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 4,
+    "lpr": 0.8989898989898991,
+    "english": 0.029411764705882353,
+    "degenerate": 0.10784313725490197,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 6,
+    "lpr": 0.7868265993265994,
+    "english": 0.0,
+    "degenerate": 0.38235294117647056,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 0.25,
+    "lpr": 0.429004329004329,
+    "english": 0.5392156862745098,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 0.5,
+    "lpr": 0.6075545369663017,
+    "english": 0.3333333333333333,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 1,
+    "lpr": 0.8245310245310246,
+    "english": 0.0784313725490196,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 2,
+    "lpr": 0.8150072150072151,
+    "english": 0.06862745098039216,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 3,
+    "lpr": 0.8144300144300144,
+    "english": 0.09803921568627451,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 4,
+    "lpr": 0.8147271029623969,
+    "english": 0.06862745098039216,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 6,
+    "lpr": 0.7088532382650029,
+    "english": 0.0784313725490196,
+    "degenerate": 0.17647058823529413,
+    "thinking": 0.0
+   }
+  ],
+  "test": {
+   "instruction": {
+    "lpr": 0.18987449118046132,
+    "wpr": 0.75,
+    "n": 197,
+    "english": 0.7766497461928934,
+    "degenerate": 0.0,
+    "thinking": 0.0,
+    "drift": 0.06818181818181818,
+    "lpr_by_source": {
+     "okapi": 0.029850746268656716,
+     "sharegpt": 0.22727272727272727,
+     "complex_prompts": 0.3125
+    }
+   },
+   "steer": {
+    "lpr": 0.9895833333333334,
+    "wpr": 0.9623655913978495,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.005076142131979695,
+    "thinking": 0.0,
+    "drift": 0.0,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 1.0,
+     "complex_prompts": 0.96875
+    },
+    "layer": 12,
+    "alpha": 2,
+    "gained": 158,
+    "lost": 0,
+    "p": 5.473822126268817e-48,
+    "p_holm": 2.1895288505075267e-47
+   },
+   "instruction_steer": {
+    "lpr": 0.9846082089552238,
+    "wpr": 0.9481915933528837,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.01015228426395939,
+    "thinking": 0.0,
+    "drift": 0.0,
+    "lpr_by_source": {
+     "okapi": 0.9850746268656716,
+     "sharegpt": 1.0,
+     "complex_prompts": 0.96875
+    },
+    "layer": 12,
+    "alpha": 2,
+    "gained": 157,
+    "lost": 0,
+    "p": 1.0947644252537633e-47,
+    "p_holm": 4.3790577010150533e-47
+   }
+  },
+  "test_universal": {
+   "instruction": {
+    "lpr": 0.18987449118046132,
+    "wpr": 0.75,
+    "n": 197,
+    "english": 0.7766497461928934,
+    "degenerate": 0.0,
+    "thinking": 0.0,
+    "drift": 0.06818181818181818,
+    "lpr_by_source": {
+     "okapi": 0.029850746268656716,
+     "sharegpt": 0.22727272727272727,
+     "complex_prompts": 0.3125
+    }
+   },
+   "steer": {
+    "lpr": 0.9880952380952381,
+    "wpr": 1.0,
+    "n": 197,
+    "english": 0.01015228426395939,
+    "degenerate": 0.050761421319796954,
+    "thinking": 0.0,
+    "drift": 0.0,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 1.0,
+     "complex_prompts": 0.9642857142857143
+    },
+    "layer": 12,
+    "alpha": 6,
+    "gained": 154,
+    "lost": 2,
+    "p": 2.681515983216568e-43,
+    "p_holm": 1.0726063932866272e-42
+   },
+   "instruction_steer": {
+    "lpr": 0.9843674843674844,
+    "wpr": 0.9516453043734668,
+    "n": 197,
+    "english": 0.005076142131979695,
+    "degenerate": 0.02030456852791878,
+    "thinking": 0.0,
+    "drift": 0.005128205128205128,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 0.9848484848484849,
+     "complex_prompts": 0.9682539682539683
+    },
+    "layer": 12,
+    "alpha": 4,
+    "gained": 157,
+    "lost": 1,
+    "p": 8.703377180767419e-46,
+    "p_holm": 3.4813508723069674e-45
+   }
+  }
+ },
+ "ja": {
+  "chosen": {
+   "steer": {
+    "layer": 12,
+    "alpha": 2
+   },
+   "instruction_steer": {
+    "layer": 12,
+    "alpha": 2
+   }
+  },
+  "dev_grid": [
+   {
+    "cond": "instruction",
+    "layer": null,
+    "alpha": null,
+    "lpr": 0.15407860113742466,
+    "english": 0.803921568627451,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 1,
+    "lpr": 0.6549274255156609,
+    "english": 0.18627450980392157,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 2,
+    "lpr": 0.911416687887276,
+    "english": 0.0,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 3,
+    "lpr": 0.9018928783634665,
+    "english": 0.029411764705882353,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 4,
+    "lpr": 0.892369068839657,
+    "english": 0.029411764705882353,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 6,
+    "lpr": 0.9010695187165775,
+    "english": 0.029411764705882353,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 1,
+    "lpr": 0.3082081317375435,
+    "english": 0.6176470588235294,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 2,
+    "lpr": 0.8620830150241915,
+    "english": 0.0392156862745098,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 3,
+    "lpr": 0.9105423987776929,
+    "english": 0.0196078431372549,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 4,
+    "lpr": 0.7726084373143197,
+    "english": 0.10784313725490197,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 6,
+    "lpr": 0.6410321704439351,
+    "english": 0.30392156862745096,
+    "degenerate": 0.0392156862745098,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9705882352941176,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 1,
+    "lpr": 0.291944656650539,
+    "english": 0.5784313725490197,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 2,
+    "lpr": 0.46675154910449024,
+    "english": 0.45098039215686275,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 3,
+    "lpr": 0.5925558102028691,
+    "english": 0.3235294117647059,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 4,
+    "lpr": 0.5654358713182243,
+    "english": 0.27450980392156865,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 6,
+    "lpr": 0.45928030303030304,
+    "english": 0.4117647058823529,
+    "degenerate": 0.10784313725490197,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9705882352941176,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 1,
+    "lpr": 0.15953654188948305,
+    "english": 0.7647058823529411,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 2,
+    "lpr": 0.18983957219251338,
+    "english": 0.7352941176470589,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 3,
+    "lpr": 0.25935828877005346,
+    "english": 0.6568627450980392,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 4,
+    "lpr": 0.22638146167557935,
+    "english": 0.6666666666666666,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 6,
+    "lpr": 0.2653186274509804,
+    "english": 0.6470588235294118,
+    "degenerate": 0.058823529411764705,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9705882352941176,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 1,
+    "lpr": 0.0398098633392751,
+    "english": 0.9215686274509803,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 2,
+    "lpr": 0.06981580510992276,
+    "english": 0.8823529411764706,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 3,
+    "lpr": 0.13933452168746285,
+    "english": 0.7843137254901961,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 4,
+    "lpr": 0.10932857991681522,
+    "english": 0.8137254901960784,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 6,
+    "lpr": 0.07932263814616757,
+    "english": 0.8431372549019608,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 0.25,
+    "lpr": 0.1832102537984891,
+    "english": 0.7647058823529411,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 0.5,
+    "lpr": 0.3199219081572023,
+    "english": 0.6176470588235294,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 1,
+    "lpr": 0.8923860453272218,
+    "english": 0.00980392156862745,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 2,
+    "lpr": 0.9310415075120956,
+    "english": 0.0196078431372549,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 3,
+    "lpr": 0.930744418979713,
+    "english": 0.00980392156862745,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 4,
+    "lpr": 0.9215346744758509,
+    "english": 0.0,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 6,
+    "lpr": 0.87106357694593,
+    "english": 0.0,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 0.25,
+    "lpr": 0.2025379848909261,
+    "english": 0.7352941176470589,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 0.5,
+    "lpr": 0.3199219081572023,
+    "english": 0.5882352941176471,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 1,
+    "lpr": 0.8436125965537732,
+    "english": 0.0392156862745098,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 2,
+    "lpr": 0.8727612257024022,
+    "english": 0.00980392156862745,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 3,
+    "lpr": 0.8626771920889568,
+    "english": 0.00980392156862745,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 4,
+    "lpr": 0.8534165181224006,
+    "english": 0.049019607843137254,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 6,
+    "lpr": 0.8825651472710296,
+    "english": 0.0392156862745098,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 0.25,
+    "lpr": 0.2515745692216281,
+    "english": 0.696078431372549,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 0.5,
+    "lpr": 0.555071725659961,
+    "english": 0.38235294117647056,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 1,
+    "lpr": 0.8234105763517529,
+    "english": 0.0392156862745098,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 2,
+    "lpr": 0.8225362872421697,
+    "english": 0.0196078431372549,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 3,
+    "lpr": 0.8127153891859775,
+    "english": 0.0196078431372549,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 4,
+    "lpr": 0.8124352771411596,
+    "english": 0.0196078431372549,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 6,
+    "lpr": 0.8517528223410576,
+    "english": 0.00980392156862745,
+    "degenerate": 0.058823529411764705,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 0.25,
+    "lpr": 0.26109837874543756,
+    "english": 0.696078431372549,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 0.5,
+    "lpr": 0.5167133520074697,
+    "english": 0.37254901960784315,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 1,
+    "lpr": 0.7258976317799847,
+    "english": 0.0392156862745098,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 2,
+    "lpr": 0.7437568966980731,
+    "english": 0.058823529411764705,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 3,
+    "lpr": 0.7131567778626602,
+    "english": 0.06862745098039216,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 4,
+    "lpr": 0.6733469145233851,
+    "english": 0.08823529411764706,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 6,
+    "lpr": 0.8017910194380783,
+    "english": 0.0196078431372549,
+    "degenerate": 0.058823529411764705,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 0.25,
+    "lpr": 0.2313895255071726,
+    "english": 0.7254901960784313,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 0.5,
+    "lpr": 0.3883032000679059,
+    "english": 0.5196078431372549,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 1,
+    "lpr": 0.6554706731177319,
+    "english": 0.1568627450980392,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 2,
+    "lpr": 0.6540361599185128,
+    "english": 0.16666666666666666,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 3,
+    "lpr": 0.6153637212460742,
+    "english": 0.14705882352941177,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 4,
+    "lpr": 0.6047024870554282,
+    "english": 0.20588235294117646,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 6,
+    "lpr": 0.604719463542993,
+    "english": 0.28431372549019607,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   }
+  ],
+  "test": {
+   "instruction": {
+    "lpr": 0.1343118686868687,
+    "wpr": 0.5614035087719298,
+    "n": 197,
+    "english": 0.8324873096446701,
+    "degenerate": 0.0,
+    "thinking": 0.0,
+    "drift": 0.030303030303030304,
+    "lpr_by_source": {
+     "okapi": 0.0,
+     "sharegpt": 0.10606060606060606,
+     "complex_prompts": 0.296875
+    }
+   },
+   "steer": {
+    "lpr": 0.9135713478064225,
+    "wpr": 0.9658880237300704,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.01015228426395939,
+    "thinking": 0.0,
+    "drift": 0.031578947368421054,
+    "lpr_by_source": {
+     "okapi": 0.9253731343283582,
+     "sharegpt": 0.9090909090909091,
+     "complex_prompts": 0.90625
+    },
+    "layer": 12,
+    "alpha": 2,
+    "gained": 156,
+    "lost": 2,
+    "p": 6.876215355018888e-44,
+    "p_holm": 2.0628646065056663e-43
+   },
+   "instruction_steer": {
+    "lpr": 0.9336226066636515,
+    "wpr": 0.9547645532072674,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.01015228426395939,
+    "thinking": 0.0,
+    "drift": 0.02072538860103627,
+    "lpr_by_source": {
+     "okapi": 0.9552238805970149,
+     "sharegpt": 0.9393939393939394,
+     "complex_prompts": 0.90625
+    },
+    "layer": 12,
+    "alpha": 2,
+    "gained": 159,
+    "lost": 1,
+    "p": 2.2032134058231987e-46,
+    "p_holm": 6.609640217469596e-46
+   }
+  },
+  "test_universal": {
+   "instruction": {
+    "lpr": 0.1343118686868687,
+    "wpr": 0.5614035087719298,
+    "n": 197,
+    "english": 0.8324873096446701,
+    "degenerate": 0.0,
+    "thinking": 0.0,
+    "drift": 0.030303030303030304,
+    "lpr_by_source": {
+     "okapi": 0.0,
+     "sharegpt": 0.10606060606060606,
+     "complex_prompts": 0.296875
+    }
+   },
+   "steer": {
+    "lpr": 0.9223040640951089,
+    "wpr": 0.9652777777777778,
+    "n": 197,
+    "english": 0.025380710659898477,
+    "degenerate": 0.050761421319796954,
+    "thinking": 0.0,
+    "drift": 0.016574585635359115,
+    "lpr_by_source": {
+     "okapi": 0.9552238805970149,
+     "sharegpt": 0.9545454545454546,
+     "complex_prompts": 0.8571428571428571
+    },
+    "layer": 12,
+    "alpha": 6,
+    "gained": 155,
+    "lost": 3,
+    "p": 3.59913657682002e-42,
+    "p_holm": 7.19827315364004e-42
+   },
+   "instruction_steer": {
+    "lpr": 0.9190128900949796,
+    "wpr": 0.9558287795992714,
+    "n": 197,
+    "english": 0.005076142131979695,
+    "degenerate": 0.01015228426395939,
+    "thinking": 0.0,
+    "drift": 0.03626943005181347,
+    "lpr_by_source": {
+     "okapi": 0.9104477611940298,
+     "sharegpt": 0.9090909090909091,
+     "complex_prompts": 0.9375
+    },
+    "layer": 12,
+    "alpha": 4,
+    "gained": 157,
+    "lost": 2,
+    "p": 3.481624563413281e-44,
+    "p_holm": 6.963249126826562e-44
+   }
+  }
+ },
+ "ru": {
+  "chosen": {
+   "steer": {
+    "layer": 12,
+    "alpha": 4
+   },
+   "instruction_steer": {
+    "layer": 12,
+    "alpha": 2
+   }
+  },
+  "dev_grid": [
+   {
+    "cond": "instruction",
+    "layer": null,
+    "alpha": null,
+    "lpr": 0.0857142857142857,
+    "english": 0.8725490196078431,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 1,
+    "lpr": 0.4518716577540107,
+    "english": 0.47058823529411764,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 2,
+    "lpr": 0.9509803921568628,
+    "english": 0.00980392156862745,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 3,
+    "lpr": 0.9711484593837536,
+    "english": 0.00980392156862745,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 4,
+    "lpr": 0.9803921568627452,
+    "english": 0.00980392156862745,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 6,
+    "lpr": 0.9702911467617351,
+    "english": 0.0,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 1,
+    "lpr": 0.2058823529411765,
+    "english": 0.7254901960784313,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 2,
+    "lpr": 0.9004753416518122,
+    "english": 0.049019607843137254,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 3,
+    "lpr": 0.9105763517528223,
+    "english": 0.0392156862745098,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 4,
+    "lpr": 0.9200831847890671,
+    "english": 0.058823529411764705,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 6,
+    "lpr": 0.7789661319073083,
+    "english": 0.18627450980392157,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9705882352941176,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 1,
+    "lpr": 0.3146167557932264,
+    "english": 0.6176470588235294,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 2,
+    "lpr": 0.38888888888888884,
+    "english": 0.5490196078431373,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 3,
+    "lpr": 0.3734402852049911,
+    "english": 0.5490196078431373,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 4,
+    "lpr": 0.4334521687462864,
+    "english": 0.5294117647058824,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 6,
+    "lpr": 0.48589308646234647,
+    "english": 0.46078431372549017,
+    "degenerate": 0.0784313725490196,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9705882352941176,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 1,
+    "lpr": 0.15715983363042185,
+    "english": 0.7941176470588235,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 2,
+    "lpr": 0.21895424836601307,
+    "english": 0.7352941176470589,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 3,
+    "lpr": 0.2581699346405229,
+    "english": 0.6764705882352942,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 4,
+    "lpr": 0.38455139631610225,
+    "english": 0.5392156862745098,
+    "degenerate": 0.0784313725490196,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 6,
+    "lpr": 0.2724206349206349,
+    "english": 0.37254901960784315,
+    "degenerate": 0.2647058823529412,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9705882352941176,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 1,
+    "lpr": 0.05020796197266786,
+    "english": 0.9117647058823529,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 2,
+    "lpr": 0.11972667855020797,
+    "english": 0.8235294117647058,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 3,
+    "lpr": 0.15715983363042185,
+    "english": 0.8137254901960784,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 4,
+    "lpr": 0.15745692216280452,
+    "english": 0.8235294117647058,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 6,
+    "lpr": 0.21657754010695188,
+    "english": 0.6862745098039216,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 0.25,
+    "lpr": 0.11428571428571428,
+    "english": 0.8431372549019608,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 0.5,
+    "lpr": 0.20168067226890754,
+    "english": 0.7647058823529411,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 1,
+    "lpr": 0.9607503607503608,
+    "english": 0.0196078431372549,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 2,
+    "lpr": 1.0,
+    "english": 0.0,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 3,
+    "lpr": 0.980952380952381,
+    "english": 0.00980392156862745,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 4,
+    "lpr": 0.9806722689075631,
+    "english": 0.00980392156862745,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 6,
+    "lpr": 0.9803921568627452,
+    "english": 0.00980392156862745,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 0.25,
+    "lpr": 0.12436974789915967,
+    "english": 0.8235294117647058,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 0.5,
+    "lpr": 0.19159663865546217,
+    "english": 0.7745098039215687,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 1,
+    "lpr": 0.7204057380527967,
+    "english": 0.2549019607843137,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 2,
+    "lpr": 0.980952380952381,
+    "english": 0.0,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 3,
+    "lpr": 0.970571258806553,
+    "english": 0.0,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 4,
+    "lpr": 0.98989898989899,
+    "english": 0.0,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 6,
+    "lpr": 0.9705882352941178,
+    "english": 0.0,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 0.25,
+    "lpr": 0.14341736694677873,
+    "english": 0.803921568627451,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 0.5,
+    "lpr": 0.24063322298616416,
+    "english": 0.7156862745098039,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 1,
+    "lpr": 0.7711909006026653,
+    "english": 0.20588235294117646,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 2,
+    "lpr": 0.94058229352347,
+    "english": 0.0196078431372549,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 3,
+    "lpr": 0.9417027417027417,
+    "english": 0.00980392156862745,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 4,
+    "lpr": 0.9226551226551227,
+    "english": 0.00980392156862745,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 6,
+    "lpr": 0.9226238039625464,
+    "english": 0.029411764705882353,
+    "degenerate": 0.09803921568627451,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 0.25,
+    "lpr": 0.13361344537815126,
+    "english": 0.8235294117647058,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 0.5,
+    "lpr": 0.18179271708683473,
+    "english": 0.7745098039215687,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 1,
+    "lpr": 0.674238180120533,
+    "english": 0.2647058823529412,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 2,
+    "lpr": 0.8932263814616755,
+    "english": 0.06862745098039216,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 3,
+    "lpr": 0.883982683982684,
+    "english": 0.058823529411764705,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 4,
+    "lpr": 0.831491384432561,
+    "english": 0.08823529411764706,
+    "degenerate": 0.058823529411764705,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 6,
+    "lpr": 0.5383512544802868,
+    "english": 0.14705882352941177,
+    "degenerate": 0.3627450980392157,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 0.25,
+    "lpr": 0.15294117647058825,
+    "english": 0.803921568627451,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 0.5,
+    "lpr": 0.23054918937271876,
+    "english": 0.7352941176470589,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 1,
+    "lpr": 0.5351837704778881,
+    "english": 0.4019607843137255,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 2,
+    "lpr": 0.8040658687717511,
+    "english": 0.09803921568627451,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 3,
+    "lpr": 0.8043799337916985,
+    "english": 0.11764705882352941,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 4,
+    "lpr": 0.8018419489007723,
+    "english": 0.11764705882352941,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 6,
+    "lpr": 0.8909685086155674,
+    "english": 0.058823529411764705,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   }
+  ],
+  "test": {
+   "instruction": {
+    "lpr": 0.08569566634082763,
+    "wpr": 0.5555555555555555,
+    "n": 197,
+    "english": 0.8883248730964467,
+    "degenerate": 0.01015228426395939,
+    "thinking": 0.0,
+    "drift": 0.2,
+    "lpr_by_source": {
+     "okapi": 0.0,
+     "sharegpt": 0.015151515151515152,
+     "complex_prompts": 0.24193548387096775
+    }
+   },
+   "steer": {
+    "lpr": 0.9785995548707414,
+    "wpr": 0.9603435672514621,
+    "n": 197,
+    "english": 0.01015228426395939,
+    "degenerate": 0.04568527918781726,
+    "thinking": 0.0,
+    "drift": 0.010526315789473684,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 0.9696969696969697,
+     "complex_prompts": 0.9661016949152542
+    },
+    "layer": 12,
+    "alpha": 4,
+    "gained": 172,
+    "lost": 0,
+    "p": 3.3409558876152446e-52,
+    "p_holm": 2.0045735325691467e-51
+   },
+   "instruction_steer": {
+    "lpr": 0.9785560523265442,
+    "wpr": 0.9392572944297082,
+    "n": 197,
+    "english": 0.01015228426395939,
+    "degenerate": 0.015228426395939087,
+    "thinking": 0.0,
+    "drift": 0.010416666666666666,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 0.9848484848484849,
+     "complex_prompts": 0.9508196721311475
+    },
+    "layer": 12,
+    "alpha": 2,
+    "gained": 173,
+    "lost": 0,
+    "p": 1.6704779438076223e-52,
+    "p_holm": 1.0022867662845734e-51
+   }
+  },
+  "test_universal": {
+   "instruction": {
+    "lpr": 0.08569566634082763,
+    "wpr": 0.5555555555555555,
+    "n": 197,
+    "english": 0.8883248730964467,
+    "degenerate": 0.01015228426395939,
+    "thinking": 0.0,
+    "drift": 0.2,
+    "lpr_by_source": {
+     "okapi": 0.0,
+     "sharegpt": 0.015151515151515152,
+     "complex_prompts": 0.24193548387096775
+    }
+   },
+   "steer": {
+    "lpr": 0.9483423546976749,
+    "wpr": 0.9720059325176121,
+    "n": 197,
+    "english": 0.01015228426395939,
+    "degenerate": 0.02030456852791878,
+    "thinking": 0.0,
+    "drift": 0.0,
+    "lpr_by_source": {
+     "okapi": 0.9701492537313433,
+     "sharegpt": 0.9393939393939394,
+     "complex_prompts": 0.9354838709677419
+    },
+    "layer": 12,
+    "alpha": 6,
+    "gained": 170,
+    "lost": 2,
+    "p": 4.9710082651827224e-48,
+    "p_holm": 2.9826049591096334e-47
+   },
+   "instruction_steer": {
+    "lpr": 0.978970028150356,
+    "wpr": 0.9631253162155325,
+    "n": 197,
+    "english": 0.01015228426395939,
+    "degenerate": 0.025380710659898477,
+    "thinking": 0.0,
+    "drift": 0.005235602094240838,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 0.9696969696969697,
+     "complex_prompts": 0.9672131147540983
+    },
+    "layer": 12,
+    "alpha": 4,
+    "gained": 173,
+    "lost": 0,
+    "p": 1.6704779438076223e-52,
+    "p_holm": 1.0022867662845734e-51
+   }
+  }
+ },
+ "tr": {
+  "chosen": {
+   "steer": {
+    "layer": 12,
+    "alpha": 6
+   },
+   "instruction_steer": {
+    "layer": 18,
+    "alpha": 2
+   }
+  },
+  "dev_grid": [
+   {
+    "cond": "instruction",
+    "layer": null,
+    "alpha": null,
+    "lpr": 0.36894151600033953,
+    "english": 0.5980392156862745,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 1,
+    "lpr": 0.5326797385620915,
+    "english": 0.4117647058823529,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 2,
+    "lpr": 0.9013666072489602,
+    "english": 0.029411764705882353,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 3,
+    "lpr": 0.9209744503862151,
+    "english": 0.00980392156862745,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 4,
+    "lpr": 0.9702911467617351,
+    "english": 0.00980392156862745,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 6,
+    "lpr": 0.9705882352941176,
+    "english": 0.0196078431372549,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 1,
+    "lpr": 0.12745098039215685,
+    "english": 0.7941176470588235,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 2,
+    "lpr": 0.8713606654783126,
+    "english": 0.058823529411764705,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 3,
+    "lpr": 0.9108734402852049,
+    "english": 0.029411764705882353,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 4,
+    "lpr": 0.8389780154486037,
+    "english": 0.12745098039215685,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 6,
+    "lpr": 0.5285204991087343,
+    "english": 0.45098039215686275,
+    "degenerate": 0.049019607843137254,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9705882352941176,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 1,
+    "lpr": 0.12032085561497326,
+    "english": 0.8529411764705882,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 2,
+    "lpr": 0.39898989898989895,
+    "english": 0.5784313725490197,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 3,
+    "lpr": 0.49535693065104835,
+    "english": 0.4803921568627451,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 4,
+    "lpr": 0.5692407950472466,
+    "english": 0.38235294117647056,
+    "degenerate": 0.06862745098039216,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 6,
+    "lpr": 0.30962779156327547,
+    "english": 0.45098039215686275,
+    "degenerate": 0.3137254901960784,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9901960784313726,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 1,
+    "lpr": 0.02941176470588235,
+    "english": 0.9117647058823529,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 2,
+    "lpr": 0.04931669637551991,
+    "english": 0.9117647058823529,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 3,
+    "lpr": 0.1283422459893048,
+    "english": 0.8333333333333334,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 4,
+    "lpr": 0.041666666666666664,
+    "english": 0.803921568627451,
+    "degenerate": 0.14705882352941177,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 6,
+    "lpr": 0.14285714285714288,
+    "english": 0.5784313725490197,
+    "degenerate": 0.3431372549019608,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9901960784313726,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 1,
+    "lpr": 0.00980392156862745,
+    "english": 0.9509803921568627,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 2,
+    "lpr": 0.00980392156862745,
+    "english": 0.9509803921568627,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 3,
+    "lpr": 0.0196078431372549,
+    "english": 0.9607843137254902,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 4,
+    "lpr": 0.02941176470588235,
+    "english": 0.9215686274509803,
+    "degenerate": 0.058823529411764705,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 6,
+    "lpr": 0.1021313706323194,
+    "english": 0.8333333333333334,
+    "degenerate": 0.11764705882352941,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 0.25,
+    "lpr": 0.4575078516254987,
+    "english": 0.5098039215686274,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 0.5,
+    "lpr": 0.695280536457007,
+    "english": 0.27450980392156865,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 1,
+    "lpr": 0.9330532212885155,
+    "english": 0.029411764705882353,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 2,
+    "lpr": 0.9408793820558526,
+    "english": 0.00980392156862745,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 3,
+    "lpr": 0.9229522111875054,
+    "english": 0.00980392156862745,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 4,
+    "lpr": 0.9607843137254902,
+    "english": 0.0,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 6,
+    "lpr": 0.9702911467617351,
+    "english": 0.0,
+    "degenerate": 0.058823529411764705,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 0.25,
+    "lpr": 0.48723368135132844,
+    "english": 0.4803921568627451,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 0.5,
+    "lpr": 0.61592394533571,
+    "english": 0.3333333333333333,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 1,
+    "lpr": 0.8932263814616755,
+    "english": 0.06862745098039216,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 2,
+    "lpr": 0.9607843137254902,
+    "english": 0.0,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 3,
+    "lpr": 0.9604872251931077,
+    "english": 0.0,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 4,
+    "lpr": 0.9521008403361345,
+    "english": 0.029411764705882353,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 6,
+    "lpr": 0.9074940582293524,
+    "english": 0.0784313725490196,
+    "degenerate": 0.049019607843137254,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 0.25,
+    "lpr": 0.5267634326457856,
+    "english": 0.4411764705882353,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 0.5,
+    "lpr": 0.704507257448434,
+    "english": 0.2647058823529412,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 1,
+    "lpr": 0.8842967490026313,
+    "english": 0.049019607843137254,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 2,
+    "lpr": 0.9209744503862151,
+    "english": 0.029411764705882353,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 3,
+    "lpr": 0.9226720991426873,
+    "english": 0.0392156862745098,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 4,
+    "lpr": 0.9318988201341143,
+    "english": 0.00980392156862745,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 6,
+    "lpr": 0.8986175115207372,
+    "english": 0.029411764705882353,
+    "degenerate": 0.3431372549019608,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 0.25,
+    "lpr": 0.4866564807741279,
+    "english": 0.4803921568627451,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 0.5,
+    "lpr": 0.605542823189882,
+    "english": 0.3627450980392157,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 1,
+    "lpr": 0.873601561836856,
+    "english": 0.09803921568627451,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 2,
+    "lpr": 0.8825481707834649,
+    "english": 0.08823529411764706,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 3,
+    "lpr": 0.8364527629233511,
+    "english": 0.09803921568627451,
+    "degenerate": 0.0392156862745098,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 4,
+    "lpr": 0.756628787878788,
+    "english": 0.18627450980392157,
+    "degenerate": 0.09803921568627451,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 6,
+    "lpr": 0.5704885392385393,
+    "english": 0.1568627450980392,
+    "degenerate": 0.35294117647058826,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 0.25,
+    "lpr": 0.4973346914523385,
+    "english": 0.47058823529411764,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 0.5,
+    "lpr": 0.5960190136660725,
+    "english": 0.38235294117647056,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 1,
+    "lpr": 0.7625074272133096,
+    "english": 0.21568627450980393,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 2,
+    "lpr": 0.7810457516339868,
+    "english": 0.17647058823529413,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 3,
+    "lpr": 0.7446311858076564,
+    "english": 0.21568627450980393,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 4,
+    "lpr": 0.7620320855614974,
+    "english": 0.17647058823529413,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 6,
+    "lpr": 0.8334946099651982,
+    "english": 0.09803921568627451,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   }
+  ],
+  "test": {
+   "instruction": {
+    "lpr": 0.3472434230363335,
+    "n": 197,
+    "english": 0.6294416243654822,
+    "degenerate": 0.0,
+    "thinking": 0.0,
+    "drift": 0.0547945205479452,
+    "lpr_by_source": {
+     "okapi": 0.08955223880597014,
+     "sharegpt": 0.5303030303030303,
+     "complex_prompts": 0.421875
+    }
+   },
+   "steer": {
+    "lpr": 0.9791518597488746,
+    "n": 197,
+    "english": 0.005076142131979695,
+    "degenerate": 0.07106598984771574,
+    "thinking": 0.0,
+    "drift": 0.0055248618784530384,
+    "lpr_by_source": {
+     "okapi": 0.9850746268656716,
+     "sharegpt": 0.9523809523809523,
+     "complex_prompts": 1.0
+    },
+    "layer": 12,
+    "alpha": 6,
+    "gained": 118,
+    "lost": 2,
+    "p": 1.0925138536090406e-32,
+    "p_holm": 1.0925138536090406e-32
+   },
+   "instruction_steer": {
+    "lpr": 0.958504793469315,
+    "n": 197,
+    "english": 0.005076142131979695,
+    "degenerate": 0.015228426395939087,
+    "thinking": 0.0,
+    "drift": 0.031088082901554404,
+    "lpr_by_source": {
+     "okapi": 0.9701492537313433,
+     "sharegpt": 0.9545454545454546,
+     "complex_prompts": 0.9508196721311475
+    },
+    "layer": 18,
+    "alpha": 2,
+    "gained": 123,
+    "lost": 3,
+    "p": 7.84059433975869e-33,
+    "p_holm": 7.84059433975869e-33
+   }
+  },
+  "test_universal": {
+   "instruction": {
+    "lpr": 0.3472434230363335,
+    "n": 197,
+    "english": 0.6294416243654822,
+    "degenerate": 0.0,
+    "thinking": 0.0,
+    "drift": 0.0547945205479452,
+    "lpr_by_source": {
+     "okapi": 0.08955223880597014,
+     "sharegpt": 0.5303030303030303,
+     "complex_prompts": 0.421875
+    }
+   },
+   "steer": {
+    "lpr": 0.9791518597488746,
+    "n": 197,
+    "english": 0.005076142131979695,
+    "degenerate": 0.07106598984771574,
+    "thinking": 0.0,
+    "drift": 0.0055248618784530384,
+    "lpr_by_source": {
+     "okapi": 0.9850746268656716,
+     "sharegpt": 0.9523809523809523,
+     "complex_prompts": 1.0
+    },
+    "layer": 12,
+    "alpha": 6,
+    "gained": 118,
+    "lost": 2,
+    "p": 1.0925138536090406e-32,
+    "p_holm": 1.0925138536090406e-32
+   },
+   "instruction_steer": {
+    "lpr": 0.9737854737854738,
+    "n": 197,
+    "english": 0.0,
+    "degenerate": 0.02030456852791878,
+    "thinking": 0.0,
+    "drift": 0.015306122448979591,
+    "lpr_by_source": {
+     "okapi": 1.0,
+     "sharegpt": 0.9848484848484849,
+     "complex_prompts": 0.9365079365079365
+    },
+    "layer": 12,
+    "alpha": 4,
+    "gained": 125,
+    "lost": 1,
+    "p": 2.9857556510886103e-36,
+    "p_holm": 2.9857556510886103e-36
+   }
+  }
+ },
+ "zh": {
+  "chosen": {
+   "steer": {
+    "layer": 12,
+    "alpha": 4
+   },
+   "instruction_steer": {
+    "layer": 12,
+    "alpha": 4
+   }
+  },
+  "dev_grid": [
+   {
+    "cond": "instruction",
+    "layer": null,
+    "alpha": null,
+    "lpr": 0.0857142857142857,
+    "english": 0.8431372549019608,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 1,
+    "lpr": 0.605890841184959,
+    "english": 0.27450980392156865,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 2,
+    "lpr": 0.8361174772939478,
+    "english": 0.058823529411764705,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 3,
+    "lpr": 0.8557422969187676,
+    "english": 0.049019607843137254,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 4,
+    "lpr": 0.8652661064425771,
+    "english": 0.049019607843137254,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 12,
+    "alpha": 6,
+    "lpr": 0.8649690179101944,
+    "english": 0.049019607843137254,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 1,
+    "lpr": 0.1619047619047619,
+    "english": 0.7647058823529411,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 2,
+    "lpr": 0.7657074951192598,
+    "english": 0.08823529411764706,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 3,
+    "lpr": 0.7764026822850353,
+    "english": 0.0784313725490196,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 4,
+    "lpr": 0.7051014345131993,
+    "english": 0.16666666666666666,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 18,
+    "alpha": 6,
+    "lpr": 0.5637042695866225,
+    "english": 0.29411764705882354,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 1,
+    "lpr": 0.4266615737203973,
+    "english": 0.49019607843137253,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 2,
+    "lpr": 0.4768355827179356,
+    "english": 0.4117647058823529,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 3,
+    "lpr": 0.46673457261692547,
+    "english": 0.39215686274509803,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 4,
+    "lpr": 0.44712672947967064,
+    "english": 0.4019607843137255,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 24,
+    "alpha": 6,
+    "lpr": 0.6283422459893048,
+    "english": 0.2549019607843137,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 1,
+    "lpr": 0.24231389525507172,
+    "english": 0.6274509803921569,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 2,
+    "lpr": 0.30141753671165433,
+    "english": 0.5392156862745098,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 3,
+    "lpr": 0.31354723707664883,
+    "english": 0.5980392156862745,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 4,
+    "lpr": 0.2939224174518292,
+    "english": 0.5686274509803921,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 30,
+    "alpha": 6,
+    "lpr": 0.33061709532297767,
+    "english": 0.5294117647058824,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 0.25,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 0.5,
+    "lpr": 0.0,
+    "english": 0.9803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 1,
+    "lpr": 0.029131652661064423,
+    "english": 0.9313725490196079,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 2,
+    "lpr": 0.16554621848739495,
+    "english": 0.7352941176470589,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 3,
+    "lpr": 0.25355233002291827,
+    "english": 0.6568627450980392,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 4,
+    "lpr": 0.1664374840845429,
+    "english": 0.7352941176470589,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "steer",
+    "layer": 36,
+    "alpha": 6,
+    "lpr": 0.13700874289109585,
+    "english": 0.7549019607843137,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 0.25,
+    "lpr": 0.10504201680672269,
+    "english": 0.8235294117647058,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 0.5,
+    "lpr": 0.16360241066123418,
+    "english": 0.7549019607843137,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 1,
+    "lpr": 0.7662846956964603,
+    "english": 0.06862745098039216,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 2,
+    "lpr": 0.815338256514727,
+    "english": 0.029411764705882353,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 3,
+    "lpr": 0.7945760122230711,
+    "english": 0.058823529411764705,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 4,
+    "lpr": 0.8545878957643663,
+    "english": 0.00980392156862745,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 12,
+    "alpha": 6,
+    "lpr": 0.8545878957643663,
+    "english": 0.029411764705882353,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 0.25,
+    "lpr": 0.10504201680672269,
+    "english": 0.8235294117647058,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 0.5,
+    "lpr": 0.16361938714879892,
+    "english": 0.7450980392156863,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 1,
+    "lpr": 0.4679568797215856,
+    "english": 0.3333333333333333,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 2,
+    "lpr": 0.7553263729734319,
+    "english": 0.06862745098039216,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 3,
+    "lpr": 0.7466938290467703,
+    "english": 0.0392156862745098,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 4,
+    "lpr": 0.7365928189457601,
+    "english": 0.029411764705882353,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 18,
+    "alpha": 6,
+    "lpr": 0.7663016721840252,
+    "english": 0.0784313725490196,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 0.25,
+    "lpr": 0.17226890756302518,
+    "english": 0.7745098039215687,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 0.5,
+    "lpr": 0.2804261098378746,
+    "english": 0.6274509803921569,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 1,
+    "lpr": 0.5966301672184026,
+    "english": 0.1568627450980392,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 2,
+    "lpr": 0.6572362278244631,
+    "english": 0.058823529411764705,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 3,
+    "lpr": 0.6263559969442323,
+    "english": 0.09803921568627451,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 4,
+    "lpr": 0.6762668703845174,
+    "english": 0.09803921568627451,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 24,
+    "alpha": 6,
+    "lpr": 0.6673032849503437,
+    "english": 0.049019607843137254,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 0.25,
+    "lpr": 0.15322128851540617,
+    "english": 0.7647058823529411,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 0.5,
+    "lpr": 0.2911043205160852,
+    "english": 0.6078431372549019,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 1,
+    "lpr": 0.5265172735760971,
+    "english": 0.21568627450980393,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 2,
+    "lpr": 0.6670401493930905,
+    "english": 0.06862745098039216,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 3,
+    "lpr": 0.6385026737967915,
+    "english": 0.08823529411764706,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 4,
+    "lpr": 0.5472964943553179,
+    "english": 0.13725490196078433,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 30,
+    "alpha": 6,
+    "lpr": 0.5677956030897208,
+    "english": 0.08823529411764706,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 0.25,
+    "lpr": 0.12494694847636023,
+    "english": 0.7941176470588235,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 0.5,
+    "lpr": 0.2031321619556914,
+    "english": 0.696078431372549,
+    "degenerate": 0.00980392156862745,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 1,
+    "lpr": 0.44834903658433073,
+    "english": 0.29411764705882354,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 2,
+    "lpr": 0.6266361089890502,
+    "english": 0.09803921568627451,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 3,
+    "lpr": 0.5680417621594093,
+    "english": 0.10784313725490197,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 4,
+    "lpr": 0.4488922841864018,
+    "english": 0.14705882352941177,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   {
+    "cond": "instruction_steer",
+    "layer": 36,
+    "alpha": 6,
+    "lpr": 0.41951447245564893,
+    "english": 0.2647058823529412,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   }
+  ],
+  "test": {
+   "instruction": {
+    "lpr": 0.06770833333333333,
+    "wpr": 0.25641025641025644,
+    "n": 197,
+    "english": 0.883248730964467,
+    "degenerate": 0.0,
+    "thinking": 0.0,
+    "drift": 0.2727272727272727,
+    "lpr_by_source": {
+     "okapi": 0.0,
+     "sharegpt": 0.0,
+     "complex_prompts": 0.203125
+    }
+   },
+   "steer": {
+    "lpr": 0.8158827076737524,
+    "wpr": 1.0,
+    "n": 197,
+    "english": 0.03553299492385787,
+    "degenerate": 0.0,
+    "thinking": 0.0,
+    "drift": 0.06951871657754011,
+    "lpr_by_source": {
+     "okapi": 0.9552238805970149,
+     "sharegpt": 0.7424242424242424,
+     "complex_prompts": 0.75
+    },
+    "layer": 12,
+    "alpha": 4,
+    "gained": 151,
+    "lost": 3,
+    "p": 5.33229098137201e-41,
+    "p_holm": 1.066458196274402e-40
+   },
+   "instruction_steer": {
+    "lpr": 0.8467346034976632,
+    "wpr": 0.9753477911080575,
+    "n": 197,
+    "english": 0.015228426395939087,
+    "degenerate": 0.005076142131979695,
+    "thinking": 0.0,
+    "drift": 0.05699481865284974,
+    "lpr_by_source": {
+     "okapi": 0.9402985074626866,
+     "sharegpt": 0.803030303030303,
+     "complex_prompts": 0.796875
+    },
+    "layer": 12,
+    "alpha": 4,
+    "gained": 155,
+    "lost": 1,
+    "p": 3.437560295296817e-45,
+    "p_holm": 6.875120590593634e-45
+   }
+  },
+  "test_universal": {
+   "instruction": {
+    "lpr": 0.06770833333333333,
+    "wpr": 0.25641025641025644,
+    "n": 197,
+    "english": 0.883248730964467,
+    "degenerate": 0.0,
+    "thinking": 0.0,
+    "drift": 0.2727272727272727,
+    "lpr_by_source": {
+     "okapi": 0.0,
+     "sharegpt": 0.0,
+     "complex_prompts": 0.203125
+    }
+   },
+   "steer": {
+    "lpr": 0.8659967209407508,
+    "wpr": 0.9701226309921962,
+    "n": 197,
+    "english": 0.030456852791878174,
+    "degenerate": 0.02030456852791878,
+    "thinking": 0.0,
+    "drift": 0.05759162303664921,
+    "lpr_by_source": {
+     "okapi": 0.9701492537313433,
+     "sharegpt": 0.9090909090909091,
+     "complex_prompts": 0.71875
+    },
+    "layer": 12,
+    "alpha": 6,
+    "gained": 159,
+    "lost": 1,
+    "p": 2.2032134058231987e-46,
+    "p_holm": 1.1016067029115994e-45
+   },
+   "instruction_steer": {
+    "lpr": 0.8467346034976632,
+    "wpr": 0.9753477911080575,
+    "n": 197,
+    "english": 0.015228426395939087,
+    "degenerate": 0.005076142131979695,
+    "thinking": 0.0,
+    "drift": 0.05699481865284974,
+    "lpr_by_source": {
+     "okapi": 0.9402985074626866,
+     "sharegpt": 0.803030303030303,
+     "complex_prompts": 0.796875
+    },
+    "layer": 12,
+    "alpha": 4,
+    "gained": 155,
+    "lost": 1,
+    "p": 3.437560295296817e-45,
+    "p_holm": 1.0312680885890451e-44
+   }
+  }
+ }
+}
