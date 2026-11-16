@@ -33,8 +33,9 @@ slurm/submit.sh -J mgsm_xl_check -t 00:30:00 -c 4 --mem 48G --gres-flags=disable
 slurm/submit.sh -J xl-llama-prefill -t 04:00:00 --gres gpu:2 --gres-flags=disable-binding -c 8 --mem 64G \
   --constraint 'GPU_BRD:B300|GPU_BRD:B200' -- env HF_HUB_CACHE=$PWD/logs/hf_cache bash src/experiments/mgsm_crosslingual/prefill.sh llama-3.1-8b 2
 slurm/submit.sh -J xl-llama-lens -t 01:00:00 --gres gpu:1 --gres-flags=disable-binding -c 8 --mem 64G -- \
-  bash -c "export XL_MODEL=llama-3.1-8b HF_HUB_OFFLINE=1 HF_HUB_CACHE=$PWD/logs/hf_cache G=src/experiments/mgsm_crosslingual
+  bash -c "export XL_MODEL=llama-3.1-8b HF_HUB_OFFLINE=1 HF_HUB_CACHE=$PWD/logs/hf_cache G=src/experiments/mgsm_crosslingual; \
   for f in logit_lens logit_lens_top5; do python \$G/\$f.py run && python \$G/\$f.py analyse; done"
+# Qwen3-8B: the same with XL_MODEL=qwen3-8b and without HF_HUB_CACHE; Qwen3-32B: with XL_MODEL=qwen3-32b, --mem 128G and on B200/B300
 # robustness and agreement (CPU)
 slurm/submit.sh -J mgsm_xl_tables -c 4 --mem 16G --gres=none --constraint= -- \
   bash -c 'export XL_MODEL=llama-3.1-8b; python src/experiments/mgsm_crosslingual/robustness.py && python src/experiments/mgsm_crosslingual/agreement.py'
@@ -58,7 +59,7 @@ For Llama, `HF_HUB_CACHE=$PWD/logs/hf_cache` is needed because the shared cache'
 
 The Qwen3-32B checkpoint (revision 9216db5) is also in `logs/hf_cache`, downloaded from the Hub; Qwen3-8B (revision b968826) is in the shared cache. Qwen3-32B runs one worker per GPU (B200/B300 only), the 8B models two.
 
-Runs: Llama on 7 GPUs (2 B300 in the main job, helpers on 1 B300 and 4 B200), 2 h 08 min; Qwen3-8B on 9 B200, 3 h 01 min; Qwen3-32B on 20 B200, 1 h 50 min; mostly the test stage. As in `../mgsm_steering/`, a unit's output depends on which GPU ran it only through bf16 differences. KL: 29 min on 1 B300 (Llama), 37 min on 1 B200 (Qwen3-8B), 18 min on 8 B200 (Qwen3-32B, main job and a helper). `robustness.py`, `agreement.py` and `analyse_kl.py` run on a CPU in under a minute each. Prompt variants (Qwen3-8B): 4 A100 80 GB (main job and a helper, 2 each), 1 h 53 min. Forced start (Llama): 5 GPUs (2 + 2 B300 and a GH200, main job and helpers), 1 h 52 min. Logit lens: 7 min per script on 1 A100 80 GB.
+Runs: Llama on 7 GPUs (2 B300 in the main job, helpers on 1 B300 and 4 B200), 2 h 08 min; Qwen3-8B on 9 B200, 3 h 01 min; Qwen3-32B on 20 B200, 1 h 50 min; mostly the test stage. As in `../mgsm_steering/`, a unit's output depends on which GPU ran it only through bf16 differences. KL: 29 min on 1 B300 (Llama), 37 min on 1 B200 (Qwen3-8B), 18 min on 8 B200 (Qwen3-32B, main job and a helper). `robustness.py`, `agreement.py` and `analyse_kl.py` run on a CPU in under a minute each. Prompt variants (Qwen3-8B): 4 A100 80 GB (main job and a helper, 2 each), 1 h 53 min. Forced start (Llama): 5 GPUs (2 + 2 B300 and a GH200, main job and helpers), 1 h 52 min. Logit lens (both scripts): 13 min on 1 A100 80 GB (Llama), 5 min on 1 B200 (Qwen3-8B), 11 min on 1 B200 (Qwen3-32B).
 
 | File | Contents |
 |---|---|
@@ -237,7 +238,7 @@ KL / top-1. The 95% bootstrap CIs over items (`results/<model>/kl.json`) are at 
 
 ### The start of the answer and where its language is decided
 
-Two follow-ups on Llama only, on 50 of the 200 test items (drawn once, seed 0) and the 99 held-out pairs, for the instruction and instruction + prompt-only steering at its dev setting (l 16, α 1). *Failing pairs*: the 40 held-out pairs where the instruction's test success is below 0.10 (from `summary.json`, i.e. fixed before these runs); *working pairs*: the other 59.
+Two follow-ups, the forced start on Llama only and the logit lens on all three models, on 50 of the 200 test items (drawn once, seed 0) and the 99 held-out pairs, for the instruction and instruction + prompt-only steering at its dev setting (Llama l 16, α 1; for the Qwen models see below). *Failing pairs*: the 40 held-out pairs where the instruction's test success is below 0.10 (from `summary.json`, i.e. fixed before these runs); *working pairs*: the other 59.
 
 **Forced start** (`prefill.py`): the first k tokens of the answer are forced, the rest is generated as usual. The forced start is in T (the native arm's answer to the same item) or in S (the source arm's answer); the language is judged on the generated continuation only, correctness on the whole answer. Success (in T, accuracy), in %, mean over pairs:
 
@@ -296,6 +297,56 @@ Every layer, all held-out pairs together and 95% bootstrap CIs over items are in
 * **Steering makes the failing pairs behave like the working ones.** Its effect is not visible as more T right at layer 16 (T 22 vs 21 in a million), but it changes what the last layers do: they pick T instead of S.
 * **Averaging the instruction over all held-out pairs is misleading** (T 2%, S 4% at the output): it mixes two behaviours that no single pair shows; with steering the overall mean is a fair summary (T 27%, S 0.006%).
 * Together with the forced start: the language is settled in the last layers, before the first token, and the first token then largely fixes the rest. Steering changes that late choice, not the reasoning.
+
+**Logit lens on the Qwen models**, the same scripts with each model's dev setting of instruction + prompt-only steering: Qwen3-8B l 28 of 36, Qwen3-32B l 40 of 64, both α 1. The instruction fails (test success below 0.10) in 30 held-out pairs of Qwen3-8B and only 6 of Qwen3-32B, so the latter's failing group is small. The native top 5 cover 79% (sw) to 100% of the native distribution in Qwen3-8B, and 96–100% in Qwen3-32B. Typical probability ×10⁶ as above, selected layers; every layer is in `results/<model>/logit_lens_top5.json`:
+
+| Qwen3-8B, layer | instr.: T | instr.: S | instr.: en | instr. + steer: T | instr. + steer: S | instr. + steer: en |
+|---|---|---|---|---|---|---|
+| **Failing (30)** | | | | | | |
+| 20 | 4 | 6 | 27 | 4 | 6 | 27 |
+| 26 | 65 | 4 | 509 | 65 | 4 | 509 |
+| 28 | 24 | 0.7 | 132 | 196 | 0.02 | 41 |
+| 32 | 0.09 | 0.02 | 0.6 | 129 | 0.0007 | 2 |
+| 34 | 11 | 3,470 | 29 | 19,400 | 0.07 | 51 |
+| 35 | 115 | 240,000 | 827 | 139,000 | 1.5 | 849 |
+| 36 | 1.6 | 331,000 | 96 | 219,000 | 0.08 | 327 |
+| **Working (69)** | | | | | | |
+| 20 | 4 | 5 | 14 | 4 | 5 | 14 |
+| 26 | 131 | 42 | 1,500 | 131 | 42 | 1,500 |
+| 28 | 53 | 16 | 514 | 148 | 0.2 | 17 |
+| 32 | 1.4 | 0.1 | 1.4 | 201 | 0.09 | 5 |
+| 34 | 3,380 | 145 | 30 | 20,700 | 2.6 | 42 |
+| 35 | 65,200 | 2,950 | 529 | 182,000 | 22 | 402 |
+| 36 | 69,000 | 495 | 107 | 282,000 | 0.1 | 31 |
+
+| Qwen3-32B, layer | instr.: T | instr.: S | instr.: en | instr. + steer: T | instr. + steer: S | instr. + steer: en |
+|---|---|---|---|---|---|---|
+| **Failing (6)** | | | | | | |
+| 20 | 14 | 5 | 11 | 14 | 5 | 11 |
+| 40 | 2.3 | 1.1 | 18 | 5 | 1.0 | 28 |
+| 50 | 0.7 | 0.07 | 0.2 | 2.7 | 0.1 | 0.4 |
+| 58 | 102 | 0.05 | 4 | 809 | 0.003 | 1.0 |
+| 61 | 296 | 94 | 45 | 3,630 | 0.2 | 20 |
+| 62 | 143 | 2,080 | 118 | 9,210 | 2.3 | 55 |
+| 63 | 11 | 65,700 | 145 | 26,800 | 19 | 150 |
+| 64 | 11 | 221,000 | 205 | 197,000 | 14 | 104 |
+| **Working (93)** | | | | | | |
+| 20 | 12 | 17 | 15 | 12 | 17 | 15 |
+| 40 | 5 | 4 | 20 | 9 | 1.1 | 9 |
+| 50 | 0.9 | 0.5 | 0.4 | 1.5 | 0.3 | 0.4 |
+| 58 | 4 | 0.2 | 11 | 11 | 0.08 | 10 |
+| 61 | 315 | 4 | 59 | 1,080 | 0.7 | 60 |
+| 62 | 9,230 | 47 | 102 | 21,500 | 2.8 | 88 |
+| 63 | 58,800 | 198 | 251 | 119,000 | 4.9 | 198 |
+| 64 | 194,000 | 368 | 193 | 235,000 | 0.7 | 65 |
+
+* **The main finding holds in all three models.** The language is chosen in the last 3–4 layers (Qwen3-8B 33–36, Qwen3-32B 61–64). In the failing pairs the instruction lets S win (S 33% and 22% at the output, T near zero), and steering lets T win (22% and 20%, S near zero), as in the working pairs.
+* **The English stage is model-dependent.** Qwen3-8B, like Llama, has English clearly ahead in its middle layers (about 18–30, up to 15–25 times T). In Qwen3-32B, English is ahead only briefly (layers 38–44, 2–8 times T); through most of the middle all three languages are about equally (un)likely.
+* **In Qwen3-32B's failing pairs, T leads S for most of the depth** (in layers 53–60, T at 40–260 in a million, S below 1), yet S overtakes it in the last 3 layers. The late layers override the target there, as in Llama (where d fell from +0.7 at layer 28 to −8.5 at layer 32 with one token per language).
+* **Steering acts at once in Qwen3-8B**: at layer 28 it lifts T about 8 times and drops S about 40 times. In Llama and Qwen3-32B, which steer earlier in the network, its effect grows over the later layers.
+* **Qwen3-8B's layers 31–32 are a dip** where the lens reads every language as very unlikely; no conclusion rests on them.
+* **Steering also helps Qwen3-8B's working pairs** (T at the output 7% with the instruction, 28% with steering); in Llama and Qwen3-32B the working pairs end similarly with and without it.
+* Check: the last layer's top-1 token is the first token of the arm's test response in 90–98% of prompts in every model (`last_top1_matches_generation` in `logit_lens.json`; the misses are mostly tokenisation differences in bn and te, and near-ties).
 
 ## Results: Qwen3-8B
 
