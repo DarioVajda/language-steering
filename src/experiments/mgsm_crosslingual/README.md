@@ -14,7 +14,7 @@ The question is in a source language S and the answer is wanted in a target lang
 | Control: vector towards a wrong language | 0.162 (13 / 53 [6 / 48]) | 0.301 (23 / 49 [16 / 46]) | 0.698 (18 / 28 [14 / 16]) | 0.654 (6 / 50 [4 / 37]) |
 | Held-out pairs below 0.30: instruction / instr. + steering | 47 / 2 | 42 / 5 | 13 / 1 | 4 / 0 |
 
-In brackets: held-out pairs significantly better / worse than the instruction (McNemar p < 0.05), and in square brackets the same after a Holm correction over the 99 held-out pairs (each arm and model separately). Steering does not change which problems are solved: the error consistency with the native question moves by +0.010 [−0.007, 0.026], +0.004 [−0.010, 0.018], +0.002 [−0.014, 0.018] and **TBD** (Cohen's κ, below).
+In brackets: held-out pairs significantly better / worse than the instruction (McNemar p < 0.05), and in square brackets the same after a Holm correction over the 99 held-out pairs (each arm and model separately). Steering does not change which problems are solved: the error consistency with the native question moves by +0.010 [−0.007, 0.026], +0.004 [−0.010, 0.018], +0.002 [−0.014, 0.018] and +0.001 [−0.011, 0.012] (Cohen's κ, below).
 
 ## Reproduce
 
@@ -65,7 +65,7 @@ For Llama, `HF_HUB_CACHE=$PWD/logs/hf_cache` is needed because the shared cache'
 
 The Qwen3-32B checkpoint (revision 9216db5) is also in `logs/hf_cache`, downloaded from the Hub; Qwen3-8B (revision b968826) is in the shared cache. Gemma-3-12B-it (revision 96b6f1e) is in the shared cache. Qwen3-32B and Gemma-3-12B run one worker per GPU (B200/B300 only), the 8B models two.
 
-Runs: Llama on 7 GPUs (2 B300 in the main job, helpers on 1 B300 and 4 B200), 2 h 08 min; Qwen3-8B on 9 B200, 3 h 01 min; Qwen3-32B on 20 B200, 1 h 50 min; Gemma-3-12B on 4 B200 (2 in the main job, 2 in a helper for its last 3 h), 13 h 01 min, and the prompt-only steering test units again after the judge change (*Checks on the judge*), **TBD**; mostly the test stage. As in `../mgsm_steering/`, a unit's output depends on which GPU ran it only through bf16 differences. KL: 29 min on 1 B300 (Llama), 37 min on 1 B200 (Qwen3-8B), 18 min on 8 B200 (Qwen3-32B, main job and a helper), **TBD** on 2 B200 (Gemma-3-12B). `robustness.py`, `agreement.py` and `analyse_kl.py` run on a CPU in under a minute each. Prompt variants (Qwen3-8B): 4 A100 80 GB (main job and a helper, 2 each), 1 h 53 min. Forced start (Llama): 5 GPUs (2 + 2 B300 and a GH200, main job and helpers), 1 h 52 min. Logit lens (both scripts): 13 min on 1 A100 80 GB (Llama), 5 min on 1 B200 (Qwen3-8B), 11 min on 1 B200 (Qwen3-32B), 2.5 min on 2 B200 (Gemma-3-12B, one script per GPU).
+Runs: Llama on 7 GPUs (2 B300 in the main job, helpers on 1 B300 and 4 B200), 2 h 08 min; Qwen3-8B on 9 B200, 3 h 01 min; Qwen3-32B on 20 B200, 1 h 50 min; Gemma-3-12B on 4 B200 (2 in the main job, 2 in a helper for its last 3 h), 13 h 01 min, and the prompt-only steering test units again after the judge change (*Checks on the judge*), 2 h 32 min on 2 B200; mostly the test stage. As in `../mgsm_steering/`, a unit's output depends on which GPU ran it only through bf16 differences. KL: 29 min on 1 B300 (Llama), 37 min on 1 B200 (Qwen3-8B), 18 min on 8 B200 (Qwen3-32B, main job and a helper), 14 min on 2 B200 (Gemma-3-12B). `robustness.py`, `agreement.py` and `analyse_kl.py` run on a CPU in under a minute each. Prompt variants (Qwen3-8B): 4 A100 80 GB (main job and a helper, 2 each), 1 h 53 min. Forced start (Llama): 5 GPUs (2 + 2 B300 and a GH200, main job and helpers), 1 h 52 min. Logit lens (both scripts): 13 min on 1 A100 80 GB (Llama), 5 min on 1 B200 (Qwen3-8B), 11 min on 1 B200 (Qwen3-32B), 2.5 min on 2 B200 (Gemma-3-12B, one script per GPU).
 
 | File | Contents |
 |---|---|
@@ -485,9 +485,9 @@ Dev (tuning pairs): source 0.787, native 0.789; instruction 0.713, in English 0.
 | Native | – | 0.828 | 0.828 | 45 / 2 [28 / 0] | 0.840 | 0.983 | 0.009 | 0 / 0 |
 | Instruction | – | 0.757 | 0.729 | – | 0.806 | 0.905 | 0.002 | 2 / 4 |
 | Instruction as system message | – | 0.775 | 0.751 | 11 / 8 [9 / 4] | 0.794 | 0.945 | 0.002 | 1 / 1 |
-| Steering, all-token | l 12, α 2 | **TBD** | **TBD** | **TBD** | **TBD** | **TBD** | **TBD** | **TBD** |
+| Steering, all-token | l 12, α 2 | 0.767 | 0.752 | 15 / 12 [11 / 4] | 0.782 | 0.960 | 0.013 | 1 / 1 |
 | Instr. + steering, all-token | l 36, α 0.5 | 0.764 | 0.774 | 17 / 4 [11 / 0] | 0.801 | 0.965 | 0.003 | 0 / 0 |
-| Steering, prompt-only | l 18, α 2 | **TBD** | **TBD** | **TBD** | **TBD** | **TBD** | **TBD** | **TBD** |
+| Steering, prompt-only | l 18, α 2 | 0.773 | 0.741 | 14 / 16 [11 / 8] | 0.811 | 0.911 | 0.019 | 2 / 4 |
 | Instr. + steering, prompt-only | l 24, α 1 | 0.768 | 0.777 | 15 / 5 [11 / 1] | 0.805 | 0.964 | 0.002 | 0 / 0 |
 | Instr. in English + steering, prompt-only | l 24, α 0.5 | 0.755 | 0.773 | 17 / 5 [11 / 4] | 0.812 | 0.951 | 0.001 | 0 / 0 |
 | Control: random direction | l 24, α 1 | 0.610 | 0.517 | 0 / 55 [0 / 43] | 0.661 | 0.712 | 0.063 | 14 / 34 |
@@ -498,12 +498,21 @@ Dev (tuning pairs): source 0.787, native 0.789; instruction 0.713, in English 0.
 * **The instruction as system message** is the dev winner; since Gemma's template has no system role, it puts the instruction before the question. On test it reaches 0.751 (better in 11 held-out pairs, worse in 8): it fixes the English sources (en→zh 0.90, en→de 0.87) but not sw→th (0.00).
 * **Both controls clearly hurt,** unlike in Qwen3-32B: a push of this norm in a direction other than T costs Gemma success (random 0.517, worse in 55 pairs; wrong language 0.654, worse in 50), so the gain comes from the direction of the vector. Instruction + prompt-only steering beats them in 57 and 56 held-out pairs and is never worse (49 and 44 after Holm).
 * **One held-out pair is significantly worse after Holm:** zh→de (0.80 → 0.69).
-* Steering without the instruction: **TBD**.
-* Closeness to native: κ **TBD**; KL / top-1 by response position **TBD**.
+* **Steering without the instruction** (0.752 all-token, 0.741 prompt-only) is about as good as the instruction on average, but fails elsewhere. It fixes the four pairs the instruction fails (en→zh 0.88 / 0.86, en→de 0.91 / 0.87, sw→th 0.71 / 0.73, sw→bn 0.61 / 0.72), but leaves some answers in S, mostly between Bengali and Telugu: bn→te 0.02 / 0.00 (instruction 0.79), and with prompt-only steering also te→bn 0.00, bn→sw 0.14 and th→te 0.15. It is worse than the instruction in 12 and 16 held-out pairs (4 and 8 after Holm). With the instruction, steering has no such failures.
+* Closeness to native: κ with native changes by +0.035 [0.004, 0.064] without the instruction and +0.001 [−0.011, 0.012] with it; κ with source by −0.463 and −0.005 [−0.018, 0.009]. KL / top-1 by response position:
+
+  | arm | token 1 | tokens 2–10 | 11–50 | 51+ |
+  |---|---|---|---|---|
+  | source | 19.96 / 0.00 | 1.37 / 0.72 | 0.47 / 0.86 | 0.14 / 0.95 |
+  | steer, PO | 2.30 / 0.50 | 0.90 / 0.75 | 0.47 / 0.86 | 0.14 / 0.95 |
+  | instr. | 5.72 / 0.26 | 1.55 / 0.72 | 0.63 / 0.86 | 0.21 / 0.94 |
+  | instr. + steer, PO | 4.93 / 0.28 | 1.50 / 0.72 | 0.63 / 0.86 | 0.20 / 0.94 |
+
+  With the instruction, steering moves the first token much less towards native than in the other models (KL 5.72 → 4.93), as the instruction already gets the language right in most pairs.
 * Gemma ends most answers with an English template line ("Final Answer: The final answer is $\boxed{18}$"), which the judge does not score (below).
 
 ## Checks on the judge
 
 * The in-language check looks for English lines, not lines in S. In the earlier 10-pair version of this experiment, also rejecting a line of ≥ 5 words labelled S with p > 0.5 changed the test means by at most 0.017 and lowered the instruction most. It has not been applied to this run.
 * Lines under 5 words are not checked on their own, so a few short S fragments in a T answer can pass (e.g. mgsm-0195 in sw→de). This can only favour the steered arms.
-* **Gemma's answer template is not scored.** Gemma-3 often ends an answer, even one written entirely in T, with the English line "Final Answer: The final answer is $\boxed{18}$". Lines matching `^[\s*#]*Final Answer[\s*:]*The final answer is.*$` (`ANSWER_LINE` in `../mgsm_steering/analyse.py`) are removed before the language check; with them, that line of ≥ 5 English words failed answers that were otherwise in T. No Llama or Qwen response in any experiment of this project contains the line, so the rule changes none of their verdicts. For Gemma it only turns failures into successes (4,647 responses, none the other way). It changed one dev pick, prompt-only steering (l 12, α 3 → l 18, α 2), whose test units were rerun.
+* **Gemma's answer template is not scored.** Gemma-3 often ends an answer, even one written entirely in T, with the English line "Final Answer: The final answer is $\boxed{18}$". Lines matching `^[\s*#]*Final Answer[\s*:]*The final answer is.*$` (`ANSWER_LINE` in `../mgsm_steering/analyse.py`) are removed before the language check; with them, that line of ≥ 5 English words failed answers that were otherwise in T. No Llama or Qwen response in any experiment of this project contains the line, so the rule changes none of their verdicts. For Gemma it only turns failures into successes (4,647 responses, none the other way). It changed one dev pick, prompt-only steering (l 12, α 3 → l 18, α 2), whose test units were rerun. All-token steering ties exactly on dev (401 / 550 at l 12 and l 18, α 2) and keeps l 12 by the earlier-layer rule; the selection rounds the means, so that float summation order cannot break such ties.

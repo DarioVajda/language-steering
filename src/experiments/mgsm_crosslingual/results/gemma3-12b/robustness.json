@@ -1,0 +1,53 @@
+{
+ "n_pairs": 99,
+ "thresholds": [
+  0.1,
+  0.3
+ ],
+ "below": {
+  "source": {
+   "0.1": 0,
+   "0.3": 0
+  },
+  "native": {
+   "0.1": 0,
+   "0.3": 0
+  },
+  "instruction": {
+   "0.1": 2,
+   "0.3": 4
+  },
+  "steer": {
+   "0.1": 1,
+   "0.3": 1
+  },
+  "instruction_steer": {
+   "0.1": 0,
+   "0.3": 0
+  },
+  "steer_prompt": {
+   "0.1": 2,
+   "0.3": 4
+  },
+  "instruction_steer_prompt": {
+   "0.1": 0,
+   "0.3": 0
+  },
+  "instruction_en_steer_prompt": {
+   "0.1": 0,
+   "0.3": 0
+  },
+  "instruction_steer_prompt_random": {
+   "0.1": 14,
+   "0.3": 34
+  },
+  "instruction_steer_prompt_wrong": {
+   "0.1": 2,
+   "0.3": 2
+  },
+  "instruction_system": {
+   "0.1": 1,
+   "0.3": 1
+  }
+ }
+}
