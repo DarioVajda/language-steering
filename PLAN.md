@@ -11,7 +11,7 @@ Everything else supports, delimits or motivates this claim:
 * **Where steering helps:** wherever the instruction fails (LCB cross-lingual; MGSM with a non-English question).
 * **Where it does not:** where the instruction already works (MKQA, MGSM asked in English) and in multilingual ICL (no headroom on math; on XNLI the gain is not language-specific).
 * **Why the per-token method of the proposal was dropped:** the language decomposition holds for sentence averages, not for single tokens.
-* **What steering changes:** the start of the answer (its language), not the reasoning (κ and teacher-forced KL).
+* **What steering changes:** the start of the answer (its language), not the reasoning (κ, teacher-forced KL, forced starts), through the choice of language made in the last layers (logit lens).
 
 ## Paper vs report
 
@@ -72,7 +72,7 @@ Priority: **P1** needed for a credible paper, **P2** strengthens it, **P3** only
 - [x] **P1 Stronger prompt baselines.** The instruction in English and as a system message (the dev winner goes to test), and instruction in English + steering. On Qwen3-8B only: the instruction written in T (0.451 held-out success; better in 45 pairs, worse in 26, depending on T) and the instruction before the question (0.420), against 0.412 for the instruction and 0.711 with steering; not extended to the other models, as neither changes the conclusion. For the paper: one sentence in the main body (or rows marked "Qwen3-8B only" in the prompt-baselines table), details in the appendix. Dropped: demonstrations answered in T (they assume the target-language data the method is meant to do without); translate-then-ask (NLLB), which changes the task and is close to the native ceiling.
 - [ ] **P2 Sensitivity:** success over the layer × α dev grid (data exists, needs a figure).
 - [ ] **P2 Number of FLORES sentences for the vectors** (e.g. 10, 100, 997): how little target-language text the method needs, which supports the low-resource framing. Recompute the vectors from subsets and rerun test at the chosen settings. Deferred; to be discussed before running.
-- [ ] **P2 Interpretability, one analysis:** where the language of the first answer token is decided, across layers (logit lens, or projection on the language direction), for instruction vs instruction + steering, in pairs where the instruction fails.
+- [x] **P2 Interpretability (Llama):** a forced-start experiment and a logit lens at the last prompt position, for the instruction and instruction + prompt-only steering. With the instruction, the first answer token largely sets the language; the language is chosen in the last 4 of 32 layers, after a stage where English leads; in the failing pairs the instruction lets S win there, steering lets T win. Results in `src/experiments/mgsm_crosslingual/README.md`.
 - [ ] **P3 Third model family** (e.g. Gemma), only if needed: Qwen3-8B and Qwen3-32B agree with Llama.
 - [ ] **P3 "Reason in English, answer in T":** a possible route to beating native in low-resource targets; a separate experiment.
 
