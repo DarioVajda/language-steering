@@ -86,7 +86,7 @@ def batches(gs):
 
 @torch.inference_mode()
 def run_batch(M, mu, gs):
-    tok, d = M.tok, M.model.config.hidden_size
+    tok, d = M.tok, M.model.config.get_text_config().hidden_size
     seqs = [ids + g["target"] for g in gs for ids in g["ids"]]
     plen = [len(ids) for g in gs for ids in g["ids"]]
     start = [s for g in gs for s in g["start"]]
@@ -115,7 +115,7 @@ def run_batch(M, mu, gs):
         handles.append(M.blocks[layer - 1].register_forward_hook(adder(v.to("cuda", torch.bfloat16)[:, None])))
     try:
         with sdpa_kernel([SDPBackend.FLASH_ATTENTION, SDPBackend.EFFICIENT_ATTENTION, SDPBackend.MATH]):
-            h = M.model.model(input_ids=x, attention_mask=mask, position_ids=pos).last_hidden_state
+            h = M.decoder(input_ids=x, attention_mask=mask, position_ids=pos).last_hidden_state
     finally:
         for hd in handles:
             hd.remove()

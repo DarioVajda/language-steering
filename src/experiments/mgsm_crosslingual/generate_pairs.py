@@ -3,8 +3,8 @@ wanted in a target language T (zero-shot), for all 110 ordered pairs of the 11 M
 included, as any other language).
 
 The model is set by the environment variable XL_MODEL, a key of MODELS in ../mgsm_steering/generate.py
-(llama-3.1-8b: Llama-3.1-8B-Instruct; qwen3-8b, qwen3-32b: Qwen3-8B, Qwen3-32B, thinking off); its outputs go
-to results/<XL_MODEL>/. Every script here reads it.
+(llama-3.1-8b: Llama-3.1-8B-Instruct; qwen3-8b, qwen3-32b: Qwen3-8B, Qwen3-32B, thinking off; gemma3-12b:
+Gemma-3-12B-it); its outputs go to results/<XL_MODEL>/. Every script here reads it.
 
 The arms are those of ../mgsm_steering (en -> T) one-to-one, with English replaced by S:
   source                    the question in S (the reference; target language S)

@@ -1,8 +1,8 @@
 """Instruction vs language steering on the cross-lingual Language Confusion Benchmark, one target language.
 
 The model is set by the environment variable LCB_MODEL, a key of analyse.MODELS (llama-3.1-8b:
-Llama-3.1-8B-Instruct; qwen3-8b, qwen3-32b: Qwen3-8B, Qwen3-32B, thinking off); its outputs go to
-results/<LCB_MODEL>/.
+Llama-3.1-8B-Instruct; qwen3-8b, qwen3-32b: Qwen3-8B, Qwen3-32B, thinking off; gemma3-12b:
+Gemma-3-12B-it); its outputs go to results/<LCB_MODEL>/.
 
 Conditions (the benchmark prompt is the only user message; greedy, at most 100 new tokens as in the benchmark):
   instruction        the prompt as is (English request + "Write in <T>." or similar)
@@ -65,13 +65,14 @@ class Model:
         self.tok = AutoTokenizer.from_pretrained(name)
         self.tok.pad_token, self.tok.padding_side = self.tok.eos_token, "left"
         self.model = AutoModelForCausalLM.from_pretrained(name, dtype=torch.bfloat16).cuda().eval()
-        self.blocks = self.model.model.layers
+        self.decoder = self.model.get_decoder()  # the text decoder (Gemma 3 wraps it in an image-text model)
+        self.blocks = self.decoder.layers
 
     @torch.no_grad()
     def mean_states(self, texts, bs=50):
         """[n_layers + 1, d]: mean over tokens of each layer's output, then over texts. The first token (the
-        attention sink: Llama's BOS; Qwen3 adds no BOS, so the first word) is excluded."""
-        acc = torch.zeros(len(self.blocks) + 1, self.model.config.hidden_size, device="cuda")
+        attention sink: Llama's and Gemma's BOS; Qwen3 adds no BOS, so the first word) is excluded."""
+        acc = torch.zeros(len(self.blocks) + 1, self.model.config.get_text_config().hidden_size, device="cuda")
         for i in range(0, len(texts), bs):
             b = self.tok(texts[i:i + bs], return_tensors="pt", padding=True).to("cuda")
             hs = self.model(**b, output_hidden_states=True).hidden_states
@@ -86,13 +87,13 @@ class Model:
     def generate(self, texts, steer=None, prompt_only=False):
         """Greedy chat responses. steer = {layer: vector} is added to the output of each listed block
         (1-indexed) at every position from the start of the user message onward and at every generated token,
-        or with prompt_only up to the end of the prompt only. Qwen3's thinking is off (enable_thinking=False; Llama's
-        template ignores it)."""
+        or with prompt_only up to the end of the prompt only. Qwen3's thinking is off (enable_thinking=False; the other
+        templates ignore it)."""
         tok = self.tok
         ps = [tok.apply_chat_template([{"role": "user", "content": t}], tokenize=False, add_generation_prompt=True,
                                      enable_thinking=False) for t in texts]
         ids = [tok(p, add_special_tokens=False).input_ids for p in ps]
-        pre = [len(tok(p.split(t)[0], add_special_tokens=False).input_ids) for p, t in zip(ps, texts)]
+        pre = [len(tok(p[:p.index(t)], add_special_tokens=False).input_ids) for p, t in zip(ps, texts)]
         order = sorted(range(len(texts)), key=lambda i: (len(ids[i]), i))
         out = [None] * len(texts)
         i = 0

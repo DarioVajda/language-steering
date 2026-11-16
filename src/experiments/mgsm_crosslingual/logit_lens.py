@@ -79,7 +79,7 @@ def lens(M, texts, layer=None, vecs=None):
         finally:
             for h in handles:
                 h.remove()
-        logp = model.lm_head(model.model.norm(torch.stack(last))).float().log_softmax(-1)  # [blocks, B, vocab]
+        logp = model.lm_head(M.decoder.norm(torch.stack(last))).float().log_softmax(-1)  # [blocks, B, vocab]
         own = o.logits[:, -1].float().log_softmax(-1)
         for j in range(len(b)):
             yield logp[:, j], own[j]
@@ -115,7 +115,7 @@ def run():
         tmp.write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in out))
         tmp.rename(OUT / f"{arm}.jsonl")
     # the top tokens of each steering vector: W_U (g * v), the final norm's scale without its normalisation
-    W, g = M.model.lm_head.weight, M.model.model.norm.weight
+    W, g = M.model.lm_head.weight, M.decoder.norm.weight
     c = chosen["instruction_steer_prompt"]
     top = {}
     for s, t in HELD:

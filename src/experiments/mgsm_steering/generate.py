@@ -54,10 +54,13 @@ NAMES = {"bn": "Bengali", "de": "German", "es": "Spanish", "fr": "French", "ja":
          "sw": "Swahili", "te": "Telugu", "th": "Thai", "zh": "Chinese"}
 LANGS = tuple(NAMES)
 # Models: Hugging Face id, the end-of-turn token of the chat template, and the steering-layer grid (1-indexed
-# blocks). This experiment uses Llama; ../mgsm_crosslingual uses any of them.
+# blocks). This experiment uses Llama; ../mgsm_crosslingual uses any of them. Gemma 3 interleaves 5 sliding-window
+# (1024-token) attention blocks with one full-attention block; its grid is the full-attention blocks in 25-75% of
+# its depth.
 MODELS = {"llama-3.1-8b": dict(hf="meta-llama/Llama-3.1-8B-Instruct", eot="<|eot_id|>", layers=(8, 12, 16, 20, 24)),
           "qwen3-8b": dict(hf="Qwen/Qwen3-8B", eot="<|im_end|>", layers=(8, 12, 16, 20, 24, 28)),
-          "qwen3-32b": dict(hf="Qwen/Qwen3-32B", eot="<|im_end|>", layers=(16, 24, 32, 40, 48))}
+          "qwen3-32b": dict(hf="Qwen/Qwen3-32B", eot="<|im_end|>", layers=(16, 24, 32, 40, 48)),
+          "gemma3-12b": dict(hf="google/gemma-3-12b-it", eot="<end_of_turn>", layers=(12, 18, 24, 30, 36))}
 MODEL = MODELS["llama-3.1-8b"]["hf"]
 MAX_NEW, MAX_BATCH = 2048, 128
 N_DEV = 50
@@ -88,7 +91,8 @@ def flores(lang):
 
 def chat(tok, texts, system=None):
     """The chat prompts (generation prompt included) of user messages texts, with system messages system[i] if
-    given. Qwen3's thinking is off (enable_thinking=False; Llama's template ignores it)."""
+    given. Qwen3's thinking is off (enable_thinking=False; the other templates ignore it). Gemma 3's template has
+    no system role: it puts the system message at the start of the user turn."""
     system = system or [None] * len(texts)
     return [tok.apply_chat_template(([{"role": "system", "content": s}] if s else [])
                                     + [{"role": "user", "content": t}],
@@ -102,7 +106,8 @@ class Model:
         self.tok.pad_token, self.tok.padding_side = self.tok.eos_token, "left"
         self.model = AutoModelForCausalLM.from_pretrained(name, dtype=torch.bfloat16).cuda().eval()
         self.model.set_attn_implementation("sdpa_gqa_decode")
-        self.blocks = self.model.model.layers
+        self.decoder = self.model.get_decoder()  # the text decoder (Gemma 3 wraps it in an image-text model)
+        self.blocks = self.decoder.layers
         eos = self.model.generation_config.eos_token_id
         self.eos = torch.tensor(eos if isinstance(eos, list) else [eos], device="cuda")
 
@@ -111,7 +116,7 @@ class Model:
         """[n_layers + 1, d]: mean over tokens of each layer's output, then over texts. The first token is
         excluded: it is the attention sink, with a norm 50-100x that of the others (Llama's BOS; Qwen3, which adds
         no BOS, uses the first word of the text)."""
-        acc = torch.zeros(len(self.blocks) + 1, self.model.config.hidden_size, device="cuda")
+        acc = torch.zeros(len(self.blocks) + 1, self.model.config.get_text_config().hidden_size, device="cuda")
         for i in range(0, len(texts), bs):
             b = self.tok(texts[i:i + bs], return_tensors="pt", padding=True).to("cuda")
             pos = (b.attention_mask.cumsum(1) - 1).clamp(min=0)
