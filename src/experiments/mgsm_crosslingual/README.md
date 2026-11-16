@@ -39,6 +39,8 @@ slurm/submit.sh -J xl-llama-lens -t 01:00:00 --gres gpu:1 --gres-flags=disable-b
 # robustness and agreement (CPU)
 slurm/submit.sh -J mgsm_xl_tables -c 4 --mem 16G --gres=none --constraint= -- \
   bash -c 'export XL_MODEL=llama-3.1-8b; python src/experiments/mgsm_crosslingual/robustness.py && python src/experiments/mgsm_crosslingual/agreement.py'
+# layer and alpha sensitivity, all models and LCB, from the stored dev grids (CPU, seconds)
+python src/experiments/mgsm_crosslingual/sensitivity.py
 
 # Qwen3-8B: the same with qwen3-8b and without HF_HUB_CACHE (shared cache)
 # Qwen3-32B: one worker per GPU, on B200/B300
@@ -73,6 +75,7 @@ Runs: Llama on 7 GPUs (2 B300 in the main job, helpers on 1 B300 and 4 B200), 2 
 | `analyse_pairs.py` | selection, McNemar tests, tables; scoring is imported from `../mgsm_steering/analyse.py` |
 | `run.sh` | every stage in one Slurm job, optionally shared with helper jobs |
 | `robustness.py` | held-out pairs with success below 0.10 and 0.30, from `results/<model>/summary.json` -> `results/<model>/robustness.json` |
+| `sensitivity.py` | success over the layer × α dev grid for every model and arm, and the LCB dev grids -> `results/sensitivity.json` |
 | `agreement.py` | error consistency (Cohen's κ) with the native and source questions -> `results/<model>/agreement.json` |
 | `kl.py`, `kl.sh` | teacher-forced per-token KL and top-1 agreement with the native question, in one Slurm job (-> `results/<model>/generations/kl/`, 0.3–0.5 GB per model, not committed) |
 | `analyse_kl.py` | KL and top-1 by response position, and per S and T -> `results/<model>/kl.json` |
@@ -510,6 +513,25 @@ Dev (tuning pairs): source 0.787, native 0.789; instruction 0.713, in English 0.
 
   With the instruction, steering moves the first token much less towards native than in the other models (KL 5.72 → 4.93), as the instruction already gets the language right in most pairs.
 * Gemma ends most answers with an English template line ("Final Answer: The final answer is $\boxed{18}$"), which the judge does not score (below).
+
+## Sensitivity to layer and α (dev)
+
+`sensitivity.py`, from the dev grids above (mean success over the 11 tuning pairs, 550 answers per cell, standard error about ±.02). Instruction + prompt-only steering at α = 1, by layer:
+
+| model | instruction | layers | success at α = 1 | grid cells above the instruction |
+|---|---|---|---|---|
+| Llama-3.1-8B | .311 | 8, 12, **16**, 20, 24 | .478, .573, **.602**, .538, .542 | 23/25 |
+| Qwen3-8B | .338 | 8, 12, 16, 20, 24, **28** | .605, .615, .653, .671, .676, **.678** | 28/30 |
+| Qwen3-32B | .611 | 16, 24, 32, **40**, 48 | .755, .760, .758, **.793**, .780 | 20/25 |
+| Gemma-3-12B | .713 | 12, 18, **24**, 30, 36 | .702, .713, **.738**, .696, .698 | 5/25 |
+
+* **α matters more than the layer.** α = 1 is the best α, or within .03 of it, at every layer of every model; α ≤ 0.5 does too little and α = 3 too much (Llama, layer 8: .478 at α = 1, .182 at α = 3).
+* **Every tested layer helps, but not equally.** The grids cover about 25–75% of the depth. Within them the worst layer keeps 57% of the chosen setting's gain over the instruction in Llama (layer 8) and 79% in both Qwen models; Qwen3-8B improves with depth, Qwen3-32B is nearly flat.
+* **Without the instruction, steering is narrower:** success is near 0 at α ≤ 0.5 (the language does not change), and the best cell is usually alone within .02.
+* **Gemma's grid says little:** its instruction already works on the tuning pairs (.713 against native .789), so all cells are within .69–.74. Its gains on test come from pairs that fail with the instruction and are not among the tuning pairs.
+* These are dev numbers and the chosen cell is the maximum of the grid, so it is slightly optimistic; the test results are above.
+
+On LCB (`../language_confusion/`, all-token, mean over its six languages) the layer matters even less: with the instruction at α = 1, all layers are within .03 of each other in every model (.95–.98 Llama, .95–.96 Qwen, .93–.94 Gemma), and α ≥ 2 makes many answers degenerate (at α = 2 up to .61 of them in Llama and .41 in Qwen3-8B).
 
 ## Checks on the judge
 

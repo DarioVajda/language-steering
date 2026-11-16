@@ -280,6 +280,10 @@ Gemma-3-12B, the other measures on test (per-language settings), instruction →
 
 On LCB all-token steering keeps the language at least as well as prompt-only steering in every model, by a wide margin without the instruction. With the instruction, the two are within .03 of each other in every language for Llama and Qwen, and within .06 for Gemma (zh). LCB scores only the language of a 100-token answer, so it cannot show what steering the generated tokens costs. Cross-lingual MGSM ([../mgsm_crosslingual/](../mgsm_crosslingual/)) can: at matched settings, all-token steering loses accuracy over long answers, partly through loops and answers that run to the token limit.
 
+## Sensitivity to layer and α (dev)
+
+From `../mgsm_crosslingual/sensitivity.py` (all-token, mean over the six languages, 102 prompts each). With the instruction at α = 1, all layers are within .03 of each other in every model (.95–.98 Llama, .95–.96 Qwen3-8B and Qwen3-32B, .93–.94 Gemma), above the instruction (.89, .87, .92, .17) with at most .05 degenerate answers. α ≥ 2 makes many answers degenerate (up to .61 of them in Llama, .41 in Qwen3-8B, .11 in Qwen3-32B at α = 2; more at α = 3), which the selection rule excludes. Gemma needs α ≥ 1, as its instruction barely works (α = 0.5 gives .46–.56). Without the instruction, α ≤ 0.5 leaves the answers in English (LPR ≤ .23).
+
 ## Caveats
 
 * LCB measures only the language, not quality or correctness.
