@@ -18,7 +18,7 @@ Summary (analyse): for each arm and group of pairs, the mean of each measure per
 success < 0.10 on test, as in prefill.py) and the rest. Items where t_T = t_S (e.g. an answer starting with a
 number in both) are left out, since the two tokens cannot be told apart; log P_l(t_E) is averaged over the pairs
 without English only. Also: the top tokens of each steering vector, W_U (g * v) with g the final norm's weights,
-and how often the last layer's top-1 token is the first token of the prefill k = 0 run's continuation,
+and how often the last layer's top-1 token is the first token of the arm's test response to the same prompt,
 re-tokenised (a check).
 
 Usage: XL_MODEL=<model> python src/experiments/mgsm_crosslingual/logit_lens.py run       # GPU
@@ -35,8 +35,8 @@ import torch
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent / "mgsm_steering"))
 from generate import MODELS, Model, chat  # noqa: E402
-from generate_pairs import GEN, KEY, LANGS, MODEL, RES, prompt, vector  # noqa: E402
-from prefill import ARMS, FAIL, HELD, OUT as PREFILL, SEED, items, starts  # noqa: E402
+from generate_pairs import GEN, KEY, MODEL, RES, prompt, vector  # noqa: E402
+from prefill import ARMS, FAIL, HELD, SEED, items, starts  # noqa: E402
 
 OUT = GEN / "logit_lens"
 BATCH = 64
@@ -172,16 +172,15 @@ def analyse():
                 res[m], res[f"n_{m}"] = stat(sub, f, ids, boot)
             res["n_same_excluded"] = sum(1 for r in rows if (r["src"], r["tgt"]) in ps and r["same"])
             out["arms"][arm][g] = res
-    # check: the last layer's top-1 token against the first token the prefill k = 0 run generated
+    # check: the last layer's top-1 token against the first token of the arm's test response (greedy, same prompt)
     from transformers import AutoTokenizer
     tok = AutoTokenizer.from_pretrained(MODELS[MODEL]["hf"])
     agree = {}
     for arm in ARMS:
         gen = {}
-        for s in LANGS:
-            f = PREFILL / f"{arm}_T_k0_{s}.jsonl"
-            for r in map(json.loads, open(f)):
-                gen[r["id"], r["src"], r["tgt"]] = r["continuation"]
+        for p in HELD:
+            for r in map(json.loads, open(GEN / "test" / f"{arm}_{KEY[p]}.jsonl")):
+                gen[r["id"], r["src"], r["tgt"]] = r["response"]
         hits = [tok(gen[r["id"], r["src"], r["tgt"]], add_special_tokens=False).input_ids[:1] == r["top1_ids"][-1:]
                 for r in data[arm]]
         agree[arm] = sum(hits) / len(hits)

@@ -4018,7 +4018,7 @@
   }
  },
  "last_top1_matches_generation": {
-  "instruction": 0.982020202020202,
-  "instruction_steer_prompt": 0.8977777777777778
+  "instruction": 0.9773737373737373,
+  "instruction_steer_prompt": 0.8987878787878788
  }
 }
