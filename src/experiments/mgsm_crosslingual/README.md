@@ -13,8 +13,10 @@ The question is in a source language S and the answer is wanted in a target lang
 | Control: random direction, same norm | 0.322 (0 / 10 [0 / 2]) | 0.402 (4 / 12 [0 / 2]) | 0.693 (10 / 10 [6 / 3]) | 0.517 (0 / 55 [0 / 43]) |
 | Control: vector towards a wrong language | 0.162 (13 / 53 [6 / 48]) | 0.301 (23 / 49 [16 / 46]) | 0.698 (18 / 28 [14 / 16]) | 0.654 (6 / 50 [4 / 37]) |
 | Held-out pairs below 0.30: instruction / instr. + steering | 47 / 2 | 42 / 5 | 13 / 1 | 4 / 0 |
+| Instr. + prompt-only steering − instruction [95% CI] | +.294 [.275, .311] | +.299 [.284, .314] | +.107 [.099, .115] | +.048 [.042, .053] |
+| Instr. + prompt-only steering − native [95% CI] | −.089 [−.105, −.074] | −.052 [−.066, −.038] | −.035 [−.046, −.024] | −.051 [−.064, −.039] |
 
-In brackets: held-out pairs significantly better / worse than the instruction (McNemar p < 0.05), and in square brackets the same after a Holm correction over the 99 held-out pairs (each arm and model separately). Steering does not change which problems are solved: the error consistency with the native question moves by +0.010 [−0.007, 0.026], +0.004 [−0.010, 0.018], +0.002 [−0.014, 0.018] and +0.001 [−0.011, 0.012] (Cohen's κ, below).
+In brackets: held-out pairs significantly better / worse than the instruction (McNemar p < 0.05), and in square brackets the same after a Holm correction over the 99 held-out pairs (each arm and model separately). The 95% CIs are from 2000 bootstrap resamples of the 200 test items (the same resample for every pair and arm). As all arms share the items, the CIs of the means themselves are wider (±.02–.03 for the instruction and ±.03 for steering and native; `results/<model>/native_tests.json`) than those of the paired differences. Steering closes 77%, 85%, 75% and 49% of the gap between the instruction and native, but stays significantly below native in every model (*Tests against the native question*, below). Steering does not change which problems are solved: the error consistency with the native question moves by +0.010 [−0.007, 0.026], +0.004 [−0.010, 0.018], +0.002 [−0.014, 0.018] and +0.001 [−0.011, 0.012] (Cohen's κ, below). The vector needs little text: from 10 parallel FLORES sentences instead of 997 the means are within .002, and from a single sentence within .013 (*Number of FLORES sentences*, below).
 
 ## Reproduce
 
@@ -39,6 +41,8 @@ slurm/submit.sh -J xl-llama-lens -t 01:00:00 --gres gpu:1 --gres-flags=disable-b
 # robustness and agreement (CPU)
 slurm/submit.sh -J mgsm_xl_tables -c 4 --mem 16G --gres=none --constraint= -- \
   bash -c 'export XL_MODEL=llama-3.1-8b; python src/experiments/mgsm_crosslingual/robustness.py && python src/experiments/mgsm_crosslingual/agreement.py'
+# tests against native and the CIs of the headline means, all models (CPU, 3 min)
+slurm/submit.sh -J native-tests -c 4 --mem 16G --gres=none --constraint= -- bash -c 'for m in llama-3.1-8b qwen3-8b qwen3-32b gemma3-12b; do XL_MODEL=$m python src/experiments/mgsm_crosslingual/native_tests.py; done'
 # layer and alpha sensitivity, all models and LCB, from the stored dev grids (CPU, seconds)
 python src/experiments/mgsm_crosslingual/sensitivity.py
 
@@ -59,6 +63,15 @@ slurm/submit.sh -J xl-q8-prompts -t 10:00:00 --gres gpu:A100_80GB:2 --gres-flags
   G=src/experiments/mgsm_crosslingual; for i in 0 1 2 3; do CUDA_VISIBLE_DEVICES=$((i / 2)) python $G/generate_pairs.py prompts & done
   wait; python $G/prompt_variants.py'
 # optional helpers: the same without prompt_variants.py, and with SLURM_JOB_ID=<id> added to the export
+
+# number of FLORES sentences (after the main runs): one GPU per model unless <gpus> says more, then each model's tables
+slurm/submit.sh -J flores-subsets -t 24:00:00 --gres gpu:4 --gres-flags=disable-binding -c 32 --mem 256G \
+  --constraint 'GPU_BRD:B200|GPU_BRD:B300' -- bash src/experiments/mgsm_crosslingual/flores_subsets.sh \
+  llama-3.1-8b:2:$PWD/logs/hf_cache qwen3-8b:2 qwen3-32b:1:$PWD/logs/hf_cache gemma3-12b:1
+# optional helpers: they take units from the main job's queue (<id>) and leave the tables to it
+slurm/submit.sh -J flores-help -t 08:00:00 --gres gpu:1 --gres-flags=disable-binding -c 8 --mem 96G \
+  --constraint 'GPU_BRD:B200|GPU_BRD:B300' -- bash src/experiments/mgsm_crosslingual/flores_subsets.sh \
+  --no-analyse --defer-to <id> qwen3-32b:1:$PWD/logs/hf_cache
 ```
 
 `run.sh <model> <gpus> <workers per gpu> [main job id]` runs every stage in one job: vectors, the dev grid, selection, test and the tables. The model is a key of `MODELS` in `../mgsm_steering/generate.py` (`llama-3.1-8b`, `qwen3-8b`, `qwen3-32b`, `gemma3-12b`); every script reads it from the environment variable `XL_MODEL` (set by `run.sh` and `kl.sh`) and writes to `results/<model>/`. Workers share each stage through claim files under `results/<model>/generations/claims/<main job id>/`, as in `../mgsm_steering/`. A helper (with a main job id) waits for the main job's vectors and selection, takes units from the same queue, and leaves the tables to the main job.
@@ -76,6 +89,8 @@ Runs: Llama on 7 GPUs (2 B300 in the main job, helpers on 1 B300 and 4 B200), 2 
 | `run.sh` | every stage in one Slurm job, optionally shared with helper jobs |
 | `robustness.py` | held-out pairs with success below 0.10 and 0.30, from `results/<model>/summary.json` -> `results/<model>/robustness.json` |
 | `sensitivity.py` | success over the layer × α dev grid for every model and arm, and the LCB dev grids -> `results/sensitivity.json` |
+| `flores_subsets.py`, `flores_subsets.sh` | instruction + prompt-only steering on test with vectors from 1, 3, 10 or 100 FLORES sentences, three draws each, in one Slurm job, optionally with helpers -> `results/<model>/flores_subsets.json` |
+| `native_tests.py` | per-pair McNemar tests against the native question (Holm over the 99 held-out pairs), by T, and bootstrap CIs of the headline means and differences -> `results/<model>/native_tests.json` |
 | `agreement.py` | error consistency (Cohen's κ) with the native and source questions -> `results/<model>/agreement.json` |
 | `kl.py`, `kl.sh` | teacher-forced per-token KL and top-1 agreement with the native question, in one Slurm job (-> `results/<model>/generations/kl/`, 0.3–0.5 GB per model, not committed) |
 | `analyse_kl.py` | KL and top-1 by response position, and per S and T -> `results/<model>/kl.json` |
@@ -89,7 +104,7 @@ Runs: Llama on 7 GPUs (2 B300 in the main job, helpers on 1 B300 and 4 B200), 2 
 
 ## Setup
 
-Everything is as in `../mgsm_steering/` (greedy decoding with at most 2048 new tokens, the 50 dev / 200 test split, the α grid, success and the McNemar test), with English replaced by S. Counts of significantly better / worse pairs are given both uncorrected and Holm-corrected over the 99 held-out pairs of each comparison (`p_holm` in `summary.json`). The layer grid is per model: 8–24 (Llama, 32 layers), 8–28 (Qwen3-8B, 36 layers), 16–48 (Qwen3-32B, 64 layers), in steps of 4, 4 and 8, and 12–36 (Gemma-3-12B, 48 layers) in steps of 6. Gemma 3 interleaves five sliding-window (1024-token) attention blocks with one full-attention block; its grid is the full-attention blocks in about 25–75% of its depth.
+Everything is as in `../mgsm_steering/` (greedy decoding with at most 2048 new tokens, the 50 dev / 200 test split, the α grid, success and the McNemar test), with English replaced by S. Counts of significantly better / worse pairs are given both uncorrected and Holm-corrected over the 99 held-out pairs of each comparison (`p_holm` in `summary.json`). **Statistics, throughout:** a difference between two arms in one pair is an exact McNemar test on the per-item success of the same 200 test items, Holm-corrected over the pairs of the comparison; a mean (or a mean difference) gets a 95% percentile CI from 2000 bootstrap resamples of the items (seed 0). Decoding is greedy and nothing is trained, so the items are the only source of sampling noise; the one exception is the number of FLORES sentences, where the draw of sentences is a second one and three draws are reported. The layer grid is per model: 8–24 (Llama, 32 layers), 8–28 (Qwen3-8B, 36 layers), 16–48 (Qwen3-32B, 64 layers), in steps of 4, 4 and 8, and 12–36 (Gemma-3-12B, 48 layers) in steps of 6. Gemma 3 interleaves five sliding-window (1024-token) attention blocks with one full-attention block; its grid is the full-attention blocks in about 25–75% of its depth.
 
 * **Pairs:** all 110 ordered pairs (S, T), S ≠ T, of en, bn, de, es, fr, ja, ru, sw, te, th, zh.
 * **Tuning pairs:** 11 pairs drawn before any generation (`draw_tuning`, seed 0), uniformly among the assignments in which every language is the source of exactly one pair and the target of exactly one, and no two languages are tuned in both directions:
@@ -532,6 +547,62 @@ Dev (tuning pairs): source 0.787, native 0.789; instruction 0.713, in English 0.
 * These are dev numbers and the chosen cell is the maximum of the grid, so it is slightly optimistic; the test results are above.
 
 On LCB (`../language_confusion/`, all-token, mean over its six languages) the layer matters even less: with the instruction at α = 1, all layers are within .03 of each other in every model (.95–.98 Llama, .95–.96 Qwen, .93–.94 Gemma), and α ≥ 2 makes many answers degenerate (at α = 2 up to .61 of them in Llama and .41 in Qwen3-8B).
+
+## Number of FLORES sentences for the vector (test)
+
+`flores_subsets.py`: instruction + prompt-only steering on the 99 held-out pairs (200 test items each), with v(S→T) = μ_T − μ_S computed from n of the 997 FLORES-200 dev sentences instead of all of them, the same n sentences in S and in T (translations of each other), and the vector used as it is (not normalised). Each pair draws its own sentences, three draws (seeds) per n, nested (the n sentences are the first n of the 100). The layer and α are those chosen with the 997-sentence vectors (not retuned); n = 997 is the test run above.
+
+Mean held-out success, mean over the three draws [range]:
+
+| model | instruction | n = 1 | n = 3 | n = 10 | n = 100 | n = 997 |
+|---|---|---|---|---|---|---|
+| Llama-3.1-8B | .340 | .628 [.626, .630] | .633 [.630, .638] | .633 [.632, .634] | .635 [.632, .638] | .634 |
+| Qwen3-8B | .412 | .707 [.703, .712] | .710 [.709, .711] | .710 [.708, .712] | .711 [.710, .713] | .711 |
+| Qwen3-32B | .694 | .787 [.785, .791] | .796 [.790, .799] | .799 [.797, .801] | .801 [.799, .803] | .800 |
+| Gemma-3-12B | .729 | .771 [.768, .775] | .775 [.771, .779] | .777 [.776, .777] | .777 [.776, .778] | .777 |
+
+Held-out pairs significantly worse than n = 997 (McNemar, Holm over the 99 pairs), per draw; and per pair and draw, how many of the 297 are more than .10 from n = 997:
+
+| model | n = 1 | n = 3 | n = 10 | n = 100 |
+|---|---|---|---|---|
+| Llama-3.1-8B | 0, 2, 0; 3 | 0, 1, 1; 3 | 0, 0, 0; 0 | 0, 0, 0; 0 |
+| Qwen3-8B | 0, 0, 2; 2 | 0, 0, 0; 0 | 0, 0, 0; 0 | 0, 0, 0; 0 |
+| Qwen3-32B | 1, 2, 3; 9 | 1, 0, 0; 1 | 1, 0, 0; 0 | 0, 0, 0; 0 |
+| Gemma-3-12B | 4, 0, 1; 8 | 0, 0, 1; 1 | 0, 0, 1; 1 | 0, 0, 0; 0 |
+
+Mean cosine of the vector to the 997-sentence one at the chosen layer, and mean norm ratio:
+
+| model | n = 1 | n = 3 | n = 10 | n = 100 |
+|---|---|---|---|---|
+| Llama-3.1-8B | .73, 1.39 | .88, 1.15 | .96, 1.05 | .996, 1.00 |
+| Qwen3-8B | .85, 1.19 | .94, 1.08 | .98, 1.03 | .998, 1.00 |
+| Qwen3-32B | .72, 1.43 | .86, 1.22 | .94, 1.08 | .993, 1.01 |
+| Gemma-3-12B | .79, 1.27 | .91, 1.12 | .97, 1.06 | .997, 1.01 |
+
+* **Ten sentences give the same result as 997** in every model: the means are within .002, at most one pair per draw is worse after Holm, and no (pair, draw) is more than .10 away except one Gemma pair (zh→de, .47 in one draw).
+* **One sentence keeps almost all of the gain.** The mean drops by .004–.013 (most in Qwen3-32B), and every draw is still better than the instruction in about as many pairs as n = 997 (after Holm: 54–57 Llama, 62–65 Qwen3-8B, 23–27 Qwen3-32B, 11–12 Gemma; worse in 0, 0, 2–5 and 1–2).
+* **What small n costs is reliability in a few pairs, not the typical pair.** The median spread of a pair over the three draws is .030–.045 at n = 1 against .015–.025 at n = 100, and the median distance of a (pair, draw) from n = 997 is .015–.025 against .010–.015; even at n = 100, where the vector is nearly identical (cosine > .99), a pair moves by about .01, as a slightly different vector flips a few items. But 2–9 of the 297 (pair, draw) at n = 1 are more than .10 off (22 over the four models, 19 of them worse, mostly into de, te, zh, sw and ru; the worst: Gemma zh→de .17 against .69 at n = 997, Qwen3-32B sw→de .17 against .42 and sw→ru .17 against .32). By n = 3 this is down to 0–3, with single bad draws left (Qwen3-32B th→ru .10 against .90, Gemma zh→de .23).
+* **Fewer sentences give longer, noisier vectors** (E‖v_n‖² = ‖v‖² + noise), so at n = 1 the effective α is 1.2–1.4 on average and up to 3.4 for single pairs; a single sentence can even point away from the 997-sentence vector (one Gemma pair, cosine −0.83). Normalising the vectors to the 997-sentence norm might remove part of the n = 1 tail; it was not tried, as the means barely move.
+* The sentences are matched translations (FLORES is parallel), so the content cancels in μ_T − μ_S; how much unmatched text in S and T would need is not tested.
+
+Runs (all B200 except as noted, one worker per GPU for Qwen3-32B and Gemma-3-12B, two for the 8B models): n = 10 and 100, one 2-GPU job per two models (one GPU each), 13 h 15 min (Llama, Qwen3-32B) and 11 h 17 min (Qwen3-8B, Gemma-3-12B); n = 1 and 3, 5–6 h per model with helpers (main job + helpers: Llama 1 + 2 GPUs, Qwen3-8B 1 + 1, Gemma-3-12B 1 + 1, Qwen3-32B 2 + 2, of which 98 of its 594 units on 2 B300). `analyse`: 8 min for all four models on a CPU.
+
+## Tests against the native question (test)
+
+`native_tests.py`: per held-out pair, an exact McNemar test of each arm against the native question (asked in T, the same 200 items), Holm-corrected over the 99 pairs; per T and overall, the mean difference arm − native with a 95% bootstrap CI over items.
+
+Held-out pairs significantly below / above native, after Holm (uncorrected in brackets):
+
+| | Llama-3.1-8B | Qwen3-8B | Qwen3-32B | Gemma-3-12B |
+|---|---|---|---|---|
+| Instruction | 65 / 1 (71 / 2) | 65 / 3 (71 / 6) | 32 / 5 (42 / 12) | 28 / 0 (45 / 2) |
+| Instruction + prompt-only steering | 23 / 0 (53 / 4) | 20 / 9 (32 / 16) | 13 / 2 (22 / 14) | 21 / 1 (38 / 5) |
+| Instruction in English + prompt-only steering | 19 / 0 (46 / 5) | 18 / 10 (34 / 17) | 11 / 1 (21 / 10) | 24 / 0 (39 / 5) |
+
+* **Steering comes close to native but does not reach it.** Its mean is .035–.089 below native, with CIs that exclude 0 in every model, and 13–23 held-out pairs are significantly below native after Holm (against 28–65 with the instruction).
+* **Where steering is above native, the native run is weak.** 8 of Qwen3-8B's 9 such pairs are into sw, where its native question scores 0.150 (steering 0.397). The others are en→te (Qwen3-8B, Gemma-3-12B), en→fr and en→ja (Qwen3-32B).
+* **Pairs into English are the ones most often below native** (3, 5, 3 and 9 of 9 after Holm), where native is highest (0.80–0.97).
+* **Japanese: steering matches native, it does not beat it.** Into ja, instruction + prompt-only steering is above native in three models (Llama 0.658 against 0.620, +.038 [−.019, +.098]; Qwen3-8B +.012 [−.042, +.067]; Gemma-3-12B +.028 [−.020, +.078]), but the CI excludes 0 only in Qwen3-32B (+.049 [+.001, +.094]), and no pair into ja is significantly below native in any model.
 
 ## Checks on the judge
 
