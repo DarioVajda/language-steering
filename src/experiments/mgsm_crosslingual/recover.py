@@ -4,27 +4,27 @@ Model.generate (../mgsm_steering/generate.py, recover=...; checked against their
 of the instruction prompt, against our instruction + prompt-only steering at one layer. ReCoVeR+ (trained) is not run.
 
 ReCoVeR adds alpha * (r_T - r_S)(j) / |(r_T - r_S)(j)| to the output of every block j, at every position but the first
-token of the prompt (the chat template included) and at every generated token, with an optional norm restore
-(each output rescaled to the norm of the unsteered one). r_L(j) = mu_L(j) - (the mean over languages), mu_L(j) the
+token of the prompt (the chat template included) and at every generated token, with the norm restore of all their
+published runs (--restore_norm: each output rescaled to the norm of the unsteered one). r_L(j) = mu_L(j) - (the mean over languages), mu_L(j) the
 mean hidden state j over the tokens (the first excluded) of FLORES sentences in L; the centring cancels in r_T - r_S,
 so the vector is mu_T(j) - mu_S(j), from the same 997 FLORES-200 dev sentences and Model.mean_states as ours. As in
 their code, the vector of the last block is the mean of the model's last hidden state, which Hugging Face returns
 after the final norm.
 
-Arms, both on the instruction prompt (the S question + "Answer in <T>." in S, the `instruction` arm):
-  recover          ReCoVeR as published: all blocks, every token
-  recover_prompt   the same, but the generated tokens are not steered (prompt only, as ours)
-Each arm's alpha (ALPHAS, in units of the normalised vector, covering their 0.2 and 1) and norm restore (off/on)
-are chosen on the dev items of the 11 tuning pairs by the rule of analyse_pairs.py (highest mean success; ties to
-the smaller alpha, then restore off), then each is run on the test items of the 99 held-out pairs. Prompts,
-decoding (greedy, at most 2048 new tokens), batching, split and scoring are those of generate_pairs.py.
+The one arm, recover, is ReCoVeR as published, on the instruction prompt (the S question + "Answer in <T>." in S,
+the `instruction` arm). Its only tuned setting is alpha (their LCB runs use 1, MultiQ 2), in units of the normalised
+vector: BASE_ALPHAS, extended by EXTEND doublings of the largest alpha while the best one is the largest (the scale
+of the hidden states differs between models). It is chosen on the dev items of the 11 tuning pairs by the rule of
+analyse_pairs.py (highest mean success; ties to the smaller alpha), then run on the test items of the 99 held-out
+pairs. Prompts, decoding (greedy, at most 2048 new tokens), batching, split and scoring are those of
+generate_pairs.py.
 
 Tasks per model, shared by any number of workers through claim files (one per task, under
 results/<model>/generations/claims/recover/), in order:
   vectors   mu_L(j) for every hidden state j and the 11 languages -> generations/recover/vectors.pt
-  dev       one unit per (arm, alpha, restore) over the 11 tuning pairs -> generations/recover/dev/<unit>.jsonl
+  dev       one unit per alpha over the 11 tuning pairs -> generations/recover/dev/recover_a<alpha>_r1.jsonl
   select    -> generations/recover/chosen.json
-  test      one unit per (arm, held-out pair) -> generations/recover/test/<arm>_<S>-<T>.jsonl
+  test      one unit per held-out pair -> generations/recover/test/recover_<S>-<T>.jsonl
   analyse   against the existing test runs of the instruction, our arms and native -> results/<model>/recover.json
 A worker heartbeats its claim (touches it every minute); a claim older than STALE seconds without output is taken
 over, so a crashed worker's task is rerun. A unit's output does not depend on which worker ran it (given the GPU type).
@@ -50,9 +50,10 @@ sys.path.insert(0, str(HERE.parent / "mgsm_steering"))
 from generate_pairs import GEN, KEY, LANGS, MODEL, MODELS, PAIRS, RES, TUNE, Model, flores, prompt, split  # noqa: E402
 from tasks import MGSM  # noqa: E402
 
-ARMS = ("recover", "recover_prompt")
-ALPHAS = (0.05, 0.1, 0.2, 0.5, 1, 2, 4, 8, 16)
-RESTORE = (False, True)
+ARM = "recover"
+BASE_ALPHAS = (0.05, 0.1, 0.2, 0.5, 1, 2, 4, 8, 16)
+EXTEND = 4  # doublings added at once when the best dev alpha is the largest of the grid
+MAX_ALPHA = 2 ** 20
 HELD = tuple(p for p in PAIRS if p not in TUNE)
 OUT = GEN / "recover"
 CLAIMS = GEN / "claims" / "recover"
@@ -61,30 +62,53 @@ STALE = 15 * 60
 REFS = ("instruction", "instruction_steer_prompt", "instruction_steer")
 
 
-def unit_name(arm, alpha, restore):
-    return f"{arm}_a{alpha}_r{int(restore)}"
+def dev_path(alpha):
+    return OUT / "dev" / f"{ARM}_a{alpha}_r1.jsonl"
+
+
+_dev_means = {}
+
+
+def dev_mean(alpha):
+    """Mean dev success of alpha over the 11 tuning pairs."""
+    if alpha not in _dev_means:
+        from analyse import load, score  # noqa: E402  (../mgsm_steering/analyse.py; loads fastText)
+        rows = load(dev_path(alpha))
+        keys = [KEY[p] for p in TUNE]
+        by = {k: [r for r in rows if KEY[(r["src"], r["tgt"])] == k] for k in keys}
+        _dev_means[alpha] = sum(score(by[k])["success"] for k in keys) / len(keys)
+    return _dev_means[alpha]
+
+
+def best(grid):
+    return min(grid, key=lambda a: (-round(dev_mean(a), 9), a))
+
+
+def alphas():
+    """The alpha grid so far: BASE_ALPHAS, extended while every dev unit of it exists and the best is the largest."""
+    g = list(BASE_ALPHAS)
+    while all(dev_path(a).exists() for a in g) and best(g) == g[-1] and g[-1] < MAX_ALPHA:
+        g += [g[-1] * 2 ** k for k in range(1, EXTEND + 1)]
+    return tuple(g)
 
 
 def dev_units():
     items = [(r, s, t) for s, t in TUNE for r in split()["dev"]]
-    return {unit_name(arm, a, rn): (arm, a, rn, items) for arm in ARMS for a in ALPHAS for rn in RESTORE}
+    return {dev_path(a).stem: (a, items) for a in alphas()}
 
 
 def test_units():
-    chosen = json.loads((OUT / "chosen.json").read_text())
+    alpha = json.loads((OUT / "chosen.json").read_text())["alpha"]
     test = split()["test"]
-    return {f"{arm}_{KEY[p]}": (arm, chosen[arm]["alpha"], chosen[arm]["restore_norm"], [(r, *p) for r in test])
-            for arm in ARMS for p in HELD}
+    return {f"{ARM}_{KEY[p]}": (alpha, [(r, *p) for r in test]) for p in HELD}
 
 
-def run_unit(M, mu, arm, alpha, restore, items):
+def run_unit(M, mu, alpha, items):
     texts = [prompt("instruction", r, s, t) for r, s, t in items]
-    po = arm == "recover_prompt"
-    res = M.generate(texts, vecs=[mu[t] - mu[s] for _, s, t in items], prompt_only=po,
-                     recover=dict(alpha=alpha, restore_norm=restore))
+    res = M.generate(texts, vecs=[mu[t] - mu[s] for _, s, t in items], recover=dict(alpha=alpha, restore_norm=True))
     task = MGSM()
-    return [dict(id=r["id"], src=s, tgt=t, lang=t, arm=arm, layer="all", alpha=alpha, restore_norm=restore,
-                 prompt_only=po, answer=r["answer"], pred=task.parse(out), system=None, input=x, response=out,
+    return [dict(id=r["id"], src=s, tgt=t, lang=t, arm=ARM, layer="all", alpha=alpha, restore_norm=True,
+                 prompt_only=False, answer=r["answer"], pred=task.parse(out), system=None, input=x, response=out,
                  n_tokens=k, capped=c)
             for (r, s, t), x, (out, k, c) in zip(items, texts, res)]
 
@@ -187,9 +211,9 @@ def work(main):
                 stage, name = t.split("/")
                 if mu is None:
                     mu = torch.load(OUT / "vectors.pt")
-                arm, alpha, restore, items = (dev_units() if stage == "dev" else test_units())[name]
+                alpha, items = (dev_units() if stage == "dev" else test_units())[name]
                 t0 = time.time()
-                rows = run_unit(M, mu, arm, alpha, restore, items)
+                rows = run_unit(M, mu, alpha, items)
                 write_rows(out, rows)
                 acc = sum(r["pred"] is not None and abs(r["pred"] - r["answer"]) < 1e-6 for r in rows) / len(rows)
                 print(f"{MODEL} {t}: acc {acc:.2f} capped {sum(r['capped'] for r in rows)} "
@@ -211,27 +235,15 @@ def work(main):
 
 # ---------------------------------------------------------------- selection and analysis
 def select():
-    from analyse import load, score  # noqa: E402  (../mgsm_steering/analyse.py; loads fastText)
-
-    keys = [KEY[p] for p in TUNE]
-    chosen, grid = {}, {}
-    for arm in ARMS:
-        means = {}
-        for a in ALPHAS:
-            for rn in RESTORE:
-                rows = load(OUT / "dev" / f"{unit_name(arm, a, rn)}.jsonl")
-                by = {k: [r for r in rows if KEY[(r["src"], r["tgt"])] == k] for k in keys}
-                means[(a, rn)] = sum(score(by[k])["success"] for k in keys) / len(keys)
-        (a, rn) = min(means, key=lambda k: (-round(means[k], 9), k[0], k[1]))
-        edge = a in (ALPHAS[0], ALPHAS[-1])
-        chosen[arm] = dict(alpha=a, restore_norm=rn, mean_success=means[(a, rn)], at_grid_edge=edge)
-        grid[arm] = [dict(alpha=a, restore_norm=rn, mean_success=m) for (a, rn), m in sorted(means.items())]
-        print(f"\n{arm}: mean dev success over the tuning pairs (rows: restore_norm, columns: alpha)")
-        print(f"{'':8}" + "".join(f"{x:>7}" for x in ALPHAS))
-        for r in RESTORE:
-            print(f"{str(r):8}" + "".join(f"{means[(x, r)]:>7.3f}" for x in ALPHAS))
-        print(f"chosen: alpha {a}, restore_norm {rn} ({means[(a, rn)]:.3f})" + (" AT THE GRID EDGE" if edge else ""))
-    (OUT / "dev_grid.json").write_text(json.dumps(grid, indent=1) + "\n")
+    g = alphas()
+    a = best(g)
+    edge = a in (g[0], g[-1])
+    chosen = dict(alpha=a, restore_norm=True, mean_success=dev_mean(a), at_grid_edge=edge)
+    print(f"\n{ARM}: mean dev success over the tuning pairs")
+    print("".join(f"{x:>9}" for x in g))
+    print("".join(f"{dev_mean(x):>9.3f}" for x in g))
+    print(f"chosen: alpha {a} ({dev_mean(a):.3f})" + (" AT THE GRID EDGE" if edge else ""))
+    (OUT / "dev_grid.json").write_text(json.dumps([dict(alpha=x, mean_success=dev_mean(x)) for x in g], indent=1) + "\n")
     tmp = OUT / ".chosen.json.tmp"
     tmp.write_text(json.dumps(chosen, indent=1) + "\n")
     tmp.rename(OUT / "chosen.json")
@@ -250,11 +262,13 @@ def analyse():
         rows["native", p] = load(T / f"native_{p[1]}.jsonl")
         for a in REFS:
             rows[a, p] = load(T / f"{a}_{k}.jsonl")
-        for a in ARMS:
-            rows[a, p] = load(OUT / "test" / f"{a}_{k}.jsonl")
+        rows[ARM, p] = load(OUT / "test" / f"{ARM}_{k}.jsonl")
+    chosen = json.loads((OUT / "chosen.json").read_text())
+    assert all((r["alpha"], r["restore_norm"], r["prompt_only"]) == (chosen["alpha"], True, False)
+               for p in HELD for r in rows[ARM, p]), "test runs not at the chosen setting"
     ids = [r["id"] for r in rows["instruction", HELD[0]]]
     assert all([r["id"] for r in rs] == ids for rs in rows.values())
-    ALL = ("native",) + REFS + ARMS
+    ALL = ("native",) + REFS + (ARM,)
     ok = {key: np.array([success(r) for r in rs], dtype=float) for key, rs in rows.items()}
     cor = {key: np.array([correct(r) for r in rs]) for key, rs in rows.items()}
     sc = {key: score(rs) for key, rs in rows.items()}
@@ -262,17 +276,14 @@ def analyse():
     boot = np.random.default_rng(SEED).integers(0, n, (N_BOOT, n))
     item_mean = lambda a: np.mean([ok[a, p] for p in HELD], axis=0)  # per item, over the held-out pairs
     keys = [KEY[p] for p in HELD]
-    out = {"held_out_pairs": keys, "chosen": json.loads((OUT / "chosen.json").read_text()),
+    out = {"held_out_pairs": keys, "chosen": chosen,
            "dev_grid": json.loads((OUT / "dev_grid.json").read_text()), "n_boot": N_BOOT, "seed": SEED,
            "means": {a: {c: float(np.mean([sc[a, p][c] for p in HELD])) for c in
                          ("success", "accuracy", "in_lang", "english", "capped")} | {"success_ci": ci(item_mean(a), boot)}
                      for a in ALL},
            "comparisons": {}}
     # (arm, reference): McNemar per held-out pair on success, Holm over the 99 pairs; mean difference with its CI
-    for a, b in (("recover", "instruction"), ("recover_prompt", "instruction"),
-                 ("recover", "instruction_steer_prompt"), ("recover_prompt", "instruction_steer_prompt"),
-                 ("recover", "instruction_steer"), ("recover", "recover_prompt"),
-                 ("recover", "native"), ("recover_prompt", "native")):
+    for a, b in ((ARM, "instruction"), (ARM, "instruction_steer_prompt"), (ARM, "instruction_steer"), (ARM, "native")):
         per = {}
         for p in HELD:
             g, l, pv = mcnemar([bool(x) for x in ok[b, p]], [bool(x) for x in ok[a, p]])
@@ -285,14 +296,12 @@ def analyse():
             better_worse={k: [cnt(k, 1), cnt(k, -1)] for k in ("p", "p_holm")}, per_pair=per)
     # error consistency with native (agreement.py): kappa on per-item correctness, mean over the held-out pairs
     idx = np.concatenate([np.arange(n)[None], boot])
-    kap = {a: np.stack([kappa(cor[a, p][idx], cor["native", p][idx]) for p in HELD], 1) for a in REFS + ARMS}
+    kap = {a: np.stack([kappa(cor[a, p][idx], cor["native", p][idx]) for p in HELD], 1) for a in REFS + (ARM,)}
     summ = lambda x: dict(mean=float(x[0].mean()), ci=[float(v) for v in np.percentile(x[1:].mean(1), [2.5, 97.5])])
     out["kappa_native"] = {a: summ(kap[a]) for a in kap}
-    out["kappa_native_diff"] = {f"{a}-instruction_steer_prompt": summ(kap[a] - kap["instruction_steer_prompt"])
-                                for a in ARMS}
+    out["kappa_native_diff"] = {f"{ARM}-instruction_steer_prompt": summ(kap[ARM] - kap["instruction_steer_prompt"])}
 
-    print(f"\n{MODEL}: {len(HELD)} held-out pairs, test (n = {n} per pair); chosen on dev: " +
-          ", ".join(f"{a} alpha {out['chosen'][a]['alpha']} restore {out['chosen'][a]['restore_norm']}" for a in ARMS))
+    print(f"\n{MODEL}: {len(HELD)} held-out pairs, test (n = {n} per pair); chosen on dev: alpha {chosen['alpha']}")
     print(f"{'':26}{'success [95% CI]':>24}{'accuracy':>10}{'in T':>8}{'capped':>8}{'kappa native':>14}")
     for a in ALL:
         m = out["means"][a]
