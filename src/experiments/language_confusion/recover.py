@@ -1,44 +1,35 @@
 """ReCoVeR (Sterz et al., 2025) as a baseline on the cross-lingual LCB, against our single-layer steering.
 
-ReCoVeR's training-free ("naive") steering, as on cross-lingual MGSM (../mgsm_crosslingual/recover.py): every block j
-adds alpha * u_T(j) to its output, u_T(j) = (mu_T - mu_en)(j) / |(mu_T - mu_en)(j)|, the mean hidden states of the
-997 FLORES-200 dev sentences, at every position but the first token of the prompt and, for the arm recover, at every
-generated token; recover_prompt steers the prompt only. With restore_norm, each block output is rescaled to its
-unsteered norm. The hooks are Model.generate(recover=...) of ../mgsm_steering/generate.py, checked against the
-authors' code (../mgsm_crosslingual/recover_check.py: identical logits; their Llama LCB result reproduced).
+ReCoVeR's training-free ("naive") steering as published, as on cross-lingual MGSM (../mgsm_crosslingual/recover.py):
+every block j adds alpha * u_T(j) to its output, u_T(j) = (mu_T - mu_en)(j) / |(mu_T - mu_en)(j)|, the mean hidden
+states of the 997 FLORES-200 dev sentences, at every position but the first token of the prompt and at every generated
+token, and rescales each block output to its unsteered norm (--restore_norm, as in all their published runs). The
+hooks are Model.generate(recover=...) of ../mgsm_steering/generate.py, checked against the authors' code
+(../mgsm_crosslingual/recover_check.py: identical logits; their Llama LCB result reproduced).
 
 The protocol is the one of our steering on LCB (generate.py, analyse.py): the LCB prompt as is (with its language
 instruction) is the only user message, greedy, at most 100 new tokens; the dev split (102 prompts) for selection, the
-test split (197) once. Per language:
-  1. dev: the instruction, and both ReCoVeR arms over alpha x restore_norm (the grid of the MGSM baseline);
-  2. per arm, the setting chosen by the rule of analyse.select: the highest LPR among settings whose degenerate rate
-     is at most the instruction's + 0.05; ties go to the lower degenerate rate, the smaller alpha, then restore off;
-  3. test: the instruction, both ReCoVeR arms at their chosen settings, and our instruction + steering arms
-     (all-token and prompt-only) at the settings chosen in our runs (summary.json, summary_prompt.json), rerun here so
-     that every comparison is paired within one job and one generator.
-Then the shared setting (analyse.select_universal: mean over the languages, within the degenerate limit in every
-language) is run on test the same way, against our shared settings. Our arms use our vector, mu_T(l) - mu_en(l) at
-one layer, computed as in generate.py; the rerun is compared with the original test files (agreement).
+test split (197) once. The only tuned setting is alpha (their LCB runs use 1), over BASE_ALPHAS, extended by EXTEND
+doublings of the largest alpha while the best one (per language or shared) is the largest:
+  1. dev: the instruction and ReCoVeR at every alpha of the grid, per language;
+  2. alpha by the rule of analyse.select: the highest LPR among the alphas whose degenerate rate is at most the
+     instruction's + 0.05; ties go to the lower degenerate rate, then the smaller alpha. Per language, and shared
+     (analyse.select_universal: mean over the languages, within the degenerate limit in every language);
+  3. test: ReCoVeR at the chosen alpha, per-language and shared. It is compared with the instruction and our
+     instruction + steering arms (all-token and prompt-only) from our original test runs (generations/<T>_test*.jsonl).
 
-Outputs in results/<LCB_MODEL>/generations/recover/: vectors.pt, <T>_dev.jsonl, <T>_test.jsonl,
-<T>_test_universal.jsonl; the analysis in results/<LCB_MODEL>/summary_recover.json. A stage whose output exists is
-skipped, so a run resumes. With --reverse the languages are done in reverse order: a helper job started next to a
-running one does the languages from the other end, and each process skips the files the other has written. With
---test-helper a process waits for every dev file, then takes the test files from the end of the main order, claiming
-each with an exclusive <file>.claim so that several helpers (one per GPU) never do the same file; no analysis.
+Outputs in results/<LCB_MODEL>/generations/recover/: vectors.pt, <T>_dev.jsonl, <T>_test.jsonl (per-language alpha),
+<T>_test_universal.jsonl (shared alpha); the analysis in results/<LCB_MODEL>/summary_recover.json. A stage whose
+output exists is skipped, so a run resumes; rows of other settings in a dev file are ignored.
 
 Usage: LCB_MODEL=<model> python src/experiments/language_confusion/recover.py            # every stage, then analysis
        LCB_MODEL=<model> python src/experiments/language_confusion/recover.py --analyse  # the analysis only
        LCB_MODEL=<model> python src/experiments/language_confusion/recover.py --smoke    # quick check, ja, 24 prompts
-       LCB_MODEL=<model> python src/experiments/language_confusion/recover.py --reverse  # a helper, languages from ar
-       LCB_MODEL=<model> python src/experiments/language_confusion/recover.py --test-helper  # a test-stage helper
 """
 import argparse
 import importlib.util
 import json
-import os
 import sys
-import time
 from pathlib import Path
 
 import analyse
@@ -47,8 +38,10 @@ import generate as lcb  # LANGS, FLORES_CODE, flores, write
 
 HERE = Path(__file__).resolve().parent
 REC = analyse.GEN / "recover"
-ALPHAS = (0.05, 0.1, 0.2, 0.5, 1, 2, 4, 8, 16)  # as in ../mgsm_crosslingual/recover.py
-ARMS = ("recover", "recover_prompt")
+BASE_ALPHAS = (0.05, 0.1, 0.2, 0.5, 1, 2, 4, 8, 16)  # as in ../mgsm_crosslingual/recover.py
+EXTEND, MAX_ALPHA = 4, 2 ** 20
+ARM = "recover"
+INSTR = ("instruction", None, None, None)
 OURS = {"instruction_steer": "summary.json", "instruction_steer_prompt": "summary_prompt.json"}
 MAX_BATCH = 64
 
@@ -117,15 +110,15 @@ class Runner:
                     acc[l] += ((h.float() * m).sum(1) / m.sum(1)).sum(0)
         return acc / len(texts)
 
-    def run(self, items, cond, alpha=None, restore_norm=None, layer=None):
-        """Rows of one condition on items (one language): instruction, a ReCoVeR arm (alpha, restore_norm) or one of
-        our arms (layer, alpha)."""
+    def run(self, items, cond, alpha=None, layer=None):
+        """Rows of one condition on items (one language): instruction, ReCoVeR (alpha) or one of our arms (layer,
+        alpha; only in the smoke test)."""
         L, v = items[0]["lang"], self.vectors()
         texts = [r["prompt"] for r in items]
-        if cond in ARMS:
+        restore_norm = True if cond == ARM else None
+        if cond == ARM:
             vec = v["recover"][L] - v["recover"]["en"]
-            res = self.M.generate(texts, vecs=[vec] * len(texts), prompt_only=cond == "recover_prompt",
-                                  recover=dict(alpha=alpha, restore_norm=restore_norm))
+            res = self.M.generate(texts, vecs=[vec] * len(texts), recover=dict(alpha=alpha, restore_norm=True))
         elif cond in OURS:
             vec = v["ours"][L][layer] - v["ours"]["en"][layer]
             res = self.M.generate(texts, layer=layer, vecs=[alpha * vec] * len(texts),
@@ -134,7 +127,7 @@ class Runner:
             res = self.M.generate(texts)
         rows = [dict(r, cond=cond, layer=layer, alpha=alpha, restore_norm=restore_norm, response=t, n_tokens=k,
                      capped=c) for r, (t, k, c) in zip(items, res)]
-        print(f"{L} {items[0]['split']} {cond} alpha={alpha} restore={restore_norm} layer={layer} | "
+        print(f"{L} {items[0]['split']} {cond} alpha={alpha} layer={layer} | "
               f"LPR {analyse.score(rows)['lpr']:.2f} | {res[0][0][:70]!r}", flush=True)
         return rows
 
@@ -148,84 +141,69 @@ def key(r):
 
 
 def dev_scores(rows):
+    """{key: scores} of the instruction and ReCoVeR (restore on) in a dev file; other rows are ignored."""
     g = {}
     for r in rows:
-        g.setdefault(key(r), []).append(r)
+        if key(r) == INSTR or (r["cond"] == ARM and r["restore_norm"] is True):
+            g.setdefault(key(r), []).append(r)
     return {k: analyse.score(v) for k, v in g.items()}
 
 
-def select(scores_by_lang):
-    """{arm: (alpha, restore_norm)} shared by the languages {lang: dev scores} (one language: per-language), with
-    the rule of analyse.select_universal."""
+def rkey(alpha):
+    return ARM, alpha, True, None
+
+
+def select(scores_by_lang, grid):
+    """The alpha of grid shared by the languages {lang: dev scores} (one language: per-language), with the rule of
+    analyse.select_universal."""
     S = list(scores_by_lang.values())
-    base = ("instruction", None, None, None)
     mean = lambda k, m: sum(s[k][m] for s in S) / len(S)
-    within = lambda k: all(s[k]["degenerate"] <= s[base]["degenerate"] + analyse.MAX_EXTRA_DEGENERATE for s in S)
-    out = {}
-    for arm in ARMS:
-        keys = [k for k in S[0] if k[0] == arm]
-        ok = [k for k in keys if within(k)] or [min(keys, key=lambda k: mean(k, "degenerate"))]
-        best = min(ok, key=lambda k: (-round(mean(k, "lpr"), 9), round(mean(k, "degenerate"), 9), k[1], k[2]))
-        out[arm] = (best[1], best[2])
-    return out
+    within = lambda k: all(s[k]["degenerate"] <= s[INSTR]["degenerate"] + analyse.MAX_EXTRA_DEGENERATE for s in S)
+    keys = [rkey(a) for a in grid]
+    ok = [k for k in keys if within(k)] or [min(keys, key=lambda k: mean(k, "degenerate"))]
+    return min(ok, key=lambda k: (-round(mean(k, "lpr"), 9), round(mean(k, "degenerate"), 9), k[1]))[1]
 
 
-def run_test(R, L, setting, chosen, ours, f):
-    """The test file f: the instruction, the ReCoVeR arms at their chosen settings, our arms at our settings."""
-    test = [dict(r, split="test") for r in data.load("test", [L])]
-    rows = R.run(test, "instruction")
-    for arm, (a, rn) in chosen.items():
-        rows += R.run(test, arm, a, rn)
-    for arm, (layer, a) in ours.items():
-        rows += R.run(test, arm, a, layer=layer)
-    lcb.write(rows, f)
+def load_dev():
+    return {L: dev_scores(load(REC / f"{L}_dev.jsonl")) for L in lcb.LANGS if (REC / f"{L}_dev.jsonl").exists()}
 
 
-def stages(R, reverse=False):
-    ours = ours_settings()
-    langs = lcb.LANGS[::-1] if reverse else lcb.LANGS
-    for L in langs:
-        f = REC / f"{L}_dev.jsonl"
-        if not f.exists():
-            dev = [dict(r, split="dev") for r in data.load("dev", [L])]
-            rows = R.run(dev, "instruction")
-            for arm in ARMS:
-                for a in ALPHAS:
-                    for rn in (False, True):
-                        rows += R.run(dev, arm, a, rn)
+def alphas(dev):
+    """The alpha grid so far: BASE_ALPHAS, extended while every language has every alpha of it on dev and the best
+    alpha of a language, or the shared one, is the largest."""
+    g = list(BASE_ALPHAS)
+    while (set(dev) == set(lcb.LANGS) and all(rkey(a) in dev[L] for L in lcb.LANGS for a in g) and g[-1] < MAX_ALPHA
+           and g[-1] in [select({L: dev[L]}, g) for L in lcb.LANGS] + [select(dev, g)]):
+        g += [g[-1] * 2 ** k for k in range(1, EXTEND + 1)]
+    return tuple(g)
+
+
+def stages(R):
+    while True:  # dev, until every language has every alpha of the grid
+        dev = load_dev()
+        grid = alphas(dev)
+        todo = [L for L in lcb.LANGS if L not in dev or any(rkey(a) not in dev[L] for a in grid)]
+        if not todo:
+            break
+        for L in todo:
+            f = REC / f"{L}_dev.jsonl"
+            items = [dict(r, split="dev") for r in data.load("dev", [L])]
+            rows = load(f) if f.exists() else []
+            have = dev_scores(rows)
+            if INSTR not in have:
+                rows += R.run(items, "instruction")
+            for a in grid:
+                if rkey(a) not in have:
+                    rows += R.run(items, ARM, a)
             lcb.write(rows, f)
-    dev = {L: dev_scores(load(REC / f"{L}_dev.jsonl")) for L in lcb.LANGS}
-    shared = select(dev)
-    print("shared ReCoVeR setting:", shared, flush=True)
+    shared = select(dev, grid)
+    print(f"alpha grid {grid}; shared alpha {shared}", flush=True)
     for setting in ("test", "test_universal"):
-        for L in langs:
+        for L in lcb.LANGS:
             f = REC / f"{L}_{setting}.jsonl"
-            if f.exists():
-                continue
-            run_test(R, L, setting, select({L: dev[L]}) if setting == "test" else shared, ours[setting][L], f)
-
-
-def test_helper(R):
-    """Test files only, from the end of the order of stages(), each claimed exclusively; waits for the dev files."""
-    devs = [REC / f"{L}_dev.jsonl" for L in lcb.LANGS]
-    while not all(f.exists() for f in devs):
-        time.sleep(30)
-    ours = ours_settings()
-    dev = {L: dev_scores(load(REC / f"{L}_dev.jsonl")) for L in lcb.LANGS}
-    shared = select(dev)
-    todo = [(setting, L) for setting in ("test", "test_universal") for L in lcb.LANGS][::-1]
-    for setting, L in todo:
-        f = REC / f"{L}_{setting}.jsonl"
-        if f.exists():
-            continue
-        try:
-            os.close(os.open(f.with_suffix(".claim"), os.O_CREAT | os.O_EXCL))
-        except FileExistsError:
-            continue
-        if f.exists():
-            continue
-        run_test(R, L, setting, select({L: dev[L]}) if setting == "test" else shared, ours[setting][L], f)
-        f.with_suffix(".claim").unlink()
+            if not f.exists():
+                a = select({L: dev[L]}, grid) if setting == "test" else shared
+                lcb.write(R.run([dict(r, split="test") for r in data.load("test", [L])], ARM, a), f)
 
 
 def compare(a, b):
@@ -235,46 +213,41 @@ def compare(a, b):
     return dict(better=n01, worse=n10, p=p, diff=analyse.score(b)["lpr"] - analyse.score(a)["lpr"])
 
 
-PAIRS = (("recover", "instruction"), ("recover_prompt", "instruction"),
-         ("instruction_steer", "instruction"), ("instruction_steer_prompt", "instruction"),
-         ("recover", "instruction_steer"), ("recover", "instruction_steer_prompt"),
-         ("recover_prompt", "instruction_steer"), ("recover_prompt", "instruction_steer_prompt"))
-SHOWN = ("instruction", "recover", "recover_prompt", "instruction_steer", "instruction_steer_prompt")
+PAIRS = ((ARM, "instruction"), ("instruction_steer", "instruction"), ("instruction_steer_prompt", "instruction"),
+         (ARM, "instruction_steer"), (ARM, "instruction_steer_prompt"))
+SHOWN = ("instruction", ARM, "instruction_steer", "instruction_steer_prompt")
+
+
+def test_rows(L, setting, alpha):
+    """{cond: rows}: ReCoVeR (this run, at alpha), the instruction and our two arms (our original test runs)."""
+    rec = load(REC / f"{L}_{setting}.jsonl")
+    assert all((r["cond"], r["alpha"], r["restore_norm"]) == (ARM, alpha, True) for r in rec), (L, setting)
+    orig = load(analyse.GEN / f"{L}_{setting}.jsonl")
+    prompt = load(analyse.GEN / f"{L}_{setting}_prompt.jsonl")
+    return {ARM: rec, "instruction": [r for r in orig if r["cond"] == "instruction"],
+            "instruction_steer": [r for r in orig if r["cond"] == "instruction_steer"],
+            "instruction_steer_prompt": [r for r in prompt if r["cond"] == "instruction_steer"]}
 
 
 def run_analysis():
-    dev = {L: dev_scores(load(REC / f"{L}_dev.jsonl")) for L in lcb.LANGS}
-    shared = select(dev)
-    out = {"alphas": ALPHAS, "shared": {a: dict(alpha=x, restore_norm=r, at_grid_edge=x == ALPHAS[-1])
-                                        for a, (x, r) in shared.items()}}
-    original = {"test": {arm: f"{{L}}_test{'_prompt' if arm.endswith('_prompt') else ''}.jsonl" for arm in OURS},
-                "test_universal": {arm: f"{{L}}_test_universal{'_prompt' if arm.endswith('_prompt') else ''}.jsonl"
-                                   for arm in OURS}}
+    dev = load_dev()
+    grid = alphas(dev)
+    shared = select(dev, grid)
+    out = {"alphas": grid, "shared": dict(alpha=shared, at_grid_edge=shared == grid[-1])}
     for setting in ("test", "test_universal"):
         res = out[setting] = {}
         for L in lcb.LANGS:
-            rows = load(REC / f"{L}_{setting}.jsonl")
-            by = {c: [r for r in rows if r["cond"] == c] for c in SHOWN}
+            a = select({L: dev[L]}, grid) if setting == "test" else shared
+            by = test_rows(L, setting, a)
             d = res[L] = {"scores": {c: analyse.score(v) for c, v in by.items()},
-                          "settings": {c: {k: v[0][k] for k in ("layer", "alpha", "restore_norm")} for c, v in by.items()
-                                       if c != "instruction"},
+                          "settings": {c: {k: v[0].get(k) for k in ("layer", "alpha", "restore_norm")}
+                                       for c, v in by.items() if c != "instruction"},
                           "compare": {f"{x}-{y}": compare(by[y], by[x]) for x, y in PAIRS}}
             if setting == "test":
-                d["dev_grid"] = [dict(cond=k[0], alpha=k[1], restore_norm=k[2],
-                                      **{m: v[m] for m in ("lpr", "english", "degenerate", "thinking")})
-                                 for k, v in dev[L].items()]
-                d["chosen"] = {a: dict(alpha=x, restore_norm=r, at_grid_edge=x == ALPHAS[-1])
-                               for a, (x, r) in select({L: dev[L]}).items()}
-            agree = {}  # our arms rerun here against our original test runs (other generator, maybe other GPU)
-            for arm in OURS:
-                orig = {r["id"]: r for r in load(analyse.GEN / original[setting][arm].format(L=L))
-                        if r["cond"] == "instruction_steer"}
-                o = [orig[r["id"]] for r in by[arm]]
-                assert (o[0]["layer"], o[0]["alpha"]) == (by[arm][0]["layer"], by[arm][0]["alpha"])
-                agree[arm] = dict(identical=sum(a["response"].strip() == b["response"].strip()
-                                                for a, b in zip(o, by[arm])) / len(o),
-                                  lpr_original=analyse.score(o)["lpr"], lpr_rerun=d["scores"][arm]["lpr"])
-            d["rerun_agreement"] = agree
+                d["dev_grid"] = [dict(alpha=x, **{m: dev[L][rkey(x)][m] for m in ("lpr", "english", "degenerate",
+                                                                                   "thinking")}) for x in grid]
+                d["dev_instruction"] = {m: dev[L][INSTR][m] for m in ("lpr", "english", "degenerate", "thinking")}
+                d["chosen"] = dict(alpha=a, at_grid_edge=a == grid[-1])
         for pair in (f"{x}-{y}" for x, y in PAIRS):
             cs = [res[L]["compare"][pair] for L in lcb.LANGS]
             for c, q in zip(cs, analyse.holm([c["p"] for c in cs])):
@@ -285,17 +258,16 @@ def run_analysis():
 
 
 def report(out):
-    print(f"\n{analyse.MODEL}: ReCoVeR on LCB (test, 197 prompts per language); shared ReCoVeR setting {out['shared']}")
+    print(f"\n{analyse.MODEL}: ReCoVeR on LCB (test, 197 prompts per language); alpha grid {out['alphas']}, "
+          f"shared alpha {out['shared']}")
     for setting in ("test", "test_universal"):
         res = out[setting]
-        print(f"\n== {'per-language settings' if setting == 'test' else 'shared settings'}: LPR (degenerate)")
+        print(f"\n== {'per-language alpha' if setting == 'test' else 'shared alpha'}: LPR (degenerate)")
         print(f"{'':26}" + "".join(f"{L:>12}" for L in lcb.LANGS) + f"{'mean':>8}")
         for c in SHOWN:
             print(f"{c:26}" + "".join(f"{res[L]['scores'][c]['lpr']:>6.2f} ({res[L]['scores'][c]['degenerate']:.2f})"
                                       for L in lcb.LANGS) + f"{res['mean_lpr'][c]:>8.3f}")
-        for c in ("recover", "recover_prompt"):
-            print(f"{'  setting ' + c:26}" + "".join(f"{'a' + str(res[L]['settings'][c]['alpha']) + ('r' if res[L]['settings'][c]['restore_norm'] else ''):>12}"
-                                                  for L in lcb.LANGS))
+        print(f"{'  ' + ARM + ' alpha':26}" + "".join(f"{res[L]['settings'][ARM]['alpha']:>12}" for L in lcb.LANGS))
         print("a - b: LPR difference, prompts better/worse, languages significant better/worse (p < .05; Holm)")
         for pair in (f"{x}-{y}" for x, y in PAIRS):
             cs = {L: res[L]["compare"][pair] for L in lcb.LANGS}
@@ -303,16 +275,11 @@ def report(out):
                              sum(c[k] < .05 and c["better"] < c["worse"] for c in cs.values()))
             print(f"  {pair:44}" + " ".join(f"{L} {c['diff']:+.2f} {c['better']}/{c['worse']}" for L, c in cs.items())
                   + f"   p: {sig('p')}, Holm: {sig('p_holm')}")
-        print("  rerun of our arms vs our original runs (identical responses, LPR original -> rerun):")
-        for arm in OURS:
-            print(f"    {arm:26}" + " ".join(
-                f"{L} {res[L]['rerun_agreement'][arm]['identical']:.2f} {res[L]['rerun_agreement'][arm]['lpr_original']:.2f}->"
-                f"{res[L]['rerun_agreement'][arm]['lpr_rerun']:.2f}" for L in lcb.LANGS))
 
 
 def smoke(R):
-    """A few configurations on 24 dev prompts of ja: our rerun arm and the instruction against our original dev
-    runs (agreement of the two generators), and ReCoVeR at alpha 0.2 and 1; no file is written."""
+    """A few configurations on 24 dev prompts of ja: our arm and the instruction against our original dev runs
+    (agreement of the two generators), and ReCoVeR at alpha 0.2 and 1; no file is written."""
     L, ours = "ja", ours_settings()["test"]["ja"]["instruction_steer"]
     dev = [dict(r, split="dev") for r in data.load("dev", [L])][::4][:24]
     ids = {r["id"] for r in dev}
@@ -322,8 +289,8 @@ def smoke(R):
         rows = R.run(dev, cond, a, layer=layer)
         same = sum(orig[(cond, layer, a, r["id"])].strip() == r["response"] for r in rows)
         print(f"smoke {cond} layer={layer} alpha={a}: identical to the original run {same}/{len(rows)}", flush=True)
-    for arm, a, rn in (("recover", 0.2, True), ("recover", 1, False), ("recover_prompt", 1, False)):
-        R.run(dev, arm, a, rn)
+    for a in (0.2, 1):
+        R.run(dev, ARM, a)
     v = R.vectors()
     cos = R.torch.nn.functional.cosine_similarity(v["recover"][L] - v["recover"]["en"], v["ours"][L] - v["ours"]["en"], dim=-1)
     print(f"smoke: cosine of the two vector computations over layers: min {cos[1:].min():.5f}", flush=True)
@@ -334,8 +301,6 @@ def main():
     g = ap.add_mutually_exclusive_group()
     g.add_argument("--analyse", action="store_true")
     g.add_argument("--smoke", action="store_true")
-    ap.add_argument("--reverse", action="store_true", help="the languages in reverse order (a helper job)")
-    g.add_argument("--test-helper", action="store_true", help="test files only, claimed exclusively (a helper job)")
     a = ap.parse_args()
     if a.analyse:
         return run_analysis()
@@ -344,9 +309,7 @@ def main():
         global REC
         REC = Path(analyse.GEN / "recover_smoke")
         return smoke(R)
-    if a.test_helper:
-        return test_helper(R)
-    stages(R, a.reverse)
+    stages(R)
     run_analysis()
 
 
