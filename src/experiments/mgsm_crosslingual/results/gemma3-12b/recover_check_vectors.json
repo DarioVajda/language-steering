@@ -1,0 +1,27 @@
+{
+ "model": "gemma3-12b",
+ "repo_commit": "4c6eb4dce026f396b6643288ad1b4cc46f22833a",
+ "stages": "vectors",
+ "vectors": {
+  "en-zh": {
+   "min_cosine": 0.9999953508377075,
+   "mean_cosine": 0.9999992847442627,
+   "argmin": 12
+  },
+  "de-ja": {
+   "min_cosine": 0.9999237060546875,
+   "mean_cosine": 0.9999943375587463,
+   "argmin": 21
+  },
+  "sw-fr": {
+   "min_cosine": 0.9999986886978149,
+   "mean_cosine": 0.9999998211860657,
+   "argmin": 42
+  },
+  "th-ru": {
+   "min_cosine": 0.9999978542327881,
+   "mean_cosine": 0.9999994039535522,
+   "argmin": 43
+  }
+ }
+}

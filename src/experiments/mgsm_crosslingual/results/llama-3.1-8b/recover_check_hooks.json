@@ -1,0 +1,166 @@
+{
+ "model": "llama-3.1-8b",
+ "repo_commit": "4c6eb4dce026f396b6643288ad1b4cc46f22833a",
+ "hooks": [
+  {
+   "pair": "en-zh",
+   "alpha": 0.2,
+   "restore_norm": false,
+   "steering_effect": 33.3125,
+   "max_abs_diff_ours": 0.0,
+   "max_abs_diff_prompt_only_ours": 0.0,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "en-zh",
+   "alpha": 0.2,
+   "restore_norm": true,
+   "steering_effect": 33.6875,
+   "max_abs_diff_ours": 0.0,
+   "max_abs_diff_prompt_only_ours": 0.0,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "en-zh",
+   "alpha": 2.0,
+   "restore_norm": false,
+   "steering_effect": 49.5,
+   "max_abs_diff_ours": 0.25,
+   "max_abs_diff_prompt_only_ours": 0.25,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "en-zh",
+   "alpha": 2.0,
+   "restore_norm": true,
+   "steering_effect": 43.3125,
+   "max_abs_diff_ours": 0.4375,
+   "max_abs_diff_prompt_only_ours": 0.4375,
+   "max_abs_diff_their_vector": 0.21484375,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "de-ja",
+   "alpha": 0.2,
+   "restore_norm": false,
+   "steering_effect": 31.2890625,
+   "max_abs_diff_ours": 0.625,
+   "max_abs_diff_prompt_only_ours": 0.625,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "de-ja",
+   "alpha": 0.2,
+   "restore_norm": true,
+   "steering_effect": 31.2734375,
+   "max_abs_diff_ours": 0.703125,
+   "max_abs_diff_prompt_only_ours": 0.703125,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "de-ja",
+   "alpha": 2.0,
+   "restore_norm": false,
+   "steering_effect": 37.84375,
+   "max_abs_diff_ours": 0.1875,
+   "max_abs_diff_prompt_only_ours": 0.25,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "de-ja",
+   "alpha": 2.0,
+   "restore_norm": true,
+   "steering_effect": 42.125,
+   "max_abs_diff_ours": 0.34375,
+   "max_abs_diff_prompt_only_ours": 0.34375,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "sw-fr",
+   "alpha": 0.2,
+   "restore_norm": false,
+   "steering_effect": 24.046875,
+   "max_abs_diff_ours": 0.71875,
+   "max_abs_diff_prompt_only_ours": 0.71875,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "sw-fr",
+   "alpha": 0.2,
+   "restore_norm": true,
+   "steering_effect": 23.9375,
+   "max_abs_diff_ours": 0.703125,
+   "max_abs_diff_prompt_only_ours": 0.703125,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "sw-fr",
+   "alpha": 2.0,
+   "restore_norm": false,
+   "steering_effect": 40.84375,
+   "max_abs_diff_ours": 0.171875,
+   "max_abs_diff_prompt_only_ours": 0.230712890625,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "sw-fr",
+   "alpha": 2.0,
+   "restore_norm": true,
+   "steering_effect": 40.375,
+   "max_abs_diff_ours": 0.3125,
+   "max_abs_diff_prompt_only_ours": 0.3125,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "th-ru",
+   "alpha": 0.2,
+   "restore_norm": false,
+   "steering_effect": 37.9375,
+   "max_abs_diff_ours": 0.0,
+   "max_abs_diff_prompt_only_ours": 0.0,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "th-ru",
+   "alpha": 0.2,
+   "restore_norm": true,
+   "steering_effect": 38.0,
+   "max_abs_diff_ours": 0.0,
+   "max_abs_diff_prompt_only_ours": 0.0,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "th-ru",
+   "alpha": 2.0,
+   "restore_norm": false,
+   "steering_effect": 39.90625,
+   "max_abs_diff_ours": 0.1875,
+   "max_abs_diff_prompt_only_ours": 0.484375,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "th-ru",
+   "alpha": 2.0,
+   "restore_norm": true,
+   "steering_effect": 39.2890625,
+   "max_abs_diff_ours": 0.4140625,
+   "max_abs_diff_prompt_only_ours": 0.4140625,
+   "max_abs_diff_their_vector": 0.00390625,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  }
+ ]
+}

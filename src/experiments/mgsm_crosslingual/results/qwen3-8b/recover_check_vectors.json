@@ -1,0 +1,27 @@
+{
+ "model": "qwen3-8b",
+ "repo_commit": "4c6eb4dce026f396b6643288ad1b4cc46f22833a",
+ "stages": "vectors",
+ "vectors": {
+  "en-zh": {
+   "min_cosine": 0.9999982118606567,
+   "mean_cosine": 0.9999992847442627,
+   "argmin": 23
+  },
+  "de-ja": {
+   "min_cosine": 0.9999989867210388,
+   "mean_cosine": 0.9999997019767761,
+   "argmin": 19
+  },
+  "sw-fr": {
+   "min_cosine": 0.9999992251396179,
+   "mean_cosine": 0.9999998211860657,
+   "argmin": 21
+  },
+  "th-ru": {
+   "min_cosine": 0.9999989867210388,
+   "mean_cosine": 0.9999995827674866,
+   "argmin": 18
+  }
+ }
+}

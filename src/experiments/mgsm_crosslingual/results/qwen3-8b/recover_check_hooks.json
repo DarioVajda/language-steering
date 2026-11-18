@@ -1,0 +1,166 @@
+{
+ "model": "qwen3-8b",
+ "repo_commit": "4c6eb4dce026f396b6643288ad1b4cc46f22833a",
+ "hooks": [
+  {
+   "pair": "en-zh",
+   "alpha": 0.2,
+   "restore_norm": false,
+   "steering_effect": 18.203125,
+   "max_abs_diff_ours": 0.3125,
+   "max_abs_diff_prompt_only_ours": 0.0,
+   "max_abs_diff_their_vector": 0.3125,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "en-zh",
+   "alpha": 0.2,
+   "restore_norm": true,
+   "steering_effect": 19.234375,
+   "max_abs_diff_ours": 0.5,
+   "max_abs_diff_prompt_only_ours": 0.0,
+   "max_abs_diff_their_vector": 0.5,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "en-zh",
+   "alpha": 2.0,
+   "restore_norm": false,
+   "steering_effect": 36.125,
+   "max_abs_diff_ours": 0.5625,
+   "max_abs_diff_prompt_only_ours": 0.5625,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "en-zh",
+   "alpha": 2.0,
+   "restore_norm": true,
+   "steering_effect": 36.3125,
+   "max_abs_diff_ours": 0.0,
+   "max_abs_diff_prompt_only_ours": 0.0,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "de-ja",
+   "alpha": 0.2,
+   "restore_norm": false,
+   "steering_effect": 8.9375,
+   "max_abs_diff_ours": 0.0,
+   "max_abs_diff_prompt_only_ours": 0.0,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "de-ja",
+   "alpha": 0.2,
+   "restore_norm": true,
+   "steering_effect": 9.75,
+   "max_abs_diff_ours": 0.0,
+   "max_abs_diff_prompt_only_ours": 0.0,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "de-ja",
+   "alpha": 2.0,
+   "restore_norm": false,
+   "steering_effect": 43.13818359375,
+   "max_abs_diff_ours": 0.0,
+   "max_abs_diff_prompt_only_ours": 0.0,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "de-ja",
+   "alpha": 2.0,
+   "restore_norm": true,
+   "steering_effect": 42.9921875,
+   "max_abs_diff_ours": 0.0,
+   "max_abs_diff_prompt_only_ours": 0.0,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "sw-fr",
+   "alpha": 0.2,
+   "restore_norm": false,
+   "steering_effect": 17.984375,
+   "max_abs_diff_ours": 0.0,
+   "max_abs_diff_prompt_only_ours": 0.0,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "sw-fr",
+   "alpha": 0.2,
+   "restore_norm": true,
+   "steering_effect": 18.359375,
+   "max_abs_diff_ours": 0.0,
+   "max_abs_diff_prompt_only_ours": 0.0,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "sw-fr",
+   "alpha": 2.0,
+   "restore_norm": false,
+   "steering_effect": 32.0,
+   "max_abs_diff_ours": 0.5625,
+   "max_abs_diff_prompt_only_ours": 0.5625,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "sw-fr",
+   "alpha": 2.0,
+   "restore_norm": true,
+   "steering_effect": 32.0,
+   "max_abs_diff_ours": 1.125,
+   "max_abs_diff_prompt_only_ours": 1.125,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "th-ru",
+   "alpha": 0.2,
+   "restore_norm": false,
+   "steering_effect": 11.0625,
+   "max_abs_diff_ours": 0.0,
+   "max_abs_diff_prompt_only_ours": 0.0,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "th-ru",
+   "alpha": 0.2,
+   "restore_norm": true,
+   "steering_effect": 10.515625,
+   "max_abs_diff_ours": 0.0,
+   "max_abs_diff_prompt_only_ours": 0.0,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "th-ru",
+   "alpha": 2.0,
+   "restore_norm": false,
+   "steering_effect": 34.49609375,
+   "max_abs_diff_ours": 1.625,
+   "max_abs_diff_prompt_only_ours": 1.625,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  },
+  {
+   "pair": "th-ru",
+   "alpha": 2.0,
+   "restore_norm": true,
+   "steering_effect": 35.3203125,
+   "max_abs_diff_ours": 0.0,
+   "max_abs_diff_prompt_only_ours": 0.0,
+   "max_abs_diff_their_vector": 0.0,
+   "max_abs_diff_prompt_only_their_vector": 0.0
+  }
+ ]
+}
