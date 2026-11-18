@@ -10,13 +10,14 @@ The question is in a source language S and the answer is wanted in a target lang
 | Instruction | 0.340 | 0.412 | 0.694 | 0.729 |
 | **Instruction + prompt-only steering** | **0.634** (59 / 1 [57 / 0]) | **0.711** (69 / 0 [62 / 0]) | **0.800** (36 / 6 [31 / 4]) | **0.777** (15 / 5 [11 / 1]) |
 | Instruction in English + prompt-only steering | 0.653 (65 / 1 [61 / 0]) | 0.722 (71 / 1 [67 / 0]) | 0.817 (39 / 5 [31 / 4]) | 0.773 (17 / 5 [11 / 4]) |
+| Baseline: ReCoVeR (all blocks, all tokens) | 0.567 (58 / 10 [52 / 2]) | 0.661 (67 / 0 [55 / 0]) | 0.796 (34 / 1 [28 / 0]) | 0.772 (14 / 3 [11 / 0]) |
 | Control: random direction, same norm | 0.322 (0 / 10 [0 / 2]) | 0.402 (4 / 12 [0 / 2]) | 0.693 (10 / 10 [6 / 3]) | 0.517 (0 / 55 [0 / 43]) |
 | Control: vector towards a wrong language | 0.162 (13 / 53 [6 / 48]) | 0.301 (23 / 49 [16 / 46]) | 0.698 (18 / 28 [14 / 16]) | 0.654 (6 / 50 [4 / 37]) |
 | Held-out pairs below 0.30: instruction / instr. + steering | 47 / 2 | 42 / 5 | 13 / 1 | 4 / 0 |
 | Instr. + prompt-only steering − instruction [95% CI] | +.294 [.275, .311] | +.299 [.284, .314] | +.107 [.099, .115] | +.048 [.042, .053] |
 | Instr. + prompt-only steering − native [95% CI] | −.089 [−.105, −.074] | −.052 [−.066, −.038] | −.035 [−.046, −.024] | −.051 [−.064, −.039] |
 
-In brackets: held-out pairs significantly better / worse than the instruction (McNemar p < 0.05), and in square brackets the same after a Holm correction over the 99 held-out pairs (each arm and model separately). The 95% CIs are from 2000 bootstrap resamples of the 200 test items (the same resample for every pair and arm). As all arms share the items, the CIs of the means themselves are wider (±.02–.03 for the instruction and ±.03 for steering and native; `results/<model>/native_tests.json`) than those of the paired differences. Steering closes 77%, 85%, 75% and 49% of the gap between the instruction and native, but stays significantly below native in every model (*Tests against the native question*, below). Steering does not change which problems are solved: the error consistency with the native question moves by +0.010 [−0.007, 0.026], +0.004 [−0.010, 0.018], +0.002 [−0.014, 0.018] and +0.001 [−0.011, 0.012] (Cohen's κ, below). The vector needs little text: from 10 parallel FLORES sentences instead of 997 the means are within .002, and from a single sentence within .013 (*Number of FLORES sentences*, below).
+In brackets: held-out pairs significantly better / worse than the instruction (McNemar p < 0.05), and in square brackets the same after a Holm correction over the 99 held-out pairs (each arm and model separately). The 95% CIs are from 2000 bootstrap resamples of the 200 test items (the same resample for every pair and arm). As all arms share the items, the CIs of the means themselves are wider (±.02–.03 for the instruction and ±.03 for steering and native; `results/<model>/native_tests.json`) than those of the paired differences. Steering closes 77%, 85%, 75% and 49% of the gap between the instruction and native, but stays significantly below native in every model (*Tests against the native question*, below). Steering does not change which problems are solved: the error consistency with the native question moves by +0.010 [−0.007, 0.026], +0.004 [−0.010, 0.018], +0.002 [−0.014, 0.018] and +0.001 [−0.011, 0.012] (Cohen's κ, below). The vector needs little text: from 10 parallel FLORES sentences instead of 997 the means are within .002, and from a single sentence within .013 (*Number of FLORES sentences*, below). ReCoVeR, the published method with the same direction at every block and every token, fixes the language as well, but is .067 and .051 below prompt-only steering in Llama and Qwen3-8B (in Llama by losing accuracy, below the instruction's), and ties in Qwen3-32B and Gemma-3-12B (*Baseline: ReCoVeR*, below).
 
 ## Reproduce
 
@@ -72,6 +73,13 @@ slurm/submit.sh -J flores-subsets -t 24:00:00 --gres gpu:4 --gres-flags=disable-
 slurm/submit.sh -J flores-help -t 08:00:00 --gres gpu:1 --gres-flags=disable-binding -c 8 --mem 96G \
   --constraint 'GPU_BRD:B200|GPU_BRD:B300' -- bash src/experiments/mgsm_crosslingual/flores_subsets.sh \
   --no-analyse --defer-to <id> qwen3-32b:1:$PWD/logs/hf_cache
+
+# ReCoVeR baseline (after the main runs), all four models in one job, one worker per GPU; LCB's ReCoVeR runs alongside
+slurm/submit.sh -J recover -t 01:30:00 --gres gpu:3 --gres-flags=disable-binding -c 12 --mem 160G --constraint GPU_BRD:B300 -- \
+  bash -c 'bash src/experiments/mgsm_crosslingual/recover.sh --main gemma3-12b llama-3.1-8b:$PWD/logs/hf_cache qwen3-8b qwen3-32b:$PWD/logs/hf_cache &
+  bash src/experiments/language_confusion/recover.sh llama-3.1-8b:$PWD/logs/hf_cache qwen3-8b qwen3-32b:$PWD/logs/hf_cache gemma3-12b; wait'
+# optional helpers: recover.sh without --main; checks against the authors' code (a clone of hSterz/recover @ 4c6eb4d):
+#   XL_MODEL=<model> python src/experiments/mgsm_crosslingual/recover_check.py --repo <clone> --stages hooks,vectors (or lcb)
 ```
 
 `run.sh <model> <gpus> <workers per gpu> [main job id]` runs every stage in one job: vectors, the dev grid, selection, test and the tables. The model is a key of `MODELS` in `../mgsm_steering/generate.py` (`llama-3.1-8b`, `qwen3-8b`, `qwen3-32b`, `gemma3-12b`); every script reads it from the environment variable `XL_MODEL` (set by `run.sh` and `kl.sh`) and writes to `results/<model>/`. Workers share each stage through claim files under `results/<model>/generations/claims/<main job id>/`, as in `../mgsm_steering/`. A helper (with a main job id) waits for the main job's vectors and selection, takes units from the same queue, and leaves the tables to the main job.
@@ -80,7 +88,7 @@ For Llama, `HF_HUB_CACHE=$PWD/logs/hf_cache` is needed because the shared cache'
 
 The Qwen3-32B checkpoint (revision 9216db5) is also in `logs/hf_cache`, downloaded from the Hub; Qwen3-8B (revision b968826) is in the shared cache. Gemma-3-12B-it (revision 96b6f1e) is in the shared cache. Qwen3-32B and Gemma-3-12B run one worker per GPU (B200/B300 only), the 8B models two.
 
-Runs: Llama on 7 GPUs (2 B300 in the main job, helpers on 1 B300 and 4 B200), 2 h 08 min; Qwen3-8B on 9 B200, 3 h 01 min; Qwen3-32B on 20 B200, 1 h 50 min; Gemma-3-12B on 4 B200 (2 in the main job, 2 in a helper for its last 3 h), 13 h 01 min, and the prompt-only steering test units again after the judge change (*Checks on the judge*), 2 h 32 min on 2 B200; mostly the test stage. As in `../mgsm_steering/`, a unit's output depends on which GPU ran it only through bf16 differences. KL: 29 min on 1 B300 (Llama), 37 min on 1 B200 (Qwen3-8B), 18 min on 8 B200 (Qwen3-32B, main job and a helper), 14 min on 2 B200 (Gemma-3-12B). `robustness.py`, `agreement.py` and `analyse_kl.py` run on a CPU in under a minute each. Prompt variants (Qwen3-8B): 4 A100 80 GB (main job and a helper, 2 each), 1 h 53 min. Forced start (Llama): 5 GPUs (2 + 2 B300 and a GH200, main job and helpers), 1 h 52 min. Logit lens (both scripts): 13 min on 1 A100 80 GB (Llama), 5 min on 1 B200 (Qwen3-8B), 11 min on 1 B200 (Qwen3-32B), 2.5 min on 2 B200 (Gemma-3-12B, one script per GPU).
+Runs: Llama on 7 GPUs (2 B300 in the main job, helpers on 1 B300 and 4 B200), 2 h 08 min; Qwen3-8B on 9 B200, 3 h 01 min; Qwen3-32B on 20 B200, 1 h 50 min; Gemma-3-12B on 4 B200 (2 in the main job, 2 in a helper for its last 3 h), 13 h 01 min, and the prompt-only steering test units again after the judge change (*Checks on the judge*), 2 h 32 min on 2 B200; mostly the test stage. As in `../mgsm_steering/`, a unit's output depends on which GPU ran it only through bf16 differences. KL: 29 min on 1 B300 (Llama), 37 min on 1 B200 (Qwen3-8B), 18 min on 8 B200 (Qwen3-32B, main job and a helper), 14 min on 2 B200 (Gemma-3-12B). `robustness.py`, `agreement.py` and `analyse_kl.py` run on a CPU in under a minute each. Prompt variants (Qwen3-8B): 4 A100 80 GB (main job and a helper, 2 each), 1 h 53 min. Forced start (Llama): 5 GPUs (2 + 2 B300 and a GH200, main job and helpers), 1 h 52 min. ReCoVeR: 1 h 02 min on 5 GPUs (3 B300 in the main job, also running LCB's ReCoVeR, and 2 B200 in a helper for Gemma-3-12B), most of it Gemma's dev grid at α = 128 and 256, where every answer runs to the token limit. Logit lens (both scripts): 13 min on 1 A100 80 GB (Llama), 5 min on 1 B200 (Qwen3-8B), 11 min on 1 B200 (Qwen3-32B), 2.5 min on 2 B200 (Gemma-3-12B, one script per GPU).
 
 | File | Contents |
 |---|---|
@@ -98,6 +106,8 @@ Runs: Llama on 7 GPUs (2 B300 in the main job, helpers on 1 B300 and 4 B200), 2 
 | `prefill.py`, `prefill.sh` | forced-start experiment, in one Slurm job, optionally with helpers -> `results/<model>/prefill.json` |
 | `logit_lens.py` | logit lens at the last prompt position, one token per language -> `results/<model>/logit_lens.json` |
 | `logit_lens_top5.py` | the same with each language scored by its native top-5 first tokens -> `results/<model>/logit_lens_top5.json` |
+| `recover.py`, `recover.sh` | the ReCoVeR baseline: dev grid over α, selection, test and analysis, all models in one Slurm job, optionally with helpers -> `results/<model>/recover.json` |
+| `recover_check.py` | checks of the ReCoVeR reimplementation against the authors' code -> `results/<model>/recover_check_<stages>.json` |
 | `check_instructions.py` | NLLB-200 back-translation of the 100 non-English instruction strings |
 | `results/<model>/summary.json` | every number below, and per pair every arm with its McNemar counts (the generations in `results/<model>/generations/` are not committed) |
 | `results/instructions.json` | the instruction strings, back-translations and fastText labels |
@@ -586,6 +596,35 @@ Mean cosine of the vector to the 997-sentence one at the chosen layer, and mean 
 * The sentences are matched translations (FLORES is parallel), so the content cancels in μ_T − μ_S; how much unmatched text in S and T would need is not tested.
 
 Runs (all B200 except as noted, one worker per GPU for Qwen3-32B and Gemma-3-12B, two for the 8B models): n = 10 and 100, one 2-GPU job per two models (one GPU each), 13 h 15 min (Llama, Qwen3-32B) and 11 h 17 min (Qwen3-8B, Gemma-3-12B); n = 1 and 3, 5–6 h per model with helpers (main job + helpers: Llama 1 + 2 GPUs, Qwen3-8B 1 + 1, Gemma-3-12B 1 + 1, Qwen3-32B 2 + 2, of which 98 of its 594 units on 2 B300). `analyse`: 8 min for all four models on a CPU.
+
+## Baseline: ReCoVeR (test)
+
+ReCoVeR (Findings of EMNLP 2025), its training-free variant, as published: the same direction as ours, α · normalize(μ_T − μ_S), added at every block, at every position except the first token and at every generated token, each block's output rescaled to its unsteered norm. It runs with the instruction prompt in S. Its code ([github.com/hSterz/recover](https://github.com/hSterz/recover) @ 4c6eb4d) has no licence, so it is reimplemented (`Model.generate(recover=...)` in `../mgsm_steering/generate.py`) and checked against it (`recover_check.py`, below). The only change to their setup is that α is chosen on dev, like our settings: α ∈ {0.05, 0.1, 0.2, 0.5, 1, 2, 4, 8, 16}, doubled further while the best α is the largest, by the highest mean success over the 11 tuning pairs (ties to the smaller α). One α for all pairs: 0.1 (Llama), 0.5 (Qwen3-8B), 1 (Qwen3-32B), 16 (Gemma-3-12B), none at the edge of the grid. The dev optimum is narrow: in Llama α = 0.2 gives 0.293 and α ≥ 0.5 gives 0, through degenerate answers; Gemma, whose mid-layer hidden norm is about 50,000 (Llama's about 6), falls from 0.722 at α = 16 to 0.660 at 32 and 0.28 at 64.
+
+Mean test success over the 99 held-out pairs (accuracy, in-T rate, answers that hit the 2048-token limit):
+
+| | Llama-3.1-8B | Qwen3-8B | Qwen3-32B | Gemma-3-12B |
+|---|---|---|---|---|
+| Instruction | 0.340 (.673, .492, .030) | 0.412 (.766, .516, .037) | 0.694 (.854, .802, .002) | 0.729 (.806, .905, .002) |
+| ReCoVeR | 0.567 (.579, .959, .076) | 0.661 (.747, .860, .042) | 0.796 (.838, .944, .003) | 0.772 (.793, .974, .002) |
+| Instruction + all-token steering (ours) | 0.602 (.646, .928, .037) | 0.705 (.738, .941, .056) | 0.802 (.846, .942, .003) | 0.774 (.801, .965, .003) |
+| **Instruction + prompt-only steering (ours)** | **0.634** (.655, .963, .041) | **0.711** (.741, .945, .053) | **0.800** (.836, .953, .004) | **0.777** (.805, .964, .002) |
+| ReCoVeR − prompt-only steering [95% CI] | −.067 [−.076, −.059] | −.051 [−.058, −.043] | −.004 [−.010, +.001] | −.005 [−.011, +.002] |
+| Held-out pairs ReCoVeR better / worse than prompt-only steering | 3 / 37 [2 / 8] | 7 / 19 [2 / 13] | 8 / 8 [2 / 3] | 3 / 7 [1 / 1] |
+| ReCoVeR − all-token steering [95% CI] | −.036 [−.045, −.027] | −.044 [−.050, −.038] | −.006 [−.011, −.001] | −.002 [−.008, +.004] |
+
+McNemar per pair, Holm over the 99 pairs in square brackets; bootstrap CIs as in the headline table (`results/<model>/recover.json`).
+
+* **ReCoVeR fixes the language about as well as our steering** (in-T .86–.97), and is significantly better than the instruction in most failing pairs (52, 55, 28 and 11 pairs after Holm).
+* **It is below prompt-only steering in the two models where the instruction fails most**, by .067 (Llama) and .051 (Qwen3-8B), and ties in Qwen3-32B and Gemma-3-12B. In Llama the loss is in the maths: its accuracy falls below the instruction's (.579 against .673; prompt-only steering .655), and twice as many answers run to the token limit (.076 against .041). Steering every block at every generated token over a long chain of thought is what our method avoids: one layer, the prompt only.
+* Error consistency with the native question: ReCoVeR − prompt-only steering −.016 [−.032, +.002], +.010 [−.008, +.028], +.013 [−.002, +.028], +.004 [−.012, +.020] (Cohen's κ).
+
+**Checks of the reimplementation** (`recover_check.py`, against their code):
+* Hooks: the same tokens through their `Steer` hooks and ours (Llama and Qwen3-8B, 4 pairs, α ∈ {0.2, 2} × norm restore off / on, every prompt position and 8 teacher-forced steps). With the same vector the logits are identical except in 4 of 32 settings (at most 0.5, bf16, against a steering effect of 9–50); prompt-only identical in all.
+* Vectors: their collection code against ours, cosine of μ_T − μ_S ≥ 0.9999 at every hidden state (Qwen3-8B, Qwen3-32B, Gemma-3-12B, 4 pairs).
+* Their LCB setting (Llama, 14 languages, 100 tokens, their system prompt; greedy here, they sample): LPR 0.916 without steering and 0.975 with α = 0.2 and norm restore, against 91.0 and 97.9 in their paper.
+
+Not tested: ReCoVeR+ (their trained variant). They tuned for 100-token answers, not for 2048-token chains of thought; the comparison is between the two methods, not of single factors (layers, positions); of their models only Llama is used here.
 
 ## Tests against the native question (test)
 

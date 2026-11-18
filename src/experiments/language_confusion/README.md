@@ -2,7 +2,7 @@
 
 Does a language vector make an instruction-tuned model **answer in the requested language more reliably than the instruction itself?** We use the cross-lingual part of the Language Confusion Benchmark (LCB; Marchisio et al., 2024): English prompts that ask for a reply in another language ("Write in Japanese."). The model sometimes ignores the request and answers in English, especially for long prompts. Four models: Llama-3.1-8B-Instruct (the main one), Qwen3-8B and Qwen3-32B (thinking off), and Gemma-3-12B-it.
 
-**Result: yes, wherever the instruction fails.** On held-out test prompts, steering raises the line-level pass rate from 0.83–0.94 to 0.90–1.00 in Japanese, Chinese, Russian, Hindi and Arabic, and removes nearly all English fallbacks. Turkish, where the instruction already scores 0.97, is unchanged. Adding the vector on top of the instruction is the most consistent arm. Qwen3-8B, whose instruction fails more often (0.77–0.91), gains significantly in all six languages with all-token steering, also after a Holm correction over the languages. Qwen3-32B follows the instruction better (0.87–0.97) and gains less: all-token steering is significant in five languages (three after Holm), and no prompt-only gain survives the correction. Gemma-3-12B-it almost never follows the instruction (LPR .07–.35; 63–89% of its answers start in English, often with a preamble such as "Okay, here's an essay on Machine Learning in Japanese, …"). Steering raises it to .82–1.00 in all six languages, significant after Holm in every mode and setting. LCB only checks the language, though. By hand, steered answers show more code-mixing inside words and, in Turkish and Hindi, some loss of fluency. A benchmark with checkable answers is still needed to measure quality.
+**Result: yes, wherever the instruction fails.** On held-out test prompts, steering raises the line-level pass rate from 0.83–0.94 to 0.90–1.00 in Japanese, Chinese, Russian, Hindi and Arabic, and removes nearly all English fallbacks. Turkish, where the instruction already scores 0.97, is unchanged. Adding the vector on top of the instruction is the most consistent arm. Qwen3-8B, whose instruction fails more often (0.77–0.91), gains significantly in all six languages with all-token steering, also after a Holm correction over the languages. Qwen3-32B follows the instruction better (0.87–0.97) and gains less: all-token steering is significant in five languages (three after Holm), and no prompt-only gain survives the correction. Gemma-3-12B-it almost never follows the instruction (LPR .07–.35; 63–89% of its answers start in English, often with a preamble such as "Okay, here's an essay on Machine Learning in Japanese, …"). Steering raises it to .82–1.00 in all six languages, significant after Holm in every mode and setting. LCB only checks the language, though. By hand, steered answers show more code-mixing inside words and, in Turkish and Hindi, some loss of fluency. A benchmark with checkable answers is still needed to measure quality. The published ReCoVeR, with α tuned on dev, ties with our steering on LCB in every model and language (*Baseline: ReCoVeR*).
 
 ## Reproduce
 
@@ -28,6 +28,9 @@ slurm/submit.sh -J lcb-q8-main -t 06:00:00 --gres gpu:2 --constraint 'GPU_BRD:B2
 slurm/submit.sh -J lcb-q32-main -t 12:00:00 --gres gpu:4 --constraint 'GPU_BRD:B200|GPU_BRD:B300' -- bash $R qwen3-32b 4 1
 slurm/submit.sh -J lcb-gemma -t 12:00:00 --gres gpu:2 --constraint GPU_BRD:B200 -- bash $R gemma3-12b 2 2
 # optional helpers on other nodes join the same queue: ... -- bash $R <model> <gpus> <workers per gpu> <main job id>
+# ReCoVeR baseline, after the runs above: recover.sh <model>[:<HF_HUB_CACHE>] ... (run with the MGSM baseline, ../mgsm_crosslingual/)
+slurm/submit.sh -J lcb-recover -t 01:30:00 --gres gpu:1 --constraint GPU_BRD:B300 -- bash src/experiments/language_confusion/recover.sh \
+  llama-3.1-8b:$PWD/logs/hf_cache qwen3-8b qwen3-32b:$PWD/logs/hf_cache gemma3-12b
 ```
 
 The model is set by `LCB_MODEL` (a key of `MODELS` in `analyse.py`: `llama-3.1-8b`, `qwen3-8b`, `qwen3-32b`, `gemma3-12b`); each model has its own layer grid, the one used in cross-lingual MGSM, and writes to `results/<model>/`. `run.sh` hands the runs (pilot; per language all-token and prompt-only; the universal runs once all dev grids of a mode exist) to workers through a claim queue, then writes the three summaries. Qwen3-32B is loaded from the project's own Hugging Face cache (`HF_HUB_CACHE=logs/hf_cache`, revision `9216db5`, downloaded from the Hub); Gemma-3-12B-it (revision `96b6f1e`) from the shared cache. Gemma's run took 1 h 34 min on 4 B200 (2 in the main job, 2 in a helper).
@@ -40,7 +43,8 @@ Each language run does everything in one job: vectors, the dev grid, selection, 
 | `generate.py` | FLORES-200 vectors, steering hook, generation of all conditions, dev grid → selection → test |
 | `analyse.py` | The LCB metrics (port of the official scorer), extra measures, selection rule, McNemar test, tables |
 | `run.sh` | One job per model: every run below through a claim queue, then the tables |
-| `results/<model>/summary.json`, `summary_prompt.json`, `summary_pilot.json` | Every number below (the per-item generations in `results/<model>/generations/` are not committed) |
+| `recover.py`, `recover.sh` | The ReCoVeR baseline: dev grid over α, per-language and shared selection, test, comparison with our arms; several models in one job |
+| `results/<model>/summary.json`, `summary_prompt.json`, `summary_pilot.json`, `summary_recover.json` | Every number below (the per-item generations in `results/<model>/generations/` are not committed) |
 
 ## Setup
 
@@ -276,9 +280,27 @@ Gemma-3-12B, the other measures on test (per-language settings), instruction →
 * **One setting is enough:** every shared-setting LPR is within .03 of the per-language one. Most chosen settings use layer 12, the lowest of the grid; α = 6, the largest, in tr (prompt-only steering) and in the shared prompt-only setting.
 * Degeneration is at most .07 (tr, prompt-only steering) and drift at most .07.
 
+## Baseline: ReCoVeR (test)
+
+ReCoVeR (Findings of EMNLP 2025), its training-free variant as published (`recover.py`; the method and the checks against the authors' code are in [../mgsm_crosslingual/](../mgsm_crosslingual/), *Baseline: ReCoVeR*): α · normalize(μ_T − μ_S) at every block, at every position except the first token and at every generated token, with norm restore, on the instruction prompt. The only change to their setup is that α is chosen on dev, like our settings, by our rule: highest LPR with degeneration at most the instruction's + 0.05, over α ∈ {0.05, 0.1, 0.2, 0.5, 1, 2, 4, 8, 16}, doubled further while the best α is the largest (Gemma up to 256). It is compared with our original test runs; the main comparison uses one setting for all languages, for ReCoVeR and for ours.
+
+Mean LPR over the six languages, one setting for all languages; in brackets the languages significantly better than the instruction after Holm (none is worse):
+
+| | Llama-3.1-8B | Qwen3-8B | Qwen3-32B | Gemma-3-12B |
+|---|---|---|---|---|
+| Instruction | .904 | .874 | .926 | .157 |
+| ReCoVeR | .975 [5] | .958 [6] | .980 [4] | .976 [6] |
+| Instruction + all-token steering (ours) | .976 [5] | .965 [6] | .958 [0] | .979 [6] |
+| Instruction + prompt-only steering (ours) | .960 [3] | .952 [3] | .952 [0] | .948 [6] |
+| *ReCoVeR α* | 0.1 | 0.5 | 2 | 64 |
+
+* **On LCB the three methods tie.** No language differs significantly between ReCoVeR and either of our arms in any model, after Holm. ReCoVeR is within .02 of all-token steering, and its degeneration is low (.014–.028 on average, at most .051).
+* **Per-language α changes little:** mean LPR .985, .968, .980 and .978 (`test` in `results/<model>/summary_recover.json`), with ReCoVeR better than both our arms only in Llama zh after Holm (+.07 and +.09).
+* **The tie does not carry over to reasoning.** On cross-lingual MGSM, with 2048-token answers, ReCoVeR is .067 and .051 below prompt-only steering in Llama and Qwen3-8B, and ties in the other two. LCB scores only the language of 100 tokens, so it cannot tell the methods apart.
+
 ## All-token or prompt-only
 
-On LCB all-token steering keeps the language at least as well as prompt-only steering in every model, by a wide margin without the instruction. With the instruction, the two are within .03 of each other in every language for Llama and Qwen, and within .06 for Gemma (zh). LCB scores only the language of a 100-token answer, so it cannot show what steering the generated tokens costs. Cross-lingual MGSM ([../mgsm_crosslingual/](../mgsm_crosslingual/)) can: at matched settings, all-token steering loses accuracy over long answers, partly through loops and answers that run to the token limit.
+On LCB all-token steering keeps the language at least as well as prompt-only steering in every model, by a wide margin without the instruction. With the instruction, the two are within .03 of each other in every language for Llama and Qwen, and within .06 for Gemma (zh). LCB scores only the language of a 100-token answer, so it cannot show what steering the generated tokens costs. Cross-lingual MGSM ([../mgsm_crosslingual/](../mgsm_crosslingual/)) can: at matched settings, all-token steering loses accuracy over long answers, partly through loops and answers that run to the token limit. The same holds for ReCoVeR, which ties with our arms here but not on MGSM (above).
 
 ## Sensitivity to layer and α (dev)
 

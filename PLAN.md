@@ -74,25 +74,11 @@ Priority: **P1** needed for a credible paper, **P2** strengthens it, **P3** only
 - [x] **P2 Number of FLORES sentences for the vectors:** instruction + prompt-only steering on test with vectors from 1, 3, 10 or 100 of the 997 FLORES sentences (matched in S and T, not normalised, three draws each, the chosen layer and α not retuned), all four models (`src/experiments/mgsm_crosslingual/flores_subsets.py`). Ten sentences give the same result as 997 (means within .002, at most one pair per draw worse after Holm); one sentence keeps almost all of the gain (−.004 to −.013), but 1–3% of (pair, draw) are then more than .10 worse, which is gone by n = 10. Results in `src/experiments/mgsm_crosslingual/README.md`.
 - [x] **P2 Interpretability:** a forced-start experiment (Llama) and a logit lens at the last prompt position (all four models), for the instruction and instruction + prompt-only steering. With the instruction, the first answer token largely sets the language; the language is chosen in the last 3–4 layers, in Llama and Qwen3-8B after a stage where English leads (in Qwen3-32B only briefly, in Gemma-3-12B strongest, with the choice spread over its last 8 layers); in the failing pairs the instruction lets S win there, steering lets T win. Results in `src/experiments/mgsm_crosslingual/README.md`.
 - [x] **P3 Third model family:** Gemma-3-12B-it on cross-lingual MGSM (all arms except the prompt variants and the forced start) and on LCB, with its full-attention blocks 12–36 as the layer grid. On MGSM the instruction fails less than in the 8B models (0.729 held-out, 4 pairs below 0.30, from English and Swahili questions); instruction + prompt-only steering gives 0.777, better in 15 held-out pairs and worse in 5 (11 and 1 after Holm), with no pair below 0.30, and both controls are clearly worse. On LCB the instruction fails almost always (LPR .07–.35, English preambles) and steering gives .82–1.00, significant after Holm in every language. The judge no longer scores Gemma's English answer template line (no effect on the other models). Steering without the instruction is close to the instruction (0.752 / 0.741) and leaves some Bengali–Telugu answers in S; κ with native moves by +0.001 with the instruction. Results in both READMEs.
-- [ ] **P1 ReCoVeR baseline** (`src/experiments/mgsm_crosslingual/recover.py`, `recover.sh`, `recover_check.py`): the published method, whose vector has the same direction as ours ([LITERATURE.md](LITERATURE.md), *ReCoVeR*), in its training-free variant, reimplemented in `Model.generate(recover=...)`. Their code (github.com/hSterz/recover @ 4c6eb4d) has no licence, so it is not copied. The method adds α · normalize(μ_T − μ_S) at every block, at every position except the first token, and at every generated token, with an optional norm restore. Both arms use the instruction prompt in S:
-  - `recover`: all blocks, every token, i.e. ReCoVeR as published;
-  - `recover_prompt`: all blocks, prompt tokens only.
-
-  Steps:
-  - A. Check the hooks against their `naive_steer` (logits on the same tokens, prompt and teacher-forced decoding), and our batched decoding against bs = 1.
-  - B. Check our vector construction against their `_aggregate`, by the cosine at every hidden state.
-  - C. Dev grid: α ∈ {0.05, 0.1, 0.2, 0.5, 1, 2, 4, 8, 16} × restore on/off, on the 11 tuning pairs × 50 dev items.
-  - D. Selection by our rule: highest mean dev success, with ties going to the smaller α, then restore off. Flag the result if the chosen α is at the edge of the grid.
-  - E. Test on the 99 held-out pairs × 200 items.
-  - F. Analysis:
-    - success, accuracy, in-T rate and capped rate;
-    - McNemar + Holm against `instruction_steer_prompt`, `instruction_steer`, `instruction` and native;
-    - bootstrap CIs;
-    - κ with native.
-    Output goes to `results/<model>/recover.json`.
-  - G. Fidelity check: Llama cross-lingual LCB in their setting (100 tokens, their system prompt; greedy here). The paper reports 91.0 → 97.9 LPR.
-
-  All four models run in one main job plus helpers, sharing the work through claim files.
+- [x] **P1 ReCoVeR baseline** (`src/experiments/mgsm_crosslingual/recover.py`, `recover.sh`, `recover_check.py`; `src/experiments/language_confusion/recover.py`, `recover.sh`): the published method, whose vector has the same direction as ours ([LITERATURE.md](LITERATURE.md), *ReCoVeR*), in its training-free variant, reimplemented in `Model.generate(recover=...)`. Their code (github.com/hSterz/recover @ 4c6eb4d) has no licence, so it is not copied. As published: α · normalize(μ_T − μ_S) at every block, at every position except the first token and at every generated token, with norm restore, on the instruction prompt in S. The only change is that α is chosen on dev (α ∈ {0.05, …, 16}, doubled while the best is the largest); one α for all pairs on MGSM, one shared setting on LCB (per-language as a secondary result). No other variants, and our arms are not rerun.
+  - Checks against their code: hook logits identical with the same vector (up to bf16 in 4 of 32 settings), vector cosine ≥ 0.9999 at every hidden state, their Llama LCB setting 0.916 → 0.975 LPR (paper 91.0 → 97.9).
+  - MGSM (99 held-out pairs), success: ReCoVeR 0.567 / 0.661 / 0.796 / 0.772 (Llama / Qwen3-8B / Qwen3-32B / Gemma; α 0.1 / 0.5 / 1 / 16, none at the grid edge), against prompt-only steering 0.634 / 0.711 / 0.800 / 0.777: −.067 and −.051 (CIs exclude 0) in the 8B models, ties in the other two. In Llama ReCoVeR loses accuracy (.579, below the instruction's .673) and doubles the answers that hit the token limit.
+  - LCB (shared setting), mean LPR: ReCoVeR .975 / .958 / .980 / .976 (α 0.1 / 0.5 / 2 / 64), our all-token .976 / .965 / .958 / .979; no language differs significantly from either of our arms after Holm.
+  - Results in both READMEs (*Baseline: ReCoVeR*). Runs: 1 h 02 min, 3 B300 + 2 B200, everything in one job plus a helper.
 
   Caveats to state in the paper:
   - no ReCoVeR+ (the trained variant);
@@ -101,7 +87,6 @@ Priority: **P1** needed for a credible paper, **P2** strengthens it, **P3** only
   - the comparison is between methods, not single factors (layers × positions);
   - small differences in vector collection (padding);
   - only Llama overlaps with their models.
-  - Gemma: both arms chose α = 16, the top of the grid (2026-11-18). The grid is in their absolute units, and Gemma's mid-layer hidden norm is about 50,000 (Llama's about 6), so α = 16 is a small fraction of the state. It still steers (on MGSM +.046 over the instruction; on LCB the LPR rises from .15 at α ≤ 4 to about .9 at α = 16), but the best α may lie above the grid. We kept the grid, by decision; state this as a limitation, not as a tie.
 
   ITLC is an optional second baseline.
 - [ ] **P1 Second benchmark, outside maths: MMLU-ProX** (Xuan et al., arXiv 2503.10497; `li-lab/MMLU-ProX` on Hugging Face, MIT). 11,829 parallel questions per language, 10 options, all 11 MGSM languages (so the full 110 pairs), a 70-item validation split. Non-maths categories only (law, economics, psychology, business, health, philosophy, history, other: about 5,900 questions), a fixed sample of a few hundred per language, chain of thought ("reason step by step, answer in T"); correctness is the letter, success = correct and the reasoning in T. Arms as in MGSM, the layer and α from MGSM, not retuned. Steps:
