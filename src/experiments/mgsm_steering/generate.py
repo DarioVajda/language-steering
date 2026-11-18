@@ -27,6 +27,7 @@ most MAX_BATCH per batch). In a batch, a row leaves the batch and the KV cache o
 Usage: see README.md (one job runs every stage).
 """
 import argparse
+import functools
 import io
 import json
 import os
@@ -129,14 +130,20 @@ class Model:
         return acc / len(texts)
 
     @torch.inference_mode()
-    def generate(self, texts, layer=None, vecs=None, prompt_only=False, system=None, prefix=None):
+    def generate(self, texts, layer=None, vecs=None, prompt_only=False, system=None, prefix=None, recover=None):
         """Greedy chat responses [(text, n_tokens, capped)]. texts[i] is the user message, system[i] (if given) a
         system message before it. With a layer, row i adds vecs[i] to the output of that block (1-indexed) from
         the start of its user message onward, and at every generated token unless prompt_only.
         With prefix (token ids per row, possibly empty), row i's answer starts with prefix[i] (forced; part of
         the answer, so not steered when prompt_only) and the model continues it, within MAX_NEW answer tokens in
         all; then each result is (answer, n_tokens, capped, continuation), the answer being prefix +
-        continuation and n_tokens counting the continuation."""
+        continuation and n_tokens counting the continuation.
+        With recover=dict(alpha=, restore_norm=) (and no layer), ReCoVeR's training-free steering (Sterz et al.
+        2025, the "naive" arithmetic of recover/steering.py, reimplemented): vecs[i] is [n_layers + 1, d], the
+        difference r_T - r_S of the mean hidden states (index 0: the embeddings), and every block j adds
+        alpha * vecs[i][j] / |vecs[i][j]| to its output at every position but the first token of the prompt, and
+        at every generated token unless prompt_only; with restore_norm, each output is then rescaled to the norm
+        of the block's unsteered output, at every position (see recover_hook)."""
         tok = self.tok
         ps = chat(tok, texts, system)
         forced, prefix = prefix is not None, prefix or [[] for _ in texts]
@@ -147,15 +154,43 @@ class Model:
         with sdpa_kernel([SDPBackend.FLASH_ATTENTION, SDPBackend.EFFICIENT_ATTENTION, SDPBackend.MATH]):
             for s in range(0, len(order), MAX_BATCH):
                 b = order[s:s + MAX_BATCH]
-                v = torch.stack([vecs[i] for i in b]).to("cuda", torch.bfloat16)[:, None] if layer else None
+                if recover:  # [B, n_layers + 1, d], float32 as in ReCoVeR
+                    v = torch.stack([vecs[i] for i in b]).to("cuda", torch.float32)
+                    v = v / torch.linalg.norm(v, dim=-1, keepdim=True) * recover["alpha"]
+                else:
+                    v = torch.stack([vecs[i] for i in b]).to("cuda", torch.bfloat16)[:, None] if layer else None
                 for i, (row, k, d) in zip(b, self._batch([ids[i] for i in b], [pre[i] for i in b],
-                                                       [len(prefix[i]) for i in b], layer, v, prompt_only)):
+                                                       [len(prefix[i]) for i in b], layer, v, prompt_only,
+                                                       recover)):
                     text = tok.decode(prefix[i] + row[:k], skip_special_tokens=True).strip()
                     out[i] = (text, k, not d) + ((tok.decode(row[:k], skip_special_tokens=True).strip(),)
                                                  if forced else ())
         return out
 
-    def _batch(self, ids, pre, forced, layer, vec, prompt_only):
+    def recover_hooks(self, st, start, stop, prompt_only, restore_norm):
+        """Forward hooks on every block for ReCoVeR (see generate): st["vec"] is [B, n_layers + 1, d] (float32, already
+        alpha * unit vectors), start [B, 1] the first steered position of each row in the prefill (the position
+        after its first token), stop [B, 1] the end of its prompt. The arithmetic follows naive_steer in
+        recover/steering.py (commit 4c6eb4d) operation by operation: (h + v) in float32, cast back to h's dtype,
+        then with restore_norm out / |out| * |h| in that dtype."""
+        def hook(j, mod, args, o):
+            h = o[0] if isinstance(o, tuple) else o
+            v = st["vec"][:, j + 1, None]  # the output of block j + 1 (1-indexed) <- hidden state index j + 1
+            if h.shape[1] > 1:  # prefill
+                p = torch.arange(h.shape[1], device="cuda")[None]
+                on = (p >= start) & (p < stop) if prompt_only else p >= start
+                out = (h + on[..., None] * v).to(h.dtype)
+            elif not prompt_only:  # decoding step
+                out = (h + v).to(h.dtype)
+            else:
+                return o
+            if restore_norm:
+                out = out / torch.linalg.norm(out, dim=-1, keepdim=True) * torch.linalg.norm(h, dim=-1, keepdim=True)
+            return (out, *o[1:]) if isinstance(o, tuple) else out
+
+        return [b.register_forward_hook(functools.partial(hook, j)) for j, b in enumerate(self.blocks)]
+
+    def _batch(self, ids, pre, forced, layer, vec, prompt_only, recover=None):
         """[(generated token ids, n_tokens, finished)]; the last forced[i] tokens of ids[i] are a forced start of
         the answer, which takes forced[i] of the MAX_NEW answer tokens of row i."""
         n = max(map(len, ids))
@@ -177,7 +212,11 @@ class Model:
                 h = h + st["vec"]
             return (h, *o[1:]) if isinstance(o, tuple) else h
 
-        handle = self.blocks[layer - 1].register_forward_hook(hook) if layer else None
+        if recover:
+            first = torch.tensor([n - len(r) + 1 for r in ids], device="cuda")[:, None]  # after each row's first token
+            handles = self.recover_hooks(st, first, stop, prompt_only, recover["restore_norm"])
+        else:
+            handles = [self.blocks[layer - 1].register_forward_hook(hook)] if layer else []
         try:
             o = self.model(input_ids=x, attention_mask=mask, position_ids=pos, use_cache=True, logits_to_keep=1)
             cache, logits = o.past_key_values, o.logits[:, -1]
@@ -207,8 +246,8 @@ class Model:
                                past_key_values=cache, use_cache=True)
                 cache, logits = o.past_key_values, o.logits[:, -1]
         finally:
-            if handle:
-                handle.remove()
+            for h in handles:
+                h.remove()
         return list(zip(tokens.tolist(), n_tok.tolist(), done.tolist()))
 
 
