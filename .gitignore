@@ -32,3 +32,11 @@ src/experiments/mgsm_crosslingual/results/*/generations/
 # Related-work notes (local only)
 /LITERATURE.md
 /docs/related_work/
+
+# MMLU-ProX experiment: per-item generations and claims, and the per-question scores of tests.py (regenerable);
+# the other results/<model>/*.json are kept
+src/experiments/mmlu_prox/results/*/generations/
+src/experiments/mmlu_prox/results/*/*_items.json
+
+# Paper: its own repo (github.com/DarioVajda/MLLP-Project, synced with Overleaf)
+/paper/

@@ -38,5 +38,9 @@
   "flores": {
     "url": "https://dl.fbaipublicfiles.com/nllb/flores200_dataset.tar.gz",
     "revision": "sha256:b8b0b76783024b85797e5cc75064eb83fc5288b41e9654dabc7be6ae944011f6"
+  },
+  "mmlu_prox": {
+    "repo_id": "li-lab/MMLU-ProX",
+    "revision": "8e6106a6c6ce1c5027e66cc338143cf997b2aa09"
   }
 }

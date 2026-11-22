@@ -1,4 +1,4 @@
-"""Download the raw benchmark files (MGSM, MSVAMP, XNLI) from the Hugging Face Hub,
+"""Download the raw benchmark files (MGSM, MSVAMP, XNLI, MMLU-ProX) from the Hugging Face Hub,
 plus the original cased SVAMP release from GitHub (used to truecase MSVAMP English),
 MKQA from GitHub, the fastText language-ID models (output-language experiments), the
 Language Confusion Benchmark test sets and English word list from GitHub, and FLORES-200.
@@ -25,6 +25,9 @@ SOURCES = {
     "msvamp": {"repo_id": "Mathoctopus/MSVAMP", "allow_patterns": ["*.json", "README.md"]},
     # XNLI train is machine-translated MultiNLI (~400k rows per language) and is not used.
     "xnli": {"repo_id": "facebook/xnli", "allow_patterns": ["*/validation-*.parquet", "*/test-*.parquet", "README.md"]},
+    # MMLU-ProX (Xuan et al., 2025): the 11 MGSM languages of its 29.
+    "mmlu_prox": {"repo_id": "li-lab/MMLU-ProX",
+                  "allow_patterns": [f"{l}/*.parquet" for l in "en bn de es fr ja ru sw te th zh".split()] + ["README.md"]},
 }
 
 # Pinned commit of https://github.com/arkilpatel/SVAMP (Patel et al., 2021).
