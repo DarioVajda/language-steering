@@ -29,7 +29,16 @@ results/<model>/generations/claims/recover/), in order:
 A worker heartbeats its claim (touches it every minute); a claim older than STALE seconds without output is taken
 over, so a crashed worker's task is rerun. A unit's output does not depend on which worker ran it (given the GPU type).
 
-Usage: XL_MODEL=<model> python recover.py work [--main]   (recover.sh runs workers over all models)
+The every-layer cells of the layers x positions ablation of our method (XL_ARM=every_steer or every_steer_prompt;
+default recover): our steering, not ReCoVeR's, at every block instead of one, with everything else as in our
+instruction + steering arms (instruction_steer, instruction_steer_prompt): block j adds alpha * (mu_T - mu_S)(j), the
+raw difference (not normalised; no norm restore), from the start of the user message onward, and at every generated
+token unless prompt-only (every_steer_prompt). The last block is left out: its stored mean is of the hidden state
+after the final norm, not of the block's output. The vectors are recover's vectors.pt (which agree with ours at the
+grid layers), alpha is chosen on dev by the same rule over NEW_ALPHAS, extended upwards as above and downwards (EXTEND
+halvings) while the best alpha is the smallest; outputs in generations/<arm>/ and results/<model>/<arm>.json.
+
+Usage: [XL_ARM=<arm>] XL_MODEL=<model> python recover.py work [--main]   (recover.sh runs workers over all models)
        XL_MODEL=<model> python recover.py analyse
 `work` runs every task of the model that is free now and exits 0 if the model has nothing left (with --main: only
 once its analysis exists), 2 if it did some work, 3 if work is pending on other workers.
@@ -50,13 +59,20 @@ sys.path.insert(0, str(HERE.parent / "mgsm_steering"))
 from generate_pairs import GEN, KEY, LANGS, MODEL, MODELS, PAIRS, RES, TUNE, Model, flores, prompt, split  # noqa: E402
 from tasks import MGSM  # noqa: E402
 
-ARM = "recover"
+ARM = os.environ.get("XL_ARM", "recover")
+assert ARM in ("recover", "every_steer", "every_steer_prompt"), ARM
+EVERY = ARM != "recover"  # our steering at every block (the ablation)
+PROMPT_ONLY = ARM == "every_steer_prompt"
+RESTORE = not EVERY
 BASE_ALPHAS = (0.05, 0.1, 0.2, 0.5, 1, 2, 4, 8, 16)
+NEW_ALPHAS = (0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2)  # the raw vector adds up over the blocks: smaller alphas
+MIN_ALPHA = 2 ** -20
 EXTEND = 4  # doublings added at once when the best dev alpha is the largest of the grid
 MAX_ALPHA = 2 ** 20
 HELD = tuple(p for p in PAIRS if p not in TUNE)
-OUT = GEN / "recover"
-CLAIMS = GEN / "claims" / "recover"
+OUT = GEN / ARM
+CLAIMS = GEN / "claims" / ARM
+VECTORS = GEN / "recover" / "vectors.pt"
 STALE = 15 * 60
 # the existing test runs it is compared with (generate_pairs.py)
 REFS = ("instruction", "instruction_steer_prompt", "instruction_steer")
@@ -85,10 +101,17 @@ def best(grid):
 
 
 def alphas():
-    """The alpha grid so far: BASE_ALPHAS, extended while every dev unit of it exists and the best is the largest."""
-    g = list(BASE_ALPHAS)
-    while all(dev_path(a).exists() for a in g) and best(g) == g[-1] and g[-1] < MAX_ALPHA:
-        g += [g[-1] * 2 ** k for k in range(1, EXTEND + 1)]
+    """The alpha grid so far: BASE_ALPHAS (NEW_ALPHAS), extended while every dev unit of it exists and the best is
+    the largest (or, for the every-layer arms, the smallest)."""
+    g = list(NEW_ALPHAS if EVERY else BASE_ALPHAS)
+    while all(dev_path(a).exists() for a in g):
+        b = best(g)
+        if b == g[-1] and g[-1] < MAX_ALPHA:
+            g += [g[-1] * 2 ** k for k in range(1, EXTEND + 1)]
+        elif EVERY and b == g[0] and g[0] > MIN_ALPHA:
+            g = [g[0] / 2 ** k for k in range(EXTEND, 0, -1)] + g
+        else:
+            break
     return tuple(g)
 
 
@@ -105,10 +128,16 @@ def test_units():
 
 def run_unit(M, mu, alpha, items):
     texts = [prompt("instruction", r, s, t) for r, s, t in items]
-    res = M.generate(texts, vecs=[mu[t] - mu[s] for _, s, t in items], recover=dict(alpha=alpha, restore_norm=True))
+    if EVERY:  # blocks 1 .. n - 1 (1-indexed) <- hidden states 1 .. n - 1
+        blocks = tuple(range(1, len(M.blocks)))
+        res = M.generate(texts, layer=blocks, vecs=[alpha * (mu[t] - mu[s])[1:len(M.blocks)] for _, s, t in items],
+                         prompt_only=PROMPT_ONLY)
+    else:
+        res = M.generate(texts, vecs=[mu[t] - mu[s] for _, s, t in items], recover=dict(alpha=alpha, restore_norm=True))
     task = MGSM()
-    return [dict(id=r["id"], src=s, tgt=t, lang=t, arm=ARM, layer="all", alpha=alpha, restore_norm=True,
-                 prompt_only=False, answer=r["answer"], pred=task.parse(out), system=None, input=x, response=out,
+    return [dict(id=r["id"], src=s, tgt=t, lang=t, arm=ARM, layer="every" if EVERY else "all", alpha=alpha,
+                 restore_norm=RESTORE, prompt_only=PROMPT_ONLY, answer=r["answer"], pred=task.parse(out), system=None,
+                 input=x, response=out,
                  n_tokens=k, capped=c)
             for (r, s, t), x, (out, k, c) in zip(items, texts, res)]
 
@@ -163,15 +192,15 @@ def write_rows(path, rows):
 def tasks():
     """[(task, output path, claim path)] that can run now, the number still running, and whether the model is done
     (its analysis exists)."""
-    seq = [("vectors", OUT / "vectors.pt")]
-    if (OUT / "vectors.pt").exists():
+    seq = [("vectors", VECTORS)]
+    if VECTORS.exists():
         seq += [(f"dev/{n}", OUT / "dev" / f"{n}.jsonl") for n in dev_units()]
         if all((OUT / "dev" / f"{n}.jsonl").exists() for n in dev_units()):
             seq.append(("select", OUT / "chosen.json"))
             if (OUT / "chosen.json").exists():
                 seq += [(f"test/{n}", OUT / "test" / f"{n}.jsonl") for n in test_units()]
                 if all((OUT / "test" / f"{n}.jsonl").exists() for n in test_units()):
-                    seq.append(("analyse", RES / "recover.json"))
+                    seq.append(("analyse", RES / f"{ARM}.json"))
     st = [(t, o, CLAIMS / t.replace("/", "_"), status(o, CLAIMS / t.replace("/", "_"))) for t, o in seq]
     free = [(t, o, c) for t, o, c, s in st if s == "free"]
     running = sum(s == "running" for *_, s in st)
@@ -210,7 +239,7 @@ def work(main):
             else:
                 stage, name = t.split("/")
                 if mu is None:
-                    mu = torch.load(OUT / "vectors.pt")
+                    mu = torch.load(VECTORS)
                 alpha, items = (dev_units() if stage == "dev" else test_units())[name]
                 t0 = time.time()
                 rows = run_unit(M, mu, alpha, items)
@@ -238,7 +267,7 @@ def select():
     g = alphas()
     a = best(g)
     edge = a in (g[0], g[-1])
-    chosen = dict(alpha=a, restore_norm=True, mean_success=dev_mean(a), at_grid_edge=edge)
+    chosen = dict(alpha=a, restore_norm=RESTORE, prompt_only=PROMPT_ONLY, mean_success=dev_mean(a), at_grid_edge=edge)
     print(f"\n{ARM}: mean dev success over the tuning pairs")
     print("".join(f"{x:>9}" for x in g))
     print("".join(f"{dev_mean(x):>9.3f}" for x in g))
@@ -264,7 +293,7 @@ def analyse():
             rows[a, p] = load(T / f"{a}_{k}.jsonl")
         rows[ARM, p] = load(OUT / "test" / f"{ARM}_{k}.jsonl")
     chosen = json.loads((OUT / "chosen.json").read_text())
-    assert all((r["alpha"], r["restore_norm"], r["prompt_only"]) == (chosen["alpha"], True, False)
+    assert all((r["alpha"], r["restore_norm"], r["prompt_only"]) == (chosen["alpha"], RESTORE, PROMPT_ONLY)
                for p in HELD for r in rows[ARM, p]), "test runs not at the chosen setting"
     ids = [r["id"] for r in rows["instruction", HELD[0]]]
     assert all([r["id"] for r in rs] == ids for rs in rows.values())
@@ -313,9 +342,9 @@ def analyse():
         print(f"{name:42}{fmt(d['diff_ci'], '+'):>26}   {bw['p'][0]}/{bw['p'][1]} ({bw['p_holm'][0]}/{bw['p_holm'][1]})")
     for name, d in out["kappa_native_diff"].items():
         print(f"kappa with native, {name}: {d['mean']:+.3f} [{d['ci'][0]:+.3f}, {d['ci'][1]:+.3f}]")
-    tmp = RES / ".recover.json.tmp"
+    tmp = RES / f".{ARM}.json.tmp"
     tmp.write_text(json.dumps(out, indent=1) + "\n")
-    tmp.rename(RES / "recover.json")
+    tmp.rename(RES / f"{ARM}.json")
 
 
 def main():

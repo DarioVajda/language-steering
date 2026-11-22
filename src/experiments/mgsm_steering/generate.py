@@ -130,14 +130,17 @@ class Model:
         return acc / len(texts)
 
     @torch.inference_mode()
-    def generate(self, texts, layer=None, vecs=None, prompt_only=False, system=None, prefix=None, recover=None):
+    def generate(self, texts, layer=None, vecs=None, prompt_only=False, system=None, prefix=None, recover=None,
+                 return_ids=False):
         """Greedy chat responses [(text, n_tokens, capped)]. texts[i] is the user message, system[i] (if given) a
         system message before it. With a layer, row i adds vecs[i] to the output of that block (1-indexed) from
-        the start of its user message onward, and at every generated token unless prompt_only.
+        the start of its user message onward, and at every generated token unless prompt_only. With a tuple of
+        layers, vecs[i] is [len(layers), d] and block layers[k] adds vecs[i][k], with the same positions.
         With prefix (token ids per row, possibly empty), row i's answer starts with prefix[i] (forced; part of
         the answer, so not steered when prompt_only) and the model continues it, within MAX_NEW answer tokens in
         all; then each result is (answer, n_tokens, capped, continuation), the answer being prefix +
         continuation and n_tokens counting the continuation.
+        With return_ids, each result ends with the generated token ids (the continuation's, with prefix).
         With recover=dict(alpha=, restore_norm=) (and no layer), ReCoVeR's training-free steering (Sterz et al.
         2025, the "naive" arithmetic of recover/steering.py, reimplemented): vecs[i] is [n_layers + 1, d], the
         difference r_T - r_S of the mean hidden states (index 0: the embeddings), and every block j adds
@@ -158,13 +161,14 @@ class Model:
                     v = torch.stack([vecs[i] for i in b]).to("cuda", torch.float32)
                     v = v / torch.linalg.norm(v, dim=-1, keepdim=True) * recover["alpha"]
                 else:
-                    v = torch.stack([vecs[i] for i in b]).to("cuda", torch.bfloat16)[:, None] if layer else None
+                    v = torch.stack([vecs[i] for i in b]).to("cuda", torch.bfloat16) if layer else None
+                    v = v[:, None] if layer and not isinstance(layer, tuple) else v  # [B, 1 or len(layers), d]
                 for i, (row, k, d) in zip(b, self._batch([ids[i] for i in b], [pre[i] for i in b],
                                                        [len(prefix[i]) for i in b], layer, v, prompt_only,
                                                        recover)):
                     text = tok.decode(prefix[i] + row[:k], skip_special_tokens=True).strip()
                     out[i] = (text, k, not d) + ((tok.decode(row[:k], skip_special_tokens=True).strip(),)
-                                                 if forced else ())
+                                                 if forced else ()) + ((row[:k],) if return_ids else ())
         return out
 
     def recover_hooks(self, st, start, stop, prompt_only, restore_norm):
@@ -202,21 +206,23 @@ class Model:
         pos = (mask.cumsum(1) - 1).clamp(min=0)
         st = {"vec": vec}  # the steering vectors of the rows still generating
 
-        def hook(mod, args, o):
+        def hook(k, mod, args, o):
             h = o[0] if isinstance(o, tuple) else o
+            v = st["vec"][:, k:k + 1]
             if h.shape[1] > 1:  # prefill
                 p = torch.arange(h.shape[1], device="cuda")[None]
                 on = (p >= start) & (p < stop) if prompt_only else p >= start
-                h = h + on[..., None].to(h.dtype) * st["vec"]
+                h = h + on[..., None].to(h.dtype) * v
             elif not prompt_only:  # decoding step
-                h = h + st["vec"]
+                h = h + v
             return (h, *o[1:]) if isinstance(o, tuple) else h
 
         if recover:
             first = torch.tensor([n - len(r) + 1 for r in ids], device="cuda")[:, None]  # after each row's first token
             handles = self.recover_hooks(st, first, stop, prompt_only, recover["restore_norm"])
         else:
-            handles = [self.blocks[layer - 1].register_forward_hook(hook)] if layer else []
+            ls = layer if isinstance(layer, tuple) else (layer,) if layer else ()
+            handles = [self.blocks[l - 1].register_forward_hook(functools.partial(hook, k)) for k, l in enumerate(ls)]
         try:
             o = self.model(input_ids=x, attention_mask=mask, position_ids=pos, use_cache=True, logits_to_keep=1)
             cache, logits = o.past_key_values, o.logits[:, -1]

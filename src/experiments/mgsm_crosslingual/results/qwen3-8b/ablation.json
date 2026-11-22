@@ -1,0 +1,208 @@
+{
+ "held_out_pairs": [
+  "en-bn",
+  "en-de",
+  "en-es",
+  "en-fr",
+  "en-ja",
+  "en-ru",
+  "en-te",
+  "en-th",
+  "en-zh",
+  "bn-en",
+  "bn-de",
+  "bn-es",
+  "bn-fr",
+  "bn-ja",
+  "bn-sw",
+  "bn-te",
+  "bn-th",
+  "bn-zh",
+  "de-en",
+  "de-bn",
+  "de-es",
+  "de-fr",
+  "de-ja",
+  "de-ru",
+  "de-sw",
+  "de-th",
+  "de-zh",
+  "es-en",
+  "es-bn",
+  "es-fr",
+  "es-ja",
+  "es-ru",
+  "es-sw",
+  "es-te",
+  "es-th",
+  "es-zh",
+  "fr-bn",
+  "fr-de",
+  "fr-es",
+  "fr-ja",
+  "fr-ru",
+  "fr-sw",
+  "fr-te",
+  "fr-th",
+  "fr-zh",
+  "ja-en",
+  "ja-bn",
+  "ja-de",
+  "ja-es",
+  "ja-fr",
+  "ja-ru",
+  "ja-sw",
+  "ja-te",
+  "ja-th",
+  "ru-en",
+  "ru-bn",
+  "ru-de",
+  "ru-fr",
+  "ru-ja",
+  "ru-sw",
+  "ru-te",
+  "ru-th",
+  "ru-zh",
+  "sw-en",
+  "sw-bn",
+  "sw-de",
+  "sw-es",
+  "sw-fr",
+  "sw-ru",
+  "sw-te",
+  "sw-th",
+  "sw-zh",
+  "te-en",
+  "te-bn",
+  "te-de",
+  "te-es",
+  "te-fr",
+  "te-ja",
+  "te-ru",
+  "te-sw",
+  "te-zh",
+  "th-en",
+  "th-de",
+  "th-es",
+  "th-fr",
+  "th-ja",
+  "th-ru",
+  "th-sw",
+  "th-te",
+  "th-zh",
+  "zh-en",
+  "zh-bn",
+  "zh-de",
+  "zh-es",
+  "zh-ja",
+  "zh-ru",
+  "zh-sw",
+  "zh-te",
+  "zh-th"
+ ],
+ "n_boot": 2000,
+ "seed": 0,
+ "ours": "instruction_steer_prompt",
+ "means": {
+  "instruction": {
+   "success": 0.41222222222222227,
+   "accuracy": 0.7659595959595961,
+   "in_lang": 0.5164141414141413,
+   "success_ci": [
+    0.4122222222222222,
+    0.3941893939393939,
+    0.4287878787878788
+   ]
+  },
+  "instruction_steer_prompt": {
+   "success": 0.7114141414141414,
+   "accuracy": 0.7413636363636363,
+   "in_lang": 0.9449494949494949,
+   "success_ci": [
+    0.7114141414141415,
+    0.6835858585858585,
+    0.7363232323232323
+   ]
+  },
+  "instruction_steer": {
+   "success": 0.7048989898989899,
+   "accuracy": 0.7384343434343434,
+   "in_lang": 0.941010101010101,
+   "success_ci": [
+    0.7048989898989899,
+    0.6779785353535352,
+    0.7286363636363636
+   ]
+  },
+  "every_steer_prompt": {
+   "success": 0.7034848484848486,
+   "accuracy": 0.7207070707070707,
+   "in_lang": 0.964949494949495,
+   "success_ci": [
+    0.7034848484848485,
+    0.6751010101010101,
+    0.7292436868686869
+   ]
+  },
+  "recover": {
+   "success": 0.6609090909090908,
+   "accuracy": 0.7472727272727273,
+   "in_lang": 0.8597474747474747,
+   "success_ci": [
+    0.6609090909090909,
+    0.6347979797979798,
+    0.6834861111111111
+   ]
+  }
+ },
+ "comparisons": {
+  "instruction_steer_prompt-instruction_steer": {
+   "what": "tokens: all-token",
+   "diff_ci": [
+    0.006515151515151516,
+    0.001010101010101011,
+    0.012020202020202021
+   ],
+   "pairs_better_worse": [
+    6,
+    7
+   ],
+   "pairs_better_worse_holm": [
+    3,
+    0
+   ]
+  },
+  "instruction_steer_prompt-every_steer_prompt": {
+   "what": "layers: every layer",
+   "diff_ci": [
+    0.007929292929292928,
+    0.0012121212121212147,
+    0.015050505050505052
+   ],
+   "pairs_better_worse": [
+    11,
+    7
+   ],
+   "pairs_better_worse_holm": [
+    3,
+    4
+   ]
+  },
+  "instruction_steer_prompt-recover": {
+   "what": "baseline: ReCoVeR",
+   "diff_ci": [
+    0.05050505050505052,
+    0.043282828282828284,
+    0.057982323232323225
+   ],
+   "pairs_better_worse": [
+    19,
+    7
+   ],
+   "pairs_better_worse_holm": [
+    13,
+    2
+   ]
+  }
+ }
+}

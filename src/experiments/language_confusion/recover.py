@@ -22,7 +22,14 @@ Outputs in results/<LCB_MODEL>/generations/recover/: vectors.pt, <T>_dev.jsonl, 
 <T>_test_universal.jsonl (shared alpha); the analysis in results/<LCB_MODEL>/summary_recover.json. A stage whose
 output exists is skipped, so a run resumes; rows of other settings in a dev file are ignored.
 
-Usage: LCB_MODEL=<model> python src/experiments/language_confusion/recover.py            # every stage, then analysis
+The every-layer cells of the layers x positions ablation of our method (LCB_ARM=every_steer or every_steer_prompt;
+default recover), as on MGSM (../mgsm_crosslingual/recover.py): our instruction + steering arms with the raw vector
+alpha * (mu_T - mu_en)(j) of our runs ("ours" in vectors.pt) added at every block j but the last (whose stored mean
+is after the final norm), from the start of the user message onward, at every generated token unless prompt-only; no
+normalisation, no norm restore. alpha over NEW_ALPHAS, extended upwards as above and downwards (EXTEND halvings) while
+the best alpha (per language or shared) is the smallest. Outputs in generations/<arm>/ and summary_<arm>.json.
+
+Usage: [LCB_ARM=<arm>] LCB_MODEL=<model> python src/experiments/language_confusion/recover.py   # every stage, then analysis
        LCB_MODEL=<model> python src/experiments/language_confusion/recover.py --analyse  # the analysis only
        LCB_MODEL=<model> python src/experiments/language_confusion/recover.py --smoke    # quick check, ja, 24 prompts
 """
@@ -37,10 +44,18 @@ import data
 import generate as lcb  # LANGS, FLORES_CODE, flores, write
 
 HERE = Path(__file__).resolve().parent
-REC = analyse.GEN / "recover"
+import os  # noqa: E402
+
+ARM = os.environ.get("LCB_ARM", "recover")
+assert ARM in ("recover", "every_steer", "every_steer_prompt"), ARM
+EVERY = ARM != "recover"
+PROMPT_ONLY = ARM == "every_steer_prompt"
+RESTORE = not EVERY
+REC = analyse.GEN / ARM
+VECTORS = analyse.GEN / "recover" / "vectors.pt"
 BASE_ALPHAS = (0.05, 0.1, 0.2, 0.5, 1, 2, 4, 8, 16)  # as in ../mgsm_crosslingual/recover.py
-EXTEND, MAX_ALPHA = 4, 2 ** 20
-ARM = "recover"
+NEW_ALPHAS = (0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2)  # the every-layer arms, as on MGSM
+EXTEND, MAX_ALPHA, MIN_ALPHA = 4, 2 ** 20, 2 ** -20
 INSTR = ("instruction", None, None, None)
 OURS = {"instruction_steer": "summary.json", "instruction_steer_prompt": "summary_prompt.json"}
 MAX_BATCH = 64
@@ -81,8 +96,9 @@ class Runner:
         each language. recover as in the MGSM baseline (Model.mean_states, positions from the padding); ours as in
         generate.py (no position ids), so that our rerun arms use the vector of our runs."""
         if self._vec is None:
-            path = REC / "vectors.pt"
+            path = VECTORS
             if not path.exists():
+                assert not EVERY, "the every-layer arms use recover's vectors.pt"
                 REC.mkdir(parents=True, exist_ok=True)
                 v = {"recover": {}, "ours": {}}
                 for L in ("en",) + lcb.LANGS:
@@ -115,8 +131,13 @@ class Runner:
         alpha; only in the smoke test)."""
         L, v = items[0]["lang"], self.vectors()
         texts = [r["prompt"] for r in items]
-        restore_norm = True if cond == ARM else None
-        if cond == ARM:
+        restore_norm = RESTORE if cond == ARM else None
+        if cond == ARM and EVERY:  # blocks 1 .. n - 1 <- hidden states 1 .. n - 1
+            n = len(self.M.blocks)
+            vec = v["ours"][L][1:n] - v["ours"]["en"][1:n]
+            res = self.M.generate(texts, layer=tuple(range(1, n)), vecs=[alpha * vec] * len(texts),
+                                  prompt_only=PROMPT_ONLY)
+        elif cond == ARM:
             vec = v["recover"][L] - v["recover"]["en"]
             res = self.M.generate(texts, vecs=[vec] * len(texts), recover=dict(alpha=alpha, restore_norm=True))
         elif cond in OURS:
@@ -144,13 +165,13 @@ def dev_scores(rows):
     """{key: scores} of the instruction and ReCoVeR (restore on) in a dev file; other rows are ignored."""
     g = {}
     for r in rows:
-        if key(r) == INSTR or (r["cond"] == ARM and r["restore_norm"] is True):
+        if key(r) == INSTR or (r["cond"] == ARM and r["restore_norm"] is RESTORE):
             g.setdefault(key(r), []).append(r)
     return {k: analyse.score(v) for k, v in g.items()}
 
 
 def rkey(alpha):
-    return ARM, alpha, True, None
+    return ARM, alpha, RESTORE, None
 
 
 def select(scores_by_lang, grid):
@@ -171,14 +192,20 @@ def load_dev():
 def alphas(dev):
     """The alpha grid so far: BASE_ALPHAS, extended while every language has every alpha of it on dev and the best
     alpha of a language, or the shared one, is the largest."""
-    g = list(BASE_ALPHAS)
-    while (set(dev) == set(lcb.LANGS) and all(rkey(a) in dev[L] for L in lcb.LANGS for a in g) and g[-1] < MAX_ALPHA
-           and g[-1] in [select({L: dev[L]}, g) for L in lcb.LANGS] + [select(dev, g)]):
-        g += [g[-1] * 2 ** k for k in range(1, EXTEND + 1)]
+    g = list(NEW_ALPHAS if EVERY else BASE_ALPHAS)
+    while set(dev) == set(lcb.LANGS) and all(rkey(a) in dev[L] for L in lcb.LANGS for a in g):
+        best = [select({L: dev[L]}, g) for L in lcb.LANGS] + [select(dev, g)]
+        if g[-1] < MAX_ALPHA and g[-1] in best:
+            g += [g[-1] * 2 ** k for k in range(1, EXTEND + 1)]
+        elif EVERY and g[0] > MIN_ALPHA and g[0] in best:
+            g = [g[0] / 2 ** k for k in range(EXTEND, 0, -1)] + g
+        else:
+            break
     return tuple(g)
 
 
 def stages(R):
+    REC.mkdir(parents=True, exist_ok=True)
     while True:  # dev, until every language has every alpha of the grid
         dev = load_dev()
         grid = alphas(dev)
@@ -221,7 +248,7 @@ SHOWN = ("instruction", ARM, "instruction_steer", "instruction_steer_prompt")
 def test_rows(L, setting, alpha):
     """{cond: rows}: ReCoVeR (this run, at alpha), the instruction and our two arms (our original test runs)."""
     rec = load(REC / f"{L}_{setting}.jsonl")
-    assert all((r["cond"], r["alpha"], r["restore_norm"]) == (ARM, alpha, True) for r in rec), (L, setting)
+    assert all((r["cond"], r["alpha"], r["restore_norm"]) == (ARM, alpha, RESTORE) for r in rec), (L, setting)
     orig = load(analyse.GEN / f"{L}_{setting}.jsonl")
     prompt = load(analyse.GEN / f"{L}_{setting}_prompt.jsonl")
     return {ARM: rec, "instruction": [r for r in orig if r["cond"] == "instruction"],
@@ -233,7 +260,8 @@ def run_analysis():
     dev = load_dev()
     grid = alphas(dev)
     shared = select(dev, grid)
-    out = {"alphas": grid, "shared": dict(alpha=shared, at_grid_edge=shared == grid[-1])}
+    edge = lambda a: a == grid[-1] or (EVERY and a == grid[0])
+    out = {"arm": ARM, "alphas": grid, "shared": dict(alpha=shared, at_grid_edge=edge(shared))}
     for setting in ("test", "test_universal"):
         res = out[setting] = {}
         for L in lcb.LANGS:
@@ -247,18 +275,18 @@ def run_analysis():
                 d["dev_grid"] = [dict(alpha=x, **{m: dev[L][rkey(x)][m] for m in ("lpr", "english", "degenerate",
                                                                                    "thinking")}) for x in grid]
                 d["dev_instruction"] = {m: dev[L][INSTR][m] for m in ("lpr", "english", "degenerate", "thinking")}
-                d["chosen"] = dict(alpha=a, at_grid_edge=a == grid[-1])
+                d["chosen"] = dict(alpha=a, at_grid_edge=edge(a))
         for pair in (f"{x}-{y}" for x, y in PAIRS):
             cs = [res[L]["compare"][pair] for L in lcb.LANGS]
             for c, q in zip(cs, analyse.holm([c["p"] for c in cs])):
                 c["p_holm"] = q
         res["mean_lpr"] = {c: sum(res[L]["scores"][c]["lpr"] for L in lcb.LANGS) / len(lcb.LANGS) for c in SHOWN}
-    (analyse.RESULTS / "summary_recover.json").write_text(json.dumps(out, indent=1) + "\n")
+    (analyse.RESULTS / f"summary_{ARM}.json").write_text(json.dumps(out, indent=1) + "\n")
     report(out)
 
 
 def report(out):
-    print(f"\n{analyse.MODEL}: ReCoVeR on LCB (test, 197 prompts per language); alpha grid {out['alphas']}, "
+    print(f"\n{analyse.MODEL}: {ARM} on LCB (test, 197 prompts per language); alpha grid {out['alphas']}, "
           f"shared alpha {out['shared']}")
     for setting in ("test", "test_universal"):
         res = out[setting]

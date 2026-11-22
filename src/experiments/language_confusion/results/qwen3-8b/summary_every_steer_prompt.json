@@ -1,0 +1,1801 @@
+{
+ "arm": "every_steer_prompt",
+ "alphas": [
+  0.01,
+  0.02,
+  0.05,
+  0.1,
+  0.2,
+  0.5,
+  1,
+  2
+ ],
+ "shared": {
+  "alpha": 0.1,
+  "at_grid_edge": false
+ },
+ "test": {
+  "ja": {
+   "scores": {
+    "every_steer_prompt": {
+     "lpr": 0.9692234848484849,
+     "wpr": 0.9471702119120763,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.030456852791878174,
+     "thinking": 0.02030456852791878,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 0.9545454545454546,
+      "complex_prompts": 0.953125
+     }
+    },
+    "instruction": {
+     "lpr": 0.8815463402683551,
+     "wpr": 0.8958138982352057,
+     "n": 197,
+     "english": 0.08121827411167512,
+     "degenerate": 0.0,
+     "thinking": 0.0,
+     "drift": 0.01675977653631285,
+     "lpr_by_source": {
+      "okapi": 0.9850746268656716,
+      "sharegpt": 0.8939393939393939,
+      "complex_prompts": 0.765625
+     }
+    },
+    "instruction_steer": {
+     "lpr": 0.9743418549388698,
+     "wpr": 0.9575260804769002,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.03553299492385787,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 0.9850746268656716,
+      "sharegpt": 0.9696969696969697,
+      "complex_prompts": 0.9682539682539683
+     }
+    },
+    "instruction_steer_prompt": {
+     "lpr": 0.9589646464646465,
+     "wpr": 0.918185951960627,
+     "n": 197,
+     "english": 0.01015228426395939,
+     "degenerate": 0.0,
+     "thinking": 0.0,
+     "drift": 0.005154639175257732,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 0.9393939393939394,
+      "complex_prompts": 0.9375
+     }
+    }
+   },
+   "settings": {
+    "every_steer_prompt": {
+     "layer": null,
+     "alpha": 0.2,
+     "restore_norm": false
+    },
+    "instruction_steer": {
+     "layer": 20,
+     "alpha": 2,
+     "restore_norm": null
+    },
+    "instruction_steer_prompt": {
+     "layer": 8,
+     "alpha": 1,
+     "restore_norm": null
+    }
+   },
+   "compare": {
+    "every_steer_prompt-instruction": {
+     "better": 22,
+     "worse": 5,
+     "p": 0.0015137195587158203,
+     "diff": 0.08767714458012976,
+     "p_holm": 0.0044689178466796875
+    },
+    "instruction_steer-instruction": {
+     "better": 21,
+     "worse": 4,
+     "p": 0.0009105205535888672,
+     "diff": 0.09279551467051472,
+     "p_holm": 0.002185821533203125
+    },
+    "instruction_steer_prompt-instruction": {
+     "better": 20,
+     "worse": 5,
+     "p": 0.004077315330505371,
+     "diff": 0.07741830619629142,
+     "p_holm": 0.012231945991516113
+    },
+    "every_steer_prompt-instruction_steer": {
+     "better": 5,
+     "worse": 6,
+     "p": 1.0,
+     "diff": -0.0051183700903849605,
+     "p_holm": 1.0
+    },
+    "every_steer_prompt-instruction_steer_prompt": {
+     "better": 5,
+     "worse": 3,
+     "p": 0.7265625,
+     "diff": 0.010258838383838342,
+     "p_holm": 1.0
+    }
+   },
+   "dev_grid": [
+    {
+     "alpha": 0.01,
+     "lpr": 0.8658263305322128,
+     "english": 0.049019607843137254,
+     "degenerate": 0.0,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.02,
+     "lpr": 0.8943977591036414,
+     "english": 0.049019607843137254,
+     "degenerate": 0.0,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.05,
+     "lpr": 0.9134453781512605,
+     "english": 0.0392156862745098,
+     "degenerate": 0.0,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.1,
+     "lpr": 0.9215686274509803,
+     "english": 0.0,
+     "degenerate": 0.0196078431372549,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.2,
+     "lpr": 0.961624649859944,
+     "english": 0.0,
+     "degenerate": 0.0392156862745098,
+     "thinking": 0.0196078431372549
+    },
+    {
+     "alpha": 0.5,
+     "lpr": 0.7587725999490704,
+     "english": 0.23529411764705882,
+     "degenerate": 0.23529411764705882,
+     "thinking": 0.22549019607843138
+    },
+    {
+     "alpha": 1,
+     "lpr": 0.5736779560308972,
+     "english": 0.35294117647058826,
+     "degenerate": 0.6666666666666666,
+     "thinking": 0.5980392156862745
+    },
+    {
+     "alpha": 2,
+     "lpr": 0.3051948051948052,
+     "english": 0.6176470588235294,
+     "degenerate": 0.5490196078431373,
+     "thinking": 0.5196078431372549
+    }
+   ],
+   "dev_instruction": {
+    "lpr": 0.8557253204312026,
+    "english": 0.08823529411764706,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   "chosen": {
+    "alpha": 0.2,
+    "at_grid_edge": false
+   }
+  },
+  "zh": {
+   "scores": {
+    "every_steer_prompt": {
+     "lpr": 0.8876945763606212,
+     "wpr": 0.9880952380952381,
+     "n": 197,
+     "english": 0.005076142131979695,
+     "degenerate": 0.0,
+     "thinking": 0.0,
+     "drift": 0.015306122448979591,
+     "lpr_by_source": {
+      "okapi": 0.9552238805970149,
+      "sharegpt": 0.8484848484848485,
+      "complex_prompts": 0.859375
+     }
+    },
+    "instruction": {
+     "lpr": 0.7694599917081261,
+     "wpr": 0.9308496101599549,
+     "n": 197,
+     "english": 0.09644670050761421,
+     "degenerate": 0.005076142131979695,
+     "thinking": 0.0,
+     "drift": 0.04,
+     "lpr_by_source": {
+      "okapi": 0.8656716417910447,
+      "sharegpt": 0.8333333333333334,
+      "complex_prompts": 0.609375
+     }
+    },
+    "instruction_steer": {
+     "lpr": 0.9166666666666666,
+     "wpr": 0.9690656565656566,
+     "n": 197,
+     "english": 0.005076142131979695,
+     "degenerate": 0.015228426395939087,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 1.0,
+      "complex_prompts": 0.75
+     }
+    },
+    "instruction_steer_prompt": {
+     "lpr": 0.8979463478064225,
+     "wpr": 0.9762626262626263,
+     "n": 197,
+     "english": 0.03553299492385787,
+     "degenerate": 0.02030456852791878,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 0.9253731343283582,
+      "sharegpt": 0.9090909090909091,
+      "complex_prompts": 0.859375
+     }
+    }
+   },
+   "settings": {
+    "every_steer_prompt": {
+     "layer": null,
+     "alpha": 0.1,
+     "restore_norm": false
+    },
+    "instruction_steer": {
+     "layer": 16,
+     "alpha": 3,
+     "restore_norm": null
+    },
+    "instruction_steer_prompt": {
+     "layer": 16,
+     "alpha": 6,
+     "restore_norm": null
+    }
+   },
+   "compare": {
+    "every_steer_prompt-instruction": {
+     "better": 28,
+     "worse": 5,
+     "p": 6.618769839406013e-05,
+     "diff": 0.11823458465249514,
+     "p_holm": 0.00026475079357624054
+    },
+    "instruction_steer-instruction": {
+     "better": 36,
+     "worse": 7,
+     "p": 8.963039363152348e-06,
+     "diff": 0.14720667495854056,
+     "p_holm": 4.481519681576174e-05
+    },
+    "instruction_steer_prompt-instruction": {
+     "better": 37,
+     "worse": 12,
+     "p": 0.0004697573180081349,
+     "diff": 0.1284863560982964,
+     "p_holm": 0.0018790292720325397
+    },
+    "every_steer_prompt-instruction_steer": {
+     "better": 12,
+     "worse": 18,
+     "p": 0.361594608053565,
+     "diff": -0.028972090306045417,
+     "p_holm": 1.0
+    },
+    "every_steer_prompt-instruction_steer_prompt": {
+     "better": 14,
+     "worse": 16,
+     "p": 0.855535551905632,
+     "diff": -0.01025177144580125,
+     "p_holm": 1.0
+    }
+   },
+   "dev_grid": [
+    {
+     "alpha": 0.01,
+     "lpr": 0.8161785926491808,
+     "english": 0.08823529411764706,
+     "degenerate": 0.0,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.02,
+     "lpr": 0.8422459893048129,
+     "english": 0.06862745098039216,
+     "degenerate": 0.0196078431372549,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.05,
+     "lpr": 0.8739156268568035,
+     "english": 0.0196078431372549,
+     "degenerate": 0.00980392156862745,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.1,
+     "lpr": 0.9223750106103048,
+     "english": 0.00980392156862745,
+     "degenerate": 0.0,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.2,
+     "lpr": 0.9119938884644766,
+     "english": 0.0,
+     "degenerate": 0.0,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.5,
+     "lpr": 0.9613275613275613,
+     "english": 0.0,
+     "degenerate": 0.29411764705882354,
+     "thinking": 0.16666666666666666
+    },
+    {
+     "alpha": 1,
+     "lpr": 0.3636363636363636,
+     "english": 0.5882352941176471,
+     "degenerate": 0.7549019607843137,
+     "thinking": 0.4019607843137255
+    },
+    {
+     "alpha": 2,
+     "lpr": 0.9164724164724164,
+     "english": 0.0196078431372549,
+     "degenerate": 0.46078431372549017,
+     "thinking": 0.20588235294117646
+    }
+   ],
+   "dev_instruction": {
+    "lpr": 0.8158984806043629,
+    "english": 0.08823529411764706,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   "chosen": {
+    "alpha": 0.1,
+    "at_grid_edge": false
+   }
+  },
+  "ru": {
+   "scores": {
+    "every_steer_prompt": {
+     "lpr": 1.0,
+     "wpr": 0.9737699576409254,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.015228426395939087,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 1.0,
+      "complex_prompts": 1.0
+     }
+    },
+    "instruction": {
+     "lpr": 0.9142995899785721,
+     "wpr": 0.9486016628873771,
+     "n": 197,
+     "english": 0.06598984771573604,
+     "degenerate": 0.015228426395939087,
+     "thinking": 0.0,
+     "drift": 0.011111111111111112,
+     "lpr_by_source": {
+      "okapi": 0.9850746268656716,
+      "sharegpt": 0.9545454545454546,
+      "complex_prompts": 0.8032786885245902
+     }
+    },
+    "instruction_steer": {
+     "lpr": 1.0,
+     "wpr": 0.9621626097035932,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.015228426395939087,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 1.0,
+      "complex_prompts": 1.0
+     }
+    },
+    "instruction_steer_prompt": {
+     "lpr": 1.0,
+     "wpr": 0.967741935483871,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.015228426395939087,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 1.0,
+      "complex_prompts": 1.0
+     }
+    }
+   },
+   "settings": {
+    "every_steer_prompt": {
+     "layer": null,
+     "alpha": 0.1,
+     "restore_norm": false
+    },
+    "instruction_steer": {
+     "layer": 20,
+     "alpha": 1,
+     "restore_norm": null
+    },
+    "instruction_steer_prompt": {
+     "layer": 8,
+     "alpha": 2,
+     "restore_norm": null
+    }
+   },
+   "compare": {
+    "every_steer_prompt-instruction": {
+     "better": 16,
+     "worse": 0,
+     "p": 3.0517578125e-05,
+     "diff": 0.08570041002142792,
+     "p_holm": 0.000152587890625
+    },
+    "instruction_steer-instruction": {
+     "better": 16,
+     "worse": 0,
+     "p": 3.0517578125e-05,
+     "diff": 0.08570041002142792,
+     "p_holm": 0.0001220703125
+    },
+    "instruction_steer_prompt-instruction": {
+     "better": 14,
+     "worse": 0,
+     "p": 0.0001220703125,
+     "diff": 0.08570041002142792,
+     "p_holm": 0.0006103515625
+    },
+    "every_steer_prompt-instruction_steer": {
+     "better": 0,
+     "worse": 0,
+     "p": 1.0,
+     "diff": 0.0,
+     "p_holm": 1.0
+    },
+    "every_steer_prompt-instruction_steer_prompt": {
+     "better": 0,
+     "worse": 0,
+     "p": 1.0,
+     "diff": 0.0,
+     "p_holm": 1.0
+    }
+   },
+   "dev_grid": [
+    {
+     "alpha": 0.01,
+     "lpr": 0.9212715389185977,
+     "english": 0.049019607843137254,
+     "degenerate": 0.0196078431372549,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.02,
+     "lpr": 0.9408793820558526,
+     "english": 0.0196078431372549,
+     "degenerate": 0.0196078431372549,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.05,
+     "lpr": 0.9806722689075631,
+     "english": 0.0,
+     "degenerate": 0.0,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.1,
+     "lpr": 1.0,
+     "english": 0.0,
+     "degenerate": 0.0,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.2,
+     "lpr": 0.9803921568627452,
+     "english": 0.0,
+     "degenerate": 0.0392156862745098,
+     "thinking": 0.0196078431372549
+    },
+    {
+     "alpha": 0.5,
+     "lpr": 0.8445038621509209,
+     "english": 0.08823529411764706,
+     "degenerate": 0.19607843137254902,
+     "thinking": 0.12745098039215685
+    },
+    {
+     "alpha": 1,
+     "lpr": 0.9693627450980392,
+     "english": 0.0196078431372549,
+     "degenerate": 0.10784313725490197,
+     "thinking": 0.058823529411764705
+    },
+    {
+     "alpha": 2,
+     "lpr": 0.577243018419489,
+     "english": 0.4117647058823529,
+     "degenerate": 0.6470588235294118,
+     "thinking": 0.6078431372549019
+    }
+   ],
+   "dev_instruction": {
+    "lpr": 0.9114676173499703,
+    "english": 0.058823529411764705,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   "chosen": {
+    "alpha": 0.1,
+    "at_grid_edge": false
+   }
+  },
+  "hi": {
+   "scores": {
+    "every_steer_prompt": {
+     "lpr": 0.9745071988542137,
+     "wpr": 0.9516129032258065,
+     "n": 197,
+     "english": 0.01015228426395939,
+     "degenerate": 0.025380710659898477,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 0.9850746268656716,
+      "sharegpt": 0.9696969696969697,
+      "complex_prompts": 0.96875
+     }
+    },
+    "instruction": {
+     "lpr": 0.9042787042305579,
+     "wpr": 0.9574468085106383,
+     "n": 197,
+     "english": 0.08629441624365482,
+     "degenerate": 0.015228426395939087,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 0.9850746268656716,
+      "sharegpt": 0.9696969696969697,
+      "complex_prompts": 0.7580645161290323
+     }
+    },
+    "instruction_steer": {
+     "lpr": 0.9841968067774519,
+     "wpr": 0.9777777777777779,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.030456852791878174,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 0.9848484848484849,
+      "complex_prompts": 0.967741935483871
+     }
+    },
+    "instruction_steer_prompt": {
+     "lpr": 0.9486233604703754,
+     "wpr": 1.0,
+     "n": 197,
+     "english": 0.050761421319796954,
+     "degenerate": 0.025380710659898477,
+     "thinking": 0.005076142131979695,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 0.9850746268656716,
+      "sharegpt": 0.9545454545454546,
+      "complex_prompts": 0.90625
+     }
+    }
+   },
+   "settings": {
+    "every_steer_prompt": {
+     "layer": null,
+     "alpha": 0.2,
+     "restore_norm": false
+    },
+    "instruction_steer": {
+     "layer": 16,
+     "alpha": 1,
+     "restore_norm": null
+    },
+    "instruction_steer_prompt": {
+     "layer": 12,
+     "alpha": 4,
+     "restore_norm": null
+    }
+   },
+   "compare": {
+    "every_steer_prompt-instruction": {
+     "better": 17,
+     "worse": 4,
+     "p": 0.007197380065917969,
+     "diff": 0.07022849462365577,
+     "p_holm": 0.007197380065917969
+    },
+    "instruction_steer-instruction": {
+     "better": 17,
+     "worse": 2,
+     "p": 0.000728607177734375,
+     "diff": 0.07991810254689402,
+     "p_holm": 0.002185821533203125
+    },
+    "instruction_steer_prompt-instruction": {
+     "better": 15,
+     "worse": 7,
+     "p": 0.13380050659179688,
+     "diff": 0.04434465623981754,
+     "p_holm": 0.13380050659179688
+    },
+    "every_steer_prompt-instruction_steer": {
+     "better": 3,
+     "worse": 5,
+     "p": 0.7265625,
+     "diff": -0.009689607923238253,
+     "p_holm": 1.0
+    },
+    "every_steer_prompt-instruction_steer_prompt": {
+     "better": 10,
+     "worse": 5,
+     "p": 0.3017578125,
+     "diff": 0.02588383838383823,
+     "p_holm": 1.0
+    }
+   },
+   "dev_grid": [
+    {
+     "alpha": 0.01,
+     "lpr": 0.9333333333333332,
+     "english": 0.06862745098039216,
+     "degenerate": 0.00980392156862745,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.02,
+     "lpr": 0.9619047619047619,
+     "english": 0.0392156862745098,
+     "degenerate": 0.00980392156862745,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.05,
+     "lpr": 0.9901960784313726,
+     "english": 0.0,
+     "degenerate": 0.00980392156862745,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.1,
+     "lpr": 0.9686907020872866,
+     "english": 0.0,
+     "degenerate": 0.049019607843137254,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.2,
+     "lpr": 0.9904761904761905,
+     "english": 0.0,
+     "degenerate": 0.0392156862745098,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.5,
+     "lpr": 0.33361344537815124,
+     "english": 0.6568627450980392,
+     "degenerate": 0.0784313725490196,
+     "thinking": 0.06862745098039216
+    },
+    {
+     "alpha": 1,
+     "lpr": 0.9137254901960784,
+     "english": 0.06862745098039216,
+     "degenerate": 0.5,
+     "thinking": 0.3235294117647059
+    },
+    {
+     "alpha": 2,
+     "lpr": 0.7526881720430106,
+     "english": 0.16666666666666666,
+     "degenerate": 0.2647058823529412,
+     "thinking": 0.0392156862745098
+    }
+   ],
+   "dev_instruction": {
+    "lpr": 0.9238095238095237,
+    "english": 0.0784313725490196,
+    "degenerate": 0.0,
+    "thinking": 0.0
+   },
+   "chosen": {
+    "alpha": 0.2,
+    "at_grid_edge": false
+   }
+  },
+  "tr": {
+   "scores": {
+    "every_steer_prompt": {
+     "lpr": 0.9630172694688824,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.02030456852791878,
+     "thinking": 0.0,
+     "drift": 0.015625,
+     "lpr_by_source": {
+      "okapi": 0.9848484848484849,
+      "sharegpt": 0.9848484848484849,
+      "complex_prompts": 0.9193548387096774
+     }
+    },
+    "instruction": {
+     "lpr": 0.8798295454545455,
+     "n": 197,
+     "english": 0.08629441624365482,
+     "degenerate": 0.03553299492385787,
+     "thinking": 0.0,
+     "drift": 0.017543859649122806,
+     "lpr_by_source": {
+      "okapi": 0.9696969696969697,
+      "sharegpt": 0.953125,
+      "complex_prompts": 0.7166666666666667
+     }
+    },
+    "instruction_steer": {
+     "lpr": 0.9681020733652312,
+     "n": 197,
+     "english": 0.015228426395939087,
+     "degenerate": 0.03553299492385787,
+     "thinking": 0.0,
+     "drift": 0.0053475935828877,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 0.9393939393939394,
+      "complex_prompts": 0.9649122807017544
+     }
+    },
+    "instruction_steer_prompt": {
+     "lpr": 0.9587610497324223,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.030456852791878174,
+     "thinking": 0.0,
+     "drift": 0.015789473684210527,
+     "lpr_by_source": {
+      "okapi": 0.9552238805970149,
+      "sharegpt": 0.9538461538461539,
+      "complex_prompts": 0.9672131147540983
+     }
+    }
+   },
+   "settings": {
+    "every_steer_prompt": {
+     "layer": null,
+     "alpha": 0.1,
+     "restore_norm": false
+    },
+    "instruction_steer": {
+     "layer": 16,
+     "alpha": 1,
+     "restore_norm": null
+    },
+    "instruction_steer_prompt": {
+     "layer": 8,
+     "alpha": 3,
+     "restore_norm": null
+    }
+   },
+   "compare": {
+    "every_steer_prompt-instruction": {
+     "better": 18,
+     "worse": 3,
+     "p": 0.0014896392822265625,
+     "diff": 0.08318772401433694,
+     "p_holm": 0.0044689178466796875
+    },
+    "instruction_steer-instruction": {
+     "better": 18,
+     "worse": 3,
+     "p": 0.0014896392822265625,
+     "diff": 0.08827252791068574,
+     "p_holm": 0.002185821533203125
+    },
+    "instruction_steer_prompt-instruction": {
+     "better": 18,
+     "worse": 5,
+     "p": 0.010622024536132812,
+     "diff": 0.07893150427787676,
+     "p_holm": 0.021244049072265625
+    },
+    "every_steer_prompt-instruction_steer": {
+     "better": 6,
+     "worse": 5,
+     "p": 1.0,
+     "diff": -0.0050848038963488,
+     "p_holm": 1.0
+    },
+    "every_steer_prompt-instruction_steer_prompt": {
+     "better": 6,
+     "worse": 4,
+     "p": 0.75390625,
+     "diff": 0.004256219736460176,
+     "p_holm": 1.0
+    }
+   },
+   "dev_grid": [
+    {
+     "alpha": 0.01,
+     "lpr": 0.859180035650624,
+     "english": 0.06862745098039216,
+     "degenerate": 0.0196078431372549,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.02,
+     "lpr": 0.8719165085388995,
+     "english": 0.0784313725490196,
+     "degenerate": 0.0392156862745098,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.05,
+     "lpr": 0.9155789392981045,
+     "english": 0.0392156862745098,
+     "degenerate": 0.0392156862745098,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.1,
+     "lpr": 0.9411764705882352,
+     "english": 0.0196078431372549,
+     "degenerate": 0.0196078431372549,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.2,
+     "lpr": 0.9693627450980392,
+     "english": 0.0,
+     "degenerate": 0.11764705882352941,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.5,
+     "lpr": 0.6519834467473551,
+     "english": 0.2647058823529412,
+     "degenerate": 0.5686274509803921,
+     "thinking": 0.35294117647058826
+    },
+    {
+     "alpha": 1,
+     "lpr": 0.9140056022408963,
+     "english": 0.0,
+     "degenerate": 0.6764705882352942,
+     "thinking": 0.21568627450980393
+    },
+    {
+     "alpha": 2,
+     "lpr": 0.4953703703703703,
+     "english": 0.3235294117647059,
+     "degenerate": 0.5196078431372549,
+     "thinking": 0.16666666666666666
+    }
+   ],
+   "dev_instruction": {
+    "lpr": 0.8588829471182412,
+    "english": 0.06862745098039216,
+    "degenerate": 0.0196078431372549,
+    "thinking": 0.0
+   },
+   "chosen": {
+    "alpha": 0.1,
+    "at_grid_edge": false
+   }
+  },
+  "ar": {
+   "scores": {
+    "every_steer_prompt": {
+     "lpr": 0.9788204626914304,
+     "wpr": 0.9717514124293786,
+     "n": 197,
+     "english": 0.01015228426395939,
+     "degenerate": 0.01015228426395939,
+     "thinking": 0.0,
+     "drift": 0.010362694300518135,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 0.9848484848484849,
+      "complex_prompts": 0.9516129032258065
+     }
+    },
+    "instruction": {
+     "lpr": 0.8881496719724934,
+     "wpr": 0.9670138888888888,
+     "n": 197,
+     "english": 0.08629441624365482,
+     "degenerate": 0.01015228426395939,
+     "thinking": 0.0,
+     "drift": 0.01694915254237288,
+     "lpr_by_source": {
+      "okapi": 0.9850746268656716,
+      "sharegpt": 0.9696969696969697,
+      "complex_prompts": 0.7096774193548387
+     }
+    },
+    "instruction_steer": {
+     "lpr": 0.9947916666666666,
+     "wpr": 0.9841269841269842,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.005076142131979695,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 1.0,
+      "complex_prompts": 0.984375
+     }
+    },
+    "instruction_steer_prompt": {
+     "lpr": 0.9894179894179894,
+     "wpr": 0.9890710382513661,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.01015228426395939,
+     "thinking": 0.0,
+     "drift": 0.01020408163265306,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 1.0,
+      "complex_prompts": 0.9682539682539683
+     }
+    }
+   },
+   "settings": {
+    "every_steer_prompt": {
+     "layer": null,
+     "alpha": 0.05,
+     "restore_norm": false
+    },
+    "instruction_steer": {
+     "layer": 20,
+     "alpha": 2,
+     "restore_norm": null
+    },
+    "instruction_steer_prompt": {
+     "layer": 20,
+     "alpha": 6,
+     "restore_norm": null
+    }
+   },
+   "compare": {
+    "every_steer_prompt-instruction": {
+     "better": 17,
+     "worse": 0,
+     "p": 1.52587890625e-05,
+     "diff": 0.09067079071893702,
+     "p_holm": 9.1552734375e-05
+    },
+    "instruction_steer-instruction": {
+     "better": 21,
+     "worse": 0,
+     "p": 9.5367431640625e-07,
+     "diff": 0.10664199469417324,
+     "p_holm": 5.7220458984375e-06
+    },
+    "instruction_steer_prompt-instruction": {
+     "better": 19,
+     "worse": 0,
+     "p": 3.814697265625e-06,
+     "diff": 0.10126831744549603,
+     "p_holm": 2.288818359375e-05
+    },
+    "every_steer_prompt-instruction_steer": {
+     "better": 1,
+     "worse": 4,
+     "p": 0.375,
+     "diff": -0.015971203975236214,
+     "p_holm": 1.0
+    },
+    "every_steer_prompt-instruction_steer_prompt": {
+     "better": 1,
+     "worse": 3,
+     "p": 0.625,
+     "diff": -0.010597526726559003,
+     "p_holm": 1.0
+    }
+   },
+   "dev_grid": [
+    {
+     "alpha": 0.01,
+     "lpr": 0.8958333333333334,
+     "english": 0.08823529411764706,
+     "degenerate": 0.029411764705882353,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.02,
+     "lpr": 0.90625,
+     "english": 0.08823529411764706,
+     "degenerate": 0.029411764705882353,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.05,
+     "lpr": 0.9791666666666666,
+     "english": 0.00980392156862745,
+     "degenerate": 0.029411764705882353,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.1,
+     "lpr": 0.9604872251931075,
+     "english": 0.029411764705882353,
+     "degenerate": 0.00980392156862745,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.2,
+     "lpr": 0.9500891265597149,
+     "english": 0.0,
+     "degenerate": 0.049019607843137254,
+     "thinking": 0.0
+    },
+    {
+     "alpha": 0.5,
+     "lpr": 0.05861291486291487,
+     "english": 0.9215686274509803,
+     "degenerate": 0.12745098039215685,
+     "thinking": 0.10784313725490197
+    },
+    {
+     "alpha": 1,
+     "lpr": 0.010416666666666666,
+     "english": 0.9607843137254902,
+     "degenerate": 0.3235294117647059,
+     "thinking": 0.22549019607843138
+    },
+    {
+     "alpha": 2,
+     "lpr": 0.01990493166963755,
+     "english": 0.9607843137254902,
+     "degenerate": 0.18627450980392157,
+     "thinking": 0.16666666666666666
+    }
+   ],
+   "dev_instruction": {
+    "lpr": 0.8854166666666666,
+    "english": 0.08823529411764706,
+    "degenerate": 0.029411764705882353,
+    "thinking": 0.0
+   },
+   "chosen": {
+    "alpha": 0.05,
+    "at_grid_edge": false
+   }
+  },
+  "mean_lpr": {
+   "instruction": 0.872927307268775,
+   "every_steer_prompt": 0.9622104987039388,
+   "instruction_steer": 0.9730165114024811,
+   "instruction_steer_prompt": 0.9589522323153093
+  }
+ },
+ "test_universal": {
+  "ja": {
+   "scores": {
+    "every_steer_prompt": {
+     "lpr": 0.9433396464646465,
+     "wpr": 0.9000442045572927,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.0,
+     "thinking": 0.0,
+     "drift": 0.010309278350515464,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 0.9393939393939394,
+      "complex_prompts": 0.890625
+     }
+    },
+    "instruction": {
+     "lpr": 0.8815463402683551,
+     "wpr": 0.8958138982352057,
+     "n": 197,
+     "english": 0.08121827411167512,
+     "degenerate": 0.0,
+     "thinking": 0.0,
+     "drift": 0.01675977653631285,
+     "lpr_by_source": {
+      "okapi": 0.9850746268656716,
+      "sharegpt": 0.8939393939393939,
+      "complex_prompts": 0.765625
+     }
+    },
+    "instruction_steer": {
+     "lpr": 0.9487058080808081,
+     "wpr": 0.9349017623745679,
+     "n": 197,
+     "english": 0.005076142131979695,
+     "degenerate": 0.0,
+     "thinking": 0.0,
+     "drift": 0.005154639175257732,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 0.9242424242424242,
+      "complex_prompts": 0.921875
+     }
+    },
+    "instruction_steer_prompt": {
+     "lpr": 0.9478114478114478,
+     "wpr": 0.9033799257679854,
+     "n": 197,
+     "english": 0.02030456852791878,
+     "degenerate": 0.02030456852791878,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 0.9545454545454546,
+      "complex_prompts": 0.8888888888888888
+     }
+    }
+   },
+   "settings": {
+    "every_steer_prompt": {
+     "layer": null,
+     "alpha": 0.1,
+     "restore_norm": false
+    },
+    "instruction_steer": {
+     "layer": 16,
+     "alpha": 1,
+     "restore_norm": null
+    },
+    "instruction_steer_prompt": {
+     "layer": 12,
+     "alpha": 2,
+     "restore_norm": null
+    }
+   },
+   "compare": {
+    "every_steer_prompt-instruction": {
+     "better": 20,
+     "worse": 8,
+     "p": 0.03569813817739487,
+     "diff": 0.06179330619629142,
+     "p_holm": 0.07139627635478973
+    },
+    "instruction_steer-instruction": {
+     "better": 20,
+     "worse": 7,
+     "p": 0.0191572904586792,
+     "diff": 0.06715946781245297,
+     "p_holm": 0.0191572904586792
+    },
+    "instruction_steer_prompt-instruction": {
+     "better": 18,
+     "worse": 6,
+     "p": 0.022655844688415527,
+     "diff": 0.06626510754309267,
+     "p_holm": 0.05856141834738082
+    },
+    "every_steer_prompt-instruction_steer": {
+     "better": 9,
+     "worse": 10,
+     "p": 1.0,
+     "diff": -0.005366161616161547,
+     "p_holm": 1.0
+    },
+    "every_steer_prompt-instruction_steer_prompt": {
+     "better": 6,
+     "worse": 7,
+     "p": 1.0,
+     "diff": -0.004471801346801252,
+     "p_holm": 1.0
+    }
+   }
+  },
+  "zh": {
+   "scores": {
+    "every_steer_prompt": {
+     "lpr": 0.8876945763606212,
+     "wpr": 0.9880952380952381,
+     "n": 197,
+     "english": 0.005076142131979695,
+     "degenerate": 0.0,
+     "thinking": 0.0,
+     "drift": 0.015306122448979591,
+     "lpr_by_source": {
+      "okapi": 0.9552238805970149,
+      "sharegpt": 0.8484848484848485,
+      "complex_prompts": 0.859375
+     }
+    },
+    "instruction": {
+     "lpr": 0.774510496758631,
+     "wpr": 0.9310660603764052,
+     "n": 197,
+     "english": 0.09644670050761421,
+     "degenerate": 0.005076142131979695,
+     "thinking": 0.0,
+     "drift": 0.04,
+     "lpr_by_source": {
+      "okapi": 0.8656716417910447,
+      "sharegpt": 0.8484848484848485,
+      "complex_prompts": 0.609375
+     }
+    },
+    "instruction_steer": {
+     "lpr": 0.8922715965626414,
+     "wpr": 0.9760683760683762,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.0,
+     "thinking": 0.0,
+     "drift": 0.04081632653061224,
+     "lpr_by_source": {
+      "okapi": 0.9552238805970149,
+      "sharegpt": 0.9090909090909091,
+      "complex_prompts": 0.8125
+     }
+    },
+    "instruction_steer_prompt": {
+     "lpr": 0.8562796811397558,
+     "wpr": 0.9606993060321818,
+     "n": 197,
+     "english": 0.02030456852791878,
+     "degenerate": 0.005076142131979695,
+     "thinking": 0.0,
+     "drift": 0.041666666666666664,
+     "lpr_by_source": {
+      "okapi": 0.9253731343283582,
+      "sharegpt": 0.9090909090909091,
+      "complex_prompts": 0.734375
+     }
+    }
+   },
+   "settings": {
+    "every_steer_prompt": {
+     "layer": null,
+     "alpha": 0.1,
+     "restore_norm": false
+    },
+    "instruction_steer": {
+     "layer": 16,
+     "alpha": 1,
+     "restore_norm": null
+    },
+    "instruction_steer_prompt": {
+     "layer": 12,
+     "alpha": 2,
+     "restore_norm": null
+    }
+   },
+   "compare": {
+    "every_steer_prompt-instruction": {
+     "better": 28,
+     "worse": 6,
+     "p": 0.00019512558355927467,
+     "diff": 0.11318407960199017,
+     "p_holm": 0.0007805023342370987
+    },
+    "instruction_steer-instruction": {
+     "better": 30,
+     "worse": 7,
+     "p": 0.00019107642583549023,
+     "diff": 0.1177610998040104,
+     "p_holm": 0.0007643057033419609
+    },
+    "instruction_steer_prompt-instruction": {
+     "better": 29,
+     "worse": 13,
+     "p": 0.019520472782460274,
+     "diff": 0.0817691843811248,
+     "p_holm": 0.05856141834738082
+    },
+    "every_steer_prompt-instruction_steer": {
+     "better": 10,
+     "worse": 11,
+     "p": 1.0,
+     "diff": -0.004577020202020221,
+     "p_holm": 1.0
+    },
+    "every_steer_prompt-instruction_steer_prompt": {
+     "better": 17,
+     "worse": 11,
+     "p": 0.34492845088243484,
+     "diff": 0.03141489522086538,
+     "p_holm": 1.0
+    }
+   }
+  },
+  "ru": {
+   "scores": {
+    "every_steer_prompt": {
+     "lpr": 1.0,
+     "wpr": 0.9737699576409254,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.015228426395939087,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 1.0,
+      "complex_prompts": 1.0
+     }
+    },
+    "instruction": {
+     "lpr": 0.9142995899785721,
+     "wpr": 0.9538926681783825,
+     "n": 197,
+     "english": 0.06598984771573604,
+     "degenerate": 0.015228426395939087,
+     "thinking": 0.0,
+     "drift": 0.011111111111111112,
+     "lpr_by_source": {
+      "okapi": 0.9850746268656716,
+      "sharegpt": 0.9545454545454546,
+      "complex_prompts": 0.8032786885245902
+     }
+    },
+    "instruction_steer": {
+     "lpr": 0.9949494949494949,
+     "wpr": 0.9514922236233713,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.015228426395939087,
+     "thinking": 0.0,
+     "drift": 0.005154639175257732,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 0.9848484848484849,
+      "complex_prompts": 1.0
+     }
+    },
+    "instruction_steer_prompt": {
+     "lpr": 0.9949494949494949,
+     "wpr": 0.9784783522488439,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.02030456852791878,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 0.9848484848484849,
+      "complex_prompts": 1.0
+     }
+    }
+   },
+   "settings": {
+    "every_steer_prompt": {
+     "layer": null,
+     "alpha": 0.1,
+     "restore_norm": false
+    },
+    "instruction_steer": {
+     "layer": 16,
+     "alpha": 1,
+     "restore_norm": null
+    },
+    "instruction_steer_prompt": {
+     "layer": 12,
+     "alpha": 2,
+     "restore_norm": null
+    }
+   },
+   "compare": {
+    "every_steer_prompt-instruction": {
+     "better": 16,
+     "worse": 0,
+     "p": 3.0517578125e-05,
+     "diff": 0.08570041002142792,
+     "p_holm": 0.00018310546875
+    },
+    "instruction_steer-instruction": {
+     "better": 16,
+     "worse": 1,
+     "p": 0.000274658203125,
+     "diff": 0.08064990497092284,
+     "p_holm": 0.000823974609375
+    },
+    "instruction_steer_prompt-instruction": {
+     "better": 14,
+     "worse": 0,
+     "p": 0.0001220703125,
+     "diff": 0.08064990497092284,
+     "p_holm": 0.000732421875
+    },
+    "every_steer_prompt-instruction_steer": {
+     "better": 1,
+     "worse": 0,
+     "p": 1.0,
+     "diff": 0.005050505050505083,
+     "p_holm": 1.0
+    },
+    "every_steer_prompt-instruction_steer_prompt": {
+     "better": 1,
+     "worse": 0,
+     "p": 1.0,
+     "diff": 0.005050505050505083,
+     "p_holm": 1.0
+    }
+   }
+  },
+  "hi": {
+   "scores": {
+    "every_steer_prompt": {
+     "lpr": 0.9586184424894103,
+     "wpr": 0.9830508474576272,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.05583756345177665,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 0.9242424242424242,
+      "sharegpt": 1.0,
+      "complex_prompts": 0.9516129032258065
+     }
+    },
+    "instruction": {
+     "lpr": 0.9042787042305579,
+     "wpr": 0.9574468085106383,
+     "n": 197,
+     "english": 0.08629441624365482,
+     "degenerate": 0.02030456852791878,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 0.9850746268656716,
+      "sharegpt": 0.9696969696969697,
+      "complex_prompts": 0.7580645161290323
+     }
+    },
+    "instruction_steer": {
+     "lpr": 0.989247311827957,
+     "wpr": 0.9777777777777779,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.030456852791878174,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 1.0,
+      "complex_prompts": 0.967741935483871
+     }
+    },
+    "instruction_steer_prompt": {
+     "lpr": 0.9899743705713856,
+     "wpr": 0.9842897842897843,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.04060913705583756,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 0.9850746268656716,
+      "sharegpt": 0.9848484848484849,
+      "complex_prompts": 1.0
+     }
+    }
+   },
+   "settings": {
+    "every_steer_prompt": {
+     "layer": null,
+     "alpha": 0.1,
+     "restore_norm": false
+    },
+    "instruction_steer": {
+     "layer": 16,
+     "alpha": 1,
+     "restore_norm": null
+    },
+    "instruction_steer_prompt": {
+     "layer": 12,
+     "alpha": 2,
+     "restore_norm": null
+    }
+   },
+   "compare": {
+    "every_steer_prompt-instruction": {
+     "better": 17,
+     "worse": 7,
+     "p": 0.06391465663909912,
+     "diff": 0.05433973825885241,
+     "p_holm": 0.07139627635478973
+    },
+    "instruction_steer-instruction": {
+     "better": 17,
+     "worse": 1,
+     "p": 0.00014495849609375,
+     "diff": 0.0849686075973991,
+     "p_holm": 0.00072479248046875
+    },
+    "instruction_steer_prompt-instruction": {
+     "better": 17,
+     "worse": 1,
+     "p": 0.00014495849609375,
+     "diff": 0.0856956663408277,
+     "p_holm": 0.000732421875
+    },
+    "every_steer_prompt-instruction_steer": {
+     "better": 2,
+     "worse": 7,
+     "p": 0.1796875,
+     "diff": -0.030628869338546694,
+     "p_holm": 1.0
+    },
+    "every_steer_prompt-instruction_steer_prompt": {
+     "better": 2,
+     "worse": 7,
+     "p": 0.1796875,
+     "diff": -0.03135592808197529,
+     "p_holm": 1.0
+    }
+   }
+  },
+  "tr": {
+   "scores": {
+    "every_steer_prompt": {
+     "lpr": 0.9630172694688824,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.02030456852791878,
+     "thinking": 0.0,
+     "drift": 0.015625,
+     "lpr_by_source": {
+      "okapi": 0.9848484848484849,
+      "sharegpt": 0.9848484848484849,
+      "complex_prompts": 0.9193548387096774
+     }
+    },
+    "instruction": {
+     "lpr": 0.8798295454545455,
+     "n": 197,
+     "english": 0.08629441624365482,
+     "degenerate": 0.03553299492385787,
+     "thinking": 0.0,
+     "drift": 0.017543859649122806,
+     "lpr_by_source": {
+      "okapi": 0.9696969696969697,
+      "sharegpt": 0.953125,
+      "complex_prompts": 0.7166666666666667
+     }
+    },
+    "instruction_steer": {
+     "lpr": 0.9681020733652312,
+     "n": 197,
+     "english": 0.015228426395939087,
+     "degenerate": 0.03553299492385787,
+     "thinking": 0.0,
+     "drift": 0.0053475935828877,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 0.9393939393939394,
+      "complex_prompts": 0.9649122807017544
+     }
+    },
+    "instruction_steer_prompt": {
+     "lpr": 0.9504273504273505,
+     "n": 197,
+     "english": 0.030456852791878174,
+     "degenerate": 0.030456852791878174,
+     "thinking": 0.0,
+     "drift": 0.010869565217391304,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 0.9846153846153847,
+      "complex_prompts": 0.8666666666666667
+     }
+    }
+   },
+   "settings": {
+    "every_steer_prompt": {
+     "layer": null,
+     "alpha": 0.1,
+     "restore_norm": false
+    },
+    "instruction_steer": {
+     "layer": 16,
+     "alpha": 1,
+     "restore_norm": null
+    },
+    "instruction_steer_prompt": {
+     "layer": 12,
+     "alpha": 2,
+     "restore_norm": null
+    }
+   },
+   "compare": {
+    "every_steer_prompt-instruction": {
+     "better": 18,
+     "worse": 3,
+     "p": 0.0014896392822265625,
+     "diff": 0.08318772401433694,
+     "p_holm": 0.0044689178466796875
+    },
+    "instruction_steer-instruction": {
+     "better": 18,
+     "worse": 3,
+     "p": 0.0014896392822265625,
+     "diff": 0.08827252791068574,
+     "p_holm": 0.002979278564453125
+    },
+    "instruction_steer_prompt-instruction": {
+     "better": 18,
+     "worse": 6,
+     "p": 0.022655844688415527,
+     "diff": 0.07059780497280499,
+     "p_holm": 0.05856141834738082
+    },
+    "every_steer_prompt-instruction_steer": {
+     "better": 6,
+     "worse": 5,
+     "p": 1.0,
+     "diff": -0.0050848038963488,
+     "p_holm": 1.0
+    },
+    "every_steer_prompt-instruction_steer_prompt": {
+     "better": 8,
+     "worse": 6,
+     "p": 0.79052734375,
+     "diff": 0.01258991904153195,
+     "p_holm": 1.0
+    }
+   }
+  },
+  "ar": {
+   "scores": {
+    "every_steer_prompt": {
+     "lpr": 0.9733077039047188,
+     "wpr": 0.9502474134053082,
+     "n": 197,
+     "english": 0.01015228426395939,
+     "degenerate": 0.030456852791878174,
+     "thinking": 0.0,
+     "drift": 0.010526315789473684,
+     "lpr_by_source": {
+      "okapi": 0.9850746268656716,
+      "sharegpt": 0.9848484848484849,
+      "complex_prompts": 0.95
+     }
+    },
+    "instruction": {
+     "lpr": 0.8881496719724934,
+     "wpr": 0.9670138888888888,
+     "n": 197,
+     "english": 0.08629441624365482,
+     "degenerate": 0.01015228426395939,
+     "thinking": 0.0,
+     "drift": 0.01694915254237288,
+     "lpr_by_source": {
+      "okapi": 0.9850746268656716,
+      "sharegpt": 0.9696969696969697,
+      "complex_prompts": 0.7096774193548387
+     }
+    },
+    "instruction_steer": {
+     "lpr": 0.9949494949494949,
+     "wpr": 0.9731669521246228,
+     "n": 197,
+     "english": 0.0,
+     "degenerate": 0.015228426395939087,
+     "thinking": 0.0,
+     "drift": 0.0,
+     "lpr_by_source": {
+      "okapi": 1.0,
+      "sharegpt": 0.9848484848484849,
+      "complex_prompts": 1.0
+     }
+    },
+    "instruction_steer_prompt": {
+     "lpr": 0.972657610588645,
+     "wpr": 0.9277389277389277,
+     "n": 197,
+     "english": 0.01015228426395939,
+     "degenerate": 0.050761421319796954,
+     "thinking": 0.0,
+     "drift": 0.005376344086021506,
+     "lpr_by_source": {
+      "okapi": 0.9848484848484849,
+      "sharegpt": 0.9848484848484849,
+      "complex_prompts": 0.9482758620689655
+     }
+    }
+   },
+   "settings": {
+    "every_steer_prompt": {
+     "layer": null,
+     "alpha": 0.1,
+     "restore_norm": false
+    },
+    "instruction_steer": {
+     "layer": 16,
+     "alpha": 1,
+     "restore_norm": null
+    },
+    "instruction_steer_prompt": {
+     "layer": 12,
+     "alpha": 2,
+     "restore_norm": null
+    }
+   },
+   "compare": {
+    "every_steer_prompt-instruction": {
+     "better": 17,
+     "worse": 1,
+     "p": 0.00014495849609375,
+     "diff": 0.08515803193222538,
+     "p_holm": 0.00072479248046875
+    },
+    "instruction_steer-instruction": {
+     "better": 21,
+     "worse": 1,
+     "p": 1.0967254638671875e-05,
+     "diff": 0.10679982297700152,
+     "p_holm": 6.580352783203125e-05
+    },
+    "instruction_steer_prompt-instruction": {
+     "better": 18,
+     "worse": 2,
+     "p": 0.0004024505615234375,
+     "diff": 0.08450793861615158,
+     "p_holm": 0.00160980224609375
+    },
+    "every_steer_prompt-instruction_steer": {
+     "better": 1,
+     "worse": 4,
+     "p": 0.375,
+     "diff": -0.02164179104477615,
+     "p_holm": 1.0
+    },
+    "every_steer_prompt-instruction_steer_prompt": {
+     "better": 1,
+     "worse": 1,
+     "p": 1.0,
+     "diff": 0.0006500933160737965,
+     "p_holm": 1.0
+    }
+   }
+  },
+  "mean_lpr": {
+   "instruction": 0.8737690581105259,
+   "every_steer_prompt": 0.9543296064480465,
+   "instruction_steer": 0.9647042966226046,
+   "instruction_steer_prompt": 0.9520166592480134
+  }
+ }
+}
