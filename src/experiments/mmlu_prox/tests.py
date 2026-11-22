@@ -24,9 +24,10 @@ sys.path.insert(0, str(HERE.parent / "mgsm_crosslingual"))
 from analyse import holm, mcnemar  # noqa: E402
 from generate_pairs import MODEL, PAIRS, TUNE  # noqa: E402
 
-ARMS = ("instruction", "instruction_en", "instruction_steer_prompt", "recover")
+ARMS = ("instruction", "instruction_en", "instruction_steer_prompt", "recover", "instruction_system")  # those run
 COMPARE = (("instruction_steer_prompt", "recover"), ("instruction_steer_prompt", "instruction"),
-           ("recover", "instruction"))
+           ("recover", "instruction"), ("instruction_system", "instruction"),
+           ("instruction_steer_prompt", "instruction_system"))  # those whose arms were run
 HELD = [f"{s}-{t}" for s, t in PAIRS if (s, t) not in TUNE]
 N_BOOT, SEED, ALPHA = 2000, 0, 0.05
 
@@ -60,7 +61,8 @@ def main():
             return np.array([x[1] and x[2] for x in rows], dtype=bool)
 
         boot = np.random.default_rng(SEED).integers(0, len(ids), (N_BOOT, len(ids)))
-        mean = {arm: np.mean([ok(arm, p) for p in HELD], axis=0) for arm in ARMS}  # per question, over held-out
+        arms = [a for a in ARMS if a in by_arm]
+        mean = {arm: np.mean([ok(arm, p) for p in HELD], axis=0) for arm in arms}  # per question, over held-out
         mean["native"] = np.mean([ok("cot", f"{p[-2:]}-{p[-2:]}") for p in HELD], axis=0)
         gap = lambda arm, b: ((mean[arm][b].mean(-1) - mean["instruction"][b].mean(-1))
                               / (mean["native"][b].mean(-1) - mean["instruction"][b].mean(-1)))
@@ -68,14 +70,14 @@ def main():
                            "success": {k: ci(v, boot) for k, v in mean.items()},
                            "gap_closed": {arm: [float(gap(arm, slice(None))),
                                                 *map(float, np.percentile(gap(arm, boot), [2.5, 97.5]))]
-                                          for arm in ARMS if arm != "instruction"},
+                                          for arm in arms if arm != "instruction"},
                            "compare": {}}
         print(f"\n== {MODEL} {subset} ({len(ids)} questions x {len(HELD)} held-out pairs)")
         for k, c in s["success"].items():
             print(f"  success {k:26s} {c[0]:.3f} [{c[1]:.3f}, {c[2]:.3f}]")
         for arm, c in s["gap_closed"].items():
             print(f"  gap closed {arm:23s} {c[0]:.0%} [{c[1]:.0%}, {c[2]:.0%}]")
-        for x, y in COMPARE:
+        for x, y in ((x, y) for x, y in COMPARE if x in arms and y in arms):
             tests = [mcnemar(ok(y, p).tolist(), ok(x, p).tolist()) for p in HELD]  # (x only, y only, p)
             adj = holm([t[2] for t in tests])
             better = [p for p, t, q in zip(HELD, tests, adj) if q < ALPHA and t[0] > t[1]]

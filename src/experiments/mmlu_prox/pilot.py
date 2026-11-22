@@ -15,6 +15,9 @@ Arms (the user message; options lettered A, B, ... in the dataset's order):
                and the (layer, alpha) chosen on MGSM dev in ../mgsm_crosslingual (generations/vectors.pt, chosen.json),
                reused without tuning on MMLU-ProX
   instruction_en  the cot prompt + " " + "Answer in <T>." in English (ENGLISH[T])
+  instruction_system  the cot prompt, with INSTRUCTION[S][T] as a system message, as in ../mgsm_crosslingual
+               (Gemma-3's chat template has no system role and puts it at the start of the user turn); run only
+               for Gemma-3-12B, the model whose prompt variant chosen on MGSM dev it is (--arms)
   recover      ReCoVeR (Sterz et al. 2025) as in ../mgsm_crosslingual/recover.py: the instruction prompt, alpha *
                (r_T - r_S)(j) / |.| added at every block and token, with the norm restore, at the alpha chosen on
                MGSM dev (generations/recover/), reused without tuning, like ours
@@ -107,7 +110,8 @@ FORMAT = {"en": r"Finish your answer with \boxed{X}, where X is the letter of th
 BOXED_FORMAT = False  # --format boxed
 POOL = False  # --pool
 LETTERS = "ABCDEFGHIJ"
-ARMS = ("cot", "instruction", "instruction_steer_prompt", "instruction_en", "recover")
+ARMS = ("cot", "instruction", "instruction_steer_prompt", "instruction_en", "recover", "instruction_system")
+DEFAULT_ARMS = ARMS[:-1]  # run: instruction_system only when asked for (--arms)
 STEER = ("instruction_steer_prompt",)
 XL = HERE.parent / "mgsm_crosslingual/results" / MODEL / "generations"
 FIRST = None  # --first
@@ -159,9 +163,14 @@ def prompt(arm, row, src, tgt):
     body = q + "\n\n" + "\n".join(f"{LETTERS[j]}. {o}" for j, o in enumerate(opts)) + "\n\n" + COT[src]
     if BOXED_FORMAT:
         body += " " + FORMAT[src]
-    if arm == "cot":
+    if arm in ("cot", "instruction_system"):
         return body
     return f"{body} {ENGLISH[tgt] if arm == 'instruction_en' else INSTRUCTION[src][tgt]}"
+
+
+def system(arm, src, tgt):
+    """The system message, or None."""
+    return INSTRUCTION[src][tgt] if arm == "instruction_system" else None
 
 
 def units(arms=None):
@@ -320,11 +329,12 @@ def run_units(M, names):
     kw, (layer, alpha) = setting(arm)
     generate.MAX_NEW = FIRST_CAP or MAX_NEW
     print(",".join(names), "batch", fit(M, texts, 0.5 if arm == "recover" else 0.6), flush=True)
-    res = M.generate(texts, vecs=vecs(rows), return_ids=True, **kw)
+    sys_ = [system(arm, r["src"], r["tgt"]) for r in rows]
+    res = M.generate(texts, vecs=vecs(rows), return_ids=True, system=sys_, **kw)
     out = [dict(id=r["id"], category=r["category"], subset=r["subset"], src=r["src"], tgt=r["tgt"], lang=r["tgt"],
                 arm=arm, layer=layer, alpha=alpha, answer=r["answer"], n_options=len(r["text"][r["src"]][1]),
-                input=x, response=o, n_tokens=k, capped=c) | ({"ids": ids} if STAGED and c else {})
-           for r, x, (o, k, c, ids) in zip(rows, texts, res)]
+                input=x, response=o, n_tokens=k, capped=c) | ({"system": s} if s else {}) | ({"ids": ids} if STAGED and c else {})
+           for r, x, s, (o, k, c, ids) in zip(rows, texts, sys_, res)]
     for n in names:  # the last one last: its file marks the pooled task done
         rs = [o for o, r in zip(out, rows) if r["unit"] == n]
         write((GEN / "stage1" if STAGED else GEN) / f"{n}.jsonl", rs)
@@ -338,7 +348,8 @@ def run_chunk(M, name, path, todo):
     kw = setting(rows[0]["arm"])[0]
     generate.MAX_NEW = MAX_NEW
     print(name, "batch", fit(M, [r["input"] for r in rows], 0.5 if rows[0]["arm"] == "recover" else 0.6), flush=True)
-    res = M.generate([r["input"] for r in rows], vecs=vecs(rows), prefix=[r["ids"] for r in rows], **kw)
+    res = M.generate([r["input"] for r in rows], vecs=vecs(rows), prefix=[r["ids"] for r in rows],
+                     system=[r.get("system") for r in rows], **kw)
     # n_tokens: the stage-1 tokens + the continuation's
     write(path, [dict(unit=n, index=k, response=o, n_tokens=len(r["ids"]) + m, capped=cp)
                  for (n, k), r, (o, m, cp, _) in zip(todo, rows, res)])
@@ -573,7 +584,8 @@ if __name__ == "__main__":
     ap.add_argument("--first", type=int)
     ap.add_argument("--first-cap", type=int)
     ap.add_argument("--pairs", choices=("tune", "all"), default="tune")
-    ap.add_argument("--arms", default=",".join(ARMS), help="run: comma-separated arms (default all)")
+    ap.add_argument("--arms", default=",".join(DEFAULT_ARMS),
+                    help="run: comma-separated arms (default all but instruction_system)")
     ap.add_argument("--format", choices=("free", "boxed"), default="free",
                     help="boxed: ask for the answer as \\boxed{X} and score the last one (outputs *_boxed)")
     ap.add_argument("--pool", action="store_true", help="run: all units of an arm in one generate call")
