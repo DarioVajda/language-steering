@@ -37,6 +37,13 @@ src/experiments/mgsm_crosslingual/results/*/generations/
 # the other results/<model>/*.json are kept
 src/experiments/mmlu_prox/results/*/generations/
 src/experiments/mmlu_prox/results/*/*_items.json
+# superseded MMLU-ProX results (not reported): the free-form runs of Gemma-3-12B and Qwen3-32B (rerun boxed) and
+# Llama-3.1-8B's early pilots of the token cap and the two-stage decoding, on the tuning pairs
+src/experiments/mmlu_prox/results/gemma3-12b/pilot_4096_from2048_all.json
+src/experiments/mmlu_prox/results/qwen3-32b/pilot_4096_from2048_all.json
+src/experiments/mmlu_prox/results/llama-3.1-8b/pilot.json
+src/experiments/mmlu_prox/results/llama-3.1-8b/pilot_*_first*.json
+src/experiments/mmlu_prox/results/llama-3.1-8b/pilot_8192.json
 
 # Paper: its own repo (github.com/DarioVajda/MLLP-Project, synced with Overleaf)
 /paper/
