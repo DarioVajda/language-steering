@@ -44,7 +44,8 @@ Each language run does everything in one job: vectors, the dev grid, selection, 
 | `analyse.py` | The LCB metrics (port of the official scorer), extra measures, selection rule, McNemar test, tables |
 | `run.sh` | One job per model: every run below through a claim queue, then the tables |
 | `recover.py`, `recover.sh` | The ReCoVeR baseline: dev grid over α, per-language and shared selection, test, comparison with our arms; several models in one job |
-| `results/<model>/summary.json`, `summary_prompt.json`, `summary_pilot.json`, `summary_recover.json` | Every number below (the per-item generations in `results/<model>/generations/` are not committed) |
+| `ablation.py` | Our method against all-token steering, every-layer steering (`recover.py` with `LCB_ARM=every_steer_prompt`, run by `../mgsm_crosslingual/every_layer.sh`) and ReCoVeR -> `results/<model>/summary_ablation.json` |
+| `results/<model>/summary.json`, `summary_prompt.json`, `summary_pilot.json`, `summary_recover.json`, `summary_every_steer*.json`, `summary_ablation.json` | Every number below (the per-item generations in `results/<model>/generations/` are not committed) |
 
 ## Setup
 
@@ -301,6 +302,34 @@ Mean LPR over the six languages, one setting for all languages; in brackets the 
 ## All-token or prompt-only
 
 On LCB all-token steering keeps the language at least as well as prompt-only steering in every model, by a wide margin without the instruction. With the instruction, the two are within .03 of each other in every language for Llama and Qwen, and within .06 for Gemma (zh). LCB scores only the language of a 100-token answer, so it cannot show what steering the generated tokens costs. Cross-lingual MGSM ([../mgsm_crosslingual/](../mgsm_crosslingual/)) can: at matched settings, all-token steering loses accuracy over long answers, partly through loops and answers that run to the token limit. The same holds for ReCoVeR, which ties with our arms here but not on MGSM (above).
+
+## Ablation: one layer and prompt-only (test)
+
+As on MGSM ([../mgsm_crosslingual/](../mgsm_crosslingual/), *Ablation: one layer and prompt-only*): our method (instruction + prompt-only steering at one layer) against the arm that changes only the tokens (all-token steering at one layer, our original run), the arm that changes only the layers (prompt-only steering at every block but the last with the raw vector of our runs, α · (μ_T − μ_en)(j), no norm restore: `recover.py` with `LCB_ARM=every_steer_prompt`), and ReCoVeR. The every-layer arm uses ReCoVeR's pipeline: dev grid α ∈ {0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2} (extended while the best α, per language or shared, is at an edge; none was), our selection rule, per-language and shared α (0.05–0.2 per language; shared 0.1 in both models). Llama-3.1-8B and Qwen3-8B, B200 GPUs, in the MGSM ablation job. Analysis: `ablation.py` (`results/<model>/summary_ablation.json`).
+
+Mean LPR over the six languages [95% CI; prompts resampled within language and source], per-language settings / one setting for all languages:
+
+| | Llama-3.1-8B | Qwen3-8B |
+|---|---|---|
+| Instruction | .904 / .904 | .873 / .872 |
+| **Ours: one layer, prompt-only** | **.956** [.945, .967] / **.960** [.948, .970] | **.959** [.947, .969] / **.952** [.940, .963] |
+| Tokens: one layer, all-token | .974 / .976 | .973 / .965 |
+| Layers: every layer, prompt-only | .965 / .959 | .962 / .954 |
+| ReCoVeR | .985 / .975 | .968 / .958 |
+
+Ours − the other arm, mean LPR difference [95% CI]; per-language / shared settings:
+
+| ours − | Llama-3.1-8B | Qwen3-8B |
+|---|---|---|
+| all-token (tokens) | −.018 [−.031, −.005] / −.016 [−.029, −.004] | −.014 [−.028, −.001] / −.013 [−.026, +.001] |
+| every layer (layers) | −.008 [−.021, +.004] / +.001 [−.012, +.014] | −.003 [−.017, +.010] / −.002 [−.017, +.012] |
+| ReCoVeR | −.029 [−.042, −.017] / −.015 [−.028, −.002] | −.009 [−.022, +.004] / −.006 [−.020, +.008] |
+
+After Holm over the six languages, no language differs significantly between our method and the every-layer or all-token arm; ReCoVeR is better in one (Llama zh, per-language α).
+
+* **Every layer gains nothing here either:** within .01 of one layer, no CI excluding 0.
+* **Prompt-only costs a little language fidelity:** .013–.018 below all-token on average, significant pooled over the languages but in no single language. LCB scores only the language, so this is the price of not steering the answer; on MGSM prompt-only is the better choice (+.031 and +.007 success).
+* The arms come from different jobs and GPU types (our two arms as described above; ReCoVeR on B300, the every-layer arm on B200), so the comparisons are paired over prompts, not over runs; across these files the instruction runs differ by up to .003 in mean LPR.
 
 ## Sensitivity to layer and α (dev)
 

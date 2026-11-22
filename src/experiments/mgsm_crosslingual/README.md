@@ -19,6 +19,8 @@ The question is in a source language S and the answer is wanted in a target lang
 
 In brackets: held-out pairs significantly better / worse than the instruction (McNemar p < 0.05), and in square brackets the same after a Holm correction over the 99 held-out pairs (each arm and model separately). The 95% CIs are from 2000 bootstrap resamples of the 200 test items (the same resample for every pair and arm). As all arms share the items, the CIs of the means themselves are wider (±.02–.03 for the instruction and ±.03 for steering and native; `results/<model>/native_tests.json`) than those of the paired differences. Steering closes 77%, 85%, 75% and 49% of the gap between the instruction and native, but stays significantly below native in every model (*Tests against the native question*, below). Steering does not change which problems are solved: the error consistency with the native question moves by +0.010 [−0.007, 0.026], +0.004 [−0.010, 0.018], +0.002 [−0.014, 0.018] and +0.001 [−0.011, 0.012] (Cohen's κ, below). The vector needs little text: from 10 parallel FLORES sentences instead of 997 the means are within .002, and from a single sentence within .013 (*Number of FLORES sentences*, below). ReCoVeR, the published method with the same direction at every block and every token, fixes the language as well, but is .067 and .051 below prompt-only steering in Llama and Qwen3-8B (in Llama by losing accuracy, below the instruction's), and ties in Qwen3-32B and Gemma-3-12B (*Baseline: ReCoVeR*, below).
 
+**Outside maths (MMLU-ProX, [../mmlu_prox/](../mmlu_prox/)), with the same layer and α, not retuned:** the instruction fails there as well, and prompt-only steering closes 69–81% of the gap to native in Llama, Qwen3-8B and Qwen3-32B, ahead of ReCoVeR (+.009 to +.070, all CIs above 0). In Gemma the instruction mostly works, and ReCoVeR is slightly ahead (−.006 and −.019).
+
 ## Reproduce
 
 ```bash
@@ -80,6 +82,11 @@ slurm/submit.sh -J recover -t 01:30:00 --gres gpu:3 --gres-flags=disable-binding
   bash src/experiments/language_confusion/recover.sh llama-3.1-8b:$PWD/logs/hf_cache qwen3-8b qwen3-32b:$PWD/logs/hf_cache gemma3-12b; wait'
 # optional helpers: recover.sh without --main; checks against the authors' code (a clone of hSterz/recover @ 4c6eb4d):
 #   XL_MODEL=<model> python src/experiments/mgsm_crosslingual/recover_check.py --repo <clone> --stages hooks,vectors (or lcb)
+# ablation (after the ReCoVeR runs): the every-layer arms, MGSM and LCB, in one job over the free GPUs of 1-3 nodes;
+# then the analysis (no GPU): XL_MODEL=<model> python src/experiments/mgsm_crosslingual/ablation.py and
+# LCB_MODEL=<model> python src/experiments/language_confusion/ablation.py
+slurm/submit.sh -J every_layer -t 05:00:00 --nodes 1-3 --ntasks-per-node 1 --gpus 8 --cpus-per-gpu 4 --mem-per-gpu 40G \
+  --constraint GPU_BRD:B200 -- bash src/experiments/mgsm_crosslingual/every_layer.sh llama-3.1-8b:$PWD/logs/hf_cache qwen3-8b
 ```
 
 `run.sh <model> <gpus> <workers per gpu> [main job id]` runs every stage in one job: vectors, the dev grid, selection, test and the tables. The model is a key of `MODELS` in `../mgsm_steering/generate.py` (`llama-3.1-8b`, `qwen3-8b`, `qwen3-32b`, `gemma3-12b`); every script reads it from the environment variable `XL_MODEL` (set by `run.sh` and `kl.sh`) and writes to `results/<model>/`. Workers share each stage through claim files under `results/<model>/generations/claims/<main job id>/`, as in `../mgsm_steering/`. A helper (with a main job id) waits for the main job's vectors and selection, takes units from the same queue, and leaves the tables to the main job.
@@ -108,6 +115,8 @@ Runs: Llama on 7 GPUs (2 B300 in the main job, helpers on 1 B300 and 4 B200), 2 
 | `logit_lens_top5.py` | the same with each language scored by its native top-5 first tokens -> `results/<model>/logit_lens_top5.json` |
 | `recover.py`, `recover.sh` | the ReCoVeR baseline: dev grid over α, selection, test and analysis, all models in one Slurm job, optionally with helpers -> `results/<model>/recover.json` |
 | `recover_check.py` | checks of the ReCoVeR reimplementation against the authors' code -> `results/<model>/recover_check_<stages>.json` |
+| `every_layer.sh`, `every_layer_check.py` | the every-layer arms of the ablation (`recover.py` with `XL_ARM` / `LCB_ARM`), MGSM and LCB, several models in one Slurm job, after a check of the tuple-of-layers path |
+| `ablation.py` | our method against all-token steering, every-layer steering and ReCoVeR, on test -> `results/<model>/ablation.json` |
 | `check_instructions.py` | NLLB-200 back-translation of the 100 non-English instruction strings |
 | `results/<model>/summary.json` | every number below, and per pair every arm with its McNemar counts (the generations in `results/<model>/generations/` are not committed) |
 | `results/instructions.json` | the instruction strings, back-translations and fastText labels |
@@ -624,7 +633,40 @@ McNemar per pair, Holm over the 99 pairs in square brackets; bootstrap CIs as in
 * Vectors: their collection code against ours, cosine of μ_T − μ_S ≥ 0.9999 at every hidden state (Qwen3-8B, Qwen3-32B, Gemma-3-12B, 4 pairs).
 * Their LCB setting (Llama, 14 languages, 100 tokens, their system prompt; greedy here, they sample): LPR 0.916 without steering and 0.975 with α = 0.2 and norm restore, against 91.0 and 97.9 in their paper.
 
-Not tested: ReCoVeR+ (their trained variant). They tuned for 100-token answers, not for 2048-token chains of thought; the comparison is between the two methods, not of single factors (layers, positions); of their models only Llama is used here.
+Not tested: ReCoVeR+ (their trained variant). They tuned for 100-token answers, not for 2048-token chains of thought; the comparison is between the two methods, not of single factors (layers, positions; see the next section); of their models only Llama is used here.
+
+## Ablation: one layer and prompt-only (test)
+
+Our method (instruction + prompt-only steering at one layer) differs from ReCoVeR in which layers are steered and in whether the generated tokens are. Each choice is tested by changing only it, everything else as in our method, against our method at its own dev setting:
+
+* **Tokens:** instruction + all-token steering at one layer (the existing arm).
+* **Layers:** instruction + prompt-only steering at every block (`recover.py` with `XL_ARM=every_steer_prompt`). Block j adds α · (μ_T − μ_S)(j), the raw difference of the mean hidden states after block j (not normalised, no norm restore), from the start of the user message to the end of the prompt. The last block is left out: its stored hidden state is after the final norm. α ∈ {0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2} (the additions sum over the blocks, so α is far smaller than at one layer), extended by halvings or doublings while the best is at an edge, chosen like ReCoVeR's α: the highest mean dev success over the 11 tuning pairs. α = 0.05 in both models, not at the edge (dev 0.600 Llama, 0.658 Qwen3-8B; α = 0.1 gives 0.545 and 0.555, α ≥ 0.5 at most 0.13).
+
+Before the runs, a check (`every_layer_check.py`, Llama): with one layer given as a tuple, `Model.generate` gives the same tokens as the single-layer path of our runs (16/16 prompts, all-token and prompt-only). Llama-3.1-8B and Qwen3-8B; one job on 8 B200 GPUs (`every_layer.sh`, 1 h 15 min with the LCB runs); the analysis is `ablation.py` (`results/<model>/ablation.json`).
+
+Mean test success over the 99 held-out pairs [95% CI] (accuracy, in-T rate):
+
+| | Llama-3.1-8B | Qwen3-8B |
+|---|---|---|
+| Instruction | 0.340 (.673, .492) | 0.412 (.766, .516) |
+| **Ours: one layer, prompt-only** | **0.634** [.598, .667] (.655, .963) | **0.711** [.684, .736] (.741, .945) |
+| Tokens: one layer, all-token | 0.602 [.568, .633] (.646, .928) | 0.705 [.678, .729] (.738, .941) |
+| Layers: every layer, prompt-only | 0.634 [.598, .666] (.655, .966) | 0.703 [.675, .729] (.721, .965) |
+| ReCoVeR | 0.567 [.531, .600] (.579, .959) | 0.661 [.635, .683] (.747, .860) |
+
+Ours − the other arm: mean success difference [95% CI]; held-out pairs where ours is significantly better / worse (McNemar p < .05; after Holm over the 99 pairs in square brackets):
+
+| ours − | Llama-3.1-8B | Qwen3-8B |
+|---|---|---|
+| all-token (tokens) | +.031 [+.024, +.038]; 14 / 2 [8 / 0] | +.007 [+.001, +.012]; 6 / 7 [3 / 0] |
+| every layer (layers) | +.000 [−.006, +.007]; 7 / 4 [2 / 3] | +.008 [+.001, +.015]; 11 / 7 [3 / 4] |
+| ReCoVeR | +.067 [+.059, +.076]; 37 / 3 [8 / 2] | +.051 [+.043, +.058]; 19 / 7 [13 / 2] |
+
+* **Prompt-only is better than all-token** in both models: clearly in Llama (+.031, mostly through the in-T rate, .963 against .928), slightly in Qwen3-8B (+.007, CI just above 0). It never steers the answer itself.
+* **Steering every layer gains nothing:** a tie in Llama, and in Qwen3-8B slightly worse (−.008): more answers in T (.965 against .945) but lower accuracy (.721 against .741). One layer is enough, and the smaller intervention.
+* **Both choices together account for the gap to ReCoVeR.** Llama, every layer *and* all-token steering with our vector (`XL_ARM=every_steer`, α = 0.05): success 0.585 (accuracy .588, in T .991, 10.8% of the answers at the token limit), close to ReCoVeR's 0.567 (.579, .959, 7.6%) and −.049 [−.057, −.041] below our method. Steering every block at every generated token costs the maths, with or without ReCoVeR's normalisation. Qwen3-8B's run of this arm was stopped before test, as not needed for the ablation; its partial test files in `generations/every_steer/` are not used.
+
+The new arms ran on B200 GPUs, our original arms on B200 and B300 (`run.sh` above); comparisons are paired over items, not over runs.
 
 ## Tests against the native question (test)
 

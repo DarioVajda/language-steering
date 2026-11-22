@@ -30,8 +30,8 @@ Everything else supports, delimits or motivates this claim:
 1. Introduction: output-language control, why instructions fail, the claim.
 2. Related work: language confusion and its mitigation, language-specific representations and neurons, activation steering, multilingual reasoning.
 3. Method: language vectors from FLORES-200 means, prompt-only vs all-token steering, selection on dev pairs only.
-4. Setup: models, benchmarks (LCB, MGSM in 110 pairs), success = correct and in T, judge and its checks.
-5. Results: instruction vs steering vs native; failure counts; controls; prompt baselines; second model.
+4. Setup: models, benchmarks (LCB, MGSM and MMLU-ProX in 110 pairs), success = correct and in T, judge and its checks.
+5. Results: instruction vs steering vs native; failure counts; controls; prompt baselines; ReCoVeR and the ablation; four models; MMLU-ProX.
 6. Analysis: what steering changes (κ, KL by position), by resource level, Japanese.
 7. Where steering does not help: MKQA, MGSM from English, multilingual ICL; the token-level geometry.
 8. Limitations, conclusion.
@@ -48,7 +48,7 @@ Everything else supports, delimits or motivates this claim:
 8. Cross-lingual MGSM: results, mechanism, resource patterns.
 9. Discussion, limitations, future work.
 
-## Results already in hand (Llama-3.1-8B-Instruct)
+## Results already in hand (Llama-3.1-8B-Instruct; the later ones on all four models)
 
 | Result | Where | In paper | In report |
 |---|---|---|---|
@@ -59,6 +59,7 @@ Everything else supports, delimits or motivates this claim:
 | MGSM from English: instruction already works | `src/experiments/mgsm_steering/` | 1 sentence | yes |
 | LCB: steering fixes language confusion | `src/experiments/language_confusion/` | main | yes |
 | Cross-lingual MGSM: success, failure counts, κ, KL, by resource | `src/experiments/mgsm_crosslingual/` | main | yes |
+| MMLU-ProX: the failure and the fix outside maths, against ReCoVeR | `src/experiments/mmlu_prox/` | main | yes |
 
 ## To do
 
@@ -89,11 +90,16 @@ Priority: **P1** needed for a credible paper, **P2** strengthens it, **P3** only
   - only Llama overlaps with their models.
 
   ITLC is an optional second baseline.
-- [ ] **P1 Second benchmark, outside maths: MMLU-ProX** (Xuan et al., arXiv 2503.10497; `li-lab/MMLU-ProX` on Hugging Face, MIT). 11,829 parallel questions per language, 10 options, all 11 MGSM languages (so the full 110 pairs), a 70-item validation split. Non-maths categories only (law, economics, psychology, business, health, philosophy, history, other: about 5,900 questions), a fixed sample of a few hundred per language, chain of thought ("reason step by step, answer in T"); correctness is the letter, success = correct and the reasoning in T. Arms as in MGSM, the layer and α from MGSM, not retuned. Steps:
-  1. **Pilot first:** the instruction only (no steering), all four models, a handful of pairs, about 300 questions, to check that the failure appears outside maths.
-  2. **Language-ID check:** the options are in S, so quoted option text can make reasoning in T look like S. Measure it in the pilot; if it matters, strip quoted options or classify per sentence.
-  3. The full run, only if the pilot shows the failure (otherwise the paper's claim narrows to reasoning-heavy tasks).
-  Replaces MSVAMP, which adds robustness but no breadth (the same kind of problems as MGSM). Fallback, if reviewers question MGSM specifically: MSVAMP (`data/processed_data/msvamp.jsonl`; 1000 items, 90 pairs, no te; machine-translated, some items flagged in `src/data/README.md`).
+- [x] **P1 Second benchmark, outside maths: MMLU-ProX** (Xuan et al., arXiv 2503.10497; `li-lab/MMLU-ProX`, MIT; `src/experiments/mmlu_prox/`). 200 STEM questions (no maths) and 200 humanities / social sciences / other, the same in all 11 MGSM languages, all 110 pairs, zero-shot chain of thought, 4096 tokens; success = correct letter and the answer in T. The layer and α of our steering and ReCoVeR's α are those of MGSM dev, not retuned. Llama is scored on its free-form answers. The other three models are asked for `\boxed{X}` and scored by it: a format pilot showed that they box in every arm, while Llama's steered arms drop the box twice as often (appendix only). Tests as on MGSM (McNemar with Holm over the 99 held-out pairs, bootstrap CIs; `tests.py`).
+  - Held-out success, ours / ReCoVeR / instruction (STEM; humanities): Llama .229 / .192 / .099 (.198 / .164 / .087), Qwen3-8B .457 / .387 / .032 (.328 / .281 / .031), Qwen3-32B .644 / .633 / .498 (.506 / .497 / .376), Gemma .473 / .492 / .461 (.440 / .446 / .420).
+  - Ours closes 69–81% of the gap to native in Llama and the Qwen models, and is better than the instruction in 35–91 pairs per subset after Holm (worse in at most 1).
+  - Ours − ReCoVeR: +.037 / +.034 (Llama), +.070 / +.047 (Qwen3-8B), +.011 / +.009 (Qwen3-32B), all CIs above 0; Gemma −.019 / −.006, where the instruction already mostly works (0.84–0.91 in T). Gemma's deficit comes from five pairs: into English our arm drops the box, into German the answer drifts into English during generation.
+  - So the ranking against ReCoVeR follows MGSM's (ahead in the 8B models, tied or close in the other two). For the paper: the headline table and the tests in the main body; the per-model format, the pilot and the transliteration of non-Latin boxes in the appendix.
+  - MSVAMP is no longer needed (it adds robustness, not breadth).
+- [x] **P2 Ablation: one layer and prompt-only** (`src/experiments/mgsm_crosslingual/ablation.py`, `every_layer.sh`; `src/experiments/language_confusion/ablation.py`), Llama and Qwen3-8B. Each of the two choices that separate our method from ReCoVeR is changed alone, everything else kept.
+  - MGSM, ours − the other arm: all-token steering +.031 / +.007, every-layer prompt-only steering +.000 / +.008, ReCoVeR +.067 / +.051. Every layer *and* all tokens with our vector (Llama) comes close to ReCoVeR (0.585 against 0.567), so the two choices together account for the gap.
+  - LCB: every layer within .01 of one layer; prompt-only .013–.018 below all-token, as LCB scores only the language.
+  - Results in both READMEs (*Ablation: one layer and prompt-only*).
 - [ ] **P2 Instruction written in T, all models** (so far Qwen3-8B only, above): cheap, the prompt baseline reviewers expect (CLaS-Bench's baseline II).
 - [ ] **P3 "Reason in English, answer in T":** a possible route to beating native in low-resource targets; a separate experiment.
 
