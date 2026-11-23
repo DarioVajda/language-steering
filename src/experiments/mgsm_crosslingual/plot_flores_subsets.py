@@ -53,7 +53,6 @@ def main():
               handlelength=1.8, columnspacing=1.0)
     fig.tight_layout(pad=0.3)
     fig.savefig(OUT)
-    fig.savefig(OUT.with_suffix(".png"), dpi=200)
     print(OUT)
 
 
